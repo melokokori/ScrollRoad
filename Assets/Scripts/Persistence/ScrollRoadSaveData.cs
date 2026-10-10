@@ -11,11 +11,9 @@ namespace ScrollRoad
         public double maxDistanceKm;
         public string raceMonth = "";
 
+        // Cloud birleştirmesinde "en son hangi cihaz kapandı" sorusu için (offline ilerleme yok).
         public bool hasLastClose;
         public long lastCloseUnixSeconds;
-
-        public string offlineCreditDate = "";
-        public float offlineCreditKmToday;
 
         // Ömürlük istatistikler (aylık yarışla sıfırlanmaz) — İstatistikler paneli.
         public double lifetimeKm;

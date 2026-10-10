@@ -230,9 +230,6 @@ namespace ScrollRoad.EditorTools
             var whisper = CreateText(root.transform, "Whisper", "", 38, new Vector2(0, 190), new Vector2(1200, 60), SecretZoneView.WhisperColor);
             whisper.fontStyle = FontStyle.Italic;
 
-            var toast = CreateText(root.transform, "OfflineToast", "", 26, Vector2.zero, new Vector2(1000, 40), Ink);
-            Anchor(toast.rectTransform, new Vector2(0.5f, 1), new Vector2(0, -40), new Vector2(0.5f, 1));
-
             var hud = new GameObject("HudController").AddComponent<HudController>();
             Bind(hud, "drive", drive);
             Bind(hud, "view", view);
@@ -244,7 +241,6 @@ namespace ScrollRoad.EditorTools
             Bind(hud, "recordText", record);
             Bind(hud, "cityText", city);
             Bind(hud, "whisperText", whisper);
-            Bind(hud, "toastText", toast);
             Bind(hud, "progressTrack", track.GetComponent<Image>());
             Bind(hud, "progressFill", fillRect);
             Bind(hud, "maxMarker", markerRect);

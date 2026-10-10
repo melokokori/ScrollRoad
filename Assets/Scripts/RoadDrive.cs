@@ -14,21 +14,21 @@ namespace ScrollRoad
         [Header("Yol")]
         [SerializeField] float cityDistanceKm = DefaultCityDistanceKm;
 
-        // 3. iterasyon hız modeli (2026-07-10): araç her zaman seyir hızında kendi kendine ilerler,
+        // 3. iterasyon hız modeli (2026-07-10): araç kendi kendine seyir hızında ilerler,
         // scroll yukarı/aşağı hızı anlık artırır/azaltır, bırakınca üstel olarak seyire döner.
         // (1. iterasyon: sıfıra sönümlenen momentum — reddedildi; 2. iterasyon: sabit 100m adım —
         // kullanıcı isteğiyle bu modele çevrildi. Eksi hız = geri gitme, minSpeedKmh ile sınırlı.)
+        // 2026-10-10: seyir yalnız kullanıcı aktifken — son gerçek scroll'dan activeWindowSeconds
+        // geçince araç rölanti hızına iner. Aksi halde skor "oyunu kim daha uzun açık bıraktı"
+        // yarışına dönüyordu (8 saat açık = 480 km, yoğun bir scroll günü ~50 km).
         [Header("Hız Modeli")]
         [SerializeField] float cruiseSpeedKmh = 60f;
+        [SerializeField] float idleCruiseSpeedKmh = 10f;
+        [SerializeField] float activeWindowSeconds = 180f;
         [SerializeField] float boostPerNotchKmh = 30f;
         [SerializeField] float maxSpeedKmh = 220f;
         [SerializeField] float minSpeedKmh = -60f;
         [SerializeField] float returnToCruiseSeconds = 2f; // seyire dönüş zaman sabiti (üstel)
-
-        [Header("Offline İlerleme")]
-        [SerializeField, Range(0f, 1f)] float idleSpeedFraction = 0.15f;
-        [SerializeField] float maxOfflineHours = 8f;
-        [SerializeField] float maxOfflineKmPerDay = 50f;
 
         [Header("Kalıcılık")]
         [SerializeField] float autosaveIntervalSeconds = 10f;
@@ -37,6 +37,7 @@ namespace ScrollRoad
         DriveState lastMovingDirection = DriveState.Forward;
         bool hasEnteredSecretZone;
         bool hasNotifiedCity;
+        double lastScrollRealtime = double.NegativeInfinity; // açılışta rölantide başlar
 
         // Mesafe double tutulur: float'ın 18.000 km civarındaki çözünürlüğü (~2 m) kare başına
         // seyir ilerlemesinden (~0,3 m) büyük olduğu için araç float'ta fiilen dururdu.
@@ -53,11 +54,12 @@ namespace ScrollRoad
         public bool ReachedCity => maxDistanceKm >= cityDistanceKm;
         public float CruiseSpeedKmh => cruiseSpeedKmh;
 
+        // Son gerçek scroll'dan bu yana activeWindowSeconds geçmediyse seyir hızında, yoksa rölantide.
+        public bool IsUserActive => Time.realtimeSinceStartupAsDouble - lastScrollRealtime < activeWindowSeconds;
+        public float TargetCruiseSpeedKmh => IsUserActive ? cruiseSpeedKmh : idleCruiseSpeedKmh;
+
         // Şehrin ötesi UI'da hiç belirtilmez, kasıtlı olarak belgelenmemiş/organik keşif.
         public bool InSecretZone => distanceKm > cityDistanceKm;
-
-        // Yükleme anında uygulanan offline ilerleme (karşılama bildirimi için; 0 = yok).
-        public double OfflineGrantedKm { get; private set; }
 
         public event Action OnDirectionChanged;
         public event Action OnEnteredSecretZone;
@@ -68,9 +70,9 @@ namespace ScrollRoad
         {
             // Kayıt Awake'te yüklenir ki diğer bileşenler Start'ta doğru mesafeyi görsün.
             // (SteamManager BeforeSceneLoad'da kurulduğu için cloud birleştirmesi de burada olur.)
+            // Oyun kapalıyken ilerleme yok (2026-10-10 kararı).
             LoadPersistedProgress();
-            ApplyPendingOfflineProgress();
-            CurrentSpeedKmh = cruiseSpeedKmh;
+            CurrentSpeedKmh = idleCruiseSpeedKmh;
         }
 
         void OnApplicationQuit() => SaveAll();
@@ -116,19 +118,6 @@ namespace ScrollRoad
             SaveService.SaveProgress(currentMonth, distanceKm, maxDistanceKm);
         }
 
-        void ApplyPendingOfflineProgress()
-        {
-            var data = SaveService.Load();
-            if (!data.hasLastClose) return;
-
-            double elapsedSeconds = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - data.lastCloseUnixSeconds;
-            double cappedSeconds = Math.Clamp(elapsedSeconds, 0, maxOfflineHours * 3600.0);
-            if (cappedSeconds > 0)
-            {
-                ApplyOfflineProgress(cappedSeconds);
-            }
-        }
-
         void Update()
         {
             float dt = Time.deltaTime;
@@ -140,15 +129,19 @@ namespace ScrollRoad
             float scrollTicks = scrollSource != null ? scrollSource.FrameNotchesSigned : 0f;
             if (dt <= 0f) return;
 
+            // Yön fark etmez: aşağı scroll da kullanıcının başında olduğunu gösterir.
+            // Enjekte (makro) scroll FrameNotches'a hiç girmediği için aktiflik de saymaz.
             if (Mathf.Abs(scrollTicks) > 0.0001f)
             {
+                lastScrollRealtime = Time.realtimeSinceStartupAsDouble;
                 CurrentSpeedKmh = Mathf.Clamp(CurrentSpeedKmh + scrollTicks * boostPerNotchKmh, minSpeedKmh, maxSpeedKmh);
                 OnStep?.Invoke();
             }
 
-            // Scroll bırakılınca hız üstel olarak seyir hızına döner (idle çekirdeği: araç hep akar).
+            // Scroll bırakılınca hız üstel olarak hedef seyre döner (aktifken seyir, değilse rölanti;
+            // rölantiye iniş de aynı yumuşak geçişle olur).
             float returnLerp = 1f - Mathf.Exp(-dt / Mathf.Max(0.01f, returnToCruiseSeconds));
-            CurrentSpeedKmh = Mathf.Lerp(CurrentSpeedKmh, cruiseSpeedKmh, returnLerp);
+            CurrentSpeedKmh = Mathf.Lerp(CurrentSpeedKmh, TargetCruiseSpeedKmh, returnLerp);
 
             distanceKm = Math.Max(0.0, distanceKm + CurrentSpeedKmh * (double)dt / 3600.0);
             maxDistanceKm = Math.Max(maxDistanceKm, distanceKm);
@@ -188,24 +181,6 @@ namespace ScrollRoad
                 hasNotifiedCity = true;
                 OnReachedCity?.Invoke();
             }
-        }
-
-        public void ApplyOfflineProgress(double offlineSeconds)
-        {
-            // Ne kadar sık aç/kapa yapılırsa yapılsın günlük toplam idle kazancı sabit kalsın diye
-            // takvim günü başına kredilenen km ayrıca takip ediliyor (gap-başına tavan bunu tek başına önlemiyordu).
-            var data = SaveService.Load();
-            string todayKey = DateTimeOffset.UtcNow.ToString("yyyy-MM-dd");
-            float creditedToday = data.offlineCreditDate == todayKey ? data.offlineCreditKmToday : 0f;
-
-            float rawIdleKm = (float)(cruiseSpeedKmh * idleSpeedFraction * (offlineSeconds / 3600.0));
-            float grantedKm = Mathf.Min(rawIdleKm, Mathf.Max(0f, maxOfflineKmPerDay - creditedToday));
-
-            distanceKm += grantedKm;
-            maxDistanceKm = Math.Max(maxDistanceKm, distanceKm);
-            OfflineGrantedKm = grantedKm;
-
-            SaveService.SaveOfflineCredit(todayKey, creditedToday + grantedKm);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

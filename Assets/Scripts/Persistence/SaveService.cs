@@ -17,8 +17,6 @@ namespace ScrollRoad
         const string MaxDistanceKey = "ScrollRoad_MaxDistanceKmD";
         const string RaceMonthKey = "ScrollRoad_RaceMonth";
         const string LastCloseUnixSecondsKey = "ScrollRoad_LastCloseUnixSeconds";
-        const string OfflineCreditDateKey = "ScrollRoad_OfflineCreditDate";
-        const string OfflineCreditKmTodayKey = "ScrollRoad_OfflineCreditKmToday";
 
         const string LifetimeKmKey = "ScrollRoad_LifetimeKmD";
         const string LifetimeStepsKey = "ScrollRoad_LifetimeSteps";
@@ -78,14 +76,6 @@ namespace ScrollRoad
             PushLocalToCloud();
         }
 
-        public static void SaveOfflineCredit(string dateKey, float kmCreditedToday)
-        {
-            PlayerPrefs.SetString(OfflineCreditDateKey, dateKey);
-            PlayerPrefs.SetFloat(OfflineCreditKmTodayKey, kmCreditedToday);
-            PlayerPrefs.Save();
-            PushLocalToCloud();
-        }
-
         public static void SaveStats(double lifetimeKm, int lifetimeSteps, int lifetimeTurns,
             int cityReachedCount, double bestMonthKm, string bestMonth)
         {
@@ -122,8 +112,6 @@ namespace ScrollRoad
                 currentDistanceKm = GetDouble(CurrentDistanceKey),
                 maxDistanceKm = GetDouble(MaxDistanceKey),
                 raceMonth = PlayerPrefs.GetString(RaceMonthKey, ""),
-                offlineCreditDate = PlayerPrefs.GetString(OfflineCreditDateKey, ""),
-                offlineCreditKmToday = PlayerPrefs.GetFloat(OfflineCreditKmTodayKey, 0f),
                 hasLastClose = PlayerPrefs.HasKey(LastCloseUnixSecondsKey),
                 lifetimeKm = GetDouble(LifetimeKmKey),
                 lifetimeSteps = PlayerPrefs.GetInt(LifetimeStepsKey, 0),
@@ -151,8 +139,6 @@ namespace ScrollRoad
             PlayerPrefs.SetString(RaceMonthKey, data.raceMonth);
             SetDouble(CurrentDistanceKey, data.currentDistanceKm);
             SetDouble(MaxDistanceKey, data.maxDistanceKm);
-            PlayerPrefs.SetString(OfflineCreditDateKey, data.offlineCreditDate);
-            PlayerPrefs.SetFloat(OfflineCreditKmTodayKey, data.offlineCreditKmToday);
             SetDouble(LifetimeKmKey, data.lifetimeKm);
             PlayerPrefs.SetInt(LifetimeStepsKey, data.lifetimeSteps);
             PlayerPrefs.SetInt(LifetimeTurnsKey, data.lifetimeTurns);
@@ -170,8 +156,6 @@ namespace ScrollRoad
         // - Baz kayıt, en son kapatılan (en güncel oynanan) cihazınki.
         // - Aynı yarış ayındaysa mesafelerde yüksek olan kazanır (high-water mark —
         //   geri gitmenin skora etkisi yok, max almak güvenli).
-        // - lastClose'ta geç olan kazanır ki offline süre iki cihazda iki kez kredilenmesin;
-        //   aynı gün offline kredisinde de aynı sebeple yüksek olan kazanır.
         static ScrollRoadSaveData Merge(ScrollRoadSaveData local, ScrollRoadSaveData cloud)
         {
             long localClose = local.hasLastClose ? local.lastCloseUnixSeconds : long.MinValue;
@@ -184,8 +168,6 @@ namespace ScrollRoad
                 currentDistanceKm = baseData.currentDistanceKm,
                 maxDistanceKm = baseData.maxDistanceKm,
                 raceMonth = baseData.raceMonth,
-                offlineCreditDate = baseData.offlineCreditDate,
-                offlineCreditKmToday = baseData.offlineCreditKmToday,
                 hasLastClose = baseData.hasLastClose || otherData.hasLastClose,
                 lastCloseUnixSeconds = Math.Max(localClose, cloudClose),
             };
@@ -196,11 +178,6 @@ namespace ScrollRoad
             {
                 result.currentDistanceKm = Math.Max(baseData.currentDistanceKm, otherData.currentDistanceKm);
                 result.maxDistanceKm = Math.Max(baseData.maxDistanceKm, otherData.maxDistanceKm);
-            }
-
-            if (otherData.offlineCreditDate == baseData.offlineCreditDate)
-            {
-                result.offlineCreditKmToday = Mathf.Max(baseData.offlineCreditKmToday, otherData.offlineCreditKmToday);
             }
 
             // Ömürlük sayaçlar iki cihazda ayrı ayrı birikir — toplamak çift saymaya yol açar,

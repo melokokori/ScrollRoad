@@ -4,8 +4,8 @@ using UnityEngine.UI;
 namespace ScrollRoad
 {
     // Ekran üstü bilgi katmanı (normal pencere modu): hız, mesafe, ay rekoru; altta şehre ilerleme
-    // çizgisi (dolgu = anlık konum, işaret = bu ayki en uzak nokta / skor); gizli bölge fısıltısı;
-    // açılışta "sen yokken" bildirimi. Masaüstü arkadaşı modunda tamamen gizlenir.
+    // çizgisi (dolgu = anlık konum, işaret = bu ayki en uzak nokta / skor); gizli bölge fısıltısı.
+    // Masaüstü arkadaşı modunda tamamen gizlenir.
     // Yazı rengi gökyüzünün parlaklığına göre koyu/açık seçilir (gizli bölgede gökyüzü kararıyor).
     public class HudController : MonoBehaviour
     {
@@ -19,7 +19,6 @@ namespace ScrollRoad
         [SerializeField] Text recordText;
         [SerializeField] Text cityText;
         [SerializeField] Text whisperText;
-        [SerializeField] Text toastText;
         [SerializeField] Image progressTrack;
         [SerializeField] RectTransform progressFill;
         [SerializeField] RectTransform maxMarker;
@@ -27,23 +26,6 @@ namespace ScrollRoad
 
         static readonly Color DarkInk = new Color(0.16f, 0.19f, 0.24f);
         static readonly Color LightInk = new Color(0.93f, 0.91f, 0.97f);
-
-        float toastTimer = -1f;
-        const float ToastHold = 5f;
-        const float ToastFade = 1.5f;
-
-        void Start()
-        {
-            if (drive.OfflineGrantedKm >= 0.05)
-            {
-                toastText.text = $"Sen yokken araba {Fmt.Km(drive.OfflineGrantedKm)} yol aldı.";
-                toastTimer = 0f;
-            }
-            else
-            {
-                toastText.text = "";
-            }
-        }
 
         void Update()
         {
@@ -64,7 +46,6 @@ namespace ScrollRoad
             cityText.text = drive.ReachedCity ? "Şehre ulaşıldı" : "Şehre " + Fmt.Km(System.Math.Max(0, remaining), 0);
 
             speedText.color = distanceText.color = recordText.color = cityText.color = ink;
-            toastText.color = new Color(ink.r, ink.g, ink.b, toastText.color.a);
             if (inkGraphics != null)
             {
                 foreach (var g in inkGraphics) if (g != null) g.color = new Color(ink.r, ink.g, ink.b, g.color.a);
@@ -83,18 +64,6 @@ namespace ScrollRoad
                 var w = SecretZoneView.WhisperColor;
                 whisperText.color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);
             }
-
-            UpdateToast();
-        }
-
-        void UpdateToast()
-        {
-            if (toastTimer < 0f) return;
-            toastTimer += Time.unscaledDeltaTime;
-            float a = toastTimer < ToastHold ? 1f : Mathf.Clamp01(1f - (toastTimer - ToastHold) / ToastFade);
-            var c = toastText.color;
-            toastText.color = new Color(c.r, c.g, c.b, a);
-            if (a <= 0f) toastTimer = -1f;
         }
     }
 }

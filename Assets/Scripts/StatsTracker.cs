@@ -10,7 +10,7 @@ namespace ScrollRoad
         [SerializeField] RoadDrive drive;
         [SerializeField] float autosaveIntervalSeconds = 30f;
 
-        // Yükleme/offline ilerlemesi ömürlük yola sayılmasın diye baz ilk karede alınır.
+        // Kayıttan yüklenen mesafe ömürlük yola sayılmasın diye baz ilk karede alınır.
         bool baselineSet;
         double lastDistanceKm;
         float autosaveTimer;
