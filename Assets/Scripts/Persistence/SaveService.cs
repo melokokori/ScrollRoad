@@ -33,6 +33,7 @@ namespace ScrollRoad
         const string TrayHintShownKey = "ScrollRoad_TrayHintShown";
         const string OnboardingDoneKey = "ScrollRoad_OnboardingDone";
         const string SelectedCarKey = "ScrollRoad_SelectedCar";
+        const string WorldThemeKey = "ScrollRoad_WorldTheme";
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -111,6 +112,14 @@ namespace ScrollRoad
         public static void SaveSelectedCar(string id)
         {
             PlayerPrefs.SetString(SelectedCarKey, id);
+            PlayerPrefs.Save();
+        }
+
+        public static int LoadWorldTheme() => PlayerPrefs.GetInt(WorldThemeKey, 0);
+
+        public static void SaveWorldTheme(int theme)
+        {
+            PlayerPrefs.SetInt(WorldThemeKey, theme);
             PlayerPrefs.Save();
         }
 

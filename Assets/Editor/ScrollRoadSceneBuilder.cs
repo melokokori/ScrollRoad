@@ -473,7 +473,16 @@ namespace ScrollRoad.EditorTools
                 frames[i] = frame;
             }
 
-            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -340), new Vector2(240, 60));
+            var themeLabel = CreateText(card.transform, "ThemeLabel", "Dünya", 24, new Vector2(0, -215), new Vector2(400, 34), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
+            themeLabel.raycastTarget = false;
+            var themes = new Object[WorldTheme.DisplayNames.Length];
+            for (int i = 0; i < themes.Length; i++)
+            {
+                float x = (i - (themes.Length - 1) / 2f) * 216f;
+                themes[i] = CreateButton(card.transform, $"Theme{i}Button", WorldTheme.DisplayNames[i], new Vector2(x, -265), new Vector2(200, 52), fontSize: 24);
+            }
+
+            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -360), new Vector2(240, 60));
 
             panel.SetActive(false);
             var controller = new GameObject("GarageController").AddComponent<GarageController>();
@@ -483,6 +492,7 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "selectedNameText", nameText);
             BindArray(controller, "slotButtons", slots);
             BindArray(controller, "slotFrames", frames);
+            BindArray(controller, "themeButtons", themes);
             Bind(controller, "openButton", openButton);
             Bind(controller, "closeButton", close);
             return controller;

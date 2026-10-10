@@ -325,7 +325,7 @@ namespace ScrollRoad
         }
 
         // Renk katmanları: biyom (mesafeye göre döngüsel) → şehir yaklaşımı gün batımı (progress²)
-        // → gizli bölge morunun yumuşak karışımı.
+        // → dünya teması (WorldTheme) → gizli bölge morunun yumuşak karışımı.
         Color EvaluateSky()
         {
             double d = Math.Max(0.0, drive.CurrentDistanceKmPrecise);
@@ -339,7 +339,8 @@ namespace ScrollRoad
             float beyond = (float)(d - drive.CityDistanceKm);
             secretBlend = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(3f, 8f, beyond));
             color = Color.Lerp(color, SkyNearCityColor, progress * progress * (1f - secretBlend));
-            return Color.Lerp(color, SecretSkyColor, secretBlend);
+            // Tema yalnız normal dünyayı boyar; gizli bölgenin moru her temada aynı (kural dışı yer).
+            return Color.Lerp(WorldTheme.Sky(color), SecretSkyColor, secretBlend);
         }
 
         void LayoutBackdrop(Color sky, float halfW)
@@ -402,7 +403,7 @@ namespace ScrollRoad
             cityRenderer.transform.localScale = new Vector3(height / b.y, height / b.y, 1f);
 
             // Atmosfer: uzaktayken gökyüzüne karışık soluk, yaklaştıkça koyu siluet.
-            cityRenderer.color = Color.Lerp(sky, CitySilhouetteColor, Mathf.Lerp(0.4f, 1f, progress));
+            cityRenderer.color = Color.Lerp(sky, WorldTheme.CitySilhouette(CitySilhouetteColor), Mathf.Lerp(0.4f, 1f, progress));
         }
 
         void LayoutRoad(float camX, float halfW)
@@ -411,7 +412,7 @@ namespace ScrollRoad
             int needed = Mathf.CeilToInt(halfW * 2f / seg) + 3;
             if (roadSegments.Length < needed) roadSegments = Grow(roadSegments, needed, "RoadSeg", 20, roadRoot);
 
-            var color = Color.Lerp(RoadColor, SecretRoadColor, secretBlend);
+            var color = WorldTheme.Surface(Color.Lerp(RoadColor, SecretRoadColor, secretBlend));
             float startX = camX - halfW - seg;
             for (int i = 0; i < roadSegments.Length; i++)
             {
@@ -428,6 +429,7 @@ namespace ScrollRoad
         void LayoutDashes(float camX, float halfW)
         {
             int needed = Mathf.CeilToInt(halfW * 2f / dashSpacing) + 3;
+            var dashColor = WorldTheme.Surface(DashColor);
             if (dashes.Length < needed) dashes = Grow(dashes, needed, "Dash", 30, roadRoot);
 
             // double ile mod: büyük mesafelerde float çözünürlüğü kaymayı titretmesin.
@@ -439,7 +441,7 @@ namespace ScrollRoad
                 sr.enabled = i < needed;
                 if (!sr.enabled) continue;
                 float x = startX + i * dashSpacing - offset;
-                sr.color = DashColor;
+                sr.color = dashColor;
                 sr.transform.localPosition = new Vector3(x, RoadCenterY, 0f);
                 sr.transform.localScale = new Vector3(dashSpacing * 0.45f, DashHeight, 1f);
             }
@@ -482,7 +484,7 @@ namespace ScrollRoad
             p.maxLife = UnityEngine.Random.Range(0.35f, 0.6f);
             p.life = p.maxLife;
             p.velocity = new Vector2(-dir * UnityEngine.Random.Range(0.6f, 1.4f), UnityEngine.Random.Range(0.4f, 1.0f));
-            p.color = DustColor;
+            p.color = WorldTheme.Surface(DustColor);
             p.renderer.enabled = true;
             float x = -dir * carWidth * 0.42f + UnityEngine.Random.Range(-0.05f, 0.05f);
             p.renderer.transform.localPosition = new Vector3(x, RoadCenterY - 0.02f, 0f);

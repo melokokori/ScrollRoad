@@ -7,6 +7,7 @@ namespace ScrollRoad
     // önizlemesi + adı, altta katalogdaki her araç için bir yuva. Seçim anında uygulanır
     // (CarCatalog.SelectionChanged → sahnedeki araba, menü önizlemesi). Gizli aracın yuvası
     // kilit açılana kadar hiç gösterilmez — satırlar (HorizontalLayoutGroup) boşluk bırakmadan ortalanır.
+    // En altta dünya teması seçimi (WorldTheme; sıra WorldTheme.Kind ile aynı).
     public class GarageController : MonoBehaviour
     {
         [SerializeField] CarCatalog catalog;
@@ -15,6 +16,7 @@ namespace ScrollRoad
         [SerializeField] Text selectedNameText;
         [SerializeField] Button[] slotButtons; // katalog sırasıyla
         [SerializeField] Image[] slotFrames;   // seçili yuvanın çerçevesi
+        [SerializeField] Button[] themeButtons; // WorldTheme.Kind sırasıyla
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
         [SerializeField] Color selectedFrameColor = new Color(0.93f, 0.45f, 0.36f);
@@ -30,6 +32,11 @@ namespace ScrollRoad
             {
                 int index = i;
                 slotButtons[i].onClick.AddListener(() => Choose(index));
+            }
+            for (int i = 0; i < themeButtons.Length; i++)
+            {
+                var kind = (WorldTheme.Kind)i;
+                themeButtons[i].onClick.AddListener(() => { WorldTheme.Set(kind); Refresh(); });
             }
             garagePanel.SetActive(false);
         }
@@ -55,6 +62,10 @@ namespace ScrollRoad
                 var entry = i < catalog.entries.Length ? catalog.entries[i] : null;
                 slotButtons[i].gameObject.SetActive(catalog.IsAvailable(entry));
                 slotFrames[i].color = entry == selected ? selectedFrameColor : idleFrameColor;
+            }
+            for (int i = 0; i < themeButtons.Length; i++)
+            {
+                themeButtons[i].image.color = (int)WorldTheme.Current == i ? selectedFrameColor : new Color(0.24f, 0.27f, 0.33f);
             }
             if (selected == null) return;
             previewImage.sprite = selected.sprite;
