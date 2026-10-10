@@ -43,7 +43,7 @@ namespace ScrollRoad
             revealButton.onClick.AddListener(() => OpenLeaderboard(previousMonth: true));
             companionButton.onClick.AddListener(EnterCompanion);
             mainMenuButton.onClick.AddListener(GoToMainMenu);
-            quitButton.onClick.AddListener(Application.Quit);
+            quitButton.onClick.AddListener(BackgroundLifecycle.QuitApp);
             leaderboardCloseButton.onClick.AddListener(() => leaderboardPanel.SetActive(false));
 
             pausePanel.SetActive(false);

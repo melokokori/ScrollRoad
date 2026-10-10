@@ -12,6 +12,7 @@ namespace ScrollRoad
 
         // "Oyun masaüstü modunda başlasın" açıksa (ya da -companion argümanıyla başlatıldıysa) uygulama açılışında menü atlanır ve doğrudan
         // masaüstü arkadaşı moduna geçilir (CompanionWindowController ayarı Game'de uygular).
+        // Windows açılışında (-autostart) da menü atlanır: oyun tepside gizli başlar ve araç hemen akmalı.
         // Oturumda yalnız bir kez: oyuncu sonradan ana menüye dönerse menüde kalır.
         static bool autoLaunchConsumed;
 
@@ -22,14 +23,14 @@ namespace ScrollRoad
         {
             Time.timeScale = 1f;
             playButton.onClick.AddListener(() => SceneManager.LoadScene(SceneNames.Game));
-            quitButton.onClick.AddListener(Application.Quit);
+            quitButton.onClick.AddListener(BackgroundLifecycle.QuitApp);
         }
 
         void Start()
         {
             if (autoLaunchConsumed) return;
             autoLaunchConsumed = true;
-            if (SaveService.LoadStartInCompanion() || CompanionWindowController.LaunchedWithCompanionArg)
+            if (SaveService.LoadStartInCompanion() || CompanionWindowController.LaunchedWithCompanionArg || Platform.WindowsStartup.LaunchedFromAutostart)
             {
                 SceneManager.LoadScene(SceneNames.Game);
             }

@@ -28,6 +28,8 @@ namespace ScrollRoad
         // Cihaza özel tercihler — cloud'a bilerek dahil edilmez.
         const string MasterVolumeKey = "ScrollRoad_MasterVolume";
         const string StartInCompanionKey = "ScrollRoad_StartInCompanion";
+        const string CloseToTrayKey = "ScrollRoad_CloseToTray";
+        const string TrayHintShownKey = "ScrollRoad_TrayHintShown";
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -102,6 +104,24 @@ namespace ScrollRoad
         public static void SaveStartInCompanion(bool value)
         {
             PlayerPrefs.SetInt(StartInCompanionKey, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+
+        // Pencereyi kapatınca (X) çıkmak yerine tepsiye gizlen — varsayılan açık.
+        public static bool LoadCloseToTray() => PlayerPrefs.GetInt(CloseToTrayKey, 1) == 1;
+
+        public static void SaveCloseToTray(bool value)
+        {
+            PlayerPrefs.SetInt(CloseToTrayKey, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+
+        // "Arka planda çalışıyor" balonu yalnız ilk gizlenişte gösterilir.
+        public static bool LoadTrayHintShown() => PlayerPrefs.GetInt(TrayHintShownKey, 0) == 1;
+
+        public static void MarkTrayHintShown()
+        {
+            PlayerPrefs.SetInt(TrayHintShownKey, 1);
             PlayerPrefs.Save();
         }
 

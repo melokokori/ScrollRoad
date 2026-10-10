@@ -320,20 +320,23 @@ namespace ScrollRoad.EditorTools
         static SettingsController CreateSettingsPanel(Transform parent, Button openButton)
         {
             var panel = CreateDim(parent, "SettingsPanel");
-            var card = CreateCard(panel.transform, "Card", new Vector2(760, 520));
-            CreateText(card.transform, "Title", "Ayarlar", 44, new Vector2(0, 200), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
+            var card = CreateCard(panel.transform, "Card", new Vector2(760, 660));
+            CreateText(card.transform, "Title", "Ayarlar", 44, new Vector2(0, 270), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
 
-            var volumeLabel = CreateText(card.transform, "VolumeLabel", "Ses", 30, new Vector2(-260, 90), new Vector2(160, 50), TextLight);
+            var volumeLabel = CreateText(card.transform, "VolumeLabel", "Ses", 30, new Vector2(-260, 165), new Vector2(160, 50), TextLight);
             volumeLabel.alignment = TextAnchor.MiddleLeft;
-            var slider = CreateSlider(card.transform, "VolumeSlider", new Vector2(40, 90), new Vector2(400, 40));
-            var volumeValue = CreateText(card.transform, "VolumeValue", "", 26, new Vector2(300, 90), new Vector2(110, 50), TextLight);
+            var slider = CreateSlider(card.transform, "VolumeSlider", new Vector2(40, 165), new Vector2(400, 40));
+            var volumeValue = CreateText(card.transform, "VolumeValue", "", 26, new Vector2(300, 165), new Vector2(110, 50), TextLight);
 
-            var toggle = CreateToggle(card.transform, "StartInCompanionToggle", "Oyun masaüstü modunda başlasın", new Vector2(-30, 0), new Vector2(600, 50));
-            var note = CreateText(card.transform, "Note", "Masaüstü modu: küçük, saydam, hep üstte pencere. F9 ile aç / kapat.", 22,
-                new Vector2(0, -70), new Vector2(680, 60), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
+            var toggle = CreateToggle(card.transform, "StartInCompanionToggle", "Oyun masaüstü modunda başlasın", new Vector2(-30, 85), new Vector2(600, 50));
+            var trayToggle = CreateToggle(card.transform, "CloseToTrayToggle", "Kapatınca arka planda (tepside) çalışsın", new Vector2(-30, 25), new Vector2(600, 50));
+            var startupToggle = CreateToggle(card.transform, "RunAtStartupToggle", "Windows açılınca başlasın", new Vector2(-30, -35), new Vector2(600, 50));
+            var note = CreateText(card.transform, "Note",
+                "Masaüstü modu: küçük, saydam, hep üstte pencere (F9). Arka planda: pencere gizlenir, scroll sayılmaya devam eder; saat yanındaki simgeden geri açılır.", 22,
+                new Vector2(0, -130), new Vector2(680, 90), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
             note.horizontalOverflow = HorizontalWrapMode.Wrap;
 
-            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -190), new Vector2(240, 60));
+            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -250), new Vector2(240, 60));
 
             panel.SetActive(false); // Editor'de sahne temiz görünsün (runtime'da da kapalı başlar)
             var controller = new GameObject("SettingsController").AddComponent<SettingsController>();
@@ -341,6 +344,8 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "volumeSlider", slider);
             Bind(controller, "volumeValueText", volumeValue);
             Bind(controller, "startInCompanionToggle", toggle);
+            Bind(controller, "closeToTrayToggle", trayToggle);
+            Bind(controller, "runAtStartupToggle", startupToggle);
             Bind(controller, "openButton", openButton);
             Bind(controller, "closeButton", close);
             return controller;

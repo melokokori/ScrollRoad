@@ -26,7 +26,7 @@ namespace ScrollRoad
                 menuPanel.SetActive(false);
                 companionWindow.SetCompanionMode(false);
             });
-            quitButton.onClick.AddListener(Application.Quit);
+            quitButton.onClick.AddListener(BackgroundLifecycle.QuitApp);
             menuPanel.SetActive(false);
             root.SetActive(false);
         }
