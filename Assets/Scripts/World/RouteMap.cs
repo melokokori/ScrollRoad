@@ -35,6 +35,8 @@ namespace ScrollRoad
             public Color Sky;
             public Color FarLand;
             public Color NearLand;
+            public Color Trail;           // off-road patikasının toprağı (çölde kum, yaylada kar)
+            public Color Water;           // nehir/deniz tonu
             public float FarHeight = 1f;  // tepe yüksekliği çarpanı (dağ/kanyon yüksek, çöl alçak)
             public float NearHeight = 1f;
             public (string name, double km)[] Towns;
@@ -48,12 +50,14 @@ namespace ScrollRoad
             {
                 Name = "Plains", StartKm = 0,
                 Sky = new Color(0.84f, 0.93f, 0.95f), FarLand = new Color(0.72f, 0.84f, 0.70f), NearLand = new Color(0.60f, 0.76f, 0.58f),
+                Trail = new Color(0.62f, 0.51f, 0.38f), Water = new Color(0.33f, 0.58f, 0.74f),
                 Towns = new[] { ("Poplar Hollow", 30.0), ("Millbrook", 70.0), ("Greenfield", 110.0) },
             },
             new Region
             {
                 Name = "Wheat Fields", StartKm = 150,
                 Sky = new Color(0.95f, 0.93f, 0.84f), FarLand = new Color(0.90f, 0.82f, 0.56f), NearLand = new Color(0.85f, 0.72f, 0.42f),
+                Trail = new Color(0.74f, 0.60f, 0.40f), Water = new Color(0.36f, 0.60f, 0.72f),
                 FarHeight = 0.7f, NearHeight = 0.6f,
                 Towns = new[] { ("Goldenear", 220.0), ("Harvest Hill", 310.0), ("Poppyvale", 400.0) },
             },
@@ -61,6 +65,7 @@ namespace ScrollRoad
             {
                 Name = "Pine Forest", StartKm = 500,
                 Sky = new Color(0.84f, 0.92f, 0.88f), FarLand = new Color(0.47f, 0.62f, 0.52f), NearLand = new Color(0.31f, 0.48f, 0.38f),
+                Trail = new Color(0.45f, 0.36f, 0.27f), Water = new Color(0.25f, 0.48f, 0.55f),
                 FarHeight = 1.2f, NearHeight = 1.25f,
                 Towns = new[] { ("Pinecrest", 650.0), ("Resin Creek", 820.0), ("Cone Hollow", 1000.0) },
             },
@@ -68,6 +73,7 @@ namespace ScrollRoad
             {
                 Name = "Lakeshore", StartKm = 1200,
                 Sky = new Color(0.80f, 0.93f, 0.94f), FarLand = new Color(0.60f, 0.78f, 0.84f), NearLand = new Color(0.54f, 0.72f, 0.60f),
+                Trail = new Color(0.60f, 0.52f, 0.40f), Water = new Color(0.30f, 0.60f, 0.76f),
                 FarHeight = 0.8f, NearHeight = 0.7f,
                 Towns = new[] { ("Reedbrook", 1450.0), ("Gull Harbor", 1800.0), ("Rushmere", 2150.0) },
             },
@@ -75,6 +81,7 @@ namespace ScrollRoad
             {
                 Name = "Mountain Pass", StartKm = 2500,
                 Sky = new Color(0.86f, 0.90f, 0.96f), FarLand = new Color(0.64f, 0.68f, 0.76f), NearLand = new Color(0.50f, 0.56f, 0.58f),
+                Trail = new Color(0.55f, 0.51f, 0.47f), Water = new Color(0.34f, 0.54f, 0.70f),
                 FarHeight = 1.9f, NearHeight = 1.5f,
                 Towns = new[] { ("Eagle Rock", 2900.0), ("Slopeside", 3400.0), ("Misty Ridge", 3950.0) },
             },
@@ -82,6 +89,7 @@ namespace ScrollRoad
             {
                 Name = "Desert", StartKm = 4500,
                 Sky = new Color(0.98f, 0.92f, 0.80f), FarLand = new Color(0.94f, 0.82f, 0.60f), NearLand = new Color(0.89f, 0.73f, 0.49f),
+                Trail = new Color(0.90f, 0.78f, 0.55f), Water = new Color(0.28f, 0.66f, 0.72f),
                 FarHeight = 0.6f, NearHeight = 0.5f,
                 Towns = new[] { ("Sandhead", 5200.0), ("Mirage", 6000.0), ("Palmwell", 6800.0) },
             },
@@ -89,6 +97,7 @@ namespace ScrollRoad
             {
                 Name = "Canyon", StartKm = 7500,
                 Sky = new Color(0.98f, 0.88f, 0.78f), FarLand = new Color(0.84f, 0.56f, 0.44f), NearLand = new Color(0.70f, 0.42f, 0.32f),
+                Trail = new Color(0.74f, 0.46f, 0.32f), Water = new Color(0.32f, 0.55f, 0.62f),
                 FarHeight = 1.7f, NearHeight = 1.4f,
                 Towns = new[] { ("Red Rock", 8400.0), ("Echo Falls", 9300.0), ("Stonefoot", 10200.0) },
             },
@@ -96,6 +105,7 @@ namespace ScrollRoad
             {
                 Name = "Snowy Plateau", StartKm = 11000,
                 Sky = new Color(0.92f, 0.95f, 0.98f), FarLand = new Color(0.86f, 0.90f, 0.95f), NearLand = new Color(0.78f, 0.84f, 0.90f),
+                Trail = new Color(0.93f, 0.95f, 0.98f), Water = new Color(0.52f, 0.70f, 0.82f),
                 FarHeight = 1.3f, NearHeight = 1.1f,
                 Towns = new[] { ("Frostby", 12000.0), ("Icewell", 13000.0), ("Snowdrop", 14000.0) },
             },
@@ -103,6 +113,7 @@ namespace ScrollRoad
             {
                 Name = "Sunset Road", StartKm = 15000,
                 Sky = new Color(0.99f, 0.84f, 0.70f), FarLand = new Color(0.80f, 0.62f, 0.62f), NearLand = new Color(0.62f, 0.46f, 0.52f),
+                Trail = new Color(0.68f, 0.50f, 0.42f), Water = new Color(0.48f, 0.52f, 0.70f),
                 Towns = new[] { ("Eventide", 16000.0), ("Horizon", 17000.0) },
             },
         };

@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: 311be8a9d25a4d9439208ac2a661d4f6
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5510315368310250884
+    second: lcd_lit_0
+  - first:
+      213: -6065831345403843905
+    second: lcd_lit_1
+  - first:
+      213: 8544548742559013722
+    second: lcd_lit_2
+  - first:
+      213: 5518409776657253709
+    second: lcd_lit_3
+  - first:
+      213: 3188429068513669067
+    second: lcd_lit_4
+  - first:
+      213: -6142207903276186411
+    second: lcd_lit_5
+  - first:
+      213: 1377725624977657212
+    second: lcd_lit_6
+  - first:
+      213: 6415518068097666210
+    second: lcd_lit_7
+  - first:
+      213: 7217916989679155235
+    second: lcd_lit_8
+  - first:
+      213: -6411259930483465825
+    second: lcd_lit_9
+  - first:
+      213: -1518465462276298473
+    second: lcd_lit_10
+  - first:
+      213: 4137200113112533211
+    second: lcd_lit_11
+  - first:
+      213: 3646702950975352021
+    second: lcd_lit_12
+  - first:
+      213: -5238445851537343922
+    second: lcd_lit_13
+  - first:
+      213: -466678019889268121
+    second: lcd_lit_14
+  - first:
+      213: -1357636644444757344
+    second: lcd_lit_15
+  - first:
+      213: -4545361238493601617
+    second: lcd_lit_16
+  - first:
+      213: 2118535340614097335
+    second: lcd_lit_17
+  - first:
+      213: -1090099484972155185
+    second: lcd_lit_18
+  - first:
+      213: 7871095746891434486
+    second: lcd_lit_19
+  - first:
+      213: 1658742507975090031
+    second: lcd_lit_20
+  - first:
+      213: -3359896723540352403
+    second: lcd_lit_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 2
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: lcd_lit_0
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 399
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48d1280f1a2987c40800000000000000
+      internalID: 5510315368310250884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_1
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 416
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fba26cd8786d1dba0800000000000000
+      internalID: -6065831345403843905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_2
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 428
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5b9d367fc5549670800000000000000
+      internalID: 8544548742559013722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_3
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 435
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d45c2be3474559c40800000000000000
+      internalID: 5518409776657253709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_4
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 435
+        width: 33
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf694448539f3c20800000000000000
+      internalID: 3188429068513669067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_5
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 428
+        width: 37
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d440ac647e72caa0800000000000000
+      internalID: -6142207903276186411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_6
+      rect:
+        serializedVersion: 2
+        x: 318
+        y: 416
+        width: 41
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d0fba082aae1310800000000000000
+      internalID: 1377725624977657212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_7
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 399
+        width: 43
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2accf0b21bf780950800000000000000
+      internalID: 6415518068097666210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_8
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 354
+        width: 46
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 328351c82413b2460800000000000000
+      internalID: 7217916989679155235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_9
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 379
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9166d0cf01a607a0800000000000000
+      internalID: -6411259930483465825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_10
+      rect:
+        serializedVersion: 2
+        x: 371
+        y: 379
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 719625d05b35deae0800000000000000
+      internalID: -1518465462276298473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_11
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 354
+        width: 46
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd847c245994a6930800000000000000
+      internalID: 4137200113112533211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_12
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 298
+        width: 43
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dc214a4301bb9230800000000000000
+      internalID: 3646702950975352021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 327
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4a7ff3a04d4d47b0800000000000000
+      internalID: -5238445851537343922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_14
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 327
+        width: 45
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76a740040d60689f0800000000000000
+      internalID: -466678019889268121
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_15
+      rect:
+        serializedVersion: 2
+        x: 425
+        y: 298
+        width: 43
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a221d93aa4b82de0800000000000000
+      internalID: -1357636644444757344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_16
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 267
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa062c33902abe0c0800000000000000
+      internalID: -4545361238493601617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_17
+      rect:
+        serializedVersion: 2
+        x: 431
+        y: 198
+        width: 42
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b91a65faac866d10800000000000000
+      internalID: 2118535340614097335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_18
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 234
+        width: 39
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcef5644b403fd0f0800000000000000
+      internalID: -1090099484972155185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_19
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 133
+        width: 46
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f94d8201efbb3d60800000000000000
+      internalID: 7871095746891434486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_20
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 164
+        width: 44
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6f12b9c589050710800000000000000
+      internalID: 1658742507975090031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lcd_lit_21
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 104
+        width: 46
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d62e06f3bbf3f51d0800000000000000
+      internalID: -3359896723540352403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      lcd_lit_0: 5510315368310250884
+      lcd_lit_1: -6065831345403843905
+      lcd_lit_10: -1518465462276298473
+      lcd_lit_11: 4137200113112533211
+      lcd_lit_12: 3646702950975352021
+      lcd_lit_13: -5238445851537343922
+      lcd_lit_14: -466678019889268121
+      lcd_lit_15: -1357636644444757344
+      lcd_lit_16: -4545361238493601617
+      lcd_lit_17: 2118535340614097335
+      lcd_lit_18: -1090099484972155185
+      lcd_lit_19: 7871095746891434486
+      lcd_lit_2: 8544548742559013722
+      lcd_lit_20: 1658742507975090031
+      lcd_lit_21: -3359896723540352403
+      lcd_lit_3: 5518409776657253709
+      lcd_lit_4: 3188429068513669067
+      lcd_lit_5: -6142207903276186411
+      lcd_lit_6: 1377725624977657212
+      lcd_lit_7: 6415518068097666210
+      lcd_lit_8: 7217916989679155235
+      lcd_lit_9: -6411259930483465825
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -83,6 +83,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: atmaca
     displayName: Tufan Atmaca
     kind: 0
@@ -92,6 +94,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: zefir
     displayName: Anatol Zefir
     kind: 0
@@ -101,6 +105,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: coralsedan
     displayName: Toyama Coral
     kind: 0
@@ -110,6 +116,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: t10s
     displayName: "TU\u011E T10S"
     kind: 0
@@ -119,6 +127,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: dreier
     displayName: Bavaro Dreier
     kind: 0
@@ -128,6 +138,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: van
     displayName: Camper
     kind: 0
@@ -137,6 +149,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.12
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: impulso
     displayName: Sorabu Impulso
     kind: 0
@@ -146,6 +160,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: type3
     displayName: Teslo Type 3
     kind: 0
@@ -155,6 +171,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: chaser
     displayName: Dodger Chaser
     kind: 0
@@ -164,6 +182,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.15
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: towne
     displayName: Linden Towne
     kind: 0
@@ -173,6 +193,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: panorama
     displayName: Pfalz Panorama
     kind: 0
@@ -182,6 +204,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: apparition
     displayName: Rollo Apparition
     kind: 0
@@ -191,6 +215,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: duner
     displayName: Dacio Duner
     kind: 2
@@ -200,6 +226,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: taiga
     displayName: Ladoga Taiga
     kind: 1
@@ -209,6 +237,8 @@ MonoBehaviour:
     unlockLabel: reach Pine Forest in one month
     widthScale: 0.95
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: jinny
     displayName: Suzaku Jinny
     kind: 1
@@ -218,6 +248,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.9
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: pickup
     displayName: Toyama Highlux
     kind: 3
@@ -227,6 +259,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: atv
     displayName: Trail ATV
     kind: 1
@@ -236,6 +270,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.7
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: t10x
     displayName: "TU\u011E T10X"
     kind: 2
@@ -245,6 +281,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.05
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: landcrawler
     displayName: Toyama Land Crawler
     kind: 1
@@ -254,6 +292,8 @@ MonoBehaviour:
     unlockLabel: reach the Desert in one month
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: guardian
     displayName: Land Roamer Guardian
     kind: 1
@@ -263,6 +303,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: wrangel
     displayName: Jiip Wrangel
     kind: 1
@@ -272,6 +314,8 @@ MonoBehaviour:
     unlockLabel: reach the Canyon in one month
     widthScale: 0.95
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: mercatorg
     displayName: Mercator G
     kind: 1
@@ -281,6 +325,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: ibex
     displayName: Dodger Ibex
     kind: 3
@@ -290,6 +336,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.25
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: escapade
     displayName: Cadillon Escapade
     kind: 2
@@ -299,6 +347,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: hammerhx
     displayName: Hammer HX
     kind: 1
@@ -308,6 +358,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.15
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: toro
     displayName: Lamberti Toro
     kind: 2
@@ -317,6 +369,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: mobilo
     displayName: Mobilo Super
     kind: 4
@@ -326,6 +380,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: pcx
     displayName: Hondo PX
     kind: 4
@@ -335,6 +391,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: vesper
     displayName: Vesper Primo
     kind: 4
@@ -344,6 +402,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.7
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: javo
     displayName: Javo 350
     kind: 4
@@ -353,6 +413,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: chimp
     displayName: Hondo Chimp
     kind: 4
@@ -362,6 +424,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.6
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: atlasgs
     displayName: Bavaro Atlas GS
     kind: 4
@@ -371,6 +435,8 @@ MonoBehaviour:
     unlockLabel: reach Mountain Pass in one month
     widthScale: 0.8
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: anfield
     displayName: Royal Anfield Classic
     kind: 4
@@ -380,6 +446,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: bonnevale
     displayName: Tribune Bonnevale
     kind: 4
@@ -389,6 +457,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: baron
     displayName: KTX 390 Baron
     kind: 4
@@ -398,6 +468,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: snodoo
     displayName: Sno-Doo
     kind: 4
@@ -407,6 +479,8 @@ MonoBehaviour:
     unlockLabel: reach the Snowy Plateau in one month
     widthScale: 0.8
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: heavyboy
     displayName: Hartley Heavy Boy
     kind: 4
@@ -416,6 +490,8 @@ MonoBehaviour:
     unlockLabel: reach Sunset Road in one month
     widthScale: 0.85
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: tarantula
     displayName: Kanam Tarantula
     kind: 4
@@ -425,6 +501,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.8
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: hayate
     displayName: Suzaku Hayate
     kind: 4
@@ -434,6 +512,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.8
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: monza
     displayName: Duccio Monza
     kind: 4
@@ -443,6 +523,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.8
     bodyMinSat: 0.45
+    openSea: 0
+    contrail: 0
   - id: swanboat
     displayName: Swan Pedalo
     kind: 5
@@ -452,6 +534,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.9
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: rowboat
     displayName: Rowboat
     kind: 5
@@ -461,6 +545,8 @@ MonoBehaviour:
     unlockLabel: reach Lakeshore in one month
     widthScale: 1.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: sailboat
     displayName: Sailboat
     kind: 5
@@ -470,6 +556,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: ferry
     displayName: Bosphorus Ferry
     kind: 5
@@ -479,6 +567,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 3
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: tugboat
     displayName: Tugboat
     kind: 5
@@ -488,6 +578,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.4
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: watercraft
     displayName: Water Scooter
     kind: 5
@@ -497,6 +589,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 0.8
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: speedboat
     displayName: Speedboat
     kind: 5
@@ -506,6 +600,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: seiner
     displayName: Fishing Boat
     kind: 5
@@ -515,6 +611,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.8
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: yacht
     displayName: Yacht
     kind: 5
@@ -524,6 +622,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 2
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: hovercraft
     displayName: Hovercraft
     kind: 5
@@ -533,6 +633,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.4
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: seabus
     displayName: Sea Bus
     kind: 5
@@ -542,6 +644,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 2.2
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: container
     displayName: Container Ship
     kind: 5
@@ -551,6 +655,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 3.2
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: icebreaker
     displayName: Icebreaker
     kind: 5
@@ -560,6 +666,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 2.8
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: submarine
     displayName: Submarine
     kind: 5
@@ -569,6 +677,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.8
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: liner
     displayName: Ocean Liner
     kind: 5
@@ -578,6 +688,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 3.2
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: cruise
     displayName: Cruise Ship
     kind: 5
@@ -587,6 +699,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 3.2
     bodyMinSat: 0.3
+    openSea: 1
+    contrail: 0
   - id: cropduster
     displayName: Crop Duster
     kind: 6
@@ -596,6 +710,8 @@ MonoBehaviour:
     unlockLabel: reach Wheat Fields in one month
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: helicopter
     displayName: Helicopter
     kind: 6
@@ -605,6 +721,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: seaplane
     displayName: Seaplane
     kind: 6
@@ -614,6 +732,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: glider
     displayName: Glider
     kind: 6
@@ -623,6 +743,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.4
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: balloon
     displayName: Hot Air Balloon
     kind: 6
@@ -632,6 +754,8 @@ MonoBehaviour:
     unlockLabel: reach The City in one month
     widthScale: 1
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: bizjet
     displayName: Business Jet
     kind: 6
@@ -641,6 +765,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.5
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 1
   - id: airship
     displayName: Airship
     kind: 6
@@ -650,6 +776,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 2.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 0
   - id: airliner
     displayName: Airliner
     kind: 6
@@ -659,6 +787,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 2.2
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 1
   - id: fighter
     displayName: Jet Fighter
     kind: 6
@@ -668,6 +798,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.4
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 1
   - id: shuttle
     displayName: Space Shuttle
     kind: 6
@@ -677,6 +809,8 @@ MonoBehaviour:
     unlockLabel: 
     widthScale: 1.6
     bodyMinSat: 0.3
+    openSea: 0
+    contrail: 1
   comingSoon:
   - id: soon_sport
     kind: 0

@@ -23,6 +23,9 @@ namespace ScrollRoad
         static readonly Dictionary<string, LinkedListNode<(string key, Sprite sprite)>> cache = new();
         static readonly LinkedList<(string key, Sprite sprite)> order = new(); // baş = en son kullanılan
         static readonly HashSet<string> missing = new();
+        static readonly Dictionary<string, Wheel[]> wheelCache = new();
+        static readonly Dictionary<string, Vector2?> rearLights = new();
+        static Dictionary<string, Vector4[]> wheelTable;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetSession()
@@ -30,6 +33,161 @@ namespace ScrollRoad
             cache.Clear();
             order.Clear();
             missing.Clear();
+            wheelCache.Clear();
+            rearLights.Clear();
+            wheelTable = null;
+        }
+
+        // Dönen jant işareti: görseldeki tekerleğin göbeğine oturan, üç koyu dilimli saydam disk.
+        // Boyalı tekerlekler düz renkli (dönüşleri görünmez); işaret döndükçe tekerlek dönüyor görünür.
+        // Konum ve yarıçaplar araç görselinin yerel biriminde (merkez pivot, PixelsPerUnit).
+        public struct Wheel
+        {
+            public Sprite mark;
+            public Vector2 center;
+            public float tireRadius;
+        }
+
+        static readonly Wheel[] NoWheels = new Wheel[0];
+
+        public static Wheel[] Wheels(string id)
+        {
+            if (wheelCache.TryGetValue(id, out var cached) && (cached.Length == 0 || cached[0].mark != null)) return cached;
+            var table = LoadWheelTable();
+            if (!table.TryGetValue(id, out var defs) || !File.Exists(BasePath(id))) return wheelCache[id] = NoWheels;
+
+            var decoded = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            if (!decoded.LoadImage(File.ReadAllBytes(BasePath(id))))
+            {
+                Object.Destroy(decoded);
+                return wheelCache[id] = NoWheels;
+            }
+            int w = decoded.width, h = decoded.height;
+            var pixels = decoded.GetPixels32();
+            Object.Destroy(decoded);
+
+            var wheels = new Wheel[defs.Length];
+            rearLights[id] = FindRearLight(pixels, w, h, defs);
+            for (int i = 0; i < defs.Length; i++)
+            {
+                var d = defs[i]; // x, y (oran), r, hub (genişliğe oran)
+                float cx = d.x * w, cy = d.y * h, hubPx = d.w * w;
+                wheels[i] = new Wheel
+                {
+                    mark = BuildHubMark($"{id}_wheel{i}", SampleHub(pixels, w, h, cx, cy, hubPx), hubPx),
+                    center = new Vector2((cx - w / 2f) / PixelsPerUnit, (cy - h / 2f) / PixelsPerUnit),
+                    tireRadius = d.z * w / PixelsPerUnit,
+                };
+            }
+            return wheelCache[id] = wheels;
+        }
+
+        // Stop lambası (geri viteste/frende yanar): arka tekerleğin biraz üstündeki satırda aracın arka
+        // kenarı. Görseller sağa bakıyor, arka = sol. Yerel birimde (Wheel.center gibi); yoksa null.
+        public static Vector2? RearLight(string id)
+        {
+            Wheels(id);
+            return rearLights.TryGetValue(id, out var p) ? p : null;
+        }
+
+        static Vector2? FindRearLight(Color32[] px, int w, int h, Vector4[] defs)
+        {
+            if (defs.Length == 0) return null;
+            var rear = defs[0];
+            foreach (var d in defs) if (d.x < rear.x) rear = d;
+            float rPx = rear.z * w;
+            int y = Mathf.Clamp(Mathf.RoundToInt(rear.y * h + rPx * 1.35f), 0, h - 1);
+            for (int x = 0; x < w; x++)
+            {
+                if (px[y * w + x].a < 128) continue;
+                float lx = x + Mathf.Max(3f, rPx * 0.15f);
+                return new Vector2((lx - w / 2f) / PixelsPerUnit, (y - h / 2f) / PixelsPerUnit);
+            }
+            return null;
+        }
+
+        // wheels.txt (Tools/find_wheels.py): "<model> x y r hub; x y r hub".
+        static Dictionary<string, Vector4[]> LoadWheelTable()
+        {
+            if (wheelTable != null) return wheelTable;
+            wheelTable = new Dictionary<string, Vector4[]>();
+            string path = Path.Combine(Application.streamingAssetsPath, "Vehicles", "wheels.txt");
+            if (!File.Exists(path)) return wheelTable;
+            var inv = System.Globalization.CultureInfo.InvariantCulture;
+            foreach (var raw in File.ReadAllLines(path))
+            {
+                string line = raw.Trim();
+                if (line.Length == 0 || line[0] == '#') continue;
+                int space = line.IndexOf(' ');
+                if (space < 0) continue;
+                var parts = line.Substring(space + 1).Split(';');
+                var list = new List<Vector4>();
+                foreach (var part in parts)
+                {
+                    var v = part.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+                    if (v.Length < 4) continue;
+                    list.Add(new Vector4(float.Parse(v[0], inv), float.Parse(v[1], inv), float.Parse(v[2], inv), float.Parse(v[3], inv)));
+                }
+                wheelTable[line.Substring(0, space)] = list.ToArray();
+            }
+            return wheelTable;
+        }
+
+        // Göbeğin ortalama rengi (merkez çevresi, saydam olmayan pikseller).
+        static Color SampleHub(Color32[] px, int w, int h, float cx, float cy, float hubPx)
+        {
+            float r = Mathf.Max(1f, hubPx * 0.6f);
+            Vector3 sum = Vector3.zero;
+            int n = 0;
+            for (int y = Mathf.FloorToInt(cy - r); y <= Mathf.CeilToInt(cy + r); y++)
+            for (int x = Mathf.FloorToInt(cx - r); x <= Mathf.CeilToInt(cx + r); x++)
+            {
+                if (x < 0 || y < 0 || x >= w || y >= h) continue;
+                if ((x - cx) * (x - cx) + (y - cy) * (y - cy) > r * r) continue;
+                var c = px[y * w + x];
+                if (c.a < 200) continue;
+                sum += new Vector3(c.r, c.g, c.b);
+                n++;
+            }
+            if (n == 0) return new Color(0.7f, 0.72f, 0.75f);
+            sum /= n * 255f;
+            return new Color(sum.x, sum.y, sum.z);
+        }
+
+        // Göbekte üç dilim (merkez kapağı boş kalır); 4x4 alt örneklemeyle yumuşak kenarlı.
+        static Sprite BuildHubMark(string name, Color hub, float hubPx)
+        {
+            int size = Mathf.Max(8, Mathf.CeilToInt(hubPx * 2f) + 2);
+            float c = size / 2f, outer = hubPx * 0.92f, inner = hubPx * 0.22f;
+            const float wedge = 40f;
+            var color = new Color(hub.r * 0.42f, hub.g * 0.42f, hub.b * 0.46f); // yolda göbek ~8 px: belirgin olmalı
+            var pixels = new Color32[size * size];
+            for (int y = 0; y < size; y++)
+            for (int x = 0; x < size; x++)
+            {
+                int hits = 0;
+                for (int sy = 0; sy < 4; sy++)
+                for (int sx = 0; sx < 4; sx++)
+                {
+                    float dx = x + (sx + 0.5f) / 4f - c, dy = y + (sy + 0.5f) / 4f - c;
+                    float d = Mathf.Sqrt(dx * dx + dy * dy);
+                    if (d > outer || d < inner) continue;
+                    float ang = (Mathf.Atan2(dy, dx) * Mathf.Rad2Deg + 360f) % 120f;
+                    if (ang < wedge) hits++;
+                }
+                pixels[y * size + x] = new Color32((byte)(color.r * 255), (byte)(color.g * 255), (byte)(color.b * 255), (byte)(hits * 255 * 0.95f / 16f));
+            }
+            var tex = new Texture2D(size, size, TextureFormat.RGBA32, true)
+            {
+                name = name,
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp,
+            };
+            tex.SetPixels32(pixels);
+            tex.Apply(true, true);
+            var sprite = Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), PixelsPerUnit, 0, SpriteMeshType.FullRect);
+            sprite.name = name;
+            return sprite;
         }
 
         public static string BasePath(string id) => Path.Combine(Application.streamingAssetsPath, "Vehicles", id + ".png");

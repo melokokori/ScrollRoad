@@ -14,6 +14,23 @@ namespace ScrollRoad.EditorTools
         void OnPreprocessTexture()
         {
             string path = assetPath.Replace('\\', '/');
+
+            // İbre skinleri (Tools/make_gauges.py, Resources'tan yüklenir): kartta ~130 px, görev
+            // çubuğunda ~40 px çizildikleri için mipmap şart; dokular 2'nin kuvveti, sıkıştırılabilir.
+            if (path.StartsWith("Assets/Resources/Gauges/"))
+            {
+                var gauge = (TextureImporter)assetImporter;
+                gauge.textureType = TextureImporterType.Sprite;
+                gauge.spriteImportMode = SpriteImportMode.Single;
+                gauge.mipmapEnabled = true;
+                gauge.alphaIsTransparency = true;
+                gauge.filterMode = UnityEngine.FilterMode.Trilinear;
+                gauge.textureCompression = TextureImporterCompression.CompressedHQ;
+                gauge.wrapMode = UnityEngine.TextureWrapMode.Clamp;
+                gauge.spritePixelsPerUnit = 100f;
+                return;
+            }
+
             if (!path.StartsWith("Assets/Art/")) return;
 
             var importer = (TextureImporter)assetImporter;

@@ -142,6 +142,16 @@ namespace ScrollRoad.EditorTools
             "heavyboy", "atlasgs", "tarantula", "snodoo",
         };
 
+        // Açık denizde giden büyük gemiler; kalan tekneler (sandal, kuğu, jet ski, sürat teknesi,
+        // yelkenli, hovercraft) nehirde.
+        static readonly string[] OpenSeaModels =
+        {
+            "ferry", "tugboat", "seiner", "yacht", "seabus", "container", "icebreaker", "submarine", "liner", "cruise",
+        };
+
+        // Uçuş izi bırakan jetler (balon, zeplin, planör, pervaneliler ve helikopter bırakmaz).
+        static readonly string[] ContrailModels = { "bizjet", "airliner", "fighter", "shuttle" };
+
         static readonly (string id, CarCatalog.Kind kind)[] ComingSoon =
         {
             ("soon_sport", CarCatalog.Kind.Car),
@@ -255,6 +265,8 @@ namespace ScrollRoad.EditorTools
                     unlockLabel = def.label,
                     widthScale = def.width,
                     bodyMinSat = System.Array.IndexOf(RiderModels, def.id) >= 0 ? 0.45f : 0.3f,
+                    openSea = System.Array.IndexOf(OpenSeaModels, def.id) >= 0,
+                    contrail = System.Array.IndexOf(ContrailModels, def.id) >= 0,
                 };
             }
 
@@ -367,34 +379,9 @@ namespace ScrollRoad.EditorTools
             Stretch(dragSurface.GetComponent<RectTransform>());
             Bind(dragSurface.GetComponent<CardDragHandle>(), "window", companion);
 
-            // Sol üst: kilometre sayacı (5 tam + 1 ondalık hane; ondalık ters renkli) + "km", altında hız.
-            var odo = Row(root.transform, "Odometer", 6, TextAnchor.MiddleLeft);
-            Anchor((RectTransform)odo.transform, new Vector2(0, 1), new Vector2(16, -12), new Vector2(0, 1));
-            var digitsPlate = Plate(odo.transform, "Digits", PlateDark, RoundSprite);
-            var digitsRow = digitsPlate.gameObject.AddComponent<HorizontalLayoutGroup>();
-            digitsRow.padding = new RectOffset(3, 3, 3, 3);
-            digitsRow.spacing = 2;
-            digitsRow.childControlWidth = digitsRow.childControlHeight = true;
-            digitsRow.childForceExpandWidth = digitsRow.childForceExpandHeight = false;
-            var digits = new Object[6];
-            for (int i = 0; i < digits.Length; i++)
-            {
-                bool tenth = i == digits.Length - 1;
-                var cell = Plate(digitsPlate.transform, $"Digit{i}", tenth ? PlateText : Cell, RoundSprite);
-                var le = cell.gameObject.AddComponent<LayoutElement>();
-                le.preferredWidth = 17;
-                le.preferredHeight = 27;
-                var t = Tmp(cell.transform, "Text", "0", 21, UiFonts.Mono, tenth ? PlateDark : PlateText);
-                Stretch(t.rectTransform);
-                t.rectTransform.offsetMin = new Vector2(0, -1); // Overpass rakamları optik olarak biraz yukarıda
-                digits[i] = t;
-            }
-            var kmUnit = Tmp(odo.transform, "Unit", "km", 14, UiFonts.ExtraBold, Ink);
-
-            var speed = Tmp(root.transform, "Speed", "", 12.5f, UiFonts.SemiBold, Ink, TextAlignmentOptions.TopLeft);
-            Anchor(speed.rectTransform, new Vector2(0, 1), new Vector2(17, -49), new Vector2(0, 1));
-            speed.rectTransform.sizeDelta = new Vector2(300, 18);
-            speed.characterSpacing = 2;
+            // Sol üst: hız göstergesi (skinli kadran, GaugeView; kilometre sayacı kadranın içinde).
+            var gauge = CreateGauge(root.transform, "Gauge", 128f, false, drive);
+            Anchor((RectTransform)gauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             // Sağ üst: yeşil karayolu tabelası (bölge / sonraki durak + mesafe).
             var sign = CreateSign(root.transform, "Sign", out var signInner, out _);
@@ -455,12 +442,9 @@ namespace ScrollRoad.EditorTools
 
             var hud = new GameObject("HudController").AddComponent<HudController>();
             Bind(hud, "drive", drive);
-            Bind(hud, "view", view);
             Bind(hud, "secretZone", secret);
             Bind(hud, "companionWindow", companion);
             Bind(hud, "hudRoot", root);
-            BindArray(hud, "odometerDigits", digits);
-            Bind(hud, "speedText", speed);
             Bind(hud, "signRoot", sign);
             Bind(hud, "regionText", region);
             Bind(hud, "townText", town);
@@ -471,7 +455,6 @@ namespace ScrollRoad.EditorTools
             Bind(hud, "whisperText", whisper);
             Bind(hud, "progressFill", fillRect);
             Bind(hud, "maxMarker", markerRect);
-            BindArray(hud, "inkGraphics", new Object[] { kmUnit, speed });
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
@@ -490,8 +473,22 @@ namespace ScrollRoad.EditorTools
             var title = Tmp(inner, "Title", "", 15, UiFonts.ExtraBold, Color.white);
             var subtitle = Tmp(inner, "Subtitle", "", 10.5f, UiFonts.SemiBold, new Color(1f, 1f, 1f, 0.78f));
 
+            // Durak duyurusunda tabelanın sağ üst köşesine basılan pasaport damgası (bölge renginde,
+            // pasaport panelindeki damgalarla aynı dil). Düzen dışı: tabelanın boyutunu etkilemez.
+            var stamp = Plate(sign.transform, "Stamp", Color.white, RoundSprite);
+            stamp.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+            Anchor(stamp.rectTransform, new Vector2(1, 1), new Vector2(-6, -2), new Vector2(0.5f, 0.5f));
+            stamp.rectTransform.sizeDelta = new Vector2(70, 21);
+            var stampText = Tmp(stamp.transform, "Label", "STAMPED", 9.5f, UiFonts.ExtraBold, PlateText);
+            stampText.characterSpacing = 8;
+            Stretch(stampText.rectTransform);
+            stampText.rectTransform.offsetMin = new Vector2(0, -1);
+            stamp.gameObject.SetActive(false);
+
             sign.SetActive(false);
             var controller = new GameObject("NoticeController").AddComponent<NoticeController>();
+            Bind(controller, "stamp", stamp);
+            Bind(controller, "stampText", stampText);
             Bind(controller, "route", route);
             Bind(controller, "goals", goals);
             Bind(controller, "companionWindow", companion);
@@ -882,6 +879,27 @@ namespace ScrollRoad.EditorTools
                 themes[i] = CreateButton(panel.transform, $"Theme{i}Button", WorldTheme.DisplayNames[i], new Vector2(x, -76), new Vector2(110, 26), ButtonIdle, 12.5f, UiFonts.SemiBold);
             }
 
+            // Hız göstergesi skinleri: mini kadran + ad (kilitliyken km ya da TRIP).
+            SectionLabel(panel.transform, "GaugeLabel", "GAUGE", new Vector2(gridX, -106), rowWidth);
+            var gaugeSkins = new System.Collections.Generic.List<GaugeSkins.Skin>(GaugeSkins.Selectable());
+            var gaugeButtons = new Object[gaugeSkins.Count];
+            var gaugeIcons = new Object[gaugeSkins.Count];
+            var gaugeLabels = new Object[gaugeSkins.Count];
+            for (int i = 0; i < gaugeSkins.Count; i++)
+            {
+                float x = gridX - rowWidth / 2f + 44f + i * 95.5f;
+                var button = CreateButton(panel.transform, $"Gauge_{gaugeSkins[i].id}", gaugeSkins[i].name, new Vector2(x, -134), new Vector2(88, 28), ButtonIdle, 10.5f, UiFonts.SemiBold);
+                var label = button.GetComponentInChildren<TMP_Text>();
+                label.alignment = TextAlignmentOptions.Left;
+                label.rectTransform.offsetMin = new Vector2(30, -1);
+                var icon = Icon(button.transform, "Icon", null, 22, Color.white);
+                icon.preserveAspect = true;
+                Anchor(icon.rectTransform, new Vector2(0, 0.5f), new Vector2(4, 0), new Vector2(0, 0.5f));
+                gaugeButtons[i] = button;
+                gaugeIcons[i] = icon;
+                gaugeLabels[i] = label;
+            }
+
             panel.SetActive(false);
             var controller = new GameObject("GarageController").AddComponent<GarageController>();
             Bind(controller, "catalog", catalog);
@@ -903,6 +921,9 @@ namespace ScrollRoad.EditorTools
             BindArray(controller, "paintButtons", paintButtons);
             BindArray(controller, "paintRings", paintRings);
             BindArray(controller, "themeButtons", themes);
+            BindArray(controller, "gaugeButtons", gaugeButtons);
+            BindArray(controller, "gaugeIcons", gaugeIcons);
+            BindArray(controller, "gaugeLabels", gaugeLabels);
             Bind(controller, "openButton", openButton);
             Bind(controller, "closeButton", close);
             return controller;
@@ -964,29 +985,40 @@ namespace ScrollRoad.EditorTools
             var panel = CreatePanel(parent, "SettingsPanel", "Settings", out var close, out _);
 
             var volumeLabel = Tmp(panel.transform, "VolumeLabel", "Volume", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
-            SetRect(volumeLabel.rectTransform, new Vector2(-290, 100), new Vector2(140, 26));
-            var slider = CreateSlider(panel.transform, "VolumeSlider", new Vector2(-20, 100), new Vector2(360, 22));
+            SetRect(volumeLabel.rectTransform, new Vector2(-290, 110), new Vector2(140, 26));
+            var slider = CreateSlider(panel.transform, "VolumeSlider", new Vector2(-20, 110), new Vector2(360, 22));
             var volumeValue = Tmp(panel.transform, "VolumeValue", "", 12, UiFonts.Mono, PlateText);
-            SetRect(volumeValue.rectTransform, new Vector2(200, 100), new Vector2(70, 26));
+            SetRect(volumeValue.rectTransform, new Vector2(200, 110), new Vector2(70, 26));
 
             var sizeLabel = Tmp(panel.transform, "CardSizeLabel", "Card size", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
-            SetRect(sizeLabel.rectTransform, new Vector2(-290, 64), new Vector2(140, 26));
+            SetRect(sizeLabel.rectTransform, new Vector2(-290, 80), new Vector2(140, 26));
             var sizeButtons = new Object[CompanionWindowController.CardSizeNames.Length];
             for (int i = 0; i < sizeButtons.Length; i++)
             {
                 sizeButtons[i] = CreateButton(panel.transform, $"CardSize{i}Button", CompanionWindowController.CardSizeNames[i],
-                    new Vector2(-150 + i * 108, 64), new Vector2(100, 26), ButtonIdle, 12.5f, UiFonts.SemiBold);
+                    new Vector2(-150 + i * 108, 80), new Vector2(100, 26), ButtonIdle, 12.5f, UiFonts.SemiBold);
             }
 
-            var onTop = CreateToggle(panel.transform, "CardOnTopToggle", "Keep the card on top of other windows", new Vector2(-40, 28), new Vector2(640, 28));
-            var toggle = CreateToggle(panel.transform, "StartInCompanionToggle", "Start in taskbar mode", new Vector2(-40, -8), new Vector2(640, 28));
-            var trayToggle = CreateToggle(panel.transform, "CloseToTrayToggle", "Keep running in the tray when closed", new Vector2(-40, -44), new Vector2(640, 28));
-            var startupToggle = CreateToggle(panel.transform, "RunAtStartupToggle", "Start with Windows", new Vector2(-40, -80), new Vector2(640, 28));
+            // Görev çubuğundaki hız göstergesi: sade plaka / kartın aynısı / taşan kadran.
+            var stripLabel = Tmp(panel.transform, "StripGaugeLabel", "Taskbar gauge", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
+            SetRect(stripLabel.rectTransform, new Vector2(-290, 50), new Vector2(140, 26));
+            var stripButtons = new Object[GaugeSkins.StripStyleNames.Length];
+            for (int i = 0; i < stripButtons.Length; i++)
+            {
+                stripButtons[i] = CreateButton(panel.transform, $"StripGauge{i}Button", GaugeSkins.StripStyleNames[i],
+                    new Vector2(-150 + i * 108, 50), new Vector2(100, 26), ButtonIdle, 12.5f, UiFonts.SemiBold);
+            }
+
+            var onTop = CreateToggle(panel.transform, "CardOnTopToggle", "Keep the card on top of other windows", new Vector2(-40, 20), new Vector2(640, 28));
+            var toggle = CreateToggle(panel.transform, "StartInCompanionToggle", "Start in taskbar mode", new Vector2(-40, -10), new Vector2(640, 28));
+            var trayToggle = CreateToggle(panel.transform, "CloseToTrayToggle", "Keep running in the tray when closed", new Vector2(-40, -40), new Vector2(640, 28));
+            var startupToggle = CreateToggle(panel.transform, "RunAtStartupToggle", "Start with Windows", new Vector2(-40, -70), new Vector2(640, 28));
+            var vehicleGauge = CreateToggle(panel.transform, "VehicleGaugeToggle", "Boats and aircraft use their own gauge", new Vector2(-40, -100), new Vector2(640, 28));
             var note = Tmp(panel.transform, "Note",
                 "Taskbar mode: a small transparent strip on your taskbar (F9). Drag the card by any empty spot. In the tray, your scrolls keep counting; reopen it from the icon next to the clock.",
                 10.5f, UiFonts.SemiBold, TextMuted);
             note.textWrappingMode = TextWrappingModes.Normal;
-            SetRect(note.rectTransform, new Vector2(0, -124), new Vector2(720, 32));
+            SetRect(note.rectTransform, new Vector2(0, -134), new Vector2(720, 30));
 
             panel.SetActive(false); // Editor'de sahne temiz görünsün (runtime'da da kapalı başlar)
             var controller = new GameObject("SettingsController").AddComponent<SettingsController>();
@@ -999,6 +1031,8 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "startInCompanionToggle", toggle);
             Bind(controller, "closeToTrayToggle", trayToggle);
             Bind(controller, "runAtStartupToggle", startupToggle);
+            BindArray(controller, "stripGaugeButtons", stripButtons);
+            Bind(controller, "vehicleGaugeToggle", vehicleGauge);
             Bind(controller, "openButton", openButton);
             Bind(controller, "closeButton", close);
             return controller;
@@ -1052,6 +1086,49 @@ namespace ScrollRoad.EditorTools
             subOutline.effectColor = outline.effectColor;
             subOutline.effectDistance = new Vector2(1f, -1f);
 
+            // Sade plaka: skinin plakası (206x42 tasarım; doku 512x128, dikeyde ortalı) + mini kadran
+            // + sayaç + hız + birim; duyuru/fısıltı sayacın yerine geçer.
+            const float plateTexH = 206f * 128f / 512f, plateTop = (plateTexH - 42f) / 2f;
+            var plateGo = new GameObject("Plate", typeof(RectTransform), typeof(Image));
+            plateGo.transform.SetParent(root.transform, false);
+            var plateImage = plateGo.GetComponent<Image>();
+            plateImage.raycastTarget = false;
+            var plateRect = (RectTransform)plateGo.transform;
+            plateRect.sizeDelta = new Vector2(206f, plateTexH);
+            Anchor(plateRect, new Vector2(0, 0.5f), new Vector2(8, 0), new Vector2(0, 0.5f));
+            var miniGauge = CreateGauge(plateGo.transform, "MiniGauge", 40f, true, drive);
+            Anchor((RectTransform)miniGauge.transform, new Vector2(0, 1), new Vector2(4, -(plateTop + 1f)), new Vector2(0, 1));
+            var plateOdo = CreateOdometer(plateGo.transform, "Odometer", 12f, out var plateCells);
+            Stretch((RectTransform)plateOdo.transform);
+            for (int i = 0; i < plateCells.Length; i++)
+            {
+                var cell = plateCells[i];
+                cell.anchorMin = cell.anchorMax = cell.pivot = new Vector2(0, 1);
+                cell.sizeDelta = new Vector2(10.5f, 17f);
+                cell.anchoredPosition = new Vector2(53f + i * (10.5f + 1.26f), -(plateTop + 12.5f));
+            }
+            float speedX = 53f + 6 * 10.5f + 5 * 1.26f + 11f;
+            var plateSpeed = Tmp(plateGo.transform, "Speed", "0", 18, UiFonts.ExtraBold, PlateText, TextAlignmentOptions.Left);
+            Anchor(plateSpeed.rectTransform, new Vector2(0, 1), new Vector2(speedX, -(plateTop + 7f)), new Vector2(0, 1));
+            plateSpeed.rectTransform.sizeDelta = new Vector2(206f - speedX - 4f, 20f);
+            var plateUnit = Tmp(plateGo.transform, "Unit", "KM/H", 8, UiFonts.Mono, PlateText, TextAlignmentOptions.Left);
+            plateUnit.characterSpacing = 8;
+            Anchor(plateUnit.rectTransform, new Vector2(0, 1), new Vector2(speedX, -(plateTop + 27f)), new Vector2(0, 1));
+            plateUnit.rectTransform.sizeDelta = new Vector2(206f - speedX - 4f, 10f);
+            var plateNotice = Tmp(plateGo.transform, "Notice", "", 11, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
+            plateNotice.textWrappingMode = TextWrappingModes.Normal;
+            plateNotice.enableAutoSizing = true;
+            plateNotice.fontSizeMin = 7.5f;
+            plateNotice.fontSizeMax = 12f;
+            Anchor(plateNotice.rectTransform, new Vector2(0, 1), new Vector2(50f, -(plateTop + 4f)), new Vector2(0, 1));
+            plateNotice.rectTransform.sizeDelta = new Vector2(150f, 34f);
+            plateNotice.gameObject.SetActive(false);
+
+            // Kartın aynısı / taşan kadran: tam kadran (boyutu çalışma zamanında), sol-altta.
+            var dialGauge = CreateGauge(root.transform, "DialGauge", 44f, false, drive);
+            Anchor((RectTransform)dialGauge.transform, new Vector2(0, 0), new Vector2(8, 2), new Vector2(0, 0));
+            dialGauge.gameObject.SetActive(false);
+
             var menuButton = CreateIconButton(root.transform, "MenuButton", IconMenu, Vector2.zero);
             Anchor((RectTransform)menuButton.transform, new Vector2(1, 0.5f), new Vector2(-6, 0), new Vector2(1, 0.5f));
             ((RectTransform)menuButton.transform).sizeDelta = new Vector2(24, 24);
@@ -1079,6 +1156,102 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "menuPanel", panel);
             Bind(controller, "exitCompanionButton", exitButton);
             Bind(controller, "quitButton", quitButton);
+            Bind(controller, "plateRoot", plateGo);
+            Bind(controller, "plateImage", plateImage);
+            Bind(controller, "miniGauge", miniGauge);
+            Bind(controller, "plateOdometer", plateOdo);
+            Bind(controller, "plateSpeed", plateSpeed);
+            Bind(controller, "plateUnit", plateUnit);
+            Bind(controller, "plateNotice", plateNotice);
+            Bind(controller, "dialGauge", dialGauge);
+        }
+
+        // Hız göstergesi (GaugeView): yüz, Dijital segmentleri (radial fill), tam boyda kadran içi sayaç
+        // + dijital hız + IDLE, en üstte ibre. Görseller çalışma zamanında skinle atanır (GaugeSkins).
+        static GaugeView CreateGauge(Transform parent, string name, float size, bool mini, RoadDrive drive)
+        {
+            var go = new GameObject(name, typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            ((RectTransform)go.transform).sizeDelta = new Vector2(size, size);
+
+            var face = GaugeImage(go.transform, "Face");
+            var lit = GaugeImage(go.transform, "Lit");
+            lit.type = Image.Type.Filled;
+            lit.fillMethod = Image.FillMethod.Radial360;
+            lit.fillOrigin = (int)Image.Origin360.Bottom;
+            lit.fillClockwise = true;
+
+            OdometerView odometer = null;
+            TMP_Text digital = null, idle = null;
+            if (!mini)
+            {
+                odometer = CreateOdometer(go.transform, "Odometer", size * 13f / 200f, out _);
+                Stretch((RectTransform)odometer.transform);
+                digital = Tmp(go.transform, "Digital", "0", size * 38f / 200f, UiFonts.Mono, PlateText);
+                var dr = digital.rectTransform;
+                dr.anchorMin = new Vector2(0.2f, 1f - 100f / 200f);
+                dr.anchorMax = new Vector2(0.8f, 1f - 62f / 200f);
+                dr.offsetMin = dr.offsetMax = Vector2.zero;
+                idle = Tmp(go.transform, "Idle", "IDLE", size * 9f / 200f, UiFonts.ExtraBold, Amber);
+                idle.characterSpacing = 10;
+            }
+            var needle = GaugeImage(go.transform, "Needle");
+
+            var view = go.AddComponent<GaugeView>();
+            Bind(view, "drive", drive);
+            Bind(view, "catalog", LoadCarCatalog());
+            var so = new SerializedObject(view);
+            so.FindProperty("mini").boolValue = mini;
+            so.ApplyModifiedPropertiesWithoutUndo();
+            Bind(view, "face", face);
+            Bind(view, "needle", needle);
+            Bind(view, "lit", lit);
+            if (!mini)
+            {
+                Bind(view, "bigNumber", digital);
+                Bind(view, "idleLabel", idle);
+                Bind(view, "odometer", odometer);
+            }
+            return view;
+        }
+
+        static Image GaugeImage(Transform parent, string name)
+        {
+            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+            var image = go.GetComponent<Image>();
+            image.raycastTarget = false;
+            image.preserveAspect = true;
+            Stretch(image.rectTransform);
+            return image;
+        }
+
+        // Yuvarlanan sayaç: 6 maskeli hücre, her birinde şimdiki + bir sonraki rakam (OdometerView).
+        // Hücre arka planları skin görselinde; konumları çağıran yerleştirir (ya da PlaceInDial).
+        static OdometerView CreateOdometer(Transform parent, string name, float fontSize, out RectTransform[] cells)
+        {
+            var go = new GameObject(name, typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            cells = new RectTransform[6];
+            var current = new Object[6];
+            var next = new Object[6];
+            for (int i = 0; i < 6; i++)
+            {
+                var cell = new GameObject($"Cell{i}", typeof(RectTransform), typeof(RectMask2D));
+                cell.transform.SetParent(go.transform, false);
+                cells[i] = (RectTransform)cell.transform;
+                var cur = Tmp(cell.transform, "Text", "0", fontSize, UiFonts.Mono, PlateText);
+                Stretch(cur.rectTransform);
+                var nxt = Tmp(cell.transform, "Next", "1", fontSize, UiFonts.Mono, PlateText);
+                Stretch(nxt.rectTransform);
+                current[i] = cur;
+                next[i] = nxt;
+            }
+            var view = go.AddComponent<OdometerView>();
+            BindArray(view, "cells", cells);
+            BindArray(view, "current", current);
+            BindArray(view, "next", next);
+            return view;
         }
 
         // ------------------------------------------------------------------ tabela stili yardımcıları

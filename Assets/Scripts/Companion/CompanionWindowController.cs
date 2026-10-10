@@ -79,6 +79,12 @@ namespace ScrollRoad
         // Şerit ölçeği (görev çubuğu yüksekliği / 48): HUD yazıları bununla büyür.
         public float StripScale { get; private set; } = 1f;
 
+        // "Taşan kadran" görünümünde pencere görev çubuğunun üstüne bu kadar uzar (UI birimi =
+        // %100 ölçekte piksel). Kamera şeridi pencerenin altındaki banda çizer (oran).
+        public const float PeekOverflow = 44f;
+        public float StripOverflowUnits { get; private set; }
+        public float StripOverflowFraction { get; private set; }
+
         // "-companion" komut satırı argümanı: doğrudan görev çubuğu şeridi modunda aç
         // (Steam başlatma seçeneği ya da Windows başlangıç kısayolu için).
         public static bool LaunchedWithCompanionArg =>
@@ -177,6 +183,21 @@ namespace ScrollRoad
                     var monitor = Screen.currentResolution;
                     stripRect = new NativeWindow.ScreenRect { Left = 12, Top = monitor.height - 48, Width = stripBaseWidth, Height = 48 };
                 }
+
+                // Taşan kadran: pencere yukarı uzar (Editor'de pencereye dokunulmadığı için yalnız build'de).
+                StripOverflowUnits = 0f;
+                StripOverflowFraction = 0f;
+#if !UNITY_EDITOR
+                if (GaugeSkins.Strip == GaugeSkins.StripStyle.Peek)
+                {
+                    int over = Mathf.RoundToInt(PeekOverflow * StripScale);
+                    stripRect.Top -= over;
+                    stripRect.Height += over;
+                    companionSize = new Vector2Int(stripRect.Width, stripRect.Height);
+                    StripOverflowUnits = PeekOverflow;
+                    StripOverflowFraction = over / (float)stripRect.Height;
+                }
+#endif
             }
             OnModeChanged?.Invoke(companion);
 

@@ -4,20 +4,16 @@ using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Kartın bilgi katmanı ("tabela" stili): sol üstte kilometre sayacı (5 tam + 1 ondalık hane,
-    // ondalık hane ters renkli) ve altında hız; sağ üstte yeşil karayolu tabelası (bölge + sonraki
+    // Kartın bilgi katmanı ("tabela" stili): sol üstteki hız göstergesi ve kilometre sayacı ayrı
+    // (GaugeView, skinli kadran); burada sağ üstte yeşil karayolu tabelası (bölge + sonraki
     // durak + kalan mesafe); altta koyu plakalarda şehre ilerleme ve bugünkü hedefler; gizli bölge
     // fısıltısı. Haftalık hedef, seri ve ay rekoru ≡ çekmecesinde. Görev çubuğu şeridi modunda gizli.
-    // Gökyüzüne doğrudan yazılan öğeler (hız, "km") gökyüzü parlaklığına göre koyu/açık seçilir.
     public class HudController : MonoBehaviour
     {
         [SerializeField] RoadDrive drive;
-        [SerializeField] RoadSceneView view;
         [SerializeField] SecretZoneView secretZone;
         [SerializeField] CompanionWindowController companionWindow;
         [SerializeField] GameObject hudRoot;
-        [SerializeField] TMP_Text[] odometerDigits; // soldan sağa; sonuncusu ondalık hane
-        [SerializeField] TMP_Text speedText;
         [SerializeField] GameObject signRoot;
         [SerializeField] TMP_Text regionText;
         [SerializeField] TMP_Text townText;
@@ -28,29 +24,12 @@ namespace ScrollRoad
         [SerializeField] TMP_Text whisperText;
         [SerializeField] RectTransform progressFill;
         [SerializeField] RectTransform maxMarker;
-        [SerializeField] Graphic[] inkGraphics; // gökyüzüne doğrudan yazılan öğeler
-
-        static readonly Color DarkInk = new Color(0.11f, 0.13f, 0.16f);
-        static readonly Color LightInk = new Color(0.93f, 0.92f, 0.95f);
-
-        readonly char[] digitBuffer = new char[8];
-        string lastOdometer;
 
         void Update()
         {
             bool companion = companionWindow != null && companionWindow.IsCompanionMode;
             if (hudRoot.activeSelf == companion) hudRoot.SetActive(!companion);
             if (companion) return;
-
-            var sky = view != null ? view.CurrentSkyColor : Color.white;
-            float lum = sky.r * 0.3f + sky.g * 0.59f + sky.b * 0.11f;
-            var ink = lum > 0.5f ? DarkInk : LightInk;
-            foreach (var g in inkGraphics) if (g != null) g.color = new Color(ink.r, ink.g, ink.b, g.color.a);
-
-            UpdateOdometer(drive.CurrentDistanceKmPrecise);
-
-            int speed = Mathf.RoundToInt(drive.CurrentSpeedKmh);
-            speedText.text = drive.IsUserActive ? $"{speed} km/h" : $"idle  ·  {speed} km/h";
 
             UpdateSign();
 
@@ -73,22 +52,6 @@ namespace ScrollRoad
                 var w = SecretZoneView.WhisperColor;
                 whisperText.color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);
             }
-        }
-
-        // 12.34 km → "00012" + "3". 99.999,9 km'yi aşarsa (oyunda olmaz) son haneler gösterilir.
-        void UpdateOdometer(double km)
-        {
-            long tenths = (long)System.Math.Floor(System.Math.Max(0.0, km) * 10.0);
-            int n = odometerDigits.Length;
-            for (int i = n - 1; i >= 0; i--)
-            {
-                digitBuffer[i] = (char)('0' + tenths % 10);
-                tenths /= 10;
-            }
-            string s = new string(digitBuffer, 0, n);
-            if (s == lastOdometer) return;
-            lastOdometer = s;
-            for (int i = 0; i < n; i++) odometerDigits[i].SetText(s.Substring(i, 1));
         }
 
         // Tabela: üstte bölge, altta sonraki durak + kalan mesafe. Sonraki durak şehirse (ya da yoksa)

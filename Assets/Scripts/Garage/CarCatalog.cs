@@ -65,6 +65,8 @@ namespace ScrollRoad
             public string unlockLabel;      // MonthBestKm: hedefin adı (ör. "reach Lakeshore in one month")
             public float widthScale = 1f;   // yolda görünen genişlik çarpanı
             public float bodyMinSat = 0.3f; // gövde sayılan en düşük doygunluk (sürücülülerde yüksek: ten boyanmasın)
+            public bool openSea;            // büyük gemiler: nehir yerine açık deniz (küçük tekneler nehirde)
+            public bool contrail;           // jetler: arkada uçuş izi bırakır
 
             public Lane Lane => LaneOf(kind);
         }

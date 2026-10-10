@@ -9,7 +9,8 @@ namespace ScrollRoad
     // bilgisi; sağda kategori SEKMELERİ (Cars, Off-road, Two wheels, Sea, Sky), sekmenin araçları
     // 5'erli sayfalarda (‹ › okları — fare tekerleği oyunda gaz olduğu için kaydırma yok), altında
     // RENK yuvarlakları (sabit renkli araçta gizlenir; gizli renk kilidi açılana kadar hiç görünmez),
-    // en altta dünya teması (WorldTheme; sıra WorldTheme.Kind ile aynı).
+    // altında dünya teması (WorldTheme; sıra WorldTheme.Kind ile aynı), en altta hız göstergesi
+    // skinleri (GaugeSkins; kilitliye tıklayınca nasıl açılacağı yazar).
     // Yuva türleri: açık model (seçili renkte), kilitli model (silüet + "500 KM" / "TRIP"
     // plakası; tıklayınca önizlemenin altında nasıl açılacağı yazar), "coming soon" (silüet + "SOON").
     public class GarageController : MonoBehaviour
@@ -33,6 +34,9 @@ namespace ScrollRoad
         [SerializeField] Button[] paintButtons;    // catalog.paints sırasıyla
         [SerializeField] Image[] paintRings;
         [SerializeField] Button[] themeButtons;    // WorldTheme.Kind sırasıyla
+        [SerializeField] Button[] gaugeButtons;    // GaugeSkins.Selectable() sırasıyla
+        [SerializeField] Image[] gaugeIcons;
+        [SerializeField] TMP_Text[] gaugeLabels;
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
         [SerializeField] Color selectedFrameColor = new Color(0.055f, 0.42f, 0.243f); // tabela yeşili
@@ -75,6 +79,13 @@ namespace ScrollRoad
             {
                 var kind = (WorldTheme.Kind)i;
                 themeButtons[i].onClick.AddListener(() => { WorldTheme.Set(kind); Refresh(); });
+            }
+            var skins = new List<GaugeSkins.Skin>(GaugeSkins.Selectable());
+            for (int i = 0; i < gaugeButtons.Length && i < skins.Count; i++)
+            {
+                var skin = skins[i];
+                gaugeIcons[i].sprite = GaugeSkins.Face(skin, true);
+                gaugeButtons[i].onClick.AddListener(() => ChooseGauge(skin));
             }
             garagePanel.SetActive(false);
         }
@@ -130,6 +141,18 @@ namespace ScrollRoad
         void ChoosePaint(int index)
         {
             catalog.Select(catalog.paints[index]);
+            Refresh();
+        }
+
+        void ChooseGauge(GaugeSkins.Skin skin)
+        {
+            if (!GaugeSkins.IsUnlocked(skin))
+            {
+                detailText.text = GaugeSkins.LockDescription(skin);
+                return;
+            }
+            detailText.text = "";
+            GaugeSkins.Select(skin);
             Refresh();
         }
 
@@ -190,6 +213,19 @@ namespace ScrollRoad
             for (int i = 0; i < themeButtons.Length; i++)
             {
                 themeButtons[i].image.color = (int)WorldTheme.Current == i ? selectedFrameColor : idleButtonColor;
+            }
+
+            int g = 0;
+            var selectedGauge = GaugeSkins.Selected;
+            foreach (var skin in GaugeSkins.Selectable())
+            {
+                if (g >= gaugeButtons.Length) break;
+                bool open = GaugeSkins.IsUnlocked(skin);
+                gaugeButtons[g].image.color = skin == selectedGauge ? selectedFrameColor : idleButtonColor;
+                gaugeIcons[g].color = open ? Color.white : new Color(0.35f, 0.35f, 0.38f, 1f);
+                gaugeLabels[g].text = open ? skin.name : skin.unlock == CarCatalog.Unlock.MonthBestKm ? "TRIP" : Fmt.Km(skin.unlockValue, 0).ToUpperInvariant();
+                gaugeLabels[g].alpha = open ? 1f : 0.6f;
+                g++;
             }
 
             previewImage.sprite = catalog.SelectedSprite;

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Ayarlar paneli (≡ çekmecesinden açılır): ana ses, kart boyutu, kart her zaman üstte, açılışta
-    // görev çubuğu şeridi modu, kapatınca tepside kalma, Windows ile başlama. Hepsi cihaza özel —
+    // Ayarlar paneli (≡ çekmecesinden açılır): ana ses, kart boyutu, görev çubuğundaki hız
+    // göstergesinin görünümü, kart her zaman üstte, açılışta görev çubuğu şeridi modu, kapatınca
+    // tepside kalma, Windows ile başlama, tekne/uçakta kendi göstergesi. Hepsi cihaza özel —
     // yerel PlayerPrefs (Windows ile başlama ise doğrudan kayıt defteri), cloud'a gitmez.
     public class SettingsController : MonoBehaviour
     {
@@ -19,6 +20,8 @@ namespace ScrollRoad
         [SerializeField] Toggle startInCompanionToggle;
         [SerializeField] Toggle closeToTrayToggle;
         [SerializeField] Toggle runAtStartupToggle;
+        [SerializeField] Button[] stripGaugeButtons; // GaugeSkins.StripStyle sırasıyla
+        [SerializeField] Toggle vehicleGaugeToggle;
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
 
@@ -42,6 +45,16 @@ namespace ScrollRoad
             startInCompanionToggle.onValueChanged.AddListener(SaveService.SaveStartInCompanion);
             closeToTrayToggle.onValueChanged.AddListener(SaveService.SaveCloseToTray);
             runAtStartupToggle.onValueChanged.AddListener(OnRunAtStartupChanged);
+            for (int i = 0; i < stripGaugeButtons.Length; i++)
+            {
+                var style = (GaugeSkins.StripStyle)i;
+                stripGaugeButtons[i].onClick.AddListener(() =>
+                {
+                    GaugeSkins.Strip = style;
+                    HighlightStripGauge();
+                });
+            }
+            vehicleGaugeToggle.onValueChanged.AddListener(on => GaugeSkins.VehicleGauges = on);
             runAtStartupToggle.interactable = WindowsStartup.IsSupported; // Editor'de kayıt defterine yazılmaz
             settingsPanel.SetActive(false);
         }
@@ -56,6 +69,8 @@ namespace ScrollRoad
             startInCompanionToggle.SetIsOnWithoutNotify(SaveService.LoadStartInCompanion());
             closeToTrayToggle.SetIsOnWithoutNotify(SaveService.LoadCloseToTray());
             runAtStartupToggle.SetIsOnWithoutNotify(WindowsStartup.IsEnabled());
+            HighlightStripGauge();
+            vehicleGaugeToggle.SetIsOnWithoutNotify(GaugeSkins.VehicleGauges);
             settingsPanel.SetActive(true);
         }
 
@@ -65,6 +80,15 @@ namespace ScrollRoad
             for (int i = 0; i < cardSizeButtons.Length; i++)
             {
                 cardSizeButtons[i].GetComponent<Image>().color = i == selected ? SelectedColor : IdleColor;
+            }
+        }
+
+        void HighlightStripGauge()
+        {
+            int selected = (int)GaugeSkins.Strip;
+            for (int i = 0; i < stripGaugeButtons.Length; i++)
+            {
+                stripGaugeButtons[i].GetComponent<Image>().color = i == selected ? SelectedColor : IdleColor;
             }
         }
 
