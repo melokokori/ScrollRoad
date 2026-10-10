@@ -10,6 +10,7 @@ namespace ScrollRoad
     {
         [SerializeField] RoadDrive drive;
         [SerializeField] SecretZoneView secretZone;
+        [SerializeField] NoticeController notice;
         [SerializeField] CompanionWindowController companionWindow;
         [SerializeField] GameObject root;
         [SerializeField] CanvasScaler scaler;
@@ -48,7 +49,7 @@ namespace ScrollRoad
             scaler.scaleFactor = companionWindow.StripScale;
             kmText.text = Fmt.Km(drive.CurrentDistanceKmPrecise);
 
-            // Alt satır: gizli bölge fısıltısı görünürken o, değilse hız.
+            // Alt satır: gizli bölge fısıltısı görünürken o, sonra damga/hedef duyurusu, değilse hız.
             if (secretZone != null && secretZone.CurrentAlpha > 0.05f && !string.IsNullOrEmpty(secretZone.CurrentText))
             {
                 subText.text = secretZone.CurrentText;
@@ -56,10 +57,16 @@ namespace ScrollRoad
                 subText.color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);
                 subText.fontStyle = FontStyle.Italic;
             }
+            else if (notice != null && notice.CompanionAlpha > 0.05f && !string.IsNullOrEmpty(notice.CompanionText))
+            {
+                subText.text = notice.CompanionText;
+                subText.color = new Color(1f, 0.86f, 0.45f, notice.CompanionAlpha);
+                subText.fontStyle = FontStyle.Bold;
+            }
             else
             {
                 int speed = Mathf.RoundToInt(drive.CurrentSpeedKmh);
-                subText.text = drive.IsUserActive ? $"{speed} km/sa" : $"rölanti · {speed} km/sa";
+                subText.text = drive.IsUserActive ? $"{speed} km/h" : $"idle · {speed} km/h";
                 subText.color = SubTextColor;
                 subText.fontStyle = FontStyle.Normal;
             }

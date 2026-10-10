@@ -4,7 +4,8 @@ using UnityEngine.UI;
 namespace ScrollRoad
 {
     // Ekran üstü bilgi katmanı (normal pencere modu): hız, mesafe, ay rekoru; altta şehre ilerleme
-    // çizgisi (dolgu = anlık konum, işaret = bu ayki en uzak nokta / skor); gizli bölge fısıltısı.
+    // çizgisi (dolgu = anlık konum, işaret = bu ayki en uzak nokta / skor), bölge + sonraki durak;
+    // sağ üstte günlük/haftalık hedefler ve seri; gizli bölge fısıltısı.
     // Masaüstü arkadaşı modunda tamamen gizlenir.
     // Yazı rengi gökyüzünün parlaklığına göre koyu/açık seçilir (gizli bölgede gökyüzü kararıyor).
     public class HudController : MonoBehaviour
@@ -18,6 +19,9 @@ namespace ScrollRoad
         [SerializeField] Text distanceText;
         [SerializeField] Text recordText;
         [SerializeField] Text cityText;
+        [SerializeField] Text nextStopText;
+        [SerializeField] GoalTracker goals;
+        [SerializeField] Text goalsText;
         [SerializeField] Text whisperText;
         [SerializeField] Image progressTrack;
         [SerializeField] RectTransform progressFill;
@@ -37,15 +41,19 @@ namespace ScrollRoad
             float lum = sky.r * 0.3f + sky.g * 0.59f + sky.b * 0.11f;
             var ink = lum > 0.5f ? DarkInk : LightInk;
 
-            speedText.text = $"{drive.CurrentSpeedKmh:0} km/sa";
+            speedText.text = $"{drive.CurrentSpeedKmh:0} km/h";
             distanceText.text = Fmt.Km(drive.CurrentDistanceKmPrecise);
-            recordText.text = "Ay rekoru: " + Fmt.Km(drive.MaxDistanceKmPrecise);
+            recordText.text = "Month best: " + Fmt.Km(drive.MaxDistanceKmPrecise);
 
             // Şehrin ötesi UI'da asla anılmaz: ulaşıldıktan sonra yalnız "ulaşıldı" yazar.
             double remaining = drive.CityDistanceKm - drive.CurrentDistanceKmPrecise;
-            cityText.text = drive.ReachedCity ? "Şehre ulaşıldı" : "Şehre " + Fmt.Km(System.Math.Max(0, remaining), 0);
+            cityText.text = drive.ReachedCity ? "City reached" : Fmt.Km(System.Math.Max(0, remaining), 0) + " to the city";
+
+            nextStopText.text = NextStopLine();
+            goalsText.text = GoalsLines();
 
             speedText.color = distanceText.color = recordText.color = cityText.color = ink;
+            nextStopText.color = goalsText.color = ink;
             if (inkGraphics != null)
             {
                 foreach (var g in inkGraphics) if (g != null) g.color = new Color(ink.r, ink.g, ink.b, g.color.a);
@@ -64,6 +72,35 @@ namespace ScrollRoad
                 var w = SecretZoneView.WhisperColor;
                 whisperText.color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);
             }
+        }
+
+        // "Pine Forest  ·  next: Pinecrest 12.4 km". Şehrin ötesi asla anılmaz (satır boş kalır).
+        string NextStopLine()
+        {
+            double d = drive.CurrentDistanceKmPrecise;
+            if (drive.InSecretZone) return "";
+            string region = RouteMap.Regions[RouteMap.RegionIndexAt(d)].Name;
+            int next = RouteMap.NextIndexAfter(d);
+            if (next < 0 || RouteMap.Stops[next].Kind == RouteMap.StopKind.City) return region;
+            var stop = RouteMap.Stops[next];
+            return $"{region}  ·  next: {stop.Name} {Fmt.Km(stop.Km - d)}";
+        }
+
+        string GoalsLines()
+        {
+            if (goals == null) return "";
+            string dayKm = goals.IsDone(GoalTracker.Goal.DailyDistance)
+                ? $"<b>{goals.DailyKmGoal:0} km done</b>" : $"{Fmt.Int((long)goals.DayKm)} / {goals.DailyKmGoal:0} km";
+            string dayTime = goals.IsDone(GoalTracker.Goal.DailyTime)
+                ? $"<b>{goals.DailyMinutesGoal:0} min done</b>" : $"{goals.DayMinutes:0} / {goals.DailyMinutesGoal:0} min";
+            string weekKm = goals.IsDone(GoalTracker.Goal.WeeklyDistance)
+                ? $"<b>{goals.WeeklyKmGoal:0} km done</b>" : $"{Fmt.Int((long)goals.WeekKm)} / {goals.WeeklyKmGoal:0} km";
+            string weekTime = goals.IsDone(GoalTracker.Goal.WeeklyTime)
+                ? $"<b>{goals.WeeklyHoursGoal:0} h done</b>" : $"{goals.WeekHours:0.0} / {goals.WeeklyHoursGoal:0} h";
+
+            return $"Today   {dayKm}  ·  {dayTime}\n" +
+                   $"This week   {weekKm}  ·  {weekTime}\n" +
+                   $"Streak: {Fmt.Count(goals.DayStreak, "day")}  ·  {Fmt.Count(goals.WeekStreak, "week")}";
         }
     }
 }

@@ -121,7 +121,7 @@ namespace ScrollRoad
         {
             if (drive == null) drive = FindAnyObjectByType<RoadDrive>();
             if (drive == null) return "ScrollRoad";
-            return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + (drive.IsUserActive ? "" : " (rölanti)");
+            return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + (drive.IsUserActive ? "" : " (idle)");
         }
 
         // userClosed=false: açılışta (-autostart) — Game'e geçişi MainMenuController zaten yapıyor.
@@ -151,7 +151,7 @@ namespace ScrollRoad
             if (userClosed && !SaveService.LoadTrayHintShown())
             {
                 SaveService.MarkTrayHintShown();
-                TrayIcon.ShowBalloon("ScrollRoad arka planda", "Scroll'ların sayılmaya devam ediyor. Simgeye tıklayınca geri açılır, sağ tık > Çıkış ile kapanır.");
+                TrayIcon.ShowBalloon("ScrollRoad is running in the background", "Your scrolls keep counting. Click the icon to reopen it, or right-click > Quit to close it.");
             }
         }
 

@@ -36,7 +36,7 @@ namespace ScrollRoad
         {
             float volume = SaveService.LoadMasterVolume();
             volumeSlider.SetValueWithoutNotify(volume);
-            volumeValueText.text = $"%{Mathf.RoundToInt(volume * 100)}";
+            volumeValueText.text = $"{Mathf.RoundToInt(volume * 100)}%";
             startInCompanionToggle.SetIsOnWithoutNotify(SaveService.LoadStartInCompanion());
             closeToTrayToggle.SetIsOnWithoutNotify(SaveService.LoadCloseToTray());
             runAtStartupToggle.SetIsOnWithoutNotify(WindowsStartup.IsEnabled());
@@ -52,7 +52,7 @@ namespace ScrollRoad
         void OnVolumeChanged(float value)
         {
             AudioListener.volume = value;
-            volumeValueText.text = $"%{Mathf.RoundToInt(value * 100)}";
+            volumeValueText.text = $"{Mathf.RoundToInt(value * 100)}%";
             SaveService.SaveMasterVolume(value);
         }
     }

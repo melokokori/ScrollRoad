@@ -20,14 +20,14 @@ namespace ScrollRoad
         // Şehrin kaç km ötesinde hangi metin (küçük harf — fısıltı estetiği).
         static readonly (float kmBeyond, string text)[] Whispers =
         {
-            (10f, "hâlâ mı gidiyorsun?"),
-            (30f, "şehir arkanda kaldı."),
-            (60f, "burası haritada yok."),
-            (120f, "kimse bu kadar uzağa gelmedi."),
-            (126f, "garajında seni bir şey bekliyor."),
-            (250f, "geri dönenler bir şey kaybetmez."),
-            (500f, "devam edenler bir şey bulur."),
-            (1000f, "yol bitmez. sen de bitme."),
+            (10f, "still going?"),
+            (30f, "the city is behind you."),
+            (60f, "this place isn't on the map."),
+            (120f, "no one has come this far."),
+            (126f, "something is waiting for you in your garage."),
+            (250f, "those who turn back lose nothing."),
+            (500f, "those who keep going find something."),
+            (1000f, "the road never ends. neither should you."),
         };
 
         readonly bool[] shown = new bool[Whispers.Length];

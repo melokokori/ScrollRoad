@@ -32,7 +32,7 @@ namespace ScrollRoad
             if (drive == null || submitting) return;
             if (!SteamManager.IsInitialized)
             {
-                LastStatus = "Steam bağlı değil";
+                LastStatus = "Steam not connected";
                 return;
             }
 
@@ -44,11 +44,11 @@ namespace ScrollRoad
             {
                 bool ok = await ScrollRoadLeaderboard.SubmitDistanceKmAsync(km);
                 if (ok) lastSubmittedKm = km;
-                LastStatus = ok ? $"Gönderildi: {km:0.00} km" : "Gönderim başarısız";
+                LastStatus = ok ? $"Submitted: {km:0.00} km" : "Submission failed";
             }
             catch (Exception e)
             {
-                LastStatus = "Gönderim başarısız";
+                LastStatus = "Submission failed";
                 Debug.LogWarning($"Leaderboard gönderimi başarısız: {e.Message}");
             }
             finally

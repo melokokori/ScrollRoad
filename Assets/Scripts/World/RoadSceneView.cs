@@ -8,6 +8,8 @@ namespace ScrollRoad
     // Parallax: yol çizgileri hızlı, yakın tepeler yavaş, uzak tepeler çok yavaş kayar; şehir ise
     // kaydırmayla değil İLERLEMEYLE büyür (yaklaştıkça). Şehrin ötesinde şehir sola akıp kaybolur.
     // Yol düz (2026-10-10, kullanıcı: kavis "hayal ettiğim gibi olmadı").
+    // Manzara RouteMap bölgelerine göre (gökyüzü, tepe rengi ve yüksekliği; sınırdan önce yumuşak
+    // geçiş); her durak yol kenarında bir tabelayla geçilir.
     // Masaüstü modunda (görev çubuğu şeridi) arka plan katmanları gizlenir, yol ince bir banda
     // iner, kamera araba + yolu şeride sığdırır (araba yüksekliğin ~%70'i) ve arka plan alfa-0
     // temizlenir (pencere saydamlığı ezilmesin).
@@ -53,26 +55,22 @@ namespace ScrollRoad
         [SerializeField] float bobStiffness = 70f;
         [SerializeField] float bobDamping = 9f;
         [SerializeField] float uTurnFlipPerSec = 4f;
-        [SerializeField] float biomeLengthKm = 1500f;
 
-        // Gökyüzü biyom renkleri: mesafeye göre döngüsel (bandın son %15'inde yumuşak geçiş).
-        static readonly Color[] BiomeColors =
-        {
-            new Color(0.84f, 0.93f, 0.95f), // açık gök mavisi
-            new Color(0.95f, 0.93f, 0.84f), // buğday
-            new Color(0.80f, 0.93f, 0.92f), // sahil turkuazı
-            new Color(0.84f, 0.92f, 0.85f), // orman yeşilimsi
-            new Color(0.89f, 0.87f, 0.95f), // alacakaranlık lila
-            new Color(0.92f, 0.95f, 0.98f), // kar beyazı
-        };
+        [Header("Tabela")]
+        [SerializeField] float signPoleHeight = 1.25f;
+        [SerializeField] float signBoardHeight = 0.5f;
 
-        static readonly Color SkyNearCityColor = new Color(0.99f, 0.86f, 0.70f);   // şehre yaklaştıkça gün batımı
         static readonly Color SecretSkyColor = new Color(0.17f, 0.11f, 0.25f);     // şehrin ötesi — belgelenmemiş
         static readonly Color CitySilhouetteColor = new Color(0.18f, 0.23f, 0.31f);
         static readonly Color RoadColor = new Color(0.22f, 0.23f, 0.27f);
         static readonly Color SecretRoadColor = new Color(0.34f, 0.26f, 0.45f); // koyu zeminde okunur kalsın
         static readonly Color DashColor = new Color(0.97f, 0.95f, 0.86f);
         static readonly Color DustColor = new Color(0.62f, 0.60f, 0.56f);
+        static readonly Color SignPoleColor = new Color(0.30f, 0.30f, 0.33f);
+        static readonly Color TownBoardColor = new Color(0.97f, 0.95f, 0.88f);
+        static readonly Color TownTextColor = new Color(0.16f, 0.19f, 0.24f);
+        static readonly Color RegionBoardColor = new Color(0.20f, 0.38f, 0.30f); // karayolu yeşili
+        static readonly Color RegionTextColor = new Color(0.97f, 0.97f, 0.94f);
 
         static readonly Color[] ConfettiColors =
         {
@@ -119,6 +117,14 @@ namespace ScrollRoad
         float bobVelocity;
         float dustTimer;
         float secretBlend;
+
+        Transform signRoot;
+        SpriteRenderer signPoleLeft;
+        SpriteRenderer signPoleRight;
+        SpriteRenderer signBoard;
+        TextMesh signText;
+        MeshRenderer signTextRenderer;
+        int signStopIndex = -1;
 
         bool IsCompanion => companionWindow != null && companionWindow.IsCompanionMode;
         float RoadH => IsCompanion ? companionRoadHeight : roadHeight;
@@ -199,6 +205,7 @@ namespace ScrollRoad
             cityRenderer = CreateRenderer("City", citySprite != null ? citySprite : whiteSprite, 2, backdropRoot);
             nearHills = CreateHillLayer("NearHills", 3);
             groundFill = CreateRenderer("Ground", whiteSprite, 4, backdropRoot);
+            BuildSign();
 
             roadRoot = new GameObject("Road").transform;
             roadRoot.SetParent(worldRoot, false);
@@ -207,6 +214,29 @@ namespace ScrollRoad
 
             dust = CreatePool("Dust", DustPoolSize, circleSprite, 35);
             confetti = CreatePool("Confetti", ConfettiPoolSize, whiteSprite, 45);
+        }
+
+        // Tabela arka planla birlikte gizlenir (görev çubuğu şeridinde yer yok).
+        void BuildSign()
+        {
+            signRoot = new GameObject("Sign").transform;
+            signRoot.SetParent(backdropRoot, false);
+            signPoleLeft = CreateRenderer("PoleL", whiteSprite, 6, signRoot);
+            signPoleRight = CreateRenderer("PoleR", whiteSprite, 6, signRoot);
+            signBoard = CreateRenderer("Board", whiteSprite, 7, signRoot);
+
+            var textGo = new GameObject("Text");
+            textGo.transform.SetParent(signRoot, false);
+            signText = textGo.AddComponent<TextMesh>();
+            signText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            signText.fontSize = 64;
+            signText.characterSize = 0.045f;
+            signText.anchor = TextAnchor.MiddleCenter;
+            signText.alignment = TextAlignment.Center;
+            signTextRenderer = textGo.GetComponent<MeshRenderer>();
+            signTextRenderer.sharedMaterial = signText.font.material;
+            signTextRenderer.sortingOrder = 8;
+            signRoot.gameObject.SetActive(false);
         }
 
         SpriteRenderer[] CreateHillLayer(string name, int order)
@@ -324,21 +354,17 @@ namespace ScrollRoad
             UpdateParticles(confetti, Time.deltaTime, 3.5f, 0.6f, isConfetti: true);
         }
 
-        // Renk katmanları: biyom (mesafeye göre döngüsel) → şehir yaklaşımı gün batımı (progress²)
-        // → dünya teması (WorldTheme) → gizli bölge morunun yumuşak karışımı.
+        // Renk katmanları: bölge (RouteMap, sınırdan önce yumuşak geçiş) → dünya teması (WorldTheme)
+        // → gizli bölge morunun yumuşak karışımı. Son bölge "Sunset Road" şehre varışı karşılar.
         Color EvaluateSky()
         {
             double d = Math.Max(0.0, drive.CurrentDistanceKmPrecise);
-            double band = d / Math.Max(1f, biomeLengthKm);
-            int index = (int)Math.Floor(band);
-            float t = Mathf.InverseLerp(0.85f, 1f, (float)(band - index));
-            var color = Color.Lerp(BiomeColors[index % BiomeColors.Length], BiomeColors[(index + 1) % BiomeColors.Length], t);
+            RouteMap.Blend(d, out var a, out var b, out float t);
+            var color = Color.Lerp(a.Sky, b.Sky, t);
 
-            float progress = Mathf.Clamp01((float)(d / drive.CityDistanceKm));
             // Gizli bölge tonu mesafeyle gelir (şehrin 3-8 km ötesi): varış anı gün batımında kalsın.
             float beyond = (float)(d - drive.CityDistanceKm);
             secretBlend = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(3f, 8f, beyond));
-            color = Color.Lerp(color, SkyNearCityColor, progress * progress * (1f - secretBlend));
             // Tema yalnız normal dünyayı boyar; gizli bölgenin moru her temada aynı (kural dışı yer).
             return Color.Lerp(WorldTheme.Sky(color), SecretSkyColor, secretBlend);
         }
@@ -346,13 +372,17 @@ namespace ScrollRoad
         void LayoutBackdrop(Color sky, float halfW)
         {
             double d = drive.CurrentDistanceKmPrecise;
-            var farColor = Shade(sky, 0.90f);
-            var nearColor = Shade(sky, 0.78f);
+            RouteMap.Blend(Math.Max(0.0, d), out var a, out var b, out float t);
+            // Gizli bölgede tepeler gökyüzünden türetilir (eski davranış): mor dünya bütün kalsın.
+            var farColor = Color.Lerp(WorldTheme.Land(Color.Lerp(a.FarLand, b.FarLand, t)), Shade(sky, 0.90f), secretBlend);
+            var nearColor = Color.Lerp(WorldTheme.Land(Color.Lerp(a.NearLand, b.NearLand, t)), Shade(sky, 0.78f), secretBlend);
+            float farHeight = 2.5f * Mathf.Lerp(a.FarHeight, b.FarHeight, t);
+            float nearHeight = 1.35f * Mathf.Lerp(a.NearHeight, b.NearHeight, t);
 
-            // Uzak tepeler: geniş, alçak, açık ton.
-            LayoutHills(farHills, d * farHillsUnitsPerKm, halfW, bottomY: -2.45f, height: 2.5f, width: 26f, farColor, phase: 0.37f);
+            // Uzak tepeler: geniş, açık ton.
+            LayoutHills(farHills, d * farHillsUnitsPerKm, halfW, bottomY: -2.45f, height: farHeight, width: 26f, farColor, phase: 0.37f);
             // Yakın tepeler + altında aynı renkte zemin dolgusu (yol bu zeminin üstünde).
-            LayoutHills(nearHills, d * nearHillsUnitsPerKm, halfW, bottomY: -2.35f, height: 1.35f, width: 21f, nearColor, phase: 0f);
+            LayoutHills(nearHills, d * nearHillsUnitsPerKm, halfW, bottomY: -2.35f, height: nearHeight, width: 21f, nearColor, phase: 0f);
 
             groundFill.color = nearColor;
             float groundTop = -2.3f;
@@ -361,6 +391,58 @@ namespace ScrollRoad
             groundFill.transform.localScale = new Vector3(halfW * 2f + 2f, groundTop - groundBottom, 1f);
 
             LayoutCity(sky, halfW);
+            LayoutSign(halfW);
+        }
+
+        // En yakın durağın tabelası yol hızında kayar (seyirde ~10 sn görünür). Şehrin tabelası yok,
+        // şehir kendisi görünüyor.
+        void LayoutSign(float halfW)
+        {
+            double d = drive.CurrentDistanceKmPrecise;
+            int index = -1;
+            float x = 0f;
+            for (int i = 0; i < RouteMap.Stops.Count; i++)
+            {
+                var stop = RouteMap.Stops[i];
+                if (stop.Kind == RouteMap.StopKind.City || stop.Km <= 0) continue;
+                float sx = (float)((stop.Km - d) * roadUnitsPerKm);
+                if (sx > -halfW - 4f && sx < halfW + 4f) { index = i; x = sx; break; }
+            }
+
+            signRoot.gameObject.SetActive(index >= 0);
+            if (index < 0) return;
+
+            var s = RouteMap.Stops[index];
+            bool region = s.Kind == RouteMap.StopKind.Region;
+            if (index != signStopIndex)
+            {
+                signStopIndex = index;
+                signText.text = s.Name;
+                signText.fontStyle = region ? FontStyle.Bold : FontStyle.Normal;
+            }
+
+            // Metin ölçüsü her kare okunur: TextMesh ağı ilk karede henüz kurulmamış olabilir.
+            float boardW = signTextRenderer.bounds.size.x + 0.5f;
+            float baseY = -2.4f;
+            float boardY = baseY + signPoleHeight + signBoardHeight / 2f;
+            signRoot.localPosition = new Vector3(x, 0f, 0f);
+
+            var poleColor = WorldTheme.Surface(SignPoleColor);
+            LayoutPole(signPoleLeft, -boardW * 0.32f, baseY, poleColor);
+            LayoutPole(signPoleRight, boardW * 0.32f, baseY, poleColor);
+
+            signBoard.color = WorldTheme.Surface(region ? RegionBoardColor : TownBoardColor);
+            signBoard.transform.localPosition = new Vector3(0f, boardY, 0f);
+            signBoard.transform.localScale = new Vector3(boardW, signBoardHeight, 1f);
+            signText.color = WorldTheme.Surface(region ? RegionTextColor : TownTextColor);
+            signText.transform.localPosition = new Vector3(0f, boardY, -0.01f);
+        }
+
+        void LayoutPole(SpriteRenderer pole, float x, float baseY, Color color)
+        {
+            pole.color = color;
+            pole.transform.localPosition = new Vector3(x, baseY + signPoleHeight / 2f, 0f);
+            pole.transform.localScale = new Vector3(0.07f, signPoleHeight, 1f);
         }
 
         void LayoutHills(SpriteRenderer[] tiles, double scroll, float halfW, float bottomY, float height, float width, Color color, float phase)

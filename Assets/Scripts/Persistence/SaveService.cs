@@ -34,6 +34,7 @@ namespace ScrollRoad
         const string OnboardingDoneKey = "ScrollRoad_OnboardingDone";
         const string SelectedCarKey = "ScrollRoad_SelectedCar";
         const string WorldThemeKey = "ScrollRoad_WorldTheme";
+        const string GoalsKey = "ScrollRoad_Goals"; // günlük/haftalık hedefler (JSON) — şimdilik yalnız yerel
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -120,6 +121,26 @@ namespace ScrollRoad
         public static void SaveWorldTheme(int theme)
         {
             PlayerPrefs.SetInt(WorldThemeKey, theme);
+            PlayerPrefs.Save();
+        }
+
+        public static GoalProgress LoadGoals()
+        {
+            string json = PlayerPrefs.GetString(GoalsKey, "");
+            if (string.IsNullOrEmpty(json)) return new GoalProgress();
+            try
+            {
+                return JsonUtility.FromJson<GoalProgress>(json) ?? new GoalProgress();
+            }
+            catch (Exception)
+            {
+                return new GoalProgress();
+            }
+        }
+
+        public static void SaveGoals(GoalProgress goals)
+        {
+            PlayerPrefs.SetString(GoalsKey, JsonUtility.ToJson(goals));
             PlayerPrefs.Save();
         }
 

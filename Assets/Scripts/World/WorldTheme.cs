@@ -10,7 +10,7 @@ namespace ScrollRoad
     {
         public enum Kind { Classic = 0, Night = 1, Sepia = 2 }
 
-        public static readonly string[] DisplayNames = { "Klasik", "Gece", "Sepya" };
+        public static readonly string[] DisplayNames = { "Classic", "Night", "Sepia" };
 
         static readonly Color NightSky = new Color(0.07f, 0.09f, 0.18f);
         static readonly Color NightCity = new Color(0.36f, 0.34f, 0.48f); // koyu gökte siluet okunur kalsın (ışıklı şehir)
@@ -50,6 +50,22 @@ namespace ScrollRoad
                 case Kind.Night:
                     // Biyom tonu hafifçe sızsın: geceler de birbirinden ayırt edilsin.
                     return Color.Lerp(NightSky, c * 0.35f, 0.3f);
+                case Kind.Sepia:
+                    return ToSepia(c);
+                default:
+                    return c;
+            }
+        }
+
+        // Bölgenin tepe/zemin rengi. Gecede gökyüzünden biraz koyu, bölge tonu sızarak.
+        public static Color Land(Color c)
+        {
+            switch (Current)
+            {
+                case Kind.Night:
+                    var night = Color.Lerp(NightSky, c * 0.35f, 0.35f) * 0.8f;
+                    night.a = 1f;
+                    return night;
                 case Kind.Sepia:
                     return ToSepia(c);
                 default:

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace ScrollRoad
 {
     // İlk açılış rehberi: Game sahnesine ilk girişte oyunu DURDURMADAN ekranda küçük bir kart,
-    // 4 adım. "Scroll = gaz" adımı oyuncu gerçekten yukarı scroll yapınca kendiliğinden ilerler
+    // 4 adım. "Scroll = gas" adımı oyuncu gerçekten yukarı scroll yapınca kendiliğinden ilerler
     // (araba tepki verirken görsün diye arka plan karartılmaz). Bitince ya da "Atla" ile bir daha
     // gösterilmez (cihaza özel, yerel). Masaüstü modunda, tepsideyken ve duraklatmada bekler.
     public class OnboardingController : MonoBehaviour
@@ -33,25 +33,25 @@ namespace ScrollRoad
         {
             new Step
             {
-                Title = "Hedef: şehir",
-                Body = "Uzaktaki şehre giden tek bir yol var. Her ay yeni bir yarış başlar; ay sonunda en uzağa giden kazanır.",
+                Title = "Goal: the city",
+                Body = "A single road leads to a distant city. A new race starts every month, and whoever gets furthest by the end of the month wins.",
             },
             new Step
             {
-                Title = "Scroll = gaz",
-                Body = "Fare tekerleğini yukarı çevir, araba hızlansın. Aşağı çevirirsen yavaşlar, fazlası geri vites.",
-                Hint = "Dene: biraz yukarı scroll yap.",
+                Title = "Scroll = gas",
+                Body = "Scroll the mouse wheel up and the car speeds up. Scroll down to slow down; keep going and you'll reverse.",
+                Hint = "Try it: scroll up a little.",
                 WaitsForScroll = true,
             },
             new Step
             {
-                Title = "Her yerde sayılır",
-                Body = "Tarayıcıda, Word'de, nerede scroll yaparsan araba ilerler; oyun arka planda olsa bile. Makrolar ve otomatik scroll sayılmaz.",
+                Title = "It counts everywhere",
+                Body = "In your browser, in Word, wherever you scroll, the car moves, even while the game is in the background. Macros and auto-scroll don't count.",
             },
             new Step
             {
-                Title = "Durursan rölanti",
-                Body = "3 dakika scroll gelmezse araba rölantiye düşer. Pencereyi kapatınca saatin yanındaki simgede çalışmaya devam eder; F9 ile görev çubuğuna küçülür.",
+                Title = "Stop and it idles",
+                Body = "After 3 minutes without a scroll, the car drops to idle. Closing the window keeps the game running in the tray next to the clock; press F9 to shrink it into the taskbar.",
             },
         };
 
@@ -92,7 +92,7 @@ namespace ScrollRoad
             if (source != null && source.FrameNotchesSigned > 0f) scrolledUp += source.FrameNotchesSigned;
             if (scrolledUp >= scrollNotchesToAdvance)
             {
-                hintText.text = "İşte bu!";
+                hintText.text = "That's it!";
                 autoAdvanceTimer = autoAdvanceDelay;
             }
         }
@@ -109,7 +109,7 @@ namespace ScrollRoad
             titleText.text = step.Title;
             bodyText.text = step.Body;
             hintText.text = step.Hint ?? "";
-            nextLabel.text = last ? "Başla" : "İleri";
+            nextLabel.text = last ? "Start" : "Next";
             skipButton.gameObject.SetActive(!last);
         }
 

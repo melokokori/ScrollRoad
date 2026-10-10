@@ -40,15 +40,15 @@ namespace ScrollRoad
             if (monthMax >= bestKm && monthMax > 0) bestMonth = month;
 
             statsText.text =
-                "BU AY\n" +
-                $"   En uzak nokta:  {Fmt.Km(monthMax)}\n" +
-                (reached ? "   Şehre ulaşıldı.\n" : "") +
-                "\nTÜM ZAMANLAR\n" +
-                $"   Toplam yol:  {Fmt.Km(lifetimeKm)}\n" +
-                $"   Scroll hamlesi:  {Fmt.Int(steps)}\n" +
-                $"   U-dönüşü:  {Fmt.Int(turns)}\n" +
-                $"   Şehre ulaşma:  {Fmt.Int(cities)}\n" +
-                $"   En iyi ay:  {(bestKm > 0 ? $"{Fmt.Km(bestKm)}  ({bestMonth})" : "—")}";
+                "THIS MONTH\n" +
+                $"   Furthest point:  {Fmt.Km(monthMax)}\n" +
+                (reached ? "   City reached.\n" : "") +
+                "\nALL TIME\n" +
+                $"   Total distance:  {Fmt.Km(lifetimeKm)}\n" +
+                $"   Scrolls:  {Fmt.Int(steps)}\n" +
+                $"   U-turns:  {Fmt.Int(turns)}\n" +
+                $"   Cities reached:  {Fmt.Int(cities)}\n" +
+                $"   Best month:  {(bestKm > 0 ? $"{Fmt.Km(bestKm)}  ({bestMonth})" : "—")}";
 
             statsPanel.SetActive(true);
         }

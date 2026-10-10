@@ -94,13 +94,13 @@ namespace ScrollRoad
         {
             foreach (var panel in subPanels) if (panel != null) panel.SetActive(false);
             leaderboardPanel.SetActive(true);
-            leaderboardTitle.text = previousMonth ? "Geçen ayın sonuçları" : "Bu ayın sıralaması";
+            leaderboardTitle.text = previousMonth ? "Last month's results" : "This month's leaderboard";
             if (!SteamManager.IsInitialized)
             {
-                leaderboardText.text = "Steam bağlı değil.\nSıralama için Steam açık ve giriş yapılmış olmalı.";
+                leaderboardText.text = "Steam is not connected.\nOpen Steam and sign in to see the leaderboard.";
                 return;
             }
-            leaderboardText.text = "Yükleniyor...";
+            leaderboardText.text = "Loading...";
             _ = FetchAndDisplay(previousMonth, ++fetchVersion);
         }
 
@@ -122,7 +122,7 @@ namespace ScrollRoad
 
             if (entries == null || entries.Length == 0)
             {
-                leaderboardText.text = "Henüz skor yok.";
+                leaderboardText.text = "No scores yet.";
                 return;
             }
 

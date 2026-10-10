@@ -23,16 +23,16 @@ namespace ScrollRoad.EditorTools
         // Garaj sırası (ilk kayıt varsayılan). Görseller Tools/make_car_variants.py ile car_coral'dan üretilir.
         static readonly (string id, string name, bool secret)[] Cars =
         {
-            ("car_coral", "Mercan", false),
-            ("car_cherry", "Kiraz", false),
-            ("car_mustard", "Hardal", false),
-            ("car_mint", "Nane", false),
-            ("car_forest", "Orman", false),
-            ("car_teal", "Turkuaz", false),
-            ("car_navy", "Gece Mavisi", false),
-            ("car_lavender", "Lavanta", false),
-            ("car_graphite", "Grafit", false),
-            ("car_whisper", "Fısıltı", true), // gizli bölge ödülü
+            ("car_coral", "Coral", false),
+            ("car_cherry", "Cherry", false),
+            ("car_mustard", "Mustard", false),
+            ("car_mint", "Mint", false),
+            ("car_forest", "Forest", false),
+            ("car_teal", "Teal", false),
+            ("car_navy", "Navy", false),
+            ("car_lavender", "Lavender", false),
+            ("car_graphite", "Graphite", false),
+            ("car_whisper", "Whisper", true), // gizli bölge ödülü
         };
 
         const string SpriteUnlitMaterialPath = "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat";
@@ -141,7 +141,7 @@ namespace ScrollRoad.EditorTools
 
             var title = CreateText(canvas.transform, "Title", "ScrollRoad", 96, new Vector2(0, 250), new Vector2(1000, 140), Ink);
             title.fontStyle = FontStyle.Bold;
-            CreateText(canvas.transform, "Tagline", "kaydır, yol al.", 32, new Vector2(0, 170), new Vector2(800, 50), new Color(Ink.r, Ink.g, Ink.b, 0.7f));
+            CreateText(canvas.transform, "Tagline", "scroll to drive.", 32, new Vector2(0, 170), new Vector2(800, 50), new Color(Ink.r, Ink.g, Ink.b, 0.7f));
 
             var carPreview = new GameObject("CarPreview", typeof(RectTransform), typeof(Image));
             carPreview.transform.SetParent(canvas.transform, false);
@@ -150,11 +150,11 @@ namespace ScrollRoad.EditorTools
             carImage.preserveAspect = true;
             SetRect(carPreview.GetComponent<RectTransform>(), new Vector2(0, 50), new Vector2(300, 140));
 
-            var playButton = CreateButton(canvas.transform, "PlayButton", "Oyna", new Vector2(0, -90), new Vector2(320, 72), Accent);
-            var garageButton = CreateButton(canvas.transform, "GarageButton", "Garaj", new Vector2(0, -175), new Vector2(320, 64));
-            var statsButton = CreateButton(canvas.transform, "StatsButton", "İstatistikler", new Vector2(0, -250), new Vector2(320, 64));
-            var settingsButton = CreateButton(canvas.transform, "SettingsButton", "Ayarlar", new Vector2(0, -325), new Vector2(320, 64));
-            var quitButton = CreateButton(canvas.transform, "QuitButton", "Çıkış", new Vector2(0, -400), new Vector2(320, 64));
+            var playButton = CreateButton(canvas.transform, "PlayButton", "Play", new Vector2(0, -90), new Vector2(320, 72), Accent);
+            var garageButton = CreateButton(canvas.transform, "GarageButton", "Garage", new Vector2(0, -175), new Vector2(320, 64));
+            var statsButton = CreateButton(canvas.transform, "StatsButton", "Stats", new Vector2(0, -250), new Vector2(320, 64));
+            var settingsButton = CreateButton(canvas.transform, "SettingsButton", "Settings", new Vector2(0, -325), new Vector2(320, 64));
+            var quitButton = CreateButton(canvas.transform, "QuitButton", "Quit", new Vector2(0, -400), new Vector2(320, 64));
 
             var steamText = CreateText(canvas.transform, "SteamStatus", "", 22, Vector2.zero, new Vector2(600, 40), new Color(Ink.r, Ink.g, Ink.b, 0.6f));
             steamText.alignment = TextAnchor.LowerLeft;
@@ -213,6 +213,10 @@ namespace ScrollRoad.EditorTools
             Bind(stats, "drive", drive);
             var sync = roadGo.AddComponent<LeaderboardSync>();
             Bind(sync, "drive", drive);
+            var route = roadGo.AddComponent<RouteProgress>();
+            Bind(route, "drive", drive);
+            var goals = roadGo.AddComponent<GoalTracker>();
+            Bind(goals, "drive", drive);
 
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
@@ -221,17 +225,18 @@ namespace ScrollRoad.EditorTools
             Bind(sound, "cityReachedClip", LoadClip("city_reached"));
             Bind(sound, "uiClickClip", LoadClip("click_001"));
 
-            var hud = CreateHud(drive, view, secret, companion, out var hudMenuButton, out var hudCompanionButton);
+            var hud = CreateHud(drive, view, secret, companion, route, goals, out var notice, out var hudMenuButton, out var hudCompanionButton);
             CreatePauseUi(drive, stats, companion, hudMenuButton, hudCompanionButton);
             CreateOnboarding(companion, Object.FindAnyObjectByType<PauseController>());
-            CreateCompanionHud(drive, secret, companion);
+            CreateCompanionHud(drive, secret, companion, notice);
 
             CreateEventSystem();
             EditorSceneManager.SaveScene(scene, GameScenePath);
         }
 
         static HudController CreateHud(RoadDrive drive, RoadSceneView view, SecretZoneView secret,
-            CompanionWindowController companion, out Button menuButton, out Button companionButton)
+            CompanionWindowController companion, RouteProgress route, GoalTracker goals,
+            out NoticeController notice, out Button menuButton, out Button companionButton)
         {
             var canvas = CreateCanvas("HudCanvas", 0);
             var root = new GameObject("HudRoot", typeof(RectTransform));
@@ -251,9 +256,9 @@ namespace ScrollRoad.EditorTools
             record.alignment = TextAnchor.UpperLeft;
             Anchor(record.rectTransform, new Vector2(0, 1), new Vector2(46, -152), new Vector2(0, 1));
 
-            menuButton = CreateButton(root.transform, "MenuButton", "Menü  (Esc)", Vector2.zero, new Vector2(210, 52), fontSize: 22);
+            menuButton = CreateButton(root.transform, "MenuButton", "Menu  (Esc)", Vector2.zero, new Vector2(210, 52), fontSize: 22);
             Anchor((RectTransform)menuButton.transform, new Vector2(1, 1), new Vector2(-40, -36), new Vector2(1, 1));
-            companionButton = CreateButton(root.transform, "CompanionButton", "Masaüstü  (F9)", Vector2.zero, new Vector2(230, 52), fontSize: 22);
+            companionButton = CreateButton(root.transform, "CompanionButton", "Desktop  (F9)", Vector2.zero, new Vector2(230, 52), fontSize: 22);
             Anchor((RectTransform)companionButton.transform, new Vector2(1, 1), new Vector2(-266, -36), new Vector2(1, 1));
 
             // Şehre ilerleme çizgisi: sol üst bilgi bloğunun altında (yol kenarlarda ekranın altına kıvrıldığı
@@ -284,6 +289,16 @@ namespace ScrollRoad.EditorTools
             city.alignment = TextAnchor.UpperLeft;
             Anchor(city.rectTransform, new Vector2(0, 1), new Vector2(46, -214), new Vector2(0, 1));
 
+            var nextStop = CreateText(root.transform, "NextStop", "", 22, Vector2.zero, new Vector2(700, 30), Ink);
+            nextStop.alignment = TextAnchor.UpperLeft;
+            Anchor(nextStop.rectTransform, new Vector2(0, 1), new Vector2(46, -244), new Vector2(0, 1));
+
+            // Hedefler sağ üstte, butonların altında (zengin metin: tamamlananlar kalın).
+            var goalsText = CreateText(root.transform, "Goals", "", 22, Vector2.zero, new Vector2(680, 100), Ink);
+            goalsText.alignment = TextAnchor.UpperRight;
+            goalsText.lineSpacing = 1.15f;
+            Anchor(goalsText.rectTransform, new Vector2(1, 1), new Vector2(-42, -106), new Vector2(1, 1));
+
             var whisper = CreateText(root.transform, "Whisper", "", 38, new Vector2(0, 190), new Vector2(1200, 60), SecretZoneView.WhisperColor);
             whisper.fontStyle = FontStyle.Italic;
 
@@ -297,14 +312,48 @@ namespace ScrollRoad.EditorTools
             Bind(hud, "distanceText", distance);
             Bind(hud, "recordText", record);
             Bind(hud, "cityText", city);
+            Bind(hud, "nextStopText", nextStop);
+            Bind(hud, "goals", goals);
+            Bind(hud, "goalsText", goalsText);
             Bind(hud, "whisperText", whisper);
             Bind(hud, "progressTrack", track.GetComponent<Image>());
             Bind(hud, "progressFill", fillRect);
             Bind(hud, "maxMarker", markerRect);
             BindArray(hud, "inkGraphics", new Object[] { marker.GetComponent<Image>() });
 
-            CreateCelebrationBanner(canvas.transform, drive, companion);
+            var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
+            notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
             return hud;
+        }
+
+        // Durak/hedef duyurusu: üst ortada küçük kart (şehir bandından sade).
+        static NoticeController CreateNotice(Transform canvas, RouteProgress route, GoalTracker goals,
+            CompanionWindowController companion, CelebrationController celebration)
+        {
+            var card = new GameObject("NoticeCard", typeof(RectTransform), typeof(Image), typeof(CanvasGroup));
+            card.transform.SetParent(canvas, false);
+            card.GetComponent<Image>().color = new Color(CardColor.r, CardColor.g, CardColor.b, 0.92f);
+            card.GetComponent<Image>().raycastTarget = false;
+            var rect = card.GetComponent<RectTransform>();
+            rect.sizeDelta = new Vector2(620, 104);
+            Anchor(rect, new Vector2(0.5f, 1), new Vector2(0, -36), new Vector2(0.5f, 1));
+            card.GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+            var title = CreateText(card.transform, "Title", "", 34, new Vector2(0, 18), new Vector2(600, 48), TextLight);
+            title.fontStyle = FontStyle.Bold;
+            var subtitle = CreateText(card.transform, "Subtitle", "", 22, new Vector2(0, -26), new Vector2(600, 32),
+                new Color(TextLight.r, TextLight.g, TextLight.b, 0.72f));
+
+            card.SetActive(false);
+            var controller = new GameObject("NoticeController").AddComponent<NoticeController>();
+            Bind(controller, "route", route);
+            Bind(controller, "goals", goals);
+            Bind(controller, "companionWindow", companion);
+            Bind(controller, "celebration", celebration);
+            Bind(controller, "cardGroup", card.GetComponent<CanvasGroup>());
+            Bind(controller, "titleText", title);
+            Bind(controller, "subtitleText", subtitle);
+            return controller;
         }
 
         // İlk açılış rehberi: oyunu durdurmayan, arabanın üstünde duran kart (karartma yok —
@@ -324,8 +373,8 @@ namespace ScrollRoad.EditorTools
             var hint = CreateText(card.transform, "Hint", "", 24, new Vector2(0, -58), new Vector2(780, 36), Accent);
             hint.fontStyle = FontStyle.Italic;
 
-            var next = CreateButton(card.transform, "NextButton", "İleri", new Vector2(300, -112), new Vector2(200, 54), Accent, fontSize: 26);
-            var skip = CreateButton(card.transform, "SkipButton", "Atla", new Vector2(-330, -112), new Vector2(140, 44), new Color(1f, 1f, 1f, 0.08f), fontSize: 22);
+            var next = CreateButton(card.transform, "NextButton", "Next", new Vector2(300, -112), new Vector2(200, 54), Accent, fontSize: 26);
+            var skip = CreateButton(card.transform, "SkipButton", "Skip", new Vector2(-330, -112), new Vector2(140, 44), new Color(1f, 1f, 1f, 0.08f), fontSize: 22);
 
             var controller = new GameObject("OnboardingController").AddComponent<OnboardingController>();
             Bind(controller, "companionWindow", companion);
@@ -340,23 +389,24 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "skipButton", skip);
         }
 
-        static void CreateCelebrationBanner(Transform canvas, RoadDrive drive, CompanionWindowController companion)
+        static CelebrationController CreateCelebrationBanner(Transform canvas, RoadDrive drive, CompanionWindowController companion)
         {
             var banner = new GameObject("CityBanner", typeof(RectTransform), typeof(Image), typeof(CanvasGroup));
             banner.transform.SetParent(canvas, false);
             banner.GetComponent<Image>().color = CardColor;
             SetRect(banner.GetComponent<RectTransform>(), new Vector2(0, 170), new Vector2(940, 190));
 
-            var title = CreateText(banner.transform, "Title", "ŞEHRE ULAŞTIN!", 58, new Vector2(0, 30), new Vector2(900, 80), new Color(0.98f, 0.80f, 0.28f));
+            var title = CreateText(banner.transform, "Title", "YOU REACHED THE CITY!", 58, new Vector2(0, 30), new Vector2(900, 80), new Color(0.98f, 0.80f, 0.28f));
             title.fontStyle = FontStyle.Bold;
             // Gizli reveal kancası: kim şehre ulaştı, ay sonuna kadar rakiplerden gizli.
-            CreateText(banner.transform, "Subtitle", "Rakiplerin bunu görmüyor — ay sonunu bekle.", 26, new Vector2(0, -45), new Vector2(900, 40), TextLight);
+            CreateText(banner.transform, "Subtitle", "Your rivals can't see this. Wait for the end of the month.", 26, new Vector2(0, -45), new Vector2(900, 40), TextLight);
 
             banner.SetActive(false);
             var controller = new GameObject("CelebrationController").AddComponent<CelebrationController>();
             Bind(controller, "drive", drive);
             Bind(controller, "companionWindow", companion);
             Bind(controller, "bannerGroup", banner.GetComponent<CanvasGroup>());
+            return controller;
         }
 
         static void CreatePauseUi(RoadDrive drive, StatsTracker stats, CompanionWindowController companion, Button hudMenuButton, Button hudCompanionButton)
@@ -364,20 +414,21 @@ namespace ScrollRoad.EditorTools
             var canvas = CreateCanvas("PauseCanvas", 10);
 
             var pausePanel = CreateDim(canvas.transform, "PausePanel");
-            var card = CreateCard(pausePanel.transform, "Card", new Vector2(480, 840));
-            CreateText(card.transform, "Title", "Duraklatıldı", 44, new Vector2(0, 360), new Vector2(440, 70), TextLight).fontStyle = FontStyle.Bold;
+            var card = CreateCard(pausePanel.transform, "Card", new Vector2(480, 860));
+            CreateText(card.transform, "Title", "Paused", 44, new Vector2(0, 365), new Vector2(440, 70), TextLight).fontStyle = FontStyle.Bold;
 
-            string[] labels = { "Devam Et", "Bu Ayın Sıralaması", "Geçen Ayın Sonuçları", "Garaj", "İstatistikler", "Ayarlar", "Masaüstü Modu", "Ana Menü", "Çıkış" };
+            string[] labels = { "Resume", "Passport", "This Month's Leaderboard", "Last Month's Results", "Garage", "Stats", "Settings", "Desktop Mode", "Main Menu", "Quit" };
             var buttons = new Button[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
                 var color = i == 0 ? Accent : new Color(0.24f, 0.27f, 0.33f);
-                buttons[i] = CreateButton(card.transform, labels[i].Replace(" ", "") + "Button", labels[i], new Vector2(0, 265 - i * 70), new Vector2(380, 60), color);
+                buttons[i] = CreateButton(card.transform, labels[i].Replace(" ", "") + "Button", labels[i], new Vector2(0, 270 - i * 70), new Vector2(380, 60), color);
             }
 
-            var garage = CreateGaragePanel(pausePanel.transform, buttons[3]);
-            var statsCtrl = CreateStatsPanel(pausePanel.transform, buttons[4], drive, stats);
-            var settings = CreateSettingsPanel(pausePanel.transform, buttons[5]);
+            var passport = CreatePassportPanel(pausePanel.transform, buttons[1], drive);
+            var garage = CreateGaragePanel(pausePanel.transform, buttons[4]);
+            var statsCtrl = CreateStatsPanel(pausePanel.transform, buttons[5], drive, stats);
+            var settings = CreateSettingsPanel(pausePanel.transform, buttons[6]);
 
             var lbPanel = CreateDim(canvas.transform, "LeaderboardPanel");
             var lbCard = CreateCard(lbPanel.transform, "Card", new Vector2(820, 640));
@@ -385,7 +436,7 @@ namespace ScrollRoad.EditorTools
             lbTitle.fontStyle = FontStyle.Bold;
             var lbText = CreateText(lbCard.transform, "Entries", "", 26, new Vector2(0, 10), new Vector2(720, 400), TextLight);
             lbText.alignment = TextAnchor.UpperLeft;
-            var lbClose = CreateButton(lbCard.transform, "CloseButton", "Kapat", new Vector2(0, -250), new Vector2(240, 60));
+            var lbClose = CreateButton(lbCard.transform, "CloseButton", "Close", new Vector2(0, -250), new Vector2(240, 60));
 
             pausePanel.SetActive(false);
             lbPanel.SetActive(false);
@@ -399,13 +450,68 @@ namespace ScrollRoad.EditorTools
             Bind(pause, "hudMenuButton", hudMenuButton);
             Bind(pause, "hudCompanionButton", hudCompanionButton);
             Bind(pause, "resumeButton", buttons[0]);
-            Bind(pause, "leaderboardButton", buttons[1]);
-            Bind(pause, "revealButton", buttons[2]);
-            Bind(pause, "companionButton", buttons[6]);
-            Bind(pause, "mainMenuButton", buttons[7]);
-            Bind(pause, "quitButton", buttons[8]);
+            Bind(pause, "leaderboardButton", buttons[2]);
+            Bind(pause, "revealButton", buttons[3]);
+            Bind(pause, "companionButton", buttons[7]);
+            Bind(pause, "mainMenuButton", buttons[8]);
+            Bind(pause, "quitButton", buttons[9]);
             Bind(pause, "leaderboardCloseButton", lbClose);
-            BindArray(pause, "subPanels", new Object[] { garage.Panel, settings.Panel, statsCtrl.Panel });
+            BindArray(pause, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel });
+        }
+
+        // Pasaport: her satır bir bölge (bölge damgası + kasabaları), son satır şehir.
+        // Damgalar RouteMap.Stops sırasıyla oluşturulur (PassportController bu sıraya güvenir).
+        static PassportController CreatePassportPanel(Transform parent, Button openButton, RoadDrive drive)
+        {
+            var panel = CreateDim(parent, "PassportPanel");
+            var card = CreateCard(panel.transform, "Card", new Vector2(1000, 930)); // duraklatma kartını (860) tam örtsün
+            var title = CreateText(card.transform, "Title", "Passport", 42, new Vector2(0, 405), new Vector2(900, 60), TextLight);
+            title.fontStyle = FontStyle.Bold;
+            var count = CreateText(card.transform, "Count", "", 22, new Vector2(0, 360), new Vector2(900, 32), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
+
+            const float rowStep = 64f, regionWidth = 230f, townWidth = 190f, gap = 14f;
+            var frames = new Object[RouteMap.Stops.Count];
+            var texts = new Object[RouteMap.Stops.Count];
+            int row = -1;
+            float x = 0f;
+            for (int i = 0; i < RouteMap.Stops.Count; i++)
+            {
+                var stop = RouteMap.Stops[i];
+                bool big = stop.Kind != RouteMap.StopKind.Town;
+                if (big)
+                {
+                    row++;
+                    x = -(regionWidth + 3 * (townWidth + gap)) / 2f; // en uzun satır (bölge + 3 kasaba) ortalansın
+                }
+                float w = big ? regionWidth : townWidth;
+
+                var stamp = new GameObject($"Stamp_{i}", typeof(RectTransform), typeof(Image));
+                stamp.transform.SetParent(card.transform, false);
+                var frame = stamp.GetComponent<Image>();
+                frame.raycastTarget = false;
+                SetRect(stamp.GetComponent<RectTransform>(), new Vector2(x + w / 2f, 300 - row * rowStep), new Vector2(w, 50));
+                x += w + gap;
+
+                var label = CreateText(stamp.transform, "Name", stop.Name, big ? 24 : 21, Vector2.zero, new Vector2(w - 10, 50), TextLight);
+                if (big) label.fontStyle = FontStyle.Bold;
+
+                frames[i] = frame;
+                texts[i] = label;
+            }
+
+            var close = CreateButton(card.transform, "CloseButton", "Close", new Vector2(0, -400), new Vector2(240, 60));
+
+            panel.SetActive(false);
+            var controller = new GameObject("PassportController").AddComponent<PassportController>();
+            Bind(controller, "drive", drive);
+            Bind(controller, "passportPanel", panel);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "stampFrames", frames);
+            BindArray(controller, "stampTexts", texts);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            return controller;
         }
 
         // Garaj: üstte seçili aracın önizlemesi + adı, altta 5 sütunlu araç ızgarası. Gizli yuva
@@ -414,8 +520,8 @@ namespace ScrollRoad.EditorTools
         {
             var catalog = LoadCarCatalog();
             var panel = CreateDim(parent, "GaragePanel");
-            var card = CreateCard(panel.transform, "Card", new Vector2(960, 860)); // duraklatma kartını (840) tam örtsün
-            CreateText(card.transform, "Title", "Garaj", 44, new Vector2(0, 360), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
+            var card = CreateCard(panel.transform, "Card", new Vector2(960, 930)); // duraklatma kartını (860) tam örtsün
+            CreateText(card.transform, "Title", "Garage", 44, new Vector2(0, 360), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
 
             var preview = new GameObject("Preview", typeof(RectTransform), typeof(Image));
             preview.transform.SetParent(card.transform, false);
@@ -473,7 +579,7 @@ namespace ScrollRoad.EditorTools
                 frames[i] = frame;
             }
 
-            var themeLabel = CreateText(card.transform, "ThemeLabel", "Dünya", 24, new Vector2(0, -215), new Vector2(400, 34), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
+            var themeLabel = CreateText(card.transform, "ThemeLabel", "World", 24, new Vector2(0, -215), new Vector2(400, 34), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
             themeLabel.raycastTarget = false;
             var themes = new Object[WorldTheme.DisplayNames.Length];
             for (int i = 0; i < themes.Length; i++)
@@ -482,7 +588,7 @@ namespace ScrollRoad.EditorTools
                 themes[i] = CreateButton(card.transform, $"Theme{i}Button", WorldTheme.DisplayNames[i], new Vector2(x, -265), new Vector2(200, 52), fontSize: 24);
             }
 
-            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -360), new Vector2(240, 60));
+            var close = CreateButton(card.transform, "CloseButton", "Close", new Vector2(0, -360), new Vector2(240, 60));
 
             panel.SetActive(false);
             var controller = new GameObject("GarageController").AddComponent<GarageController>();
@@ -502,22 +608,22 @@ namespace ScrollRoad.EditorTools
         {
             var panel = CreateDim(parent, "SettingsPanel");
             var card = CreateCard(panel.transform, "Card", new Vector2(760, 660));
-            CreateText(card.transform, "Title", "Ayarlar", 44, new Vector2(0, 270), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
+            CreateText(card.transform, "Title", "Settings", 44, new Vector2(0, 270), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
 
-            var volumeLabel = CreateText(card.transform, "VolumeLabel", "Ses", 30, new Vector2(-260, 165), new Vector2(160, 50), TextLight);
+            var volumeLabel = CreateText(card.transform, "VolumeLabel", "Volume", 30, new Vector2(-260, 165), new Vector2(160, 50), TextLight);
             volumeLabel.alignment = TextAnchor.MiddleLeft;
             var slider = CreateSlider(card.transform, "VolumeSlider", new Vector2(40, 165), new Vector2(400, 40));
             var volumeValue = CreateText(card.transform, "VolumeValue", "", 26, new Vector2(300, 165), new Vector2(110, 50), TextLight);
 
-            var toggle = CreateToggle(card.transform, "StartInCompanionToggle", "Oyun masaüstü modunda başlasın", new Vector2(-30, 85), new Vector2(600, 50));
-            var trayToggle = CreateToggle(card.transform, "CloseToTrayToggle", "Kapatınca arka planda (tepside) çalışsın", new Vector2(-30, 25), new Vector2(600, 50));
-            var startupToggle = CreateToggle(card.transform, "RunAtStartupToggle", "Windows açılınca başlasın", new Vector2(-30, -35), new Vector2(600, 50));
+            var toggle = CreateToggle(card.transform, "StartInCompanionToggle", "Start in desktop mode", new Vector2(-30, 85), new Vector2(600, 50));
+            var trayToggle = CreateToggle(card.transform, "CloseToTrayToggle", "Keep running in the tray when closed", new Vector2(-30, 25), new Vector2(600, 50));
+            var startupToggle = CreateToggle(card.transform, "RunAtStartupToggle", "Start with Windows", new Vector2(-30, -35), new Vector2(600, 50));
             var note = CreateText(card.transform, "Note",
-                "Masaüstü modu: küçük, saydam, hep üstte pencere (F9). Arka planda: pencere gizlenir, scroll sayılmaya devam eder; saat yanındaki simgeden geri açılır.", 22,
+                "Desktop mode: a small transparent strip on your taskbar (F9). In the tray: the window hides but your scrolls keep counting; reopen it from the icon next to the clock.", 22,
                 new Vector2(0, -130), new Vector2(680, 90), new Color(TextLight.r, TextLight.g, TextLight.b, 0.6f));
             note.horizontalOverflow = HorizontalWrapMode.Wrap;
 
-            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -250), new Vector2(240, 60));
+            var close = CreateButton(card.transform, "CloseButton", "Close", new Vector2(0, -250), new Vector2(240, 60));
 
             panel.SetActive(false); // Editor'de sahne temiz görünsün (runtime'da da kapalı başlar)
             var controller = new GameObject("SettingsController").AddComponent<SettingsController>();
@@ -536,10 +642,10 @@ namespace ScrollRoad.EditorTools
         {
             var panel = CreateDim(parent, "StatsPanel");
             var card = CreateCard(panel.transform, "Card", new Vector2(760, 640));
-            CreateText(card.transform, "Title", "İstatistikler", 44, new Vector2(0, 260), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
+            CreateText(card.transform, "Title", "Stats", 44, new Vector2(0, 260), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
             var text = CreateText(card.transform, "StatsText", "", 28, new Vector2(0, 0), new Vector2(640, 420), TextLight);
             text.alignment = TextAnchor.UpperLeft;
-            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -250), new Vector2(240, 60));
+            var close = CreateButton(card.transform, "CloseButton", "Close", new Vector2(0, -250), new Vector2(240, 60));
 
             panel.SetActive(false);
             var controller = new GameObject("StatsController").AddComponent<StatsController>();
@@ -553,7 +659,7 @@ namespace ScrollRoad.EditorTools
         }
 
         // Masaüstü arkadaşı arayüzü: sabit piksel ölçekli (küçük pencerede okunur kalsın diye).
-        static void CreateCompanionHud(RoadDrive drive, SecretZoneView secret, CompanionWindowController companion)
+        static void CreateCompanionHud(RoadDrive drive, SecretZoneView secret, CompanionWindowController companion, NoticeController notice)
         {
             var canvasGo = new GameObject("CompanionCanvas", typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             var canvas = canvasGo.GetComponent<Canvas>();
@@ -590,12 +696,13 @@ namespace ScrollRoad.EditorTools
             var panelRect = panel.GetComponent<RectTransform>();
             panelRect.sizeDelta = new Vector2(196, 34);
             Anchor(panelRect, new Vector2(1, 0.5f), new Vector2(-36, 0), new Vector2(1, 0.5f));
-            var exitButton = CreateButton(panel.transform, "ExitCompanionButton", "Tam pencere", new Vector2(-40, 0), new Vector2(108, 26), fontSize: 13);
-            var quitButton = CreateButton(panel.transform, "QuitButton", "Çıkış", new Vector2(57, 0), new Vector2(74, 26), fontSize: 13);
+            var exitButton = CreateButton(panel.transform, "ExitCompanionButton", "Full window", new Vector2(-40, 0), new Vector2(108, 26), fontSize: 13);
+            var quitButton = CreateButton(panel.transform, "QuitButton", "Quit", new Vector2(57, 0), new Vector2(74, 26), fontSize: 13);
 
             var controller = new GameObject("CompanionHudController").AddComponent<CompanionHudController>();
             Bind(controller, "drive", drive);
             Bind(controller, "secretZone", secret);
+            Bind(controller, "notice", notice);
             Bind(controller, "companionWindow", companion);
             Bind(controller, "root", root);
             Bind(controller, "scaler", canvasGo.GetComponent<CanvasScaler>());
