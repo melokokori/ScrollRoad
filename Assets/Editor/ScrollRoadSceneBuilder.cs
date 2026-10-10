@@ -167,6 +167,7 @@ namespace ScrollRoad.EditorTools
 
             var hud = CreateHud(drive, view, secret, companion, out var hudMenuButton, out var hudCompanionButton);
             CreatePauseUi(drive, stats, companion, hudMenuButton, hudCompanionButton);
+            CreateOnboarding(companion, Object.FindAnyObjectByType<PauseController>());
             CreateCompanionHud(drive, secret, companion);
 
             CreateEventSystem();
@@ -248,6 +249,39 @@ namespace ScrollRoad.EditorTools
 
             CreateCelebrationBanner(canvas.transform, drive, companion);
             return hud;
+        }
+
+        // İlk açılış rehberi: oyunu durdurmayan, arabanın üstünde duran kart (karartma yok —
+        // "scroll = gaz" adımında oyuncu arabanın tepkisini görmeli).
+        static void CreateOnboarding(CompanionWindowController companion, PauseController pause)
+        {
+            var canvas = CreateCanvas("OnboardingCanvas", 5);
+            var card = CreateCard(canvas.transform, "OnboardingCard", new Vector2(860, 300));
+            ((RectTransform)card.transform).anchoredPosition = new Vector2(0, 40);
+
+            var step = CreateText(card.transform, "Step", "", 20, new Vector2(-330, 122), new Vector2(160, 30), new Color(TextLight.r, TextLight.g, TextLight.b, 0.55f));
+            step.alignment = TextAnchor.MiddleLeft;
+            var title = CreateText(card.transform, "Title", "", 40, new Vector2(0, 92), new Vector2(780, 56), TextLight);
+            title.fontStyle = FontStyle.Bold;
+            var body = CreateText(card.transform, "Body", "", 26, new Vector2(0, 14), new Vector2(780, 96), TextLight);
+            body.horizontalOverflow = HorizontalWrapMode.Wrap;
+            var hint = CreateText(card.transform, "Hint", "", 24, new Vector2(0, -58), new Vector2(780, 36), Accent);
+            hint.fontStyle = FontStyle.Italic;
+
+            var next = CreateButton(card.transform, "NextButton", "İleri", new Vector2(300, -112), new Vector2(200, 54), Accent, fontSize: 26);
+            var skip = CreateButton(card.transform, "SkipButton", "Atla", new Vector2(-330, -112), new Vector2(140, 44), new Color(1f, 1f, 1f, 0.08f), fontSize: 22);
+
+            var controller = new GameObject("OnboardingController").AddComponent<OnboardingController>();
+            Bind(controller, "companionWindow", companion);
+            Bind(controller, "pause", pause);
+            Bind(controller, "card", card);
+            Bind(controller, "stepText", step);
+            Bind(controller, "titleText", title);
+            Bind(controller, "bodyText", body);
+            Bind(controller, "hintText", hint);
+            Bind(controller, "nextButton", next);
+            Bind(controller, "nextLabel", next.GetComponentInChildren<Text>());
+            Bind(controller, "skipButton", skip);
         }
 
         static void CreateCelebrationBanner(Transform canvas, RoadDrive drive, CompanionWindowController companion)

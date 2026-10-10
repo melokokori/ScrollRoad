@@ -30,6 +30,7 @@ namespace ScrollRoad
         const string StartInCompanionKey = "ScrollRoad_StartInCompanion";
         const string CloseToTrayKey = "ScrollRoad_CloseToTray";
         const string TrayHintShownKey = "ScrollRoad_TrayHintShown";
+        const string OnboardingDoneKey = "ScrollRoad_OnboardingDone";
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -122,6 +123,15 @@ namespace ScrollRoad
         public static void MarkTrayHintShown()
         {
             PlayerPrefs.SetInt(TrayHintShownKey, 1);
+            PlayerPrefs.Save();
+        }
+
+        // İlk açılış rehberi bitti/atlandı.
+        public static bool LoadOnboardingDone() => PlayerPrefs.GetInt(OnboardingDoneKey, 0) == 1;
+
+        public static void MarkOnboardingDone()
+        {
+            PlayerPrefs.SetInt(OnboardingDoneKey, 1);
             PlayerPrefs.Save();
         }
 

@@ -59,7 +59,7 @@ namespace ScrollRoad
             else
             {
                 int speed = Mathf.RoundToInt(drive.CurrentSpeedKmh);
-                subText.text = drive.IsUserActive ? $"{speed} km/s" : $"rölanti · {speed} km/s";
+                subText.text = drive.IsUserActive ? $"{speed} km/sa" : $"rölanti · {speed} km/sa";
                 subText.color = SubTextColor;
                 subText.fontStyle = FontStyle.Normal;
             }
