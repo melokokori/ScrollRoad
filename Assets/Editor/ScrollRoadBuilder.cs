@@ -18,7 +18,7 @@ namespace ScrollRoad.EditorTools
 
             var options = new BuildPlayerOptions
             {
-                scenes = new[] { ScrollRoadSceneBuilder.MainMenuScenePath, ScrollRoadSceneBuilder.GameScenePath },
+                scenes = new[] { ScrollRoadSceneBuilder.GameScenePath },
                 locationPathName = OutputPath,
                 target = BuildTarget.StandaloneWindows64,
                 options = BuildOptions.None,

@@ -1,4 +1,5 @@
 using ScrollRoad.InputCapture;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,18 +8,18 @@ namespace ScrollRoad
     // İlk açılış rehberi: Game sahnesine ilk girişte oyunu DURDURMADAN ekranda küçük bir kart,
     // 4 adım. "Scroll = gas" adımı oyuncu gerçekten yukarı scroll yapınca kendiliğinden ilerler
     // (araba tepki verirken görsün diye arka plan karartılmaz). Bitince ya da "Atla" ile bir daha
-    // gösterilmez (cihaza özel, yerel). Masaüstü modunda, tepsideyken ve duraklatmada bekler.
+    // gösterilmez (cihaza özel, yerel). Şerit modunda, tepsideyken ve menü açıkken bekler.
     public class OnboardingController : MonoBehaviour
     {
         [SerializeField] CompanionWindowController companionWindow;
-        [SerializeField] PauseController pause;
+        [SerializeField] CardMenuController menu;
         [SerializeField] GameObject card;
-        [SerializeField] Text stepText;
-        [SerializeField] Text titleText;
-        [SerializeField] Text bodyText;
-        [SerializeField] Text hintText;
+        [SerializeField] TMP_Text stepText;
+        [SerializeField] TMP_Text titleText;
+        [SerializeField] TMP_Text bodyText;
+        [SerializeField] TMP_Text hintText;
         [SerializeField] Button nextButton;
-        [SerializeField] Text nextLabel;
+        [SerializeField] TMP_Text nextLabel;
         [SerializeField] Button skipButton;
         [SerializeField] float scrollNotchesToAdvance = 4f;
         [SerializeField] float autoAdvanceDelay = 1.2f;
@@ -51,7 +52,7 @@ namespace ScrollRoad
             new Step
             {
                 Title = "Stop and it idles",
-                Body = "After 3 minutes without a scroll, the car drops to idle. Closing the window keeps the game running in the tray next to the clock; press F9 to shrink it into the taskbar.",
+                Body = "After 3 minutes without a scroll, the car drops to idle. Closing the card keeps the game running in the tray next to the clock. Press F9 to shrink it into the taskbar.",
             },
         };
 
@@ -75,7 +76,7 @@ namespace ScrollRoad
 
             bool blocked = (companionWindow != null && companionWindow.IsCompanionMode)
                            || BackgroundLifecycle.IsHiddenToTray
-                           || (pause != null && pause.IsPaused);
+                           || (menu != null && menu.IsOpen);
             if (card.activeSelf == blocked) card.SetActive(!blocked);
             if (blocked) return;
 

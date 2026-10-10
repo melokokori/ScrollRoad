@@ -179,7 +179,7 @@ namespace ScrollRoad.Platform
         {
             IntPtr menu = CreatePopupMenu();
             AppendMenu(menu, MF_STRING, (UIntPtr)IdShow, "Show ScrollRoad");
-            AppendMenu(menu, MF_STRING | (_companionChecked ? MF_CHECKED : 0), (UIntPtr)IdCompanion, "Desktop mode");
+            AppendMenu(menu, MF_STRING | (_companionChecked ? MF_CHECKED : 0), (UIntPtr)IdCompanion, "Taskbar mode");
             AppendMenu(menu, MF_SEPARATOR, UIntPtr.Zero, null);
             AppendMenu(menu, MF_STRING, (UIntPtr)IdQuit, "Quit");
             SetMenuDefaultItem(menu, IdShow, 0);

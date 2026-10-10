@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,10 +13,10 @@ namespace ScrollRoad
     {
         [SerializeField] RoadDrive drive;
         [SerializeField] GameObject passportPanel;
-        [SerializeField] Text titleText;
-        [SerializeField] Text countText;
+        [SerializeField] TMP_Text titleText;
+        [SerializeField] TMP_Text countText;
         [SerializeField] Image[] stampFrames;
-        [SerializeField] Text[] stampTexts;
+        [SerializeField] TMP_Text[] stampTexts;
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
 

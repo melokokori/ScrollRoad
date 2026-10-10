@@ -1,17 +1,21 @@
 using ScrollRoad.Platform;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Ayarlar paneli (ana menü ve duraklatma menüsünden açılır): ana ses, açılışta masaüstü
-    // arkadaşı modu, kapatınca tepside kalma, Windows ile başlama. Hepsi cihaza özel — yerel
-    // PlayerPrefs (Windows ile başlama ise doğrudan kayıt defteri), cloud'a gitmez.
+    // Ayarlar paneli (≡ çekmecesinden açılır): ana ses, kart boyutu, kart her zaman üstte, açılışta
+    // görev çubuğu şeridi modu, kapatınca tepside kalma, Windows ile başlama. Hepsi cihaza özel —
+    // yerel PlayerPrefs (Windows ile başlama ise doğrudan kayıt defteri), cloud'a gitmez.
     public class SettingsController : MonoBehaviour
     {
         [SerializeField] GameObject settingsPanel;
         [SerializeField] Slider volumeSlider;
-        [SerializeField] Text volumeValueText;
+        [SerializeField] TMP_Text volumeValueText;
+        [SerializeField] CompanionWindowController companionWindow;
+        [SerializeField] Button[] cardSizeButtons; // CompanionWindowController.CardSizePresets sırasıyla
+        [SerializeField] Toggle cardOnTopToggle;
         [SerializeField] Toggle startInCompanionToggle;
         [SerializeField] Toggle closeToTrayToggle;
         [SerializeField] Toggle runAtStartupToggle;
@@ -25,6 +29,16 @@ namespace ScrollRoad
             openButton.onClick.AddListener(Open);
             closeButton.onClick.AddListener(() => settingsPanel.SetActive(false));
             volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+            for (int i = 0; i < cardSizeButtons.Length; i++)
+            {
+                int preset = i;
+                cardSizeButtons[i].onClick.AddListener(() =>
+                {
+                    companionWindow.SetCardSize(preset);
+                    HighlightCardSize();
+                });
+            }
+            cardOnTopToggle.onValueChanged.AddListener(on => companionWindow.SetCardOnTop(on));
             startInCompanionToggle.onValueChanged.AddListener(SaveService.SaveStartInCompanion);
             closeToTrayToggle.onValueChanged.AddListener(SaveService.SaveCloseToTray);
             runAtStartupToggle.onValueChanged.AddListener(OnRunAtStartupChanged);
@@ -37,11 +51,25 @@ namespace ScrollRoad
             float volume = SaveService.LoadMasterVolume();
             volumeSlider.SetValueWithoutNotify(volume);
             volumeValueText.text = $"{Mathf.RoundToInt(volume * 100)}%";
+            HighlightCardSize();
+            cardOnTopToggle.SetIsOnWithoutNotify(SaveService.LoadCardOnTop());
             startInCompanionToggle.SetIsOnWithoutNotify(SaveService.LoadStartInCompanion());
             closeToTrayToggle.SetIsOnWithoutNotify(SaveService.LoadCloseToTray());
             runAtStartupToggle.SetIsOnWithoutNotify(WindowsStartup.IsEnabled());
             settingsPanel.SetActive(true);
         }
+
+        void HighlightCardSize()
+        {
+            int selected = SaveService.LoadCardSize();
+            for (int i = 0; i < cardSizeButtons.Length; i++)
+            {
+                cardSizeButtons[i].GetComponent<Image>().color = i == selected ? SelectedColor : IdleColor;
+            }
+        }
+
+        static readonly Color SelectedColor = new Color(0.055f, 0.42f, 0.243f); // tabela yeşili
+        static readonly Color IdleColor = new Color(0.165f, 0.18f, 0.215f);
 
         void OnRunAtStartupChanged(bool enabled)
         {

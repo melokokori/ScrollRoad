@@ -1,0 +1,8 @@
+Tools\art_source\batch1\vesper_coral.png (512, 503)
+Tools\art_source\batch1\rowboat.png (512, 220)
+Tools\art_source\batch1\atmaca_coral.png (512, 179)
+Tools\art_source\batch1\coralsedan_coral.png (512, 205)
+Tools\art_source\batch1\pickup_coral.png (512, 228)
+Tools\art_source\batch1\camper_coral.png (512, 279)
+Tools\art_source\batch1\jinny_coral.png (512, 287)
+Tools\art_source\batch1\duner_coral.png (512, 228)

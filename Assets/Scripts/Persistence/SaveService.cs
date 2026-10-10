@@ -34,6 +34,10 @@ namespace ScrollRoad
         const string OnboardingDoneKey = "ScrollRoad_OnboardingDone";
         const string SelectedCarKey = "ScrollRoad_SelectedCar";
         const string WorldThemeKey = "ScrollRoad_WorldTheme";
+        const string CardSizeKey = "ScrollRoad_CardSize";
+        const string CardOnTopKey = "ScrollRoad_CardOnTop";
+        const string CardLeftKey = "ScrollRoad_CardLeft";
+        const string CardTopKey = "ScrollRoad_CardTop";
         const string GoalsKey = "ScrollRoad_Goals"; // günlük/haftalık hedefler (JSON) — şimdilik yalnız yerel
 
         const string CloudFileName = "scrollroad_save.json";
@@ -97,6 +101,10 @@ namespace ScrollRoad
         }
 
         // Gizli bölge ödülü — kalıcı, cihazlar arası taşınır (cloud birleştirmede OR).
+        // Yalnız yerel değer (cloud birleştirmesi tetiklenmez): garaj kilitleri için ucuz okuma.
+        public static double LoadLifetimeKm() => GetDouble(LifetimeKmKey);
+        public static double LoadBestMonthKm() => GetDouble(BestMonthKmKey);
+
         public static bool LoadSecretCarUnlocked() => PlayerPrefs.GetInt(SecretCarUnlockedKey, 0) == 1;
 
         public static void UnlockSecretCar()
@@ -175,6 +183,38 @@ namespace ScrollRoad
         public static void MarkTrayHintShown()
         {
             PlayerPrefs.SetInt(TrayHintShownKey, 1);
+            PlayerPrefs.Save();
+        }
+
+        // Kart penceresi (cihaza özel): boyut ön ayarı (0 küçük, 1 orta, 2 büyük), her zaman üstte,
+        // son konum (fiziksel piksel, sol-üst köşe).
+        public static int LoadCardSize() => Mathf.Clamp(PlayerPrefs.GetInt(CardSizeKey, 1), 0, 2);
+
+        public static void SaveCardSize(int preset)
+        {
+            PlayerPrefs.SetInt(CardSizeKey, preset);
+            PlayerPrefs.Save();
+        }
+
+        public static bool LoadCardOnTop() => PlayerPrefs.GetInt(CardOnTopKey, 0) == 1;
+
+        public static void SaveCardOnTop(bool value)
+        {
+            PlayerPrefs.SetInt(CardOnTopKey, value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+
+        public static bool TryLoadCardPosition(out int left, out int top)
+        {
+            left = PlayerPrefs.GetInt(CardLeftKey, 0);
+            top = PlayerPrefs.GetInt(CardTopKey, 0);
+            return PlayerPrefs.HasKey(CardLeftKey) && PlayerPrefs.HasKey(CardTopKey);
+        }
+
+        public static void SaveCardPosition(int left, int top)
+        {
+            PlayerPrefs.SetInt(CardLeftKey, left);
+            PlayerPrefs.SetInt(CardTopKey, top);
             PlayerPrefs.Save();
         }
 

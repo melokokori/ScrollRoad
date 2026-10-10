@@ -12,44 +12,671 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d26468eb25302f478e3d3726590cf5d, type: 3}
   m_Name: CarCatalog
   m_EditorClassIdentifier: Assembly-CSharp::ScrollRoad.CarCatalog
-  entries:
-  - id: car_coral
+  paints:
+  - id: coral
     displayName: Coral
-    sprite: {fileID: 21300000, guid: 67438a40fb2775748a0024510ec2d63c, type: 3}
+    swatch: {r: 0.9098039, g: 0.39215687, b: 0.2901961, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_cherry
+  - id: cherry
     displayName: Cherry
-    sprite: {fileID: 21300000, guid: 26b43fe656cc1c24d8164ba4fb6de684, type: 3}
+    swatch: {r: 0.78431374, g: 0.19607843, b: 0.23529412, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_mustard
+  - id: mustard
     displayName: Mustard
-    sprite: {fileID: 21300000, guid: fa439010e0e0f7b4787ad2cf873937c1, type: 3}
+    swatch: {r: 0.9098039, g: 0.69803923, b: 0.22745098, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_mint
+  - id: mint
     displayName: Mint
-    sprite: {fileID: 21300000, guid: ae53b2ae9f4c26a4f85d79b00fbb24e7, type: 3}
+    swatch: {r: 0.42352942, g: 0.7882353, b: 0.6313726, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_forest
+  - id: forest
     displayName: Forest
-    sprite: {fileID: 21300000, guid: dd021901291e60743931bf76c8e20b88, type: 3}
+    swatch: {r: 0.18431373, g: 0.49019608, b: 0.35686275, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_teal
+  - id: teal
     displayName: Teal
-    sprite: {fileID: 21300000, guid: 4d309b42ebf409a45bf8d1925ee7f083, type: 3}
+    swatch: {r: 0.16862746, g: 0.7019608, b: 0.7529412, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_navy
+  - id: navy
     displayName: Navy
-    sprite: {fileID: 21300000, guid: d3d4d2e9180d83a47853ce3835407a8d, type: 3}
+    swatch: {r: 0.18039216, g: 0.2901961, b: 0.54901963, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_lavender
+  - id: lavender
     displayName: Lavender
-    sprite: {fileID: 21300000, guid: edaa88f20e2a4e44c9fd5084ef11f707, type: 3}
+    swatch: {r: 0.60784316, g: 0.5254902, b: 0.8392157, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_graphite
+  - id: graphite
     displayName: Graphite
-    sprite: {fileID: 21300000, guid: 538a6d7508f286e48901b06467f4af8e, type: 3}
+    swatch: {r: 0.2901961, g: 0.30980393, b: 0.3529412, a: 1}
+    tintGlass: 0
+    glass: {r: 0, g: 0, b: 0, a: 0}
     secret: 0
-  - id: car_whisper
+  - id: whisper
     displayName: Whisper
-    sprite: {fileID: 21300000, guid: 8227df489e4d77a46a60896107f47ed1, type: 3}
+    swatch: {r: 0.22745098, g: 0.14509805, b: 0.32156864, a: 1}
+    tintGlass: 1
+    glass: {r: 0.7882353, g: 0.7058824, b: 0.9411765, a: 1}
     secret: 1
+  models:
+  - id: car
+    displayName: Hatchback
+    kind: 0
+    paintable: 1
+    unlock: 0
+    unlockValue: 0
+    unlockLabel: 
+    widthScale: 1
+    bodyMinSat: 0.3
+  - id: atmaca
+    displayName: Tufan Atmaca
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 200
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: zefir
+    displayName: Anatol Zefir
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 400
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: coralsedan
+    displayName: Toyama Coral
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 500
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: t10s
+    displayName: "TU\u011E T10S"
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 1200
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: dreier
+    displayName: Bavaro Dreier
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 1750
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: van
+    displayName: Camper
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 2500
+    unlockLabel: 
+    widthScale: 1.12
+    bodyMinSat: 0.3
+  - id: impulso
+    displayName: Sorabu Impulso
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 3500
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: type3
+    displayName: Teslo Type 3
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 4500
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: chaser
+    displayName: Dodger Chaser
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 7000
+    unlockLabel: 
+    widthScale: 1.15
+    bodyMinSat: 0.3
+  - id: towne
+    displayName: Linden Towne
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 8000
+    unlockLabel: 
+    widthScale: 1.2
+    bodyMinSat: 0.3
+  - id: panorama
+    displayName: Pfalz Panorama
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 16000
+    unlockLabel: 
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: apparition
+    displayName: Rollo Apparition
+    kind: 0
+    paintable: 1
+    unlock: 1
+    unlockValue: 40000
+    unlockLabel: 
+    widthScale: 1.2
+    bodyMinSat: 0.3
+  - id: duner
+    displayName: Dacio Duner
+    kind: 2
+    paintable: 1
+    unlock: 1
+    unlockValue: 350
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: taiga
+    displayName: Ladoga Taiga
+    kind: 1
+    paintable: 1
+    unlock: 2
+    unlockValue: 500
+    unlockLabel: reach Pine Forest in one month
+    widthScale: 0.95
+    bodyMinSat: 0.3
+  - id: jinny
+    displayName: Suzaku Jinny
+    kind: 1
+    paintable: 1
+    unlock: 1
+    unlockValue: 1000
+    unlockLabel: 
+    widthScale: 0.9
+    bodyMinSat: 0.3
+  - id: pickup
+    displayName: Toyama Highlux
+    kind: 3
+    paintable: 1
+    unlock: 1
+    unlockValue: 1500
+    unlockLabel: 
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: atv
+    displayName: Trail ATV
+    kind: 1
+    paintable: 1
+    unlock: 1
+    unlockValue: 2000
+    unlockLabel: 
+    widthScale: 0.7
+    bodyMinSat: 0.45
+  - id: t10x
+    displayName: "TU\u011E T10X"
+    kind: 2
+    paintable: 1
+    unlock: 1
+    unlockValue: 2250
+    unlockLabel: 
+    widthScale: 1.05
+    bodyMinSat: 0.3
+  - id: landcrawler
+    displayName: Toyama Land Crawler
+    kind: 1
+    paintable: 1
+    unlock: 2
+    unlockValue: 4500
+    unlockLabel: reach the Desert in one month
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: guardian
+    displayName: Land Roamer Guardian
+    kind: 1
+    paintable: 1
+    unlock: 1
+    unlockValue: 6500
+    unlockLabel: 
+    widthScale: 1
+    bodyMinSat: 0.3
+  - id: wrangel
+    displayName: Jiip Wrangel
+    kind: 1
+    paintable: 1
+    unlock: 2
+    unlockValue: 7500
+    unlockLabel: reach the Canyon in one month
+    widthScale: 0.95
+    bodyMinSat: 0.3
+  - id: mercatorg
+    displayName: Mercator G
+    kind: 1
+    paintable: 1
+    unlock: 1
+    unlockValue: 12000
+    unlockLabel: 
+    widthScale: 1
+    bodyMinSat: 0.3
+  - id: ibex
+    displayName: Dodger Ibex
+    kind: 3
+    paintable: 1
+    unlock: 1
+    unlockValue: 15000
+    unlockLabel: 
+    widthScale: 1.25
+    bodyMinSat: 0.3
+  - id: escapade
+    displayName: Cadillon Escapade
+    kind: 2
+    paintable: 1
+    unlock: 1
+    unlockValue: 21000
+    unlockLabel: 
+    widthScale: 1.2
+    bodyMinSat: 0.3
+  - id: hammerhx
+    displayName: Hammer HX
+    kind: 1
+    paintable: 1
+    unlock: 1
+    unlockValue: 29000
+    unlockLabel: 
+    widthScale: 1.15
+    bodyMinSat: 0.3
+  - id: toro
+    displayName: Lamberti Toro
+    kind: 2
+    paintable: 1
+    unlock: 1
+    unlockValue: 35000
+    unlockLabel: 
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: mobilo
+    displayName: Mobilo Super
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 100
+    unlockLabel: 
+    widthScale: 0.75
+    bodyMinSat: 0.45
+  - id: pcx
+    displayName: Hondo PX
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 300
+    unlockLabel: 
+    widthScale: 0.75
+    bodyMinSat: 0.45
+  - id: vesper
+    displayName: Vesper Primo
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 750
+    unlockLabel: 
+    widthScale: 0.7
+    bodyMinSat: 0.45
+  - id: javo
+    displayName: Javo 350
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 850
+    unlockLabel: 
+    widthScale: 0.75
+    bodyMinSat: 0.45
+  - id: chimp
+    displayName: Hondo Chimp
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 1100
+    unlockLabel: 
+    widthScale: 0.6
+    bodyMinSat: 0.45
+  - id: atlasgs
+    displayName: Bavaro Atlas GS
+    kind: 4
+    paintable: 1
+    unlock: 2
+    unlockValue: 2500
+    unlockLabel: reach Mountain Pass in one month
+    widthScale: 0.8
+    bodyMinSat: 0.45
+  - id: anfield
+    displayName: Royal Anfield Classic
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 3250
+    unlockLabel: 
+    widthScale: 0.75
+    bodyMinSat: 0.45
+  - id: bonnevale
+    displayName: Tribune Bonnevale
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 6000
+    unlockLabel: 
+    widthScale: 0.75
+    bodyMinSat: 0.45
+  - id: baron
+    displayName: KTX 390 Baron
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 10000
+    unlockLabel: 
+    widthScale: 0.75
+    bodyMinSat: 0.45
+  - id: snodoo
+    displayName: Sno-Doo
+    kind: 4
+    paintable: 1
+    unlock: 2
+    unlockValue: 11000
+    unlockLabel: reach the Snowy Plateau in one month
+    widthScale: 0.8
+    bodyMinSat: 0.45
+  - id: heavyboy
+    displayName: Hartley Heavy Boy
+    kind: 4
+    paintable: 1
+    unlock: 2
+    unlockValue: 15000
+    unlockLabel: reach Sunset Road in one month
+    widthScale: 0.85
+    bodyMinSat: 0.45
+  - id: tarantula
+    displayName: Kanam Tarantula
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 17000
+    unlockLabel: 
+    widthScale: 0.8
+    bodyMinSat: 0.45
+  - id: hayate
+    displayName: Suzaku Hayate
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 25000
+    unlockLabel: 
+    widthScale: 0.8
+    bodyMinSat: 0.45
+  - id: monza
+    displayName: Duccio Monza
+    kind: 4
+    paintable: 1
+    unlock: 1
+    unlockValue: 33000
+    unlockLabel: 
+    widthScale: 0.8
+    bodyMinSat: 0.45
+  - id: swanboat
+    displayName: Swan Pedalo
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 600
+    unlockLabel: 
+    widthScale: 0.9
+    bodyMinSat: 0.3
+  - id: rowboat
+    displayName: Rowboat
+    kind: 5
+    paintable: 0
+    unlock: 2
+    unlockValue: 1200
+    unlockLabel: reach Lakeshore in one month
+    widthScale: 1.2
+    bodyMinSat: 0.3
+  - id: sailboat
+    displayName: Sailboat
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 3000
+    unlockLabel: 
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: ferry
+    displayName: Bosphorus Ferry
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 4000
+    unlockLabel: 
+    widthScale: 3
+    bodyMinSat: 0.3
+  - id: tugboat
+    displayName: Tugboat
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 5500
+    unlockLabel: 
+    widthScale: 1.4
+    bodyMinSat: 0.3
+  - id: watercraft
+    displayName: Water Scooter
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 7500
+    unlockLabel: 
+    widthScale: 0.8
+    bodyMinSat: 0.3
+  - id: speedboat
+    displayName: Speedboat
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 11000
+    unlockLabel: 
+    widthScale: 1.2
+    bodyMinSat: 0.3
+  - id: seiner
+    displayName: Fishing Boat
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 14000
+    unlockLabel: 
+    widthScale: 1.8
+    bodyMinSat: 0.3
+  - id: yacht
+    displayName: Yacht
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 19000
+    unlockLabel: 
+    widthScale: 2
+    bodyMinSat: 0.3
+  - id: hovercraft
+    displayName: Hovercraft
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 23000
+    unlockLabel: 
+    widthScale: 1.4
+    bodyMinSat: 0.3
+  - id: seabus
+    displayName: Sea Bus
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 27000
+    unlockLabel: 
+    widthScale: 2.2
+    bodyMinSat: 0.3
+  - id: container
+    displayName: Container Ship
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 37500
+    unlockLabel: 
+    widthScale: 3.2
+    bodyMinSat: 0.3
+  - id: icebreaker
+    displayName: Icebreaker
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 42500
+    unlockLabel: 
+    widthScale: 2.8
+    bodyMinSat: 0.3
+  - id: submarine
+    displayName: Submarine
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 47500
+    unlockLabel: 
+    widthScale: 1.8
+    bodyMinSat: 0.3
+  - id: liner
+    displayName: Ocean Liner
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 50000
+    unlockLabel: 
+    widthScale: 3.2
+    bodyMinSat: 0.3
+  - id: cruise
+    displayName: Cruise Ship
+    kind: 5
+    paintable: 0
+    unlock: 1
+    unlockValue: 52500
+    unlockLabel: 
+    widthScale: 3.2
+    bodyMinSat: 0.3
+  - id: cropduster
+    displayName: Crop Duster
+    kind: 6
+    paintable: 0
+    unlock: 2
+    unlockValue: 150
+    unlockLabel: reach Wheat Fields in one month
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: helicopter
+    displayName: Helicopter
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 5000
+    unlockLabel: 
+    widthScale: 1.1
+    bodyMinSat: 0.3
+  - id: seaplane
+    displayName: Seaplane
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 9000
+    unlockLabel: 
+    widthScale: 1.2
+    bodyMinSat: 0.3
+  - id: glider
+    displayName: Glider
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 13000
+    unlockLabel: 
+    widthScale: 1.4
+    bodyMinSat: 0.3
+  - id: balloon
+    displayName: Hot Air Balloon
+    kind: 6
+    paintable: 0
+    unlock: 2
+    unlockValue: 18000
+    unlockLabel: reach The City in one month
+    widthScale: 1
+    bodyMinSat: 0.3
+  - id: bizjet
+    displayName: Business Jet
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 31000
+    unlockLabel: 
+    widthScale: 1.5
+    bodyMinSat: 0.3
+  - id: airship
+    displayName: Airship
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 45000
+    unlockLabel: 
+    widthScale: 2.2
+    bodyMinSat: 0.3
+  - id: airliner
+    displayName: Airliner
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 55000
+    unlockLabel: 
+    widthScale: 2.2
+    bodyMinSat: 0.3
+  - id: fighter
+    displayName: Jet Fighter
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 57500
+    unlockLabel: 
+    widthScale: 1.4
+    bodyMinSat: 0.3
+  - id: shuttle
+    displayName: Space Shuttle
+    kind: 6
+    paintable: 0
+    unlock: 1
+    unlockValue: 60000
+    unlockLabel: 
+    widthScale: 1.6
+    bodyMinSat: 0.3
+  comingSoon:
+  - id: soon_sport
+    kind: 0

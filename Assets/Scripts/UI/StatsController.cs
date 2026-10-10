@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ namespace ScrollRoad
         [SerializeField] RoadDrive drive;        // ana menüde boş
         [SerializeField] StatsTracker stats;     // ana menüde boş
         [SerializeField] GameObject statsPanel;
-        [SerializeField] Text statsText;
+        [SerializeField] TMP_Text statsText;
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
 

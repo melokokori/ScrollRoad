@@ -71,24 +71,29 @@ namespace ScrollRoad.Platform
             SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
         }
 
-        // Ön planda tam ekran bir uygulama (oyun, video, sunum) var mı? Varsa görev çubuğu da gizlidir;
-        // şerit oyunun üstünde kalmasın.
-        public static bool IsFullscreenAppActive(IntPtr ownWindow)
+        // Görev çubuğu tam ekran bir pencerenin (oyun, video, sunum) altında mı kaldı? Öyleyse şerit de
+        // gizlenmeli (yoksa oyunun üstünde yüzer). Görev çubuğunun sağ kenarında (saat) en üstteki pencereye
+        // bakılır: görev çubuğunun kendisi değilse ve monitörü tamamen kaplıyorsa örtülmüştür.
+        // SHQueryUserNotificationState ve "ön plandaki pencere monitörü kaplıyor mu" kullanılmadı:
+        // büyütülmüş Chrome monitör boyutunda görünüp QUNS_BUSY döndürebiliyor, görev çubuğu ise üstte
+        // ve görünür kalıyordu — şerit sebepsiz gizleniyordu.
+        public static bool IsTaskbarCovered(IntPtr ownWindow)
         {
-            if (SHQueryUserNotificationState(out int state) == 0 &&
-                (state == QUNS_BUSY || state == QUNS_RUNNING_D3D_FULL_SCREEN || state == QUNS_PRESENTATION_MODE))
-                return true;
+            var data = new APPBARDATA { cbSize = Marshal.SizeOf<APPBARDATA>() };
+            if (SHAppBarMessage(ABM_GETTASKBARPOS, ref data) == UIntPtr.Zero) return false;
+            var bar = data.rc;
+            var probe = new POINT { X = bar.Right - 4, Y = (bar.Top + bar.Bottom) / 2 };
 
-            IntPtr fg = GetForegroundWindow();
-            if (fg == IntPtr.Zero || fg == ownWindow) return false;
+            IntPtr top = GetAncestor(WindowFromPoint(probe), GA_ROOT);
+            if (top == IntPtr.Zero || top == ownWindow) return false;
             var cls = new StringBuilder(64);
-            GetClassName(fg, cls, cls.Capacity);
-            string name = cls.ToString();
-            if (name == "Progman" || name == "WorkerW" || name == "Shell_TrayWnd") return false; // masaüstü / görev çubuğu
+            GetClassName(top, cls, cls.Capacity);
+            if (cls.ToString() == "Shell_TrayWnd") return false;
 
-            IntPtr monitor = MonitorFromWindow(fg, MONITOR_DEFAULTTONEAREST);
+            // Araç ipucu, bildirim gibi küçük pencereler saatin üstüne çıkabilir: yalnız monitörü kaplayan sayılır.
+            IntPtr monitor = MonitorFromPoint(probe, MONITOR_DEFAULTTONEAREST);
             var info = new MONITORINFO { cbSize = Marshal.SizeOf<MONITORINFO>() };
-            if (!GetMonitorInfo(monitor, ref info) || !GetWindowRect(fg, out var r)) return false;
+            if (!GetMonitorInfo(monitor, ref info) || !GetWindowRect(top, out var r)) return false;
             return r.Left <= info.rcMonitor.Left && r.Top <= info.rcMonitor.Top &&
                    r.Right >= info.rcMonitor.Right && r.Bottom >= info.rcMonitor.Bottom;
         }
@@ -99,6 +104,86 @@ namespace ScrollRoad.Platform
         }
 
         public static bool IsVisible(IntPtr hwnd) => hwnd != IntPtr.Zero && IsWindowVisible(hwnd);
+
+        // --- Kart penceresi ---
+
+        // Başlık çubuğu ve kenarlık olmadan, verilen dış dikdörtgende. WS_MINIMIZEBOX/WS_SYSMENU
+        // kalır: görev çubuğu düğmesine tıklayınca simge durumuna küçülme çalışsın. Windows 11'de
+        // köşeler DWM ile yuvarlatılır (Windows 10'da çağrı başarısız olur, köşeler düz kalır).
+        public static void ApplyBorderless(IntPtr hwnd, ScreenRect bounds)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            long style = GetWindowLongPtr(hwnd, GWL_STYLE).ToInt64();
+            style &= ~(long)(WS_CAPTION | WS_THICKFRAME | WS_MAXIMIZEBOX);
+            style |= WS_POPUP | WS_MINIMIZEBOX | WS_SYSMENU;
+            SetWindowLongPtr(hwnd, GWL_STYLE, new IntPtr(style));
+
+            int corner = DWMWCP_ROUND;
+            DwmSetWindowAttribute(hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, ref corner, sizeof(int));
+
+            SetWindowPos(hwnd, IntPtr.Zero, bounds.Left, bounds.Top, bounds.Width, bounds.Height,
+                SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+        }
+
+        public static bool TryGetBounds(IntPtr hwnd, out ScreenRect bounds)
+        {
+            bounds = default;
+            if (hwnd == IntPtr.Zero || !GetWindowRect(hwnd, out var r)) return false;
+            bounds = new ScreenRect { Left = r.Left, Top = r.Top, Width = r.Right - r.Left, Height = r.Bottom - r.Top };
+            return true;
+        }
+
+        // Stile dokunmadan boyut + konum (sol-üst orijinli fiziksel piksel).
+        public static void SetBounds(IntPtr hwnd, ScreenRect bounds)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            SetWindowPos(hwnd, IntPtr.Zero, bounds.Left, bounds.Top, bounds.Width, bounds.Height,
+                SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
+        }
+
+        public static void MoveTo(IntPtr hwnd, int left, int top)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            SetWindowPos(hwnd, IntPtr.Zero, left, top, 0, 0, SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
+        }
+
+        public static void SetTopmost(IntPtr hwnd, bool topmost)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            SetWindowPos(hwnd, topmost ? HWND_TOPMOST : HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_NOOWNERZORDER);
+        }
+
+        public static void Minimize(IntPtr hwnd)
+        {
+            if (hwnd != IntPtr.Zero) ShowWindow(hwnd, SW_MINIMIZE);
+        }
+
+        // Pencerenin bulunduğu monitörün ölçeği (%100 = 1). Pencere yoksa birincil monitör.
+        public static float DpiScale(IntPtr hwnd)
+        {
+            uint dpi = 0;
+            try { dpi = hwnd != IntPtr.Zero ? GetDpiForWindow(hwnd) : GetDpiForSystem(); }
+            catch (EntryPointNotFoundException) { } // Windows 10 1607 öncesi
+            return dpi > 0 ? dpi / 96f : 1f;
+        }
+
+        // Noktaya en yakın monitörün çalışma alanı (görev çubuğu hariç).
+        public static ScreenRect WorkAreaAt(int x, int y)
+        {
+            IntPtr monitor = MonitorFromPoint(new POINT { X = x, Y = y }, MONITOR_DEFAULTTONEAREST);
+            var info = new MONITORINFO { cbSize = Marshal.SizeOf<MONITORINFO>() };
+            if (!GetMonitorInfo(monitor, ref info)) return new ScreenRect { Width = 1920, Height = 1040 };
+            var w = info.rcWork;
+            return new ScreenRect { Left = w.Left, Top = w.Top, Width = w.Right - w.Left, Height = w.Bottom - w.Top };
+        }
+
+        public static bool TryGetCursor(out int x, out int y)
+        {
+            bool ok = GetCursorPos(out var p);
+            x = p.X;
+            y = p.Y;
+            return ok;
+        }
 
         static int ReadExplorerDword(string name, int fallback)
         {
@@ -140,17 +225,26 @@ namespace ScrollRoad.Platform
 
         const uint ABM_GETTASKBARPOS = 0x00000005;
         const uint ABE_BOTTOM = 3;
-        const int QUNS_BUSY = 2, QUNS_RUNNING_D3D_FULL_SCREEN = 3, QUNS_PRESENTATION_MODE = 4;
+        const uint GA_ROOT = 2;
         const uint MONITOR_DEFAULTTONEAREST = 2;
-        const int SW_HIDE = 0, SW_SHOWNOACTIVATE = 4;
+        const int SW_HIDE = 0, SW_SHOWNOACTIVATE = 4, SW_MINIMIZE = 6;
         static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
-        const uint SWP_NOSIZE = 0x0001, SWP_NOMOVE = 0x0002, SWP_NOACTIVATE = 0x0010, SWP_NOOWNERZORDER = 0x0200;
+        static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
+        const uint SWP_NOSIZE = 0x0001, SWP_NOMOVE = 0x0002, SWP_NOZORDER = 0x0004, SWP_NOACTIVATE = 0x0010,
+            SWP_FRAMECHANGED = 0x0020, SWP_NOOWNERZORDER = 0x0200;
+        const int GWL_STYLE = -16;
+        const long WS_POPUP = 0x80000000L, WS_CAPTION = 0x00C00000L, WS_SYSMENU = 0x00080000L,
+            WS_THICKFRAME = 0x00040000L, WS_MINIMIZEBOX = 0x00020000L, WS_MAXIMIZEBOX = 0x00010000L;
+        const int DWMWA_WINDOW_CORNER_PREFERENCE = 33, DWMWCP_ROUND = 2;
         static readonly UIntPtr HKEY_CURRENT_USER = new UIntPtr(0x80000001u);
         const int KEY_QUERY_VALUE = 0x0001;
         const int REG_DWORD = 4;
 
         [StructLayout(LayoutKind.Sequential)]
         struct RECT { public int Left, Top, Right, Bottom; }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct POINT { public int X, Y; }
 
         [StructLayout(LayoutKind.Sequential)]
         struct APPBARDATA
@@ -175,8 +269,11 @@ namespace ScrollRoad.Platform
         [DllImport("shell32.dll")]
         static extern UIntPtr SHAppBarMessage(uint dwMessage, ref APPBARDATA pData);
 
-        [DllImport("shell32.dll")]
-        static extern int SHQueryUserNotificationState(out int pquns);
+        [DllImport("user32.dll")]
+        static extern IntPtr WindowFromPoint(POINT point);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetAncestor(IntPtr hwnd, uint flags);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -203,9 +300,6 @@ namespace ScrollRoad.Platform
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int cx, int cy, uint uFlags);
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetForegroundWindow();
-
-        [DllImport("user32.dll")]
         static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
 
         [DllImport("user32.dll")]
@@ -219,6 +313,28 @@ namespace ScrollRoad.Platform
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW")]
+        static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
+
+        [DllImport("user32.dll", EntryPoint = "SetWindowLongPtrW")]
+        static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("dwmapi.dll")]
+        static extern int DwmSetWindowAttribute(IntPtr hwnd, int attribute, ref int value, int size);
+
+        [DllImport("user32.dll")]
+        static extern uint GetDpiForWindow(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        static extern uint GetDpiForSystem();
+
+        [DllImport("user32.dll")]
+        static extern IntPtr MonitorFromPoint(POINT pt, uint dwFlags);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool GetCursorPos(out POINT lpPoint);
 
         [DllImport("advapi32.dll", CharSet = CharSet.Unicode)]
         static extern int RegOpenKeyEx(UIntPtr hKey, string subKey, int options, int samDesired, out IntPtr phkResult);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +15,8 @@ namespace ScrollRoad
         [SerializeField] CompanionWindowController companionWindow;
         [SerializeField] CelebrationController celebration;
         [SerializeField] CanvasGroup cardGroup;
-        [SerializeField] Text titleText;
-        [SerializeField] Text subtitleText;
+        [SerializeField] TMP_Text titleText;
+        [SerializeField] TMP_Text subtitleText;
         [SerializeField] float fadeSeconds = 0.35f;
         [SerializeField] float holdSeconds = 3.5f;
         [SerializeField] int maxQueued = 3;
@@ -91,6 +92,10 @@ namespace ScrollRoad
             }
             Enqueue(new Notice { Title = title, Subtitle = subtitle, Short = shortText });
         }
+
+        // Diğer sistemlerin duyuruları (ör. yeni araç açıldı). shortText: şerit modundaki kısa satır.
+        public void Announce(string title, string subtitle, string shortText) =>
+            Enqueue(new Notice { Title = title, Subtitle = subtitle, Short = shortText });
 
         void Enqueue(Notice notice)
         {

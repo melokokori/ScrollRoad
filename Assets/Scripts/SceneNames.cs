@@ -4,9 +4,9 @@ using UnityEngine;
 namespace ScrollRoad
 {
     // Sahne adları tek yerde — hem runtime kod hem sahne kurucu aynı sabitleri kullanır.
+    // Ayrı ana menü sahnesi yok: oyun doğrudan kartta, yolda açılır.
     public static class SceneNames
     {
-        public const string MainMenu = "MainMenu";
         public const string Game = "Game";
     }
 

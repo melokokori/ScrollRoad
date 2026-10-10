@@ -58,7 +58,7 @@ namespace ScrollRoad
             instance = go.AddComponent<BackgroundLifecycle>();
 
             // Windows açılışında: "masaüstü modunda başlasın" açıksa arkadaş penceresi görünür açılır
-            // (MainMenu → Game → CompanionWindowController), değilse tepsiye gizlenir. Gizleme ilk
+            // (CompanionWindowController), değilse tepsiye gizlenir. Gizleme ilk
             // kareler render edildikten SONRA: Unity açılışta pencereyi kendisi gösteriyor/swapchain kuruyor.
             instance.pendingAutostartHide = WindowsStartup.LaunchedFromAutostart && !SaveService.LoadStartInCompanion();
         }
@@ -124,7 +124,7 @@ namespace ScrollRoad
             return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + (drive.IsUserActive ? "" : " (idle)");
         }
 
-        // userClosed=false: açılışta (-autostart) — Game'e geçişi MainMenuController zaten yapıyor.
+        // userClosed=false: açılışta (-autostart).
         void HideToTray(bool userClosed)
         {
             if (unityWindow == IntPtr.Zero) unityWindow = NativeWindow.FindUnityWindow();
@@ -132,10 +132,9 @@ namespace ScrollRoad
 
             if (userClosed)
             {
-                // Araç yalnız Game sahnesinde akar; duraklatılmışsa da gizli pencerede donup kalmasın.
-                if (SceneManager.GetActiveScene().name != SceneNames.Game) SceneManager.LoadScene(SceneNames.Game);
-                var pause = FindAnyObjectByType<PauseController>();
-                if (pause != null && pause.IsPaused) pause.SetPaused(false);
+                // Gizli pencerede açık bir menü/panel kalmasın.
+                var menu = FindAnyObjectByType<CardMenuController>();
+                if (menu != null) menu.CloseAll();
             }
 
             ShowWindow(unityWindow, SW_HIDE);
@@ -173,14 +172,14 @@ namespace ScrollRoad
         void ToggleCompanion()
         {
             Restore();
+            if (companion == null) companion = FindAnyObjectByType<CompanionWindowController>();
             if (companion != null)
             {
                 companion.ToggleCompanionMode();
                 return;
             }
-            // Ana menüdeyken: Game yüklenince masaüstü moduna geç.
+            // Sahne henüz yüklenmediyse: Game yüklenince şerit moduna geç.
             pendingCompanion = true;
-            SceneManager.LoadScene(SceneNames.Game);
         }
 
         void OnSceneLoaded(Scene scene, LoadSceneMode mode)

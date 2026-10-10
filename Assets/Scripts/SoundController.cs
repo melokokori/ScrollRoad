@@ -4,7 +4,6 @@ using UnityEngine.UI;
 namespace ScrollRoad
 {
     // Tüm ses geri bildirimi tek yerde. Klipler Kenney.nl CC0 ses paketlerinden (Assets/Audio).
-    // MainMenu sahnesinde drive boş bırakılır — orada sadece UI klik sesi devrededir.
     public class SoundController : MonoBehaviour
     {
         [SerializeField] RoadDrive drive;

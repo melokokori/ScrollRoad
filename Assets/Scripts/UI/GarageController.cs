@@ -1,26 +1,52 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Garaj paneli (ana menü ve duraklatma menüsünden açılır): üstte seçili aracın büyük
-    // önizlemesi + adı, altta katalogdaki her araç için bir yuva. Seçim anında uygulanır
-    // (CarCatalog.SelectionChanged → sahnedeki araba, menü önizlemesi). Gizli aracın yuvası
-    // kilit açılana kadar hiç gösterilmez — satırlar (HorizontalLayoutGroup) boşluk bırakmadan ortalanır.
-    // En altta dünya teması seçimi (WorldTheme; sıra WorldTheme.Kind ile aynı).
+    // Garaj paneli (≡ çekmecesinden): solda seçili aracın büyük önizlemesi + "MODEL · RENK" + kilit
+    // bilgisi; sağda kategori SEKMELERİ (Cars, Off-road, Two wheels, Sea, Sky), sekmenin araçları
+    // 5'erli sayfalarda (‹ › okları — fare tekerleği oyunda gaz olduğu için kaydırma yok), altında
+    // RENK yuvarlakları (sabit renkli araçta gizlenir; gizli renk kilidi açılana kadar hiç görünmez),
+    // en altta dünya teması (WorldTheme; sıra WorldTheme.Kind ile aynı).
+    // Yuva türleri: açık model (seçili renkte), kilitli model (silüet + "500 KM" / "TRIP"
+    // plakası; tıklayınca önizlemenin altında nasıl açılacağı yazar), "coming soon" (silüet + "SOON").
     public class GarageController : MonoBehaviour
     {
         [SerializeField] CarCatalog catalog;
         [SerializeField] GameObject garagePanel;
         [SerializeField] Image previewImage;
-        [SerializeField] Text selectedNameText;
-        [SerializeField] Button[] slotButtons; // katalog sırasıyla
-        [SerializeField] Image[] slotFrames;   // seçili yuvanın çerçevesi
-        [SerializeField] Button[] themeButtons; // WorldTheme.Kind sırasıyla
+        [SerializeField] TMP_Text selectedNameText;
+        [SerializeField] TMP_Text detailText;
+        [SerializeField] Button[] tabButtons;      // CarCatalog.Tab sırasıyla
+        [SerializeField] Button[] slotButtons;     // sayfa başına yuva
+        [SerializeField] Image[] slotFrames;
+        [SerializeField] Image[] slotImages;
+        [SerializeField] Image[] slotPlates;
+        [SerializeField] TMP_Text[] slotPlateTexts;
+        [SerializeField] Button prevButton;
+        [SerializeField] Button nextButton;
+        [SerializeField] TMP_Text pageText;
+        [SerializeField] GameObject paintRow;
+        [SerializeField] TMP_Text paintNote;       // sabit renkli araçta "fixed livery"
+        [SerializeField] Button[] paintButtons;    // catalog.paints sırasıyla
+        [SerializeField] Image[] paintRings;
+        [SerializeField] Button[] themeButtons;    // WorldTheme.Kind sırasıyla
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
-        [SerializeField] Color selectedFrameColor = new Color(0.93f, 0.45f, 0.36f);
-        [SerializeField] Color idleFrameColor = new Color(1f, 1f, 1f, 0.06f);
+        [SerializeField] Color selectedFrameColor = new Color(0.055f, 0.42f, 0.243f); // tabela yeşili
+        [SerializeField] Color idleFrameColor = new Color(1f, 1f, 1f, 0.07f);
+        [SerializeField] Color lockedTint = new Color(0.055f, 0.06f, 0.075f);
+        [SerializeField] Color idleButtonColor = new Color(0.165f, 0.18f, 0.215f);
+        [SerializeField] Color lockPlateColor = new Color(0.082f, 0.09f, 0.11f, 0.86f);
+        [SerializeField] Color lockPlateInk = new Color(0.957f, 0.945f, 0.902f);
+        [SerializeField] Color soonPlateColor = new Color(0.949f, 0.702f, 0.239f);
+        [SerializeField] Color soonPlateInk = new Color(0.082f, 0.09f, 0.11f);
+
+        CarCatalog.Tab tab;
+        int page;
+        readonly List<object> entries = new List<object>(); // CarCatalog.Model ya da CarCatalog.Teaser
 
         public GameObject Panel => garagePanel;
 
@@ -28,10 +54,22 @@ namespace ScrollRoad
         {
             openButton.onClick.AddListener(Open);
             closeButton.onClick.AddListener(() => garagePanel.SetActive(false));
+            for (int i = 0; i < tabButtons.Length; i++)
+            {
+                var t = (CarCatalog.Tab)i;
+                tabButtons[i].onClick.AddListener(() => { SetTab(t, 0); detailText.text = ""; Refresh(); });
+            }
             for (int i = 0; i < slotButtons.Length; i++)
             {
                 int index = i;
-                slotButtons[i].onClick.AddListener(() => Choose(index));
+                slotButtons[i].onClick.AddListener(() => ChooseSlot(index));
+            }
+            prevButton.onClick.AddListener(() => { page--; Refresh(); });
+            nextButton.onClick.AddListener(() => { page++; Refresh(); });
+            for (int i = 0; i < paintButtons.Length; i++)
+            {
+                int index = i;
+                paintButtons[i].onClick.AddListener(() => ChoosePaint(index));
             }
             for (int i = 0; i < themeButtons.Length; i++)
             {
@@ -41,35 +79,121 @@ namespace ScrollRoad
             garagePanel.SetActive(false);
         }
 
+        // Açılışta seçili aracın sekmesi ve sayfası gösterilir.
         void Open()
         {
+            detailText.text = "";
+            var selected = catalog.SelectedModel;
+            SetTab(selected != null ? CarCatalog.TabOf(selected.kind) : CarCatalog.Tab.Cars, 0);
+            int index = entries.IndexOf(selected);
+            if (index >= 0) page = index / slotButtons.Length;
             Refresh();
             garagePanel.SetActive(true);
         }
 
-        void Choose(int index)
+        void SetTab(CarCatalog.Tab newTab, int newPage)
         {
-            if (index >= catalog.entries.Length) return;
-            catalog.Select(catalog.entries[index]);
+            tab = newTab;
+            page = newPage;
+            entries.Clear();
+            foreach (var model in catalog.models)
+            {
+                if (CarCatalog.TabOf(model.kind) == tab) entries.Add(model);
+            }
+            foreach (var teaser in catalog.comingSoon)
+            {
+                if (CarCatalog.TabOf(teaser.kind) == tab) entries.Add(teaser);
+            }
+        }
+
+        int PageCount => Mathf.Max(1, (entries.Count + slotButtons.Length - 1) / slotButtons.Length);
+
+        object EntryAt(int slot)
+        {
+            int index = page * slotButtons.Length + slot;
+            return index < entries.Count ? entries[index] : null;
+        }
+
+        void ChooseSlot(int slot)
+        {
+            if (!(EntryAt(slot) is CarCatalog.Model model)) return;
+            if (!CarCatalog.IsUnlocked(model))
+            {
+                detailText.text = CarCatalog.LockDescription(model);
+                return;
+            }
+            detailText.text = "";
+            catalog.Select(model);
+            Refresh();
+        }
+
+        void ChoosePaint(int index)
+        {
+            catalog.Select(catalog.paints[index]);
             Refresh();
         }
 
         void Refresh()
         {
-            var selected = catalog.Selected;
+            page = Mathf.Clamp(page, 0, PageCount - 1);
+            var model = catalog.SelectedModel;
+            var paint = catalog.SelectedPaint;
+
+            for (int i = 0; i < tabButtons.Length; i++)
+            {
+                tabButtons[i].image.color = (int)tab == i ? selectedFrameColor : idleButtonColor;
+            }
+
             for (int i = 0; i < slotButtons.Length; i++)
             {
-                var entry = i < catalog.entries.Length ? catalog.entries[i] : null;
-                slotButtons[i].gameObject.SetActive(catalog.IsAvailable(entry));
-                slotFrames[i].color = entry == selected ? selectedFrameColor : idleFrameColor;
+                var entry = EntryAt(i);
+                slotButtons[i].gameObject.SetActive(entry != null);
+                if (entry is CarCatalog.Model m)
+                {
+                    bool open = CarCatalog.IsUnlocked(m);
+                    slotImages[i].sprite = open ? catalog.SpriteFor(m, paint) : CarCatalog.SilhouetteFor(m);
+                    slotImages[i].color = open ? Color.white : lockedTint;
+                    slotFrames[i].color = m == model ? selectedFrameColor : idleFrameColor;
+                    slotPlates[i].gameObject.SetActive(!open);
+                    slotPlates[i].color = lockPlateColor;
+                    slotPlateTexts[i].color = lockPlateInk;
+                    slotPlateTexts[i].text = CarCatalog.LockPlate(m);
+                }
+                else if (entry is CarCatalog.Teaser t)
+                {
+                    slotImages[i].sprite = CarCatalog.SilhouetteFor(t);
+                    slotImages[i].color = lockedTint;
+                    slotFrames[i].color = idleFrameColor;
+                    slotPlates[i].gameObject.SetActive(true);
+                    slotPlates[i].color = soonPlateColor;
+                    slotPlateTexts[i].color = soonPlateInk;
+                    slotPlateTexts[i].text = "SOON";
+                }
             }
+
+            bool paged = PageCount > 1;
+            prevButton.gameObject.SetActive(paged);
+            nextButton.gameObject.SetActive(paged);
+            prevButton.interactable = page > 0;
+            nextButton.interactable = page < PageCount - 1;
+            pageText.text = paged ? $"{page + 1} / {PageCount}" : "";
+
+            bool paintable = model != null && model.paintable;
+            paintRow.SetActive(paintable);
+            paintNote.gameObject.SetActive(!paintable);
+            for (int i = 0; i < paintButtons.Length && i < catalog.paints.Length; i++)
+            {
+                paintButtons[i].gameObject.SetActive(CarCatalog.IsAvailable(catalog.paints[i]));
+                paintRings[i].enabled = catalog.paints[i] == paint;
+            }
+
             for (int i = 0; i < themeButtons.Length; i++)
             {
-                themeButtons[i].image.color = (int)WorldTheme.Current == i ? selectedFrameColor : new Color(0.24f, 0.27f, 0.33f);
+                themeButtons[i].image.color = (int)WorldTheme.Current == i ? selectedFrameColor : idleButtonColor;
             }
-            if (selected == null) return;
-            previewImage.sprite = selected.sprite;
-            selectedNameText.text = selected.displayName;
+
+            previewImage.sprite = catalog.SelectedSprite;
+            selectedNameText.text = model == null ? "" : paintable ? $"{model.displayName} · {paint.displayName}" : model.displayName;
         }
     }
 }
