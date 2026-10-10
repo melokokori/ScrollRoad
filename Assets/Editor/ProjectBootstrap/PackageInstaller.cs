@@ -14,6 +14,8 @@ namespace ProjectBootstrap
         {
             // Saydam masaüstü (companion) penceresi
             "https://github.com/kirurobo/UniWindowController.git#upm",
+            // Claude Code <-> Unity Editor köprüsü (MCP for Unity, http://127.0.0.1:8080/mcp)
+            "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
         };
 
         static readonly string[] PackagesToRemove =
@@ -30,8 +32,12 @@ namespace ProjectBootstrap
 
         public static void Install()
         {
-            Debug.Log($"[PackageInstaller] Ekleniyor: {string.Join(", ", PackagesToAdd)} | Çıkarılıyor: {string.Join(", ", PackagesToRemove)}");
-            _request = Client.AddAndRemove(packagesToAdd: PackagesToAdd, packagesToRemove: PackagesToRemove);
+            // Zaten çıkarılmış paketleri tekrar çıkarmaya çalışma (betik birden çok kez çalıştırılabilsin).
+            var manifest = System.IO.File.ReadAllText("Packages/manifest.json");
+            var toRemove = PackagesToRemove.Where(p => manifest.Contains($"\"{p}\"")).ToArray();
+
+            Debug.Log($"[PackageInstaller] Ekleniyor: {string.Join(", ", PackagesToAdd)} | Çıkarılıyor: {string.Join(", ", toRemove)}");
+            _request = Client.AddAndRemove(packagesToAdd: PackagesToAdd, packagesToRemove: toRemove);
             _deadline = EditorApplication.timeSinceStartup + TimeoutSeconds;
             EditorApplication.update += Poll;
         }
