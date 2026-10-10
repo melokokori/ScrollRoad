@@ -266,6 +266,7 @@ namespace ScrollRoad.EditorTools
             // Gizli reveal kancası: kim şehre ulaştı, ay sonuna kadar rakiplerden gizli.
             CreateText(banner.transform, "Subtitle", "Rakiplerin bunu görmüyor — ay sonunu bekle.", 26, new Vector2(0, -45), new Vector2(900, 40), TextLight);
 
+            banner.SetActive(false);
             var controller = new GameObject("CelebrationController").AddComponent<CelebrationController>();
             Bind(controller, "drive", drive);
             Bind(controller, "companionWindow", companion);
@@ -299,6 +300,8 @@ namespace ScrollRoad.EditorTools
             lbText.alignment = TextAnchor.UpperLeft;
             var lbClose = CreateButton(lbCard.transform, "CloseButton", "Kapat", new Vector2(0, -250), new Vector2(240, 60));
 
+            pausePanel.SetActive(false);
+            lbPanel.SetActive(false);
             var pause = new GameObject("PauseController").AddComponent<PauseController>();
             Bind(pause, "drive", drive);
             Bind(pause, "companionWindow", companion);
@@ -336,6 +339,7 @@ namespace ScrollRoad.EditorTools
 
             var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -190), new Vector2(240, 60));
 
+            panel.SetActive(false); // Editor'de sahne temiz görünsün (runtime'da da kapalı başlar)
             var controller = new GameObject("SettingsController").AddComponent<SettingsController>();
             Bind(controller, "settingsPanel", panel);
             Bind(controller, "volumeSlider", slider);
@@ -355,6 +359,7 @@ namespace ScrollRoad.EditorTools
             text.alignment = TextAnchor.UpperLeft;
             var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -250), new Vector2(240, 60));
 
+            panel.SetActive(false);
             var controller = new GameObject("StatsController").AddComponent<StatsController>();
             Bind(controller, "drive", drive);
             Bind(controller, "stats", stats);

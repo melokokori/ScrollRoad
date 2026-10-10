@@ -25,10 +25,35 @@ namespace ScrollRoad
         [SerializeField] int screenMargin = 16;
         [SerializeField] int taskbarAllowance = 56;
 
+        static bool companionArgConsumed;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetSession() => companionArgConsumed = false;
+
+        // Unity son pencere boyutunu/konumunu hatırlar: masaüstü modunda kapatılan oyun bir sonraki
+        // normal açılışta 320x180 ve köşede açılırdı. Normal açılışta pencere makul boyuta ve ortaya alınır.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        static void RestoreNormalWindowOnLaunch()
+        {
+#if !UNITY_EDITOR
+            if (SaveService.LoadStartInCompanion() || LaunchedWithCompanionArg) return;
+            if (Screen.fullScreenMode != FullScreenMode.Windowed || Screen.width >= 640) return;
+            const int w = 1280, h = 720;
+            Screen.SetResolution(w, h, FullScreenMode.Windowed);
+            var display = Screen.mainWindowDisplayInfo;
+            Screen.MoveMainWindowTo(display, new Vector2Int(Mathf.Max(0, (display.width - w) / 2), Mathf.Max(0, (display.height - h) / 2)));
+#endif
+        }
+
         Coroutine applyRoutine;
         Vector2Int restoreSize;
 
         public bool IsCompanionMode { get; private set; }
+
+        // "-companion" komut satırı argümanı: doğrudan masaüstü arkadaşı modunda aç
+        // (Steam başlatma seçeneği ya da Windows başlangıç kısayolu için).
+        public static bool LaunchedWithCompanionArg =>
+            Array.Exists(Environment.GetCommandLineArgs(), a => string.Equals(a, "-companion", StringComparison.OrdinalIgnoreCase));
         public event Action<bool> OnModeChanged;
 
         void Awake()
@@ -40,7 +65,10 @@ namespace ScrollRoad
 
         void Start()
         {
-            if (SaveService.LoadStartInCompanion()) SetCompanionMode(true);
+            // Argüman oturumda yalnız ilk Game yüklemesinde etkili (ana menüye dönüp tekrar girince değil).
+            bool fromArg = LaunchedWithCompanionArg && !companionArgConsumed;
+            companionArgConsumed = true;
+            if (SaveService.LoadStartInCompanion() || fromArg) SetCompanionMode(true);
         }
 
         void Update()
