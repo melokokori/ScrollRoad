@@ -7,8 +7,10 @@ namespace ScrollRoad
     //   gökyüzü (kamera arka planı) → uzak tepeler → şehir silueti → yakın tepeler + zemin → yol → araba.
     // Parallax: yol çizgileri hızlı, yakın tepeler yavaş, uzak tepeler çok yavaş kayar; şehir ise
     // kaydırmayla değil İLERLEMEYLE büyür (yaklaştıkça). Şehrin ötesinde şehir sola akıp kaybolur.
-    // Masaüstü arkadaşı modunda arka plan katmanları gizlenir, kamera arabaya yakınlaşır ve
-    // arka plan alfa-0 temizlenir (pencere saydamlığı ezilmesin).
+    // Yol düz (2026-10-10, kullanıcı: kavis "hayal ettiğim gibi olmadı").
+    // Masaüstü modunda (görev çubuğu şeridi) arka plan katmanları gizlenir, yol ince bir banda
+    // iner, kamera araba + yolu şeride sığdırır (araba yüksekliğin ~%70'i) ve arka plan alfa-0
+    // temizlenir (pencere saydamlığı ezilmesin).
     [DefaultExecutionOrder(50)]
     public class RoadSceneView : MonoBehaviour
     {
@@ -27,7 +29,6 @@ namespace ScrollRoad
         [SerializeField] float roadTopY = -2.6f;
         [SerializeField] float roadHeight = 0.7f;
         [SerializeField] float carWidth = 1.7f;
-        [SerializeField] float roadCurvature = 0.022f; // y = -k·x² ("küçük gezegen" kavisi)
         [SerializeField] float roadSegmentWidth = 0.35f;
         [SerializeField] float dashSpacing = 1.2f;
 
@@ -41,8 +42,10 @@ namespace ScrollRoad
         [SerializeField] float cityMaxHeight = 4.4f;
         [SerializeField] float cityPassKm = 40f; // şehrin ötesinde bu kadar km'de ekrandan çıkar
 
-        [Header("Masaüstü arkadaşı modu")]
-        [SerializeField] float companionCameraSize = 1.1f;
+        [Header("Masaüstü modu (görev çubuğu şeridi)")]
+        [SerializeField] float companionRoadHeight = 0.14f;
+        [SerializeField] float companionTopMargin = 0.16f;    // zıplama payı
+        [SerializeField] float companionCarScreenX = 0.62f;   // araba şerit genişliğinin bu oranında (solda km yazısı)
 
         [Header("His")]
         [SerializeField] float stepBobImpulse = 0.9f;
@@ -116,17 +119,17 @@ namespace ScrollRoad
         float dustTimer;
         float secretBlend;
 
-        float RoadCenterY => roadTopY - roadHeight / 2f;
-        float CarHeight => carSprite != null ? carWidth * carSprite.bounds.size.y / carSprite.bounds.size.x : carWidth * 0.45f;
-        float CarCenterY => RoadCenterY + CarHeight * 0.5f - 0.12f;
         bool IsCompanion => companionWindow != null && companionWindow.IsCompanionMode;
+        float RoadH => IsCompanion ? companionRoadHeight : roadHeight;
+        float RoadCenterY => roadTopY - RoadH / 2f;
+        float CarHeight => carSprite != null ? carWidth * carSprite.bounds.size.y / carSprite.bounds.size.x : carWidth * 0.45f;
+        // Şeritte yol ince: araba yola gömülmeden, tekerlekleri yolun üstünde durur.
+        float CarCenterY => IsCompanion ? roadTopY + CarHeight * 0.5f - 0.03f : RoadCenterY + CarHeight * 0.5f - 0.12f;
+        float DashHeight => IsCompanion ? 0.035f : 0.07f;
 
         // Test/doğrulama için okunabilir durum.
         public float CityHeightUnits { get; private set; }
         public Color CurrentSkyColor { get; private set; }
-
-        float CurveOffsetY(float x) => -roadCurvature * x * x;
-        float CurveAngleDeg(float x) => Mathf.Atan(-2f * roadCurvature * x) * Mathf.Rad2Deg;
 
         void Awake()
         {
@@ -278,14 +281,21 @@ namespace ScrollRoad
         {
             bool companion = IsCompanion;
 
-            // Kamera: normalde sabit geniş çerçeve, arkadaş modunda arabaya yakın.
-            float size = companion ? companionCameraSize : cameraSize;
-            float camY = companion ? CarCenterY + 0.12f : 0f;
+            // Kamera: normalde sabit geniş çerçeve; şeritte yolun altından arabanın üstüne kadar,
+            // araba yatayda companionCarScreenX'te (solda km yazısına yer kalsın).
+            float size = cameraSize, camX = 0f, camY = 0f;
+            if (companion)
+            {
+                float bottom = roadTopY - RoadH - 0.03f;
+                float top = CarCenterY + CarHeight * 0.5f + companionTopMargin;
+                size = (top - bottom) / 2f;
+                camY = (top + bottom) / 2f;
+                camX = -(companionCarScreenX - 0.5f) * 2f * size * viewCamera.aspect;
+            }
             viewCamera.orthographicSize = size;
-            viewCamera.transform.position = new Vector3(0f, camY, -10f);
+            viewCamera.transform.position = new Vector3(camX, camY, -10f);
 
-            float halfH = size;
-            float halfW = halfH * viewCamera.aspect;
+            float halfW = size * viewCamera.aspect;
 
             var sky = EvaluateSky();
             CurrentSkyColor = sky;
@@ -294,8 +304,8 @@ namespace ScrollRoad
             backdropRoot.gameObject.SetActive(!companion);
             if (!companion) LayoutBackdrop(sky, cameraSize * viewCamera.aspect);
 
-            LayoutRoad(halfW);
-            LayoutDashes(halfW);
+            LayoutRoad(camX, halfW);
+            LayoutDashes(camX, halfW);
             LayoutCar();
             UpdateParticles(dust, Time.deltaTime, 4f, 0f, isConfetti: false);
             UpdateParticles(confetti, Time.deltaTime, 3.5f, 0.6f, isConfetti: true);
@@ -382,14 +392,14 @@ namespace ScrollRoad
             cityRenderer.color = Color.Lerp(sky, CitySilhouetteColor, Mathf.Lerp(0.4f, 1f, progress));
         }
 
-        void LayoutRoad(float halfW)
+        void LayoutRoad(float camX, float halfW)
         {
             float seg = Mathf.Max(0.1f, roadSegmentWidth);
             int needed = Mathf.CeilToInt(halfW * 2f / seg) + 3;
             if (roadSegments.Length < needed) roadSegments = Grow(roadSegments, needed, "RoadSeg", 20, roadRoot);
 
             var color = Color.Lerp(RoadColor, SecretRoadColor, secretBlend);
-            float startX = -halfW - seg;
+            float startX = camX - halfW - seg;
             for (int i = 0; i < roadSegments.Length; i++)
             {
                 var sr = roadSegments[i];
@@ -397,20 +407,19 @@ namespace ScrollRoad
                 if (!sr.enabled) continue;
                 float x = startX + i * seg;
                 sr.color = color;
-                sr.transform.localPosition = new Vector3(x, RoadCenterY + CurveOffsetY(x), 0f);
-                sr.transform.localRotation = Quaternion.Euler(0f, 0f, CurveAngleDeg(x));
-                sr.transform.localScale = new Vector3(seg * 1.35f, roadHeight, 1f); // bindirme: dönük ek yerleri boşluksuz
+                sr.transform.localPosition = new Vector3(x, RoadCenterY, 0f);
+                sr.transform.localScale = new Vector3(seg * 1.02f, RoadH, 1f); // hafif bindirme: ek yeri çizgisi olmasın
             }
         }
 
-        void LayoutDashes(float halfW)
+        void LayoutDashes(float camX, float halfW)
         {
             int needed = Mathf.CeilToInt(halfW * 2f / dashSpacing) + 3;
             if (dashes.Length < needed) dashes = Grow(dashes, needed, "Dash", 30, roadRoot);
 
             // double ile mod: büyük mesafelerde float çözünürlüğü kaymayı titretmesin.
             float offset = (float)((drive.CurrentDistanceKmPrecise * roadUnitsPerKm) % dashSpacing);
-            float startX = -halfW - dashSpacing;
+            float startX = camX - halfW - dashSpacing;
             for (int i = 0; i < dashes.Length; i++)
             {
                 var sr = dashes[i];
@@ -418,9 +427,8 @@ namespace ScrollRoad
                 if (!sr.enabled) continue;
                 float x = startX + i * dashSpacing - offset;
                 sr.color = DashColor;
-                sr.transform.localPosition = new Vector3(x, RoadCenterY + CurveOffsetY(x), 0f);
-                sr.transform.localRotation = Quaternion.Euler(0f, 0f, CurveAngleDeg(x));
-                sr.transform.localScale = new Vector3(dashSpacing * 0.45f, 0.07f, 1f);
+                sr.transform.localPosition = new Vector3(x, RoadCenterY, 0f);
+                sr.transform.localScale = new Vector3(dashSpacing * 0.45f, DashHeight, 1f);
             }
         }
 
@@ -464,7 +472,7 @@ namespace ScrollRoad
             p.color = DustColor;
             p.renderer.enabled = true;
             float x = -dir * carWidth * 0.42f + UnityEngine.Random.Range(-0.05f, 0.05f);
-            p.renderer.transform.localPosition = new Vector3(x, RoadCenterY - 0.02f + CurveOffsetY(x), 0f);
+            p.renderer.transform.localPosition = new Vector3(x, RoadCenterY - 0.02f, 0f);
             p.renderer.transform.localRotation = Quaternion.identity;
         }
 

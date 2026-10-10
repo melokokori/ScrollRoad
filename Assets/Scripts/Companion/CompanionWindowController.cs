@@ -1,13 +1,16 @@
 using System;
 using System.Collections;
 using Kirurobo;
+using ScrollRoad.Platform;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace ScrollRoad
 {
-    // Masaüstü arkadaşı modu: küçük, saydam, her zaman üstte pencere. Native layered-window işini
-    // UniWindowController (MIT, kirurobo) yapıyor. F9 veya duraklatma menüsü/☰ ile geçiş yapılır.
+    // Masaüstü modu: görev çubuğunun boş kısmına oturan saydam, her zaman üstte şerit (yükseklik =
+    // görev çubuğu). Native layered-window işini UniWindowController (MIT, kirurobo) yapıyor.
+    // F9 veya duraklatma menüsü/≡ ile geçiş yapılır. Görev çubuğu da topmost olduğundan şerit
+    // periyodik olarak öne alınır; ön planda tam ekran bir uygulama varken gizlenir.
     //
     // Saydamlık için ön koşullar (sahne kurucu ve Player Settings bunları zorluyor):
     //  - Kamera arka planı alfa 0 (RoadSceneView companion modunda yapıyor), HDR ve post-process kapalı.
@@ -19,11 +22,12 @@ namespace ScrollRoad
     public class CompanionWindowController : MonoBehaviour
     {
         [SerializeField] UniWindowController uniWindow;
-        [SerializeField] Vector2Int companionSize = new Vector2Int(320, 180);
+        [SerializeField] int stripBaseWidth = 440; // 48 px'lik (%100 ölçek) görev çubuğu için
         [SerializeField] Vector2Int defaultWindowedSize = new Vector2Int(1280, 720);
         [SerializeField] float applyTimeoutSeconds = 3f;
-        [SerializeField] int screenMargin = 16;
-        [SerializeField] int taskbarAllowance = 56;
+#pragma warning disable CS0414 // aşağıdakiler yalnız Windows build'de okunuyor (Editor'de pencereye dokunulmaz)
+        [SerializeField] float keepOnTopInterval = 0.25f;
+#pragma warning restore CS0414
 
         static bool companionArgConsumed;
 
@@ -47,8 +51,20 @@ namespace ScrollRoad
 
         Coroutine applyRoutine;
         Vector2Int restoreSize;
+        Vector2Int companionSize = new Vector2Int(440, 48);
+        float keepOnTopTimer;
+#pragma warning disable CS0414
+        bool stripPlaced;
+        bool hiddenForFullscreen;
+#pragma warning restore CS0414
+#if !UNITY_EDITOR
+        IntPtr hwnd;
+#endif
 
         public bool IsCompanionMode { get; private set; }
+
+        // Şerit ölçeği (görev çubuğu yüksekliği / 48): HUD yazıları bununla büyür.
+        public float StripScale { get; private set; } = 1f;
 
         // "-companion" komut satırı argümanı: doğrudan masaüstü arkadaşı modunda aç
         // (Steam başlatma seçeneği ya da Windows başlangıç kısayolu için).
@@ -75,6 +91,22 @@ namespace ScrollRoad
         {
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.f9Key.wasPressedThisFrame) ToggleCompanionMode();
+
+#if !UNITY_EDITOR
+            if (!IsCompanionMode || !stripPlaced || BackgroundLifecycle.IsHiddenToTray) return;
+            keepOnTopTimer -= Time.unscaledDeltaTime;
+            if (keepOnTopTimer > 0f) return;
+            keepOnTopTimer = keepOnTopInterval;
+
+            if (hwnd == IntPtr.Zero) hwnd = NativeWindow.FindUnityWindow();
+            bool fullscreen = NativeWindow.IsFullscreenAppActive(hwnd);
+            if (fullscreen != hiddenForFullscreen)
+            {
+                hiddenForFullscreen = fullscreen;
+                NativeWindow.Show(hwnd, !fullscreen);
+            }
+            if (!fullscreen) NativeWindow.KeepOnTop(hwnd);
+#endif
         }
 
         public void ToggleCompanionMode() => SetCompanionMode(!IsCompanionMode);
@@ -83,13 +115,39 @@ namespace ScrollRoad
         {
             if (companion == IsCompanionMode) return;
             IsCompanionMode = companion;
+            stripPlaced = false;
+#if !UNITY_EDITOR
+            if (hiddenForFullscreen) NativeWindow.Show(hwnd, true);
+#endif
+            hiddenForFullscreen = false;
+
+            // Şerit boyutu ve ölçeği OnModeChanged'den ÖNCE: HUD ölçeği buna göre ayarlanıyor.
+            var stripRect = default(NativeWindow.ScreenRect);
+            float scale = 1f;
+            bool onTaskbar = companion && NativeWindow.TryGetTaskbarStrip(stripBaseWidth, out stripRect, out scale);
+            if (companion)
+            {
+                if (onTaskbar)
+                {
+                    StripScale = scale;
+                    companionSize = new Vector2Int(stripRect.Width, stripRect.Height);
+                }
+                else
+                {
+                    // Görev çubuğu bulunamadı (Editor, üst/yan kenarda görev çubuğu): ekranın sol altı.
+                    StripScale = 1f;
+                    companionSize = new Vector2Int(stripBaseWidth, 48);
+                    var monitor = Screen.currentResolution;
+                    stripRect = new NativeWindow.ScreenRect { Left = 12, Top = monitor.height - 48, Width = stripBaseWidth, Height = 48 };
+                }
+            }
             OnModeChanged?.Invoke(companion);
 
             if (applyRoutine != null) StopCoroutine(applyRoutine);
 #if !UNITY_EDITOR
             if (uniWindow != null)
             {
-                applyRoutine = StartCoroutine(companion ? EnterCompanionRoutine() : ExitCompanionRoutine());
+                applyRoutine = StartCoroutine(companion ? EnterCompanionRoutine(stripRect) : ExitCompanionRoutine());
             }
 #endif
         }
@@ -97,7 +155,7 @@ namespace ScrollRoad
         // windowSize/windowPosition anlık native çağrılardır: UniWinC pencereye kendi Update'inde
         // bağlandığı ve Unity tam ekrandayken boyut tutmadığı için önce Windowed'a geçilir, sonra
         // boyut gerçekten uygulanana kadar her kare yeniden denenir (eski projede doğrulanan yöntem).
-        IEnumerator EnterCompanionRoutine()
+        IEnumerator EnterCompanionRoutine(NativeWindow.ScreenRect strip)
         {
             restoreSize = Screen.fullScreenMode == FullScreenMode.Windowed
                 ? new Vector2Int(Screen.width, Screen.height)
@@ -116,11 +174,9 @@ namespace ScrollRoad
             // araba/☰ üzerinde pencere tıklanabilir kalır.
             uniWindow.isHitTestEnabled = true;
 
-            // UniWinC konumu SOL-ALT orijinli verir (Y yukarı): sağ alt köşe, görev çubuğunun üstü.
+            // UniWinC konumu SOL-ALT orijinli verir (Y yukarı); şerit sol-üst orijinli ekran piksellerinde.
             var monitor = Screen.currentResolution;
-            var targetPosition = new Vector2(
-                monitor.width - companionSize.x - screenMargin,
-                taskbarAllowance);
+            var targetPosition = new Vector2(strip.Left, monitor.height - strip.Bottom);
 
             float deadline = Time.realtimeSinceStartup + applyTimeoutSeconds;
             while (Time.realtimeSinceStartup < deadline)
@@ -129,8 +185,14 @@ namespace ScrollRoad
                 uniWindow.windowPosition = targetPosition;
                 yield return null;
 
-                if (Vector2.Distance(uniWindow.windowSize, companionSize) < 2f) yield break;
+                if (Vector2.Distance(uniWindow.windowSize, companionSize) < 2f)
+                {
+                    uniWindow.windowPosition = targetPosition; // boyut değişince konum kaymış olabilir
+                    stripPlaced = true;
+                    yield break;
+                }
             }
+            stripPlaced = true;
             Debug.LogWarning($"Companion pencere boyutu {applyTimeoutSeconds}sn içinde uygulanamadı (şu an: {uniWindow.windowSize}).");
         }
 

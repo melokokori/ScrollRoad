@@ -384,37 +384,42 @@ namespace ScrollRoad.EditorTools
             root.transform.SetParent(canvasGo.transform, false);
             Stretch(root.GetComponent<RectTransform>());
 
-            var km = CreateText(root.transform, "Km", "", 15, Vector2.zero, new Vector2(200, 22), TextLight);
+            // Şerit 48 px yüksek (%100 ölçek); CompanionHudController görev çubuğu ölçeğini uygular.
+            var km = CreateText(root.transform, "Km", "", 17, Vector2.zero, new Vector2(170, 22), TextLight);
             km.fontStyle = FontStyle.Bold;
-            km.alignment = TextAnchor.UpperLeft;
-            Anchor(km.rectTransform, new Vector2(0, 1), new Vector2(8, -6), new Vector2(0, 1));
-            var outline = km.gameObject.AddComponent<Outline>(); // her masaüstü arka planında okunur kalsın
+            km.alignment = TextAnchor.MiddleLeft;
+            Anchor(km.rectTransform, new Vector2(0, 0.5f), new Vector2(10, 8), new Vector2(0, 0.5f));
+            var outline = km.gameObject.AddComponent<Outline>(); // açık/koyu görev çubuğunda okunur kalsın
             outline.effectColor = new Color(0.08f, 0.09f, 0.12f, 0.9f);
             outline.effectDistance = new Vector2(1.2f, -1.2f);
 
-            var menuButton = CreateButton(root.transform, "MenuButton", "≡", Vector2.zero, new Vector2(26, 26), fontSize: 20);
-            Anchor((RectTransform)menuButton.transform, new Vector2(1, 1), new Vector2(-6, -6), new Vector2(1, 1));
+            var sub = CreateText(root.transform, "Sub", "", 11, Vector2.zero, new Vector2(200, 16), TextLight);
+            sub.alignment = TextAnchor.MiddleLeft;
+            Anchor(sub.rectTransform, new Vector2(0, 0.5f), new Vector2(10, -10), new Vector2(0, 0.5f));
+            var subOutline = sub.gameObject.AddComponent<Outline>();
+            subOutline.effectColor = outline.effectColor;
+            subOutline.effectDistance = new Vector2(1f, -1f);
+
+            var menuButton = CreateButton(root.transform, "MenuButton", "≡", Vector2.zero, new Vector2(24, 24), fontSize: 18);
+            Anchor((RectTransform)menuButton.transform, new Vector2(1, 0.5f), new Vector2(-6, 0), new Vector2(1, 0.5f));
 
             var panel = new GameObject("MenuPanel", typeof(RectTransform), typeof(Image));
             panel.transform.SetParent(root.transform, false);
             panel.GetComponent<Image>().color = CardColor;
             var panelRect = panel.GetComponent<RectTransform>();
-            panelRect.sizeDelta = new Vector2(150, 70);
-            Anchor(panelRect, new Vector2(1, 1), new Vector2(-6, -36), new Vector2(1, 1));
-            var exitButton = CreateButton(panel.transform, "ExitCompanionButton", "Tam pencere", new Vector2(0, 16), new Vector2(138, 28), fontSize: 14);
-            var quitButton = CreateButton(panel.transform, "QuitButton", "Çıkış", new Vector2(0, -17), new Vector2(138, 28), fontSize: 14);
-
-            var whisper = CreateText(root.transform, "Whisper", "", 13, Vector2.zero, new Vector2(300, 20), SecretZoneView.WhisperColor);
-            whisper.fontStyle = FontStyle.Italic;
-            Anchor(whisper.rectTransform, new Vector2(0.5f, 0), new Vector2(0, 6), new Vector2(0.5f, 0));
+            panelRect.sizeDelta = new Vector2(196, 34);
+            Anchor(panelRect, new Vector2(1, 0.5f), new Vector2(-36, 0), new Vector2(1, 0.5f));
+            var exitButton = CreateButton(panel.transform, "ExitCompanionButton", "Tam pencere", new Vector2(-40, 0), new Vector2(108, 26), fontSize: 13);
+            var quitButton = CreateButton(panel.transform, "QuitButton", "Çıkış", new Vector2(57, 0), new Vector2(74, 26), fontSize: 13);
 
             var controller = new GameObject("CompanionHudController").AddComponent<CompanionHudController>();
             Bind(controller, "drive", drive);
             Bind(controller, "secretZone", secret);
             Bind(controller, "companionWindow", companion);
             Bind(controller, "root", root);
+            Bind(controller, "scaler", canvasGo.GetComponent<CanvasScaler>());
             Bind(controller, "kmText", km);
-            Bind(controller, "whisperText", whisper);
+            Bind(controller, "subText", sub);
             Bind(controller, "menuButton", menuButton);
             Bind(controller, "menuPanel", panel);
             Bind(controller, "exitCompanionButton", exitButton);

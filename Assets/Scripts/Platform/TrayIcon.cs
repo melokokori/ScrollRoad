@@ -18,8 +18,6 @@ namespace ScrollRoad.Platform
 
         const uint WM_DESTROY = 0x0002;
         const uint WM_CLOSE = 0x0010;
-        const uint WM_QUERYENDSESSION = 0x0011;
-        const uint WM_ENDSESSION = 0x0016;
         const uint WM_NULL = 0x0000;
         const uint WM_COMMAND = 0x0111;
         const uint WM_LBUTTONUP = 0x0202;
@@ -36,6 +34,7 @@ namespace ScrollRoad.Platform
         const uint TPM_RIGHTBUTTON = 0x0002, TPM_RETURNCMD = 0x0100, TPM_NONOTIFY = 0x0080;
 
         const string WindowClassName = "ScrollRoadTrayWindow";
+        static readonly IntPtr HWND_MESSAGE = new IntPtr(-3);
 
         delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
@@ -48,16 +47,17 @@ namespace ScrollRoad.Platform
         static Thread _thread;
         static IntPtr _hwnd;
         static IntPtr _icon;
-        static uint _taskbarCreatedMessage;
         static string _tooltip = "ScrollRoad";
         static volatile bool _companionChecked;
-        static int _sessionEnding;
 
         public static bool IsRunning => _hwnd != IntPtr.Zero;
         public static string LastError { get; private set; }
 
         // Windows kapanıyor/oturum kapanıyor: pencereyi tepsiye gizlemek yerine gerçekten çıkılmalı.
-        public static bool SessionEnding => Volatile.Read(ref _sessionEnding) != 0;
+        // (Message-only pencere WM_QUERYENDSESSION almadığı için sistem metriğinden okunur.)
+        public static bool SessionEnding => GetSystemMetrics(SM_SHUTTINGDOWN) != 0;
+
+        const int SM_SHUTTINGDOWN = 0x2000;
 
         // Sağ tık menüsündeki "Masaüstü modu" işaretini ana thread günceller.
         public static bool CompanionChecked { set => _companionChecked = value; }
@@ -94,7 +94,7 @@ namespace ScrollRoad.Platform
             if (_hwnd == IntPtr.Zero) return;
             var data = NewData(NIF_TIP);
             data.szTip = _tooltip;
-            Notify(NIM_MODIFY, ref data);
+            if (!Notify(NIM_MODIFY, ref data)) AddIcon(); // Explorer yeniden başladı: simge silinmişti
         }
 
         public static void ShowBalloon(string title, string text)
@@ -110,7 +110,6 @@ namespace ScrollRoad.Platform
         static void Run(ManualResetEventSlim ready)
         {
             IntPtr hInstance = GetModuleHandle(null);
-            _taskbarCreatedMessage = RegisterWindowMessage("TaskbarCreated");
 
             var wc = new WNDCLASSEX
             {
@@ -121,10 +120,12 @@ namespace ScrollRoad.Platform
             };
             RegisterClassEx(ref wc); // ikinci kez (editor domain reload) ERROR_CLASS_ALREADY_EXISTS döner, sorun değil
 
-            // Gizli üst düzey pencere (message-only DEĞİL): "TaskbarCreated" yayını yalnız üst düzey
-            // pencerelere gelir — Explorer yeniden başlarsa simge onunla geri eklenir.
+            // Message-only pencere (HWND_MESSAGE): EnumWindows'ta GÖRÜNMEZ. Üst düzey bir pencere
+            // UniWindowController'ın "kendi penceremi bul" aramasına takılıyor, saydamlık/boyut oyun
+            // penceresi yerine ona uygulanıyordu. Bedeli: "TaskbarCreated" yayını gelmez — Explorer
+            // yeniden başlarsa simge SetTooltip'te NIM_MODIFY başarısız olunca geri eklenir.
             IntPtr hwnd = CreateWindowEx(0, WindowClassName, "ScrollRoad Tray", 0, 0, 0, 0, 0,
-                IntPtr.Zero, IntPtr.Zero, hInstance, IntPtr.Zero);
+                HWND_MESSAGE, IntPtr.Zero, hInstance, IntPtr.Zero);
             if (hwnd == IntPtr.Zero)
             {
                 LastError = $"CreateWindowEx başarısız (Win32 hata {Marshal.GetLastWin32Error()})";
@@ -157,22 +158,10 @@ namespace ScrollRoad.Platform
                 return IntPtr.Zero;
             }
 
-            if (msg == _taskbarCreatedMessage && _taskbarCreatedMessage != 0)
-            {
-                AddIcon();
-                return IntPtr.Zero;
-            }
-
             switch (msg)
             {
                 case WM_COMMAND:
                     HandleMenuId((int)(wParam.ToInt64() & 0xFFFF));
-                    return IntPtr.Zero;
-                case WM_QUERYENDSESSION:
-                    Interlocked.Exchange(ref _sessionEnding, 1);
-                    return new IntPtr(1); // kapanmaya izin ver
-                case WM_ENDSESSION:
-                    if (wParam == IntPtr.Zero) Interlocked.Exchange(ref _sessionEnding, 0); // kapanış iptal edildi
                     return IntPtr.Zero;
                 case WM_CLOSE:
                     var data = NewData(0);
@@ -319,8 +308,8 @@ namespace ScrollRoad.Platform
         static extern IntPtr CreateWindowEx(uint dwExStyle, string lpClassName, string lpWindowName, uint dwStyle,
             int x, int y, int nWidth, int nHeight, IntPtr hWndParent, IntPtr hMenu, IntPtr hInstance, IntPtr lpParam);
 
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        static extern uint RegisterWindowMessage(string lpString);
+        [DllImport("user32.dll")]
+        static extern int GetSystemMetrics(int nIndex);
 
         [DllImport("user32.dll")]
         static extern IntPtr DefWindowProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);

@@ -65,7 +65,7 @@ namespace ScrollRoad
 
         void Awake()
         {
-            unityWindow = FindUnityWindow();
+            unityWindow = NativeWindow.FindUnityWindow();
             TrayIcon.Start(TooltipText());
             if (!TrayIcon.IsRunning) Debug.LogWarning($"[Tray] Tepsi simgesi kurulamadı: {TrayIcon.LastError}");
             Application.wantsToQuit += OnWantsToQuit;
@@ -127,7 +127,7 @@ namespace ScrollRoad
         // userClosed=false: açılışta (-autostart) — Game'e geçişi MainMenuController zaten yapıyor.
         void HideToTray(bool userClosed)
         {
-            if (unityWindow == IntPtr.Zero) unityWindow = FindUnityWindow();
+            if (unityWindow == IntPtr.Zero) unityWindow = NativeWindow.FindUnityWindow();
             if (unityWindow == IntPtr.Zero) { Debug.LogWarning("[Tray] Unity penceresi bulunamadı, gizlenemedi."); return; }
 
             if (userClosed)
@@ -157,7 +157,7 @@ namespace ScrollRoad
 
         void Restore()
         {
-            if (unityWindow == IntPtr.Zero) unityWindow = FindUnityWindow();
+            if (unityWindow == IntPtr.Zero) unityWindow = NativeWindow.FindUnityWindow();
             if (unityWindow == IntPtr.Zero) return;
 
             if (IsHiddenToTray)
@@ -198,41 +198,6 @@ namespace ScrollRoad
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
         const int SW_RESTORE = 9;
-
-        delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
-
-        static readonly EnumWindowsProc EnumProc = OnEnumWindow;
-        static IntPtr foundWindow;
-        static uint currentPid;
-
-        static IntPtr FindUnityWindow()
-        {
-            foundWindow = IntPtr.Zero;
-            currentPid = (uint)System.Diagnostics.Process.GetCurrentProcess().Id;
-            EnumWindows(EnumProc, IntPtr.Zero);
-            return foundWindow;
-        }
-
-        static bool OnEnumWindow(IntPtr hWnd, IntPtr lParam)
-        {
-            GetWindowThreadProcessId(hWnd, out uint pid);
-            if (pid != currentPid) return true;
-            var cls = new System.Text.StringBuilder(64);
-            GetClassName(hWnd, cls, cls.Capacity);
-            if (cls.ToString() != "UnityWndClass") return true;
-            foundWindow = hWnd;
-            return false;
-        }
-
-        [DllImport("user32.dll")]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool EnumWindows(EnumWindowsProc lpEnumFunc, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
-
-        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        static extern int GetClassName(IntPtr hWnd, System.Text.StringBuilder lpClassName, int nMaxCount);
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]

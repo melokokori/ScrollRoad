@@ -3,20 +3,24 @@ using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Masaüstü arkadaşı modunun küçük arayüzü (sabit piksel boyutlu ayrı canvas): sol üstte km,
-    // sağ üstte ☰ menüsü (Tam pencere / Çıkış), altta gizli bölge fısıltısı. Normal modda gizli.
+    // Masaüstü modunun (görev çubuğu şeridi) arayüzü — sabit piksel boyutlu ayrı canvas, görev
+    // çubuğu ölçeğiyle büyür: solda büyük km, altında hız (gizli bölgede fısıltı), sağda ≡ menüsü
+    // (Tam pencere / Çıkış, şeride sığsın diye yan yana). Normal modda gizli.
     public class CompanionHudController : MonoBehaviour
     {
         [SerializeField] RoadDrive drive;
         [SerializeField] SecretZoneView secretZone;
         [SerializeField] CompanionWindowController companionWindow;
         [SerializeField] GameObject root;
+        [SerializeField] CanvasScaler scaler;
         [SerializeField] Text kmText;
-        [SerializeField] Text whisperText;
+        [SerializeField] Text subText;
         [SerializeField] Button menuButton;
         [SerializeField] GameObject menuPanel;
         [SerializeField] Button exitCompanionButton;
         [SerializeField] Button quitButton;
+
+        static readonly Color SubTextColor = new Color(0.85f, 0.87f, 0.90f, 0.85f);
 
         void Awake()
         {
@@ -41,12 +45,23 @@ namespace ScrollRoad
             }
             if (!show) return;
 
+            scaler.scaleFactor = companionWindow.StripScale;
             kmText.text = Fmt.Km(drive.CurrentDistanceKmPrecise);
-            if (secretZone != null)
+
+            // Alt satır: gizli bölge fısıltısı görünürken o, değilse hız.
+            if (secretZone != null && secretZone.CurrentAlpha > 0.05f && !string.IsNullOrEmpty(secretZone.CurrentText))
             {
-                whisperText.text = secretZone.CurrentText;
+                subText.text = secretZone.CurrentText;
                 var w = SecretZoneView.WhisperColor;
-                whisperText.color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);
+                subText.color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);
+                subText.fontStyle = FontStyle.Italic;
+            }
+            else
+            {
+                int speed = Mathf.RoundToInt(drive.CurrentSpeedKmh);
+                subText.text = drive.IsUserActive ? $"{speed} km/s" : $"rölanti · {speed} km/s";
+                subText.color = SubTextColor;
+                subText.fontStyle = FontStyle.Normal;
             }
         }
     }
