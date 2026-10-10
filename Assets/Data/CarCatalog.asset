@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d26468eb25302f478e3d3726590cf5d, type: 3}
+  m_Name: CarCatalog
+  m_EditorClassIdentifier: Assembly-CSharp::ScrollRoad.CarCatalog
+  entries:
+  - id: car_coral
+    displayName: Mercan
+    sprite: {fileID: 21300000, guid: 67438a40fb2775748a0024510ec2d63c, type: 3}
+    secret: 0
+  - id: car_cherry
+    displayName: Kiraz
+    sprite: {fileID: 21300000, guid: 26b43fe656cc1c24d8164ba4fb6de684, type: 3}
+    secret: 0
+  - id: car_mustard
+    displayName: Hardal
+    sprite: {fileID: 21300000, guid: fa439010e0e0f7b4787ad2cf873937c1, type: 3}
+    secret: 0
+  - id: car_mint
+    displayName: Nane
+    sprite: {fileID: 21300000, guid: ae53b2ae9f4c26a4f85d79b00fbb24e7, type: 3}
+    secret: 0
+  - id: car_forest
+    displayName: Orman
+    sprite: {fileID: 21300000, guid: dd021901291e60743931bf76c8e20b88, type: 3}
+    secret: 0
+  - id: car_teal
+    displayName: Turkuaz
+    sprite: {fileID: 21300000, guid: 4d309b42ebf409a45bf8d1925ee7f083, type: 3}
+    secret: 0
+  - id: car_navy
+    displayName: Gece Mavisi
+    sprite: {fileID: 21300000, guid: d3d4d2e9180d83a47853ce3835407a8d, type: 3}
+    secret: 0
+  - id: car_lavender
+    displayName: Lavanta
+    sprite: {fileID: 21300000, guid: edaa88f20e2a4e44c9fd5084ef11f707, type: 3}
+    secret: 0
+  - id: car_graphite
+    displayName: Grafit
+    sprite: {fileID: 21300000, guid: 538a6d7508f286e48901b06467f4af8e, type: 3}
+    secret: 0
+  - id: car_whisper
+    displayName: "F\u0131s\u0131lt\u0131"
+    sprite: {fileID: 21300000, guid: 8227df489e4d77a46a60896107f47ed1, type: 3}
+    secret: 1

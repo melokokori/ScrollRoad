@@ -9,6 +9,8 @@ namespace ScrollRoad
         [SerializeField] Button playButton;
         [SerializeField] Button quitButton;
         [SerializeField] Text steamStatusText;
+        [SerializeField] Image carPreview;
+        [SerializeField] CarCatalog carCatalog;
 
         // "Oyun masaüstü modunda başlasın" açıksa (ya da -companion argümanıyla başlatıldıysa) uygulama açılışında menü atlanır ve doğrudan
         // masaüstü arkadaşı moduna geçilir (CompanionWindowController ayarı Game'de uygular).
@@ -24,6 +26,16 @@ namespace ScrollRoad
             Time.timeScale = 1f;
             playButton.onClick.AddListener(() => SceneManager.LoadScene(SceneNames.Game));
             quitButton.onClick.AddListener(BackgroundLifecycle.QuitApp);
+            CarCatalog.SelectionChanged += ShowSelectedCar;
+            ShowSelectedCar();
+        }
+
+        void OnDestroy() => CarCatalog.SelectionChanged -= ShowSelectedCar;
+
+        void ShowSelectedCar()
+        {
+            if (carPreview == null || carCatalog == null || carCatalog.Selected == null) return;
+            carPreview.sprite = carCatalog.Selected.sprite;
         }
 
         void Start()

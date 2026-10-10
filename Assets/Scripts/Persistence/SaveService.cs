@@ -24,6 +24,7 @@ namespace ScrollRoad
         const string CityReachedCountKey = "ScrollRoad_CityReachedCount";
         const string BestMonthKmKey = "ScrollRoad_BestMonthKmD";
         const string BestMonthKey = "ScrollRoad_BestMonth";
+        const string SecretCarUnlockedKey = "ScrollRoad_SecretCarUnlocked";
 
         // Cihaza özel tercihler — cloud'a bilerek dahil edilmez.
         const string MasterVolumeKey = "ScrollRoad_MasterVolume";
@@ -31,6 +32,7 @@ namespace ScrollRoad
         const string CloseToTrayKey = "ScrollRoad_CloseToTray";
         const string TrayHintShownKey = "ScrollRoad_TrayHintShown";
         const string OnboardingDoneKey = "ScrollRoad_OnboardingDone";
+        const string SelectedCarKey = "ScrollRoad_SelectedCar";
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -92,6 +94,26 @@ namespace ScrollRoad
             PushLocalToCloud();
         }
 
+        // Gizli bölge ödülü — kalıcı, cihazlar arası taşınır (cloud birleştirmede OR).
+        public static bool LoadSecretCarUnlocked() => PlayerPrefs.GetInt(SecretCarUnlockedKey, 0) == 1;
+
+        public static void UnlockSecretCar()
+        {
+            if (LoadSecretCarUnlocked()) return;
+            PlayerPrefs.SetInt(SecretCarUnlockedKey, 1);
+            PlayerPrefs.Save();
+            PushLocalToCloud();
+        }
+
+        // Garaj seçimi kozmetik ve cihaza özel (cloud dışı); kilit durumu CarCatalog'da denetlenir.
+        public static string LoadSelectedCar() => PlayerPrefs.GetString(SelectedCarKey, "");
+
+        public static void SaveSelectedCar(string id)
+        {
+            PlayerPrefs.SetString(SelectedCarKey, id);
+            PlayerPrefs.Save();
+        }
+
         public static float LoadMasterVolume() => PlayerPrefs.GetFloat(MasterVolumeKey, 0.8f);
 
         public static void SaveMasterVolume(float volume)
@@ -149,6 +171,7 @@ namespace ScrollRoad
                 cityReachedCount = PlayerPrefs.GetInt(CityReachedCountKey, 0),
                 bestMonthKm = GetDouble(BestMonthKmKey),
                 bestMonth = PlayerPrefs.GetString(BestMonthKey, ""),
+                secretCarUnlocked = LoadSecretCarUnlocked(),
             };
 
             if (data.hasLastClose &&
@@ -175,6 +198,7 @@ namespace ScrollRoad
             PlayerPrefs.SetInt(CityReachedCountKey, data.cityReachedCount);
             SetDouble(BestMonthKmKey, data.bestMonthKm);
             PlayerPrefs.SetString(BestMonthKey, data.bestMonth);
+            PlayerPrefs.SetInt(SecretCarUnlockedKey, data.secretCarUnlocked ? 1 : 0);
             if (data.hasLastClose)
             {
                 PlayerPrefs.SetString(LastCloseUnixSecondsKey, data.lastCloseUnixSeconds.ToString(CultureInfo.InvariantCulture));
@@ -219,6 +243,7 @@ namespace ScrollRoad
             var best = cloud.bestMonthKm > local.bestMonthKm ? cloud : local;
             result.bestMonthKm = best.bestMonthKm;
             result.bestMonth = best.bestMonth;
+            result.secretCarUnlocked = local.secretCarUnlocked || cloud.secretCarUnlocked;
 
             return result;
         }

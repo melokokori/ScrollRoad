@@ -18,6 +18,23 @@ namespace ScrollRoad.EditorTools
         public const string MainMenuScenePath = ScenesFolder + "/" + SceneNames.MainMenu + ".unity";
         public const string GameScenePath = ScenesFolder + "/" + SceneNames.Game + ".unity";
 
+        const string CarCatalogPath = "Assets/Data/CarCatalog.asset";
+
+        // Garaj sırası (ilk kayıt varsayılan). Görseller Tools/make_car_variants.py ile car_coral'dan üretilir.
+        static readonly (string id, string name, bool secret)[] Cars =
+        {
+            ("car_coral", "Mercan", false),
+            ("car_cherry", "Kiraz", false),
+            ("car_mustard", "Hardal", false),
+            ("car_mint", "Nane", false),
+            ("car_forest", "Orman", false),
+            ("car_teal", "Turkuaz", false),
+            ("car_navy", "Gece Mavisi", false),
+            ("car_lavender", "Lavanta", false),
+            ("car_graphite", "Grafit", false),
+            ("car_whisper", "Fısıltı", true), // gizli bölge ödülü
+        };
+
         const string SpriteUnlitMaterialPath = "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat";
 
         // Ortak UI paleti (minimalist, düz).
@@ -35,6 +52,7 @@ namespace ScrollRoad.EditorTools
             if (!AssetDatabase.IsValidFolder(ScenesFolder)) AssetDatabase.CreateFolder("Assets", "Scenes");
 
             ConfigureProjectSettings();
+            BuildCarCatalog();
             BuildMainMenuScene();
             BuildGameScene();
 
@@ -78,6 +96,39 @@ namespace ScrollRoad.EditorTools
             AssetDatabase.SaveAssets();
         }
 
+        static CarCatalog BuildCarCatalog()
+        {
+            if (!AssetDatabase.IsValidFolder("Assets/Data")) AssetDatabase.CreateFolder("Assets", "Data");
+            var catalog = AssetDatabase.LoadAssetAtPath<CarCatalog>(CarCatalogPath);
+            if (catalog == null)
+            {
+                catalog = ScriptableObject.CreateInstance<CarCatalog>();
+                AssetDatabase.CreateAsset(catalog, CarCatalogPath);
+            }
+
+            var entries = new CarCatalog.Entry[Cars.Length];
+            for (int i = 0; i < Cars.Length; i++)
+            {
+                entries[i] = new CarCatalog.Entry
+                {
+                    id = Cars[i].id,
+                    displayName = Cars[i].name,
+                    sprite = LoadArtSprite($"Assets/Art/Vehicle/{Cars[i].id}.png"),
+                    secret = Cars[i].secret,
+                };
+            }
+            catalog.entries = entries;
+            EditorUtility.SetDirty(catalog);
+            AssetDatabase.SaveAssets();
+            return catalog;
+        }
+
+        static CarCatalog LoadCarCatalog()
+        {
+            var catalog = AssetDatabase.LoadAssetAtPath<CarCatalog>(CarCatalogPath);
+            return catalog != null ? catalog : BuildCarCatalog();
+        }
+
         // ------------------------------------------------------------------ Ana menü
 
         static void BuildMainMenuScene()
@@ -100,9 +151,10 @@ namespace ScrollRoad.EditorTools
             SetRect(carPreview.GetComponent<RectTransform>(), new Vector2(0, 50), new Vector2(300, 140));
 
             var playButton = CreateButton(canvas.transform, "PlayButton", "Oyna", new Vector2(0, -90), new Vector2(320, 72), Accent);
-            var statsButton = CreateButton(canvas.transform, "StatsButton", "İstatistikler", new Vector2(0, -180), new Vector2(320, 64));
-            var settingsButton = CreateButton(canvas.transform, "SettingsButton", "Ayarlar", new Vector2(0, -260), new Vector2(320, 64));
-            var quitButton = CreateButton(canvas.transform, "QuitButton", "Çıkış", new Vector2(0, -340), new Vector2(320, 64));
+            var garageButton = CreateButton(canvas.transform, "GarageButton", "Garaj", new Vector2(0, -175), new Vector2(320, 64));
+            var statsButton = CreateButton(canvas.transform, "StatsButton", "İstatistikler", new Vector2(0, -250), new Vector2(320, 64));
+            var settingsButton = CreateButton(canvas.transform, "SettingsButton", "Ayarlar", new Vector2(0, -325), new Vector2(320, 64));
+            var quitButton = CreateButton(canvas.transform, "QuitButton", "Çıkış", new Vector2(0, -400), new Vector2(320, 64));
 
             var steamText = CreateText(canvas.transform, "SteamStatus", "", 22, Vector2.zero, new Vector2(600, 40), new Color(Ink.r, Ink.g, Ink.b, 0.6f));
             steamText.alignment = TextAnchor.LowerLeft;
@@ -112,7 +164,10 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "playButton", playButton);
             Bind(controller, "quitButton", quitButton);
             Bind(controller, "steamStatusText", steamText);
+            Bind(controller, "carPreview", carImage);
+            Bind(controller, "carCatalog", LoadCarCatalog());
 
+            CreateGaragePanel(canvas.transform, garageButton);
             CreateSettingsPanel(canvas.transform, settingsButton);
             CreateStatsPanel(canvas.transform, statsButton, null, null);
 
@@ -147,6 +202,7 @@ namespace ScrollRoad.EditorTools
             Bind(view, "companionWindow", companion);
             Bind(view, "viewCamera", cam);
             Bind(view, "carSprite", LoadArtSprite("Assets/Art/Vehicle/car_coral.png"));
+            Bind(view, "carCatalog", LoadCarCatalog());
             Bind(view, "citySprite", LoadArtSprite("Assets/Art/City/city_skyline.png"));
             Bind(view, "hillsSprite", LoadArtSprite("Assets/Art/Background/hills_far.png"));
             Bind(view, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
@@ -308,19 +364,20 @@ namespace ScrollRoad.EditorTools
             var canvas = CreateCanvas("PauseCanvas", 10);
 
             var pausePanel = CreateDim(canvas.transform, "PausePanel");
-            var card = CreateCard(pausePanel.transform, "Card", new Vector2(480, 760));
-            CreateText(card.transform, "Title", "Duraklatıldı", 44, new Vector2(0, 320), new Vector2(440, 70), TextLight).fontStyle = FontStyle.Bold;
+            var card = CreateCard(pausePanel.transform, "Card", new Vector2(480, 840));
+            CreateText(card.transform, "Title", "Duraklatıldı", 44, new Vector2(0, 360), new Vector2(440, 70), TextLight).fontStyle = FontStyle.Bold;
 
-            string[] labels = { "Devam Et", "Bu Ayın Sıralaması", "Geçen Ayın Sonuçları", "İstatistikler", "Ayarlar", "Masaüstü Modu", "Ana Menü", "Çıkış" };
+            string[] labels = { "Devam Et", "Bu Ayın Sıralaması", "Geçen Ayın Sonuçları", "Garaj", "İstatistikler", "Ayarlar", "Masaüstü Modu", "Ana Menü", "Çıkış" };
             var buttons = new Button[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
                 var color = i == 0 ? Accent : new Color(0.24f, 0.27f, 0.33f);
-                buttons[i] = CreateButton(card.transform, labels[i].Replace(" ", "") + "Button", labels[i], new Vector2(0, 230 - i * 74), new Vector2(380, 60), color);
+                buttons[i] = CreateButton(card.transform, labels[i].Replace(" ", "") + "Button", labels[i], new Vector2(0, 265 - i * 70), new Vector2(380, 60), color);
             }
 
-            var settings = CreateSettingsPanel(pausePanel.transform, buttons[4]);
-            var statsCtrl = CreateStatsPanel(pausePanel.transform, buttons[3], drive, stats);
+            var garage = CreateGaragePanel(pausePanel.transform, buttons[3]);
+            var statsCtrl = CreateStatsPanel(pausePanel.transform, buttons[4], drive, stats);
+            var settings = CreateSettingsPanel(pausePanel.transform, buttons[5]);
 
             var lbPanel = CreateDim(canvas.transform, "LeaderboardPanel");
             var lbCard = CreateCard(lbPanel.transform, "Card", new Vector2(820, 640));
@@ -344,11 +401,91 @@ namespace ScrollRoad.EditorTools
             Bind(pause, "resumeButton", buttons[0]);
             Bind(pause, "leaderboardButton", buttons[1]);
             Bind(pause, "revealButton", buttons[2]);
-            Bind(pause, "companionButton", buttons[5]);
-            Bind(pause, "mainMenuButton", buttons[6]);
-            Bind(pause, "quitButton", buttons[7]);
+            Bind(pause, "companionButton", buttons[6]);
+            Bind(pause, "mainMenuButton", buttons[7]);
+            Bind(pause, "quitButton", buttons[8]);
             Bind(pause, "leaderboardCloseButton", lbClose);
-            BindArray(pause, "subPanels", new Object[] { settings.Panel, statsCtrl.Panel });
+            BindArray(pause, "subPanels", new Object[] { garage.Panel, settings.Panel, statsCtrl.Panel });
+        }
+
+        // Garaj: üstte seçili aracın önizlemesi + adı, altta 5 sütunlu araç ızgarası. Gizli yuva
+        // kilitliyken pasif — layout pasif çocukları atlar, boşluk kalmaz.
+        static GarageController CreateGaragePanel(Transform parent, Button openButton)
+        {
+            var catalog = LoadCarCatalog();
+            var panel = CreateDim(parent, "GaragePanel");
+            var card = CreateCard(panel.transform, "Card", new Vector2(960, 860)); // duraklatma kartını (840) tam örtsün
+            CreateText(card.transform, "Title", "Garaj", 44, new Vector2(0, 360), new Vector2(700, 70), TextLight).fontStyle = FontStyle.Bold;
+
+            var preview = new GameObject("Preview", typeof(RectTransform), typeof(Image));
+            preview.transform.SetParent(card.transform, false);
+            var previewImage = preview.GetComponent<Image>();
+            previewImage.preserveAspect = true;
+            previewImage.raycastTarget = false;
+            previewImage.sprite = catalog.Default != null ? catalog.Default.sprite : null;
+            SetRect(preview.GetComponent<RectTransform>(), new Vector2(0, 225), new Vector2(380, 170));
+
+            var nameText = CreateText(card.transform, "SelectedName", "", 30, new Vector2(0, 110), new Vector2(600, 44), TextLight);
+
+            // Satır başına 5 yuva; her satır kendi içinde ortalanır (eksik satır sola yaslanmasın).
+            const int perRow = 5;
+            int rowCount = (catalog.entries.Length + perRow - 1) / perRow;
+            var rows = new Transform[rowCount];
+            for (int r = 0; r < rowCount; r++)
+            {
+                var row = new GameObject($"Row{r}", typeof(RectTransform), typeof(HorizontalLayoutGroup));
+                row.transform.SetParent(card.transform, false);
+                SetRect(row.GetComponent<RectTransform>(), new Vector2(0, -10 - r * 114), new Vector2(900, 98));
+                var layout = row.GetComponent<HorizontalLayoutGroup>();
+                layout.spacing = 16;
+                layout.childAlignment = TextAnchor.MiddleCenter;
+                layout.childControlWidth = layout.childControlHeight = false;
+                layout.childForceExpandWidth = layout.childForceExpandHeight = false;
+                rows[r] = row.transform;
+            }
+
+            var slots = new Object[catalog.entries.Length];
+            var frames = new Object[catalog.entries.Length];
+            for (int i = 0; i < catalog.entries.Length; i++)
+            {
+                var entry = catalog.entries[i];
+                var slot = new GameObject($"Slot_{entry.id}", typeof(RectTransform), typeof(Image), typeof(Button));
+                slot.transform.SetParent(rows[i / perRow], false);
+                ((RectTransform)slot.transform).sizeDelta = new Vector2(160, 98);
+                var frame = slot.GetComponent<Image>();
+                frame.color = new Color(1f, 1f, 1f, 0.06f);
+                var button = slot.GetComponent<Button>();
+                button.targetGraphic = frame;
+
+                var car = new GameObject("Car", typeof(RectTransform), typeof(Image));
+                car.transform.SetParent(slot.transform, false);
+                var carImage = car.GetComponent<Image>();
+                carImage.sprite = entry.sprite;
+                carImage.preserveAspect = true;
+                carImage.raycastTarget = false;
+                var carRect = car.GetComponent<RectTransform>();
+                Stretch(carRect);
+                carRect.offsetMin = new Vector2(12, 10);
+                carRect.offsetMax = new Vector2(-12, -10);
+
+                slot.SetActive(!entry.secret);
+                slots[i] = button;
+                frames[i] = frame;
+            }
+
+            var close = CreateButton(card.transform, "CloseButton", "Kapat", new Vector2(0, -340), new Vector2(240, 60));
+
+            panel.SetActive(false);
+            var controller = new GameObject("GarageController").AddComponent<GarageController>();
+            Bind(controller, "catalog", catalog);
+            Bind(controller, "garagePanel", panel);
+            Bind(controller, "previewImage", previewImage);
+            Bind(controller, "selectedNameText", nameText);
+            BindArray(controller, "slotButtons", slots);
+            BindArray(controller, "slotFrames", frames);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            return controller;
         }
 
         static SettingsController CreateSettingsPanel(Transform parent, Button openButton)

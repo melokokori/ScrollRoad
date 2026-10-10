@@ -19,7 +19,8 @@ namespace ScrollRoad
         [SerializeField] Camera viewCamera;
 
         [Header("Görseller")]
-        [SerializeField] Sprite carSprite;
+        [SerializeField] Sprite carSprite;          // katalog yoksa yedek
+        [SerializeField] CarCatalog carCatalog;     // garaj seçimi (Awake'te ve değişince uygulanır)
         [SerializeField] Sprite citySprite;
         [SerializeField] Sprite hillsSprite;
         [SerializeField] Material spriteMaterial; // URP Sprite-Unlit-Default (2D ışık gerektirmesin)
@@ -142,8 +143,10 @@ namespace ScrollRoad
             // Texture2D.whiteTexture 4x4 — pixelsPerUnit=4 ile 1x1 dünya birimlik beyaz kare.
             whiteSprite = Sprite.Create(Texture2D.whiteTexture, new Rect(0, 0, 4, 4), new Vector2(0.5f, 0.5f), 4f);
             circleSprite = CreateCircleSprite();
+            if (carCatalog != null && carCatalog.Selected != null) carSprite = carCatalog.Selected.sprite;
 
             Build();
+            CarCatalog.SelectionChanged += HandleCarSelectionChanged;
 
             drive.OnDirectionChanged += HandleDirectionChanged;
             drive.OnStep += HandleStep;
@@ -152,6 +155,7 @@ namespace ScrollRoad
 
         void OnDestroy()
         {
+            CarCatalog.SelectionChanged -= HandleCarSelectionChanged;
             if (drive == null) return;
             drive.OnDirectionChanged -= HandleDirectionChanged;
             drive.OnStep -= HandleStep;
@@ -159,6 +163,15 @@ namespace ScrollRoad
         }
 
         void HandleStep() => bobVelocity += stepBobImpulse;
+
+        void HandleCarSelectionChanged()
+        {
+            var entry = carCatalog != null ? carCatalog.Selected : null;
+            if (entry == null || entry.sprite == null) return;
+            carSprite = entry.sprite;
+            carRenderer.sprite = carSprite;
+            bobVelocity += stepBobImpulse * 1.5f; // yeni araç "yerine oturur"
+        }
 
         void HandleDirectionChanged()
         {

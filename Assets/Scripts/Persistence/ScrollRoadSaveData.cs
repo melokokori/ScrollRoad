@@ -22,5 +22,8 @@ namespace ScrollRoad
         public int cityReachedCount;
         public double bestMonthKm;
         public string bestMonth = "";
+
+        // Gizli bölge ödülü (garajdaki gizli araç) — bir kez açılınca kalıcı.
+        public bool secretCarUnlocked;
     }
 }
