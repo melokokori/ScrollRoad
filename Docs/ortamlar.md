@@ -103,3 +103,16 @@ Aynı scroll başka "dönen / sarılan" şeyleri de sürebilir; her ortamın ken
 - Defter 5 mekâna göre: sekmeler 118 px, kilitli mekân yalnız soluk ad (kalan balık sağ üstte), FISH HERE 116 px.
 - Doğrulanan (build, gece): 100 balık → Kıyı + Açık deniz duyuruları sırayla, otomatik geçiş; 180 balık → Buz deliği, dikey yol; Göl'de test atışı Altın Sazan'a çevrildi → takıldı, efsane tabelası çıktı, sayım 5/6'da kaldı, LAST Golden Carp 12.34 kg. Her testten sonra olta kaydı yedekten geri yüklendi (`kayit_yedegi_2026-10-14\fishing_aciksular_testi_oncesi.bin`, cmp ile birebir).
 - Doğrulanmayan: defter paneli (sekmeler, altın şerit, FISH HERE — tıklama enjekte edilemiyor), gündüz temaları, görev çubuğu şeridi (Açık deniz/Buz).
+
+## 14.10 — Döner kapı (üçüncü ortam) KARAR + prototip (commit EDİLMEDİ)
+Kullanıcı Olta'dan sonraki ortam olarak **AVM döner kapısı**nı seçti, içerik önerisini onayladı ("uygun, başla").
+- **Sahne:** yandan kesit. Solda kaldırım/şehir, ortada cephe duvarına oturan 4 kanatlı cam döner kapı, sağda AVM'nin içi (vitrinler, asma kat). İnsanlar soldan yürür, kapının bir bölmesine girip içeri geçer.
+- **Scroll:** yukarı kapıyı döndürür, insanlar girer. Aşağı kapıyı ters çevirir, son girenler geri çıkar, sayaç da düşer. Rölantide yavaş döner. Başarısızlık yok.
+- **Birim:** ziyaretçi sayısı, **200 puanda 1** (kullanıcı seçti). Seyirde ~12 sn'de bir kişi girer, günlük hedef 400, haftalık 2.500. Aylık sıfırlanır, leaderboard ve hedefler bu birimle tutulur.
+- **Sahne konumun saf fonksiyonu:** ayın i. ziyaretçisinin kimliği ay + mekân + sıradan belirlenir (`VisitorCatalog.Identify`). Geri çıkıp yeniden giren aynı kişidir ve ayın rekorunu aşmadıkça iki kez sayılmaz.
+- **Misafir defteri (Guest book):** sıradan yürüyenler (8 tip) deftere girmez. Ziyaretçi başına %1,2 ihtimalle nadir misafir gelir, ilk gelişte damgalanır. AVM misafirleri: Shopping Spree, Teddy Mascot, The Mime, Santa Claus, A Knight, An Astronaut (en nadiri ~1.700 ziyaretçide bir). Ayın ilk 12 ziyaretçisi hep sıradan.
+- **Mekânlar:** AVM → Otel → Havalimanı → Müze → Gökdelen (her biri 6 misafir, ömür boyu ziyaretçi sayısıyla açılır, bir de gizli efsane). Prototipte yalnız AVM var.
+- **Açılma:** ömür boyu 500.000 puan (Yol'da 500 km).
+- **Görseller:** `Tools/gen_visitors.py` (gen_fishing.py boru hattı) → `Assets/Art/Door/`. Maskotun ilk tarifi Gemini'nin içerik filtresine takıldı, "mall mascot character ... bear suit" tarifiyle üretildi.
+- **Kod:** `Assets/Scripts/Door/` (VisitorCatalog, DoorController, DoorSceneView, DoorHudController, GuestBookController). Activities seçicisi 3 kart, çekmecedeki koleksiyon satırı kapıdayken misafir defterini açar, şerit ve tepsi ipucu ziyaretçi sayısını yazar.
+- Sırada (kullanıcı onayından sonra): kapı sesi, Otel/Havalimanı/Müze/Gökdelen, gizli efsane misafir.

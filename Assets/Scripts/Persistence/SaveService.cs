@@ -54,6 +54,7 @@ namespace ScrollRoad
         const string GoalsKey = "ScrollRoad_Goals"; // günlük/haftalık hedefler (JSON) — şimdilik yalnız yerel
         const string EnvironmentKey = "ScrollRoad_Environment"; // seçili ortam (yerel)
         const string FishingKey = "ScrollRoad_Fishing";         // Olta ilerlemesi + balık defteri (JSON, şimdilik yerel)
+        const string DoorKey = "ScrollRoad_Door";               // Döner kapı ilerlemesi + misafir defteri (JSON, şimdilik yerel)
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -184,6 +185,26 @@ namespace ScrollRoad
         public static void SaveFishing(FishingProgress progress)
         {
             PlayerPrefs.SetString(FishingKey, JsonUtility.ToJson(progress));
+            PlayerPrefs.Save();
+        }
+
+        public static DoorProgress LoadDoor()
+        {
+            string json = PlayerPrefs.GetString(DoorKey, "");
+            if (string.IsNullOrEmpty(json)) return new DoorProgress();
+            try
+            {
+                return JsonUtility.FromJson<DoorProgress>(json) ?? new DoorProgress();
+            }
+            catch (Exception)
+            {
+                return new DoorProgress();
+            }
+        }
+
+        public static void SaveDoor(DoorProgress progress)
+        {
+            PlayerPrefs.SetString(DoorKey, JsonUtility.ToJson(progress));
             PlayerPrefs.Save();
         }
 

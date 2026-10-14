@@ -352,6 +352,18 @@ namespace ScrollRoad.EditorTools
             Bind(lake, "hillsSprite", LoadArtSprite("Assets/Art/Background/hills_far.png"));
             Bind(lake, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
 
+            // Döner kapı ortamı (2026-10-14): mantık + sahne (yalnız seçiliyken çizer ve kamerayı yönetir).
+            var doorGo = new GameObject("RevolvingDoor");
+            var door = doorGo.AddComponent<DoorController>();
+            var mall = doorGo.AddComponent<DoorSceneView>();
+            Bind(mall, "door", door);
+            Bind(mall, "companionWindow", companion);
+            Bind(mall, "viewCamera", cam);
+            BindArray(mall, "walkerSprites", DoorSprites(VisitorCatalog.Walkers));
+            BindArray(mall, "guestSprites", DoorSprites(VisitorCatalog.AllGuests));
+            Bind(mall, "citySprite", LoadArtSprite("Assets/Art/City/city_skyline.png"));
+            Bind(mall, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
+
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
             var vehicleSound = roadGo.AddComponent<VehicleSound>();
@@ -363,15 +375,16 @@ namespace ScrollRoad.EditorTools
             Bind(sound, "uiClickClip", LoadClip("click_001"));
 
             Bind(sound, "companionWindow", companion);
-            CreateHud(drive, view, secret, companion, route, goals, fishing, out var notice, out var windowButtons);
+            CreateHud(drive, view, secret, companion, route, goals, fishing, door, out var notice, out var windowButtons);
             Bind(fishing, "notice", notice);
+            Bind(door, "notice", notice);
             Bind(environments, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);
             Bind(unlocks, "catalog", LoadCarCatalog());
             Bind(unlocks, "notice", notice);
-            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing);
+            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing, door);
             CreateOnboarding(companion, menu);
             CreateCompanionHud(drive, secret, companion, notice);
 
@@ -387,6 +400,15 @@ namespace ScrollRoad.EditorTools
 
         const string FishingArt = "Assets/Art/Fishing/";
 
+        const string DoorArt = "Assets/Art/Door/";
+
+        static Object[] DoorSprites(VisitorType[] types)
+        {
+            var sprites = new Object[types.Length];
+            for (int i = 0; i < sprites.Length; i++) sprites[i] = LoadArtSprite(DoorArt + types[i].Id + ".png");
+            return sprites;
+        }
+
         static Object[] FishSprites()
         {
             var sprites = new Object[FishCatalog.All.Length];
@@ -396,7 +418,7 @@ namespace ScrollRoad.EditorTools
 
         static HudController CreateHud(RoadDrive drive, RoadSceneView view, SecretZoneView secret,
             CompanionWindowController companion, RouteProgress route, GoalTracker goals, FishingController fishing,
-            out NoticeController notice, out WindowButtons windowButtons)
+            DoorController door, out NoticeController notice, out WindowButtons windowButtons)
         {
             var canvas = CreateCanvas("HudCanvas", 0);
             var root = new GameObject("HudRoot", typeof(RectTransform));
@@ -489,6 +511,7 @@ namespace ScrollRoad.EditorTools
             BindArray(hud, "roadOnly", new Object[] { gauge.gameObject, sign, cityPlate, whisper.gameObject });
 
             CreateFishingHud(root.transform, fishing);
+            CreateDoorHud(root.transform, door);
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
@@ -541,6 +564,56 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);
             Bind(controller, "distanceText", distance);
+            Bind(controller, "logText", log);
+            root.SetActive(false);
+        }
+
+        // Döner kapının kart HUD'u (Olta HUD'unun yerleşimiyle): sol üstte ziyaretçi plakası, sağ üstte
+        // mekân tabelası (sıradaki ziyaretçi / yaklaşan misafir), sol altta misafir defteri özeti.
+        static void CreateDoorHud(Transform hudRoot, DoorController door)
+        {
+            var root = new GameObject("DoorHud", typeof(RectTransform));
+            root.transform.SetParent(hudRoot, false);
+            Stretch((RectTransform)root.transform);
+            root.transform.SetSiblingIndex(1);
+
+            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
+            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
+            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
+            var label = Tmp(totalPlate.transform, "Label", "VISITORS", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            label.characterSpacing = 16;
+            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
+            label.rectTransform.sizeDelta = new Vector2(150, 12);
+            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
+            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
+            total.rectTransform.sizeDelta = new Vector2(160, 26);
+            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            status.characterSpacing = 10;
+            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
+            status.rectTransform.sizeDelta = new Vector2(160, 12);
+
+            var sign = CreateSign(root.transform, "VenueSign", out var signInner, out _);
+            Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
+            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            place.characterSpacing = 16;
+            var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
+            var phase = Tmp(phaseRow.transform, "Phase", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
+            var guest = Tmp(phaseRow.transform, "Guest", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+            Object.DestroyImmediate(phaseRow.GetComponent<ContentSizeFitter>());
+
+            var logPlate = PlateRow(root.transform, "GuestBookPlate");
+            Anchor((RectTransform)logPlate.transform, new Vector2(0, 0), new Vector2(16, 9), new Vector2(0, 0));
+            var log = Tmp(logPlate.transform, "GuestBook", "", 11, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
+            log.characterSpacing = 3;
+
+            var controller = new GameObject("DoorHudController").AddComponent<DoorHudController>();
+            Bind(controller, "door", door);
+            Bind(controller, "root", root);
+            Bind(controller, "totalText", total);
+            Bind(controller, "statusText", status);
+            Bind(controller, "placeText", place);
+            Bind(controller, "phaseText", phase);
+            Bind(controller, "guestText", guest);
             Bind(controller, "logText", log);
             root.SetActive(false);
         }
@@ -647,7 +720,7 @@ namespace ScrollRoad.EditorTools
 
         // ≡ çekmecesi (yeşil çıkış tabelası) + kartı kaplayan paneller (Passport, Leaderboard, Garage, Stats, Settings).
         static CardMenuController CreateMenu(RoadDrive drive, StatsTracker stats, GoalTracker goals,
-            CompanionWindowController companion, WindowButtons windowButtons, FishingController fishing)
+            CompanionWindowController companion, WindowButtons windowButtons, FishingController fishing, DoorController door)
         {
             var canvas = CreateCanvas("MenuCanvas", 10);
 
@@ -704,6 +777,8 @@ namespace ScrollRoad.EditorTools
             var passport = CreatePassportPanel(canvas.transform, buttons[1], drive);
             var fishLog = CreateFishLogPanel(canvas.transform, fishing);
             Bind(passport, "fishLog", fishLog);
+            var guestBook = CreateGuestBookPanel(canvas.transform, door);
+            Bind(passport, "guestBook", guestBook);
             var garage = CreateGaragePanel(canvas.transform, buttons[3]);
             var statsCtrl = CreateStatsPanel(canvas.transform, buttons[4], drive, stats);
             var settings = CreateSettingsPanel(canvas.transform, buttons[5], companion);
@@ -741,7 +816,7 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel });
+            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel });
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
@@ -759,7 +834,7 @@ namespace ScrollRoad.EditorTools
             hint.rectTransform.sizeDelta = new Vector2(700, 16);
 
             var all = EnvironmentCatalog.All;
-            Sprite[] pictures = { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png") };
+            Sprite[] pictures = { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(DoorArt + "walker_coat.png") };
             int n = all.Length;
             var buttons = new Object[n];
             var frames = new Object[n];
@@ -767,7 +842,8 @@ namespace ScrollRoad.EditorTools
             var statuses = new Object[n];
             var tracks = new Object[n];
             var fills = new Object[n];
-            const float cardW = 360f, cardH = 232f, gap = 24f;
+            const float cardH = 232f, gap = 18f;
+            float cardW = Mathf.Min(360f, (748f - (n - 1) * gap) / n); // 3 ortamda ~237
             float startX = -(n * cardW + (n - 1) * gap) / 2f + cardW / 2f;
             for (int i = 0; i < n; i++)
             {
@@ -798,7 +874,8 @@ namespace ScrollRoad.EditorTools
                 SetRect(name.rectTransform, new Vector2(0f, -130f), new Vector2(cardW - 20f, 24f));
                 var tag = Tmp(frame.transform, "Tagline", $"{def.Tagline}  <alpha=#88>Counted in {def.Unit}.", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Center);
                 tag.rectTransform.anchorMin = tag.rectTransform.anchorMax = new Vector2(0.5f, 1f);
-                SetRect(tag.rectTransform, new Vector2(0f, -154f), new Vector2(cardW - 20f, 16f));
+                SetRect(tag.rectTransform, new Vector2(0f, -160f), new Vector2(cardW - 20f, 30f)); // dar kartta iki satır
+                tag.textWrappingMode = TextWrappingModes.Normal;
 
                 var status = Tmp(frame.transform, "Status", "", 10.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
                 status.characterSpacing = 8;
@@ -952,6 +1029,90 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "fishHereButton", fishHere);
             Bind(controller, "fishHereText", fishHere.GetComponentInChildren<TMP_Text>());
             BindArray(controller, "fishImages", images);
+            BindArray(controller, "slotRoots", roots);
+            BindArray(controller, "nameTexts", names);
+            BindArray(controller, "detailTexts", details);
+            Bind(controller, "closeButton", close);
+            return controller;
+        }
+
+        // Misafir defteri: balık defterinin yerleşimi — üstte mekân sekmeleri + "Go here", altta seçili mekânın
+        // 6 nadir misafiri 3x2 yuvada (görsel solda, ad ve geliş bilgisi sağda; insanlar dikey).
+        static GuestBookController CreateGuestBookPanel(Transform parent, DoorController door)
+        {
+            var panel = CreatePanel(parent, "GuestBookPanel", "Guest book · " + VisitorCatalog.Mall.Name, out var close, out var title);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(420, 16);
+            count.characterSpacing = 2;
+
+            const float tabY = 112f, tabW = 118f, tabH = 24f, tabGap = 6f;
+            var venues = VisitorCatalog.Venues;
+            var tabs = new Object[venues.Length];
+            var tabTexts = new Object[venues.Length];
+            for (int i = 0; i < venues.Length; i++)
+            {
+                var tab = CreateButton(panel.transform, $"Tab_{venues[i].Id}", venues[i].Name,
+                    new Vector2(-376 + tabW / 2f + i * (tabW + tabGap), tabY), new Vector2(tabW, tabH), ButtonIdle, 10.5f, UiFonts.ExtraBold);
+                tabs[i] = tab;
+                tabTexts[i] = tab.GetComponentInChildren<TMP_Text>();
+            }
+            var here = CreateButton(panel.transform, "HereButton", "YOU ARE HERE", new Vector2(376 - 58f, tabY),
+                new Vector2(116f, tabH), SignGreen, 10.5f, UiFonts.ExtraBold);
+
+            var sprites = DoorSprites(VisitorCatalog.AllGuests);
+            int n = VisitorCatalog.AllGuests.Length;
+            var images = new Object[n];
+            var roots = new Object[n];
+            var names = new Object[n];
+            var details = new Object[n];
+            const float cellW = 240f, cellH = 116f, gapX = 12f, gapY = 8f, firstRowY = 38f;
+            foreach (var venue in venues)
+            {
+                for (int j = 0; j < venue.Guests.Length; j++)
+                {
+                    int slot = VisitorCatalog.GuestIndex(venue.Guests[j].Id);
+                    int col = j % 3, row = j / 3;
+                    var cell = Plate(panel.transform, $"Slot_{venue.Guests[j].Id}", Cell, RoundSprite);
+                    cell.rectTransform.anchorMin = cell.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    SetRect(cell.rectTransform, new Vector2((col - 1) * (cellW + gapX), firstRowY - row * (cellH + gapY)), new Vector2(cellW, cellH));
+
+                    var guestGo = new GameObject("Guest", typeof(RectTransform), typeof(Image));
+                    guestGo.transform.SetParent(cell.transform, false);
+                    var image = guestGo.GetComponent<Image>();
+                    image.sprite = (Sprite)sprites[slot];
+                    image.preserveAspect = true;
+                    image.raycastTarget = false;
+                    var gr = (RectTransform)guestGo.transform;
+                    gr.anchorMin = gr.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(gr, new Vector2(46f, 0f), new Vector2(76f, 104f));
+
+                    var name = Tmp(cell.transform, "Name", "", 13, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+                    name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(name.rectTransform, new Vector2(90f + 70f, 16f), new Vector2(140f, 18f));
+                    var detail = Tmp(cell.transform, "Detail", "", 9.5f, UiFonts.SemiBold, PlateText, TextAlignmentOptions.TopLeft);
+                    detail.lineSpacing = 4;
+                    detail.rectTransform.anchorMin = detail.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(detail.rectTransform, new Vector2(90f + 70f, -12f), new Vector2(140f, 30f));
+
+                    images[slot] = image;
+                    roots[slot] = cell.gameObject;
+                    names[slot] = name;
+                    details[slot] = detail;
+                }
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("GuestBookController").AddComponent<GuestBookController>();
+            Bind(controller, "door", door);
+            Bind(controller, "panel", panel);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "tabButtons", tabs);
+            BindArray(controller, "tabTexts", tabTexts);
+            Bind(controller, "hereButton", here);
+            Bind(controller, "hereText", here.GetComponentInChildren<TMP_Text>());
+            BindArray(controller, "guestImages", images);
             BindArray(controller, "slotRoots", roots);
             BindArray(controller, "nameTexts", names);
             BindArray(controller, "detailTexts", details);

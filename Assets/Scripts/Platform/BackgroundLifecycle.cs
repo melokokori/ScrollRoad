@@ -126,6 +126,10 @@ namespace ScrollRoad
             {
                 return $"ScrollRoad — {EnvironmentCatalog.Fishing.Format(FishingController.Instance.MonthFish * EnvironmentCatalog.FishIntervalPoints)} this month" + idle;
             }
+            if (EnvironmentManager.Current.Id == EnvironmentId.Door && DoorController.Instance != null)
+            {
+                return $"ScrollRoad — {EnvironmentCatalog.Door.Format(DoorController.Instance.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints)} this month" + idle;
+            }
             return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + idle;
         }
 

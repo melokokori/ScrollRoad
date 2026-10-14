@@ -76,10 +76,15 @@ namespace ScrollRoad
             var rootRect = (RectTransform)root.transform;
             rootRect.offsetMax = new Vector2(0f, -companionWindow.StripOverflowUnits);
 
-            // Olta: kadran yok; solda toplam kg + makara durumu, sağında sahne (FishingSceneView).
+            // Olta / Döner kapı: kadran yok; solda bu ayın sayısı + durum, sağında sahne.
             if (EnvironmentManager.Current.Id == EnvironmentId.Fishing)
             {
                 UpdateFishing();
+                return;
+            }
+            if (EnvironmentManager.Current.Id == EnvironmentId.Door)
+            {
+                UpdateDoor();
                 return;
             }
 
@@ -161,7 +166,8 @@ namespace ScrollRoad
             }
         }
 
-        void UpdateFishing()
+        // Kadransız ortamlar: sayı ve alt satır kadranın yerinde (sol kenarda).
+        void ShowTextOnly()
         {
             if (plateRoot.activeSelf) plateRoot.SetActive(false);
             if (dialGauge.gameObject.activeSelf) dialGauge.gameObject.SetActive(false);
@@ -171,6 +177,35 @@ namespace ScrollRoad
             float x = ((RectTransform)dialGauge.transform).anchoredPosition.x;
             kmText.rectTransform.anchoredPosition = new Vector2(x, kmText.rectTransform.anchoredPosition.y);
             subText.rectTransform.anchoredPosition = new Vector2(x, subText.rectTransform.anchoredPosition.y);
+        }
+
+        void UpdateDoor()
+        {
+            ShowTextOnly();
+            var door = DoorController.Instance;
+            kmText.text = door != null ? EnvironmentCatalog.Door.Format(door.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints) : "";
+
+            string message = CurrentMessage(out var messageColor, out bool italic);
+            if (message != null)
+            {
+                subText.text = message;
+                subText.color = messageColor;
+                subText.fontStyle = italic ? FontStyle.Italic : FontStyle.Bold;
+                return;
+            }
+
+            string status;
+            if (door == null) status = "";
+            else if (door.TurnDirection < 0f) status = "backing out";
+            else status = drive.IsUserActive ? "turning" : "idle · slow turn";
+            subText.text = status;
+            subText.color = SubTextColor;
+            subText.fontStyle = FontStyle.Normal;
+        }
+
+        void UpdateFishing()
+        {
+            ShowTextOnly();
 
             var fishing = FishingController.Instance;
             kmText.text = fishing != null ? EnvironmentCatalog.Fishing.Format(fishing.MonthFish * EnvironmentCatalog.FishIntervalPoints) : "";

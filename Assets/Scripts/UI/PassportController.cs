@@ -20,6 +20,7 @@ namespace ScrollRoad
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
         [SerializeField] FishLogController fishLog; // Olta'dayken koleksiyon satırı balık defterini açar
+        [SerializeField] GuestBookController guestBook; // Döner kapı'dayken misafir defterini
 
         static readonly Color EmptyFrame = new Color(1f, 1f, 1f, 0.05f);
         static readonly Color EmptyText = new Color(0.95f, 0.95f, 0.93f, 0.28f);
@@ -40,6 +41,11 @@ namespace ScrollRoad
             if (fishLog != null && EnvironmentManager.Current.Id == EnvironmentId.Fishing)
             {
                 fishLog.Open();
+                return;
+            }
+            if (guestBook != null && EnvironmentManager.Current.Id == EnvironmentId.Door)
+            {
+                guestBook.Open();
                 return;
             }
 

@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -64,7 +64,25 @@ namespace ScrollRoad
             CollectionName = "Fish log",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing };
+        // Döner kapı (2026-10-14 kullanıcı kararı): birim ZİYARETÇİ SAYISI, her VisitorIntervalPoints'te bir
+        // ziyaretçi (seyirde ~12 sn'de bir; günlük hedef 400, haftalık 2.500). Olta gibi kendi ilerlemesiyle,
+        // aylık sıfırlanır. Açılma: ömür boyu 500.000 puan (Yol'da 500 km).
+        public const double VisitorIntervalPoints = 200;
+
+        public static readonly EnvironmentDef Door = new EnvironmentDef
+        {
+            Id = EnvironmentId.Door,
+            Name = "Revolving door",
+            Tagline = "Spin the door, welcome the crowd.",
+            Unit = "visitors",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / VisitorIntervalPoints,
+            UnlockLifetimePoints = 500000,
+            AmountNoun = "visitor",
+            CollectionName = "Guest book",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {
