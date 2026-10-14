@@ -204,7 +204,10 @@ namespace ScrollRoad
             source.spatialBlend = 0f;
             // Filtre zinciri yalnız kaynak çalarken işler: sessiz bir döngü klibi çalınır, ses OnAudioFilterRead'de üretilir.
             source.clip = AudioClip.Create("vinyl_silence", sampleRate, 1, sampleRate, false);
-            fx = gameObject.AddComponent<AudioSource>();
+            // Scratch ayrı çocuk nesnede: aynı nesnede ikinci AudioSource, OnAudioFilterRead uyarısı verir.
+            var fxObject = new GameObject("VinylScratch");
+            fxObject.transform.SetParent(transform, false);
+            fx = fxObject.AddComponent<AudioSource>();
             fx.playOnAwake = false;
         }
 
