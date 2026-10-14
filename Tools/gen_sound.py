@@ -219,6 +219,13 @@ ENV_SOUNDS = {
                           "surface and a low airy whoosh as it spins, calm, close up, quiet, no music, no voices", 1.4),
     "year_page": (False, "One single soft page turn of an old thick book, dry paper, gentle and quiet, close up, "
                          "no music, no voices", 1.2),
+    # Bumerang (2026-10-14): fırlatma, hedefe vuruş, ele dönüşte yakalama (atış başına birer; seyirde ~15 sn'de bir).
+    "boom_throw": (False, "A wooden boomerang thrown by hand: one quick airy whoosh with a soft spinning flutter fading "
+                          "into the distance, outdoors, calm, quiet, no music, no voices", 1.6),
+    "boom_hit": (False, "A wooden boomerang hitting a target at a distance: one soft hollow wooden knock and a light "
+                        "rattle, outdoors, quiet, no music, no voices", 1.2),
+    "boom_catch": (False, "Catching a returning wooden boomerang: a short soft whoosh ending in one gentle slap of a "
+                          "hand catching it, outdoors, quiet, no music, no voices", 1.2),
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),

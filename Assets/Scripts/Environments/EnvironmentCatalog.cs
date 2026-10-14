@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -136,7 +136,25 @@ namespace ScrollRoad
             CollectionName = "Chronicle",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe };
+        // Bumerang (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim VURULAN HEDEF,
+        // her TargetIntervalPoints'te bir atış = bir hedef (seyirde ~15 sn'de bir; günlük hedef 320, haftalık
+        // 2.000). Mesafe yalnız hedefin özelliği (rekor). Aylık sıfırlanır. Açılma: ömür boyu 2.500.000 puan.
+        public const double TargetIntervalPoints = 250;
+
+        public static readonly EnvironmentDef Boomerang = new EnvironmentDef
+        {
+            Id = EnvironmentId.Boomerang,
+            Name = "Boomerang",
+            Tagline = "Spin it up, let it fly, hit the target.",
+            Unit = "targets",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / TargetIntervalPoints,
+            UnlockLifetimePoints = 2500000,
+            AmountNoun = "target",
+            CollectionName = "Target log",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {

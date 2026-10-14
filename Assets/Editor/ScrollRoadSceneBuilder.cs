@@ -427,6 +427,17 @@ namespace ScrollRoad.EditorTools
             Bind(globeView, "handSprite", LoadArtSprite(GlobeArt + "hand.png"));
             intervalSetups.Add(new IntervalSetup { Env = globe, LogSprites = ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Specials), Card = LoadArtSprite(GlobeArt + "globe_card.png") });
 
+            // Bumerang (2026-10-14).
+            var boomerangGo = new GameObject("Boomerang");
+            var boomerang = boomerangGo.AddComponent<BoomerangEnvironment>();
+            var boomerangView = boomerangGo.AddComponent<BoomerangSceneView>();
+            Bind(boomerangView, "env", boomerang);
+            BindIntervalView(boomerangView, companion, cam);
+            Bind(boomerangView, "throwerSprite", LoadArtSprite(BoomerangArt + "thrower.png"));
+            BindArray(boomerangView, "commonSprites", ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Commons));
+            BindArray(boomerangView, "specialSprites", ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials));
+            intervalSetups.Add(new IntervalSetup { Env = boomerang, LogSprites = ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials), Card = LoadArtSprite(BoomerangArt + "boomerang_card.png") });
+
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
             var vehicleSound = roadGo.AddComponent<VehicleSound>();
@@ -491,6 +502,7 @@ namespace ScrollRoad.EditorTools
 
         const string VinylArt = "Assets/Art/Vinyl/";
         const string GlobeArt = "Assets/Art/Globe/";
+        const string BoomerangArt = "Assets/Art/Boomerang/";
 
         static Object[] VinylSprites()
         {
