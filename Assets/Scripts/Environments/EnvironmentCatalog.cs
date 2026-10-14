@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6, Pottery = 7, Peeler = 8 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6, Pottery = 7, Peeler = 8, Kebab = 9 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -190,7 +190,25 @@ namespace ScrollRoad
             CollectionName = "Fruit bowl",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang, Pottery, Peeler };
+        // Tavuk/et döner, çağ kebabı (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim
+        // PORSİYON, her PortionIntervalPoints'te bir porsiyon (seyirde ~48 sn'de bir; günlük hedef 100, haftalık
+        // 625). Aylık sıfırlanır. Açılma: ömür boyu 4.000.000 puan.
+        public const double PortionIntervalPoints = 800;
+
+        public static readonly EnvironmentDef Kebab = new EnvironmentDef
+        {
+            Id = EnvironmentId.Kebab,
+            Name = "Kebab spit",
+            Tagline = "Turn the spit, slice the portions.",
+            Unit = "portions",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / PortionIntervalPoints,
+            UnlockLifetimePoints = 4000000,
+            AmountNoun = "kebab",
+            CollectionName = "Menu",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang, Pottery, Peeler, Kebab };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {

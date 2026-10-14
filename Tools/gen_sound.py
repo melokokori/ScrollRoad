@@ -238,6 +238,13 @@ ENV_SOUNDS = {
                         "continuous scraping of a blade peeling fruit skin, quiet kitchen, close up" + LOOP_TAIL, 8.0),
     "fruit_drop": (False, "A peeled apple dropping into a wooden fruit bowl: one soft dull wooden thud, quiet, close "
                           "up, no music, no voices", 1.0),
+    # Çağ kebabı (2026-10-14): ateş + cızırtı döngüsü (yalnız kullanıcı aktifken), kesim, porsiyonun tezgâha konması.
+    "sizzle_loop": (True, "Meat slowly roasting on a turning horizontal spit over a wood fire: soft fat sizzle and gentle "
+                          "crackling embers, calm kebab kitchen, close up" + LOOP_TAIL, 8.0),
+    "knife_slice": (False, "A long sharp kebab knife shaving thin slices off roasted meat on a spit: a few soft quick "
+                           "slicing swishes, close up, quiet, no music, no voices", 1.8),
+    "plate_serve": (False, "A ceramic plate slid onto a steel serving counter: one short soft scrape and a gentle clink, "
+                           "quiet, no music, no voices", 1.0),
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),

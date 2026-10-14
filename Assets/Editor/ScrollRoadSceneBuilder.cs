@@ -461,6 +461,16 @@ namespace ScrollRoad.EditorTools
             BindArray(peelerView, "specialFlesh", FleshSprites(PeelerEnvironment.Stall.Specials));
             intervalSetups.Add(new IntervalSetup { Env = peeler, LogSprites = ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials), Card = LoadArtSprite(PeelerArt + "peeler_card.png") });
 
+            // Çağ kebabı (2026-10-14).
+            var kebabGo = new GameObject("KebabSpit");
+            var kebab = kebabGo.AddComponent<KebabEnvironment>();
+            var kebabView = kebabGo.AddComponent<KebabSceneView>();
+            Bind(kebabView, "env", kebab);
+            BindIntervalView(kebabView, companion, cam);
+            Bind(kebabView, "chefSprite", LoadArtSprite(KebabArt + "chef.png"));
+            BindArray(kebabView, "commonSprites", ItemSprites(KebabArt, KebabEnvironment.House.Commons));
+            BindArray(kebabView, "specialSprites", ItemSprites(KebabArt, KebabEnvironment.House.Specials));
+            intervalSetups.Add(new IntervalSetup { Env = kebab, LogSprites = ItemSprites(KebabArt, KebabEnvironment.House.Specials), Card = LoadArtSprite(KebabArt + "kebab_card.png") });
 
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
@@ -529,6 +539,7 @@ namespace ScrollRoad.EditorTools
         const string BoomerangArt = "Assets/Art/Boomerang/";
         const string PotteryArt = "Assets/Art/Pottery/";
         const string PeelerArt = "Assets/Art/Peeler/";
+        const string KebabArt = "Assets/Art/Kebab/";
 
         static Object[] FleshSprites(ItemType[] types)
         {
