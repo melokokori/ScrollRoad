@@ -83,11 +83,13 @@ namespace ScrollRoad
         void HandleGoal(GoalTracker.Goal goal, bool periodDone)
         {
             string title, subtitle, shortText;
+            string noun = EnvironmentManager.Current.AmountNoun; // "distance" (Yol) / "catch" (Olta)
+            string Noun(string s) => char.ToUpperInvariant(s[0]) + s.Substring(1);
             switch (goal)
             {
                 case GoalTracker.Goal.DailyDistance:
-                    title = "Daily distance goal complete";
-                    shortText = "Daily distance done";
+                    title = $"Daily {noun} goal complete";
+                    shortText = $"Daily {noun} done";
                     subtitle = periodDone ? $"Both goals done today · streak: {Fmt.Count(goals.DayStreak, "day")}"
                         : $"Time goal: {goals.DayMinutes:0} / {goals.DailyMinutesGoal:0} min";
                     break;
@@ -95,11 +97,11 @@ namespace ScrollRoad
                     title = "Daily time goal complete";
                     shortText = "Daily time done";
                     subtitle = periodDone ? $"Both goals done today · streak: {Fmt.Count(goals.DayStreak, "day")}"
-                        : $"Distance goal: {Fmt.Int((long)goals.DayKm)} / {goals.DailyKmGoal:0} km";
+                        : $"{Noun(noun)} goal: {goals.AmountLine(weekly: false)}";
                     break;
                 case GoalTracker.Goal.WeeklyDistance:
-                    title = "Weekly distance goal complete";
-                    shortText = "Weekly distance done";
+                    title = $"Weekly {noun} goal complete";
+                    shortText = $"Weekly {noun} done";
                     subtitle = periodDone ? $"Both goals done this week · streak: {Fmt.Count(goals.WeekStreak, "week")}"
                         : $"Time goal: {goals.WeekHours:0.0} / {goals.WeeklyHoursGoal:0} h";
                     break;
@@ -107,7 +109,7 @@ namespace ScrollRoad
                     title = "Weekly time goal complete";
                     shortText = "Weekly time done";
                     subtitle = periodDone ? $"Both goals done this week · streak: {Fmt.Count(goals.WeekStreak, "week")}"
-                        : $"Distance goal: {Fmt.Int((long)goals.WeekKm)} / {goals.WeeklyKmGoal:0} km";
+                        : $"{Noun(noun)} goal: {goals.AmountLine(weekly: true)}";
                     break;
             }
             Enqueue(new Notice { Title = title, Subtitle = subtitle, Short = shortText });

@@ -6,7 +6,9 @@ using Steamworks.Data;
 namespace ScrollRoad
 {
     // Aylık leaderboard: her takvim ayı (UTC) yeni bir tablo — "ScrollRoad_Global_yyyy-MM" ve
-    // ülke tablosu. Skor = o ay ulaşılan en uzak mesafe (metre, KeepBest).
+    // ülke tablosu. Skor = gizli ortak puanın ay rekoru (ScoreEngine.MonthBestPoints, tamsayı,
+    // KeepBest). 1 puan = Yol'da 1 m olduğu için 2026-10-13 öncesi "metre" skorlarıyla aynı ölçek.
+    // Tablo oyuncuya aktif ortamın biriminde gösterilir (CardMenuController); puan görünmez.
     public static class ScrollRoadLeaderboard
     {
         public static string GlobalLeaderboardName(DateTime? utcMonth = null)
@@ -19,13 +21,13 @@ namespace ScrollRoad
             return $"ScrollRoad_{countryCode}_{(utcMonth ?? DateTime.UtcNow):yyyy-MM}";
         }
 
-        // Skor "en uzak mesafe" (high-water mark) — anlık konum değil, RoadDrive.MaxDistanceKm.
+        // Skor ay rekoru (high-water mark) — anlık konum değil.
         // Facepunch SubmitScoreAsync Steam tarafında KeepBest ile yükler (düşük skor eskisini ezmez).
-        public static async Task<bool> SubmitDistanceKmAsync(double maxDistanceKm)
+        public static async Task<bool> SubmitPointsAsync(double monthBestPoints)
         {
             if (!SteamManager.IsInitialized) return false;
 
-            int scoreMeters = (int)Math.Min(int.MaxValue, maxDistanceKm * 1000.0);
+            int scoreMeters = (int)Math.Min(int.MaxValue, Math.Max(0.0, monthBestPoints));
 
             bool globalOk = await SubmitToLeaderboardAsync(GlobalLeaderboardName(), scoreMeters);
 

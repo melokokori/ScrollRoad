@@ -3,7 +3,9 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Günlük ve haftalık hedefler (2026-10-10, kullanıcı kararı): mesafe ve aktif süre AYRI ölçülür.
+    // Günlük ve haftalık hedefler (2026-10-10, kullanıcı kararı): miktar ve aktif süre AYRI ölçülür.
+    // 2026-10-13: miktar gizli ortak puanla tutulur (ScoreEngine) ve aktif ortamın biriminde yazılır
+    // (Yol'da km, Olta'da kg); puan hiç görünmez. Eski km kaydı bir kez puana taşınır (1 km = 1000).
     // Ödül yalnız tik + seri; sıralamayı etkilemez. Bir gün/hafta, iki hedefi de tutunca "tamam"
     // sayılır ve seriyi uzatır. Gün yerel gece yarısında, hafta pazartesi başlar.
     // Aktif süre = RoadDrive.IsUserActive (son gerçek scroll'dan 3 dk içinde) olduğu süre;
@@ -13,44 +15,50 @@ namespace ScrollRoad
     {
         public enum Goal { DailyDistance, DailyTime, WeeklyDistance, WeeklyTime }
 
-        [SerializeField] RoadDrive drive;
-
-        // Değerler "sonra belirleriz": demo verisine göre ayarlanacak.
+        // Değerler "sonra belirleriz": demo verisine göre ayarlanacak. Puan: 80.000 = Yol'da 80 km.
         [Header("Günlük")]
-        [SerializeField] float dailyKmGoal = 80f;
+        [SerializeField] double dailyPointsGoal = 80000;
         [SerializeField] float dailyMinutesGoal = 60f;
         [Header("Haftalık")]
-        [SerializeField] float weeklyKmGoal = 500f;
+        [SerializeField] double weeklyPointsGoal = 500000;
         [SerializeField] float weeklyHoursGoal = 6f;
 
         [SerializeField] float autosaveIntervalSeconds = 15f;
 
         GoalProgress state;
-        bool baselineSet;
-        double lastDistanceKm;
         float autosaveTimer;
         float dateCheckTimer;
 
         // goal, gün/hafta da tamamlandı mı (iki hedef birden)
         public event Action<Goal, bool> GoalCompleted;
 
-        public float DailyKmGoal => dailyKmGoal;
+        public double DailyPointsGoal => dailyPointsGoal;
         public float DailyMinutesGoal => dailyMinutesGoal;
-        public float WeeklyKmGoal => weeklyKmGoal;
+        public double WeeklyPointsGoal => weeklyPointsGoal;
         public float WeeklyHoursGoal => weeklyHoursGoal;
 
-        public double DayKm => state.dayKm;
+        public double DayPoints => state.dayPoints;
         public double DayMinutes => state.daySeconds / 60.0;
-        public double WeekKm => state.weekKm;
+        public double WeekPoints => state.weekPoints;
         public double WeekHours => state.weekSeconds / 3600.0;
+
+        // "4 / 80 km" ya da "80 km done" — aktif ortamın biriminde, tam sayı.
+        public string AmountLine(bool weekly)
+        {
+            var env = EnvironmentManager.Current;
+            double value = weekly ? state.weekPoints : state.dayPoints;
+            double goal = weekly ? weeklyPointsGoal : dailyPointsGoal;
+            string goalText = env.Format(goal, 0);
+            return value >= goal ? $"{goalText} done" : $"{Fmt.Int((long)env.ToUnits(value))} / {goalText}";
+        }
 
         public bool IsDone(Goal goal)
         {
             switch (goal)
             {
-                case Goal.DailyDistance: return state.dayKm >= dailyKmGoal;
+                case Goal.DailyDistance: return state.dayPoints >= dailyPointsGoal;
                 case Goal.DailyTime: return state.daySeconds >= dailyMinutesGoal * 60.0;
-                case Goal.WeeklyDistance: return state.weekKm >= weeklyKmGoal;
+                case Goal.WeeklyDistance: return state.weekPoints >= weeklyPointsGoal;
                 default: return state.weekSeconds >= weeklyHoursGoal * 3600.0;
             }
         }
@@ -65,6 +73,15 @@ namespace ScrollRoad
         void Awake()
         {
             state = SaveService.LoadGoals();
+            if (state.pointsVersion < 1)
+            {
+                // Puan katmanından önceki kayıt: bugünkü/bu haftaki km puana (idempotent: sürüm yazılır).
+                double ppk = 1.0 / EnvironmentCatalog.Road.UnitsPerPoint;
+                state.dayPoints = state.dayKm * ppk;
+                state.weekPoints = state.weekKm * ppk;
+                state.pointsVersion = 1;
+                Save();
+            }
             RollOver();
         }
 
@@ -80,26 +97,21 @@ namespace ScrollRoad
                 RollOver();
             }
 
-            if (!baselineSet)
-            {
-                baselineSet = true;
-                lastDistanceKm = drive.CurrentDistanceKmPrecise;
-                return;
-            }
+            var engine = ScoreEngine.Instance;
+            if (engine == null) return;
 
             bool dayKm = IsDone(Goal.DailyDistance), dayTime = IsDone(Goal.DailyTime);
             bool weekKm = IsDone(Goal.WeeklyDistance), weekTime = IsDone(Goal.WeeklyTime);
 
-            // StatsTracker ile aynı kural: yalnız canlı ileri gidiş; büyük sıçramalar (test) sayılmaz.
-            double delta = drive.CurrentDistanceKmPrecise - lastDistanceKm;
-            lastDistanceKm = drive.CurrentDistanceKmPrecise;
-            if (delta > 0 && delta < 50)
+            // Yalnız ileri ilerleme (ay konumunun artışı) sayılır; hangi ortamda olursa olsun.
+            double gain = engine.FrameGainPoints;
+            if (gain > 0)
             {
-                state.dayKm += delta;
-                state.weekKm += delta;
+                state.dayPoints += gain;
+                state.weekPoints += gain;
             }
 
-            if (Time.timeScale > 0f && drive.IsUserActive)
+            if (Time.timeScale > 0f && engine.IsUserActive)
             {
                 state.daySeconds += Time.unscaledDeltaTime;
                 state.weekSeconds += Time.unscaledDeltaTime;
@@ -152,6 +164,7 @@ namespace ScrollRoad
             {
                 state.dayKey = day;
                 state.dayKm = 0;
+                state.dayPoints = 0;
                 state.daySeconds = 0;
                 changed = true;
             }
@@ -159,6 +172,7 @@ namespace ScrollRoad
             {
                 state.weekKey = week;
                 state.weekKm = 0;
+                state.weekPoints = 0;
                 state.weekSeconds = 0;
                 changed = true;
             }
@@ -177,10 +191,10 @@ namespace ScrollRoad
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         // YALNIZ test: hedef tamamlama/seri akışını beklemeden denemek için.
-        public void DebugAdd(double km, double seconds)
+        public void DebugAdd(double points, double seconds)
         {
-            state.dayKm += km;
-            state.weekKm += km;
+            state.dayPoints += points;
+            state.weekPoints += points;
             state.daySeconds += seconds;
             state.weekSeconds += seconds;
         }
@@ -197,7 +211,10 @@ namespace ScrollRoad
     public class GoalProgress
     {
         public string dayKey = "";
-        public double dayKm;
+        public int pointsVersion;   // 0 = puan katmanından önceki kayıt (dayKm/weekKm geçerli)
+        public double dayPoints;
+        public double weekPoints;
+        public double dayKm;        // eski alan, yalnız taşıma için okunur
         public double daySeconds;
         public string weekKey = "";
         public double weekKm;

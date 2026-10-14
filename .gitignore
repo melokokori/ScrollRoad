@@ -112,3 +112,6 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Ses aracının ham indirmeleri (Tools/gen_sound.py)
+Tools/sound_source/

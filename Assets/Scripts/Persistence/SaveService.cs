@@ -26,6 +26,19 @@ namespace ScrollRoad
         const string BestMonthKey = "ScrollRoad_BestMonth";
         const string SecretCarUnlockedKey = "ScrollRoad_SecretCarUnlocked";
 
+        // Gizli ortak puan (2026-10-13). 1 puan = Yol'da 1 metre (EnvironmentCatalog.Road), böylece
+        // aylık leaderboard'a giden tamsayı skor eski "metre" skoruyla birebir aynı kalır.
+        // Yol'un kendi anahtarları (...KmD) DEĞİŞMEDEN durur: bölge/pasaport/araç kilitleri onlardan.
+        public const int CurrentPointsVersion = 1;
+        const string PointsVersionKey = "ScrollRoad_PointsVersion";
+        const string PointsRaceMonthKey = "ScrollRoad_PointsRaceMonth";
+        const string MonthPointsKey = "ScrollRoad_MonthPointsD";
+        const string MonthBestPointsKey = "ScrollRoad_MonthBestPointsD";
+        const string LifetimePointsKey = "ScrollRoad_LifetimePointsD";
+        const string BestMonthPointsKey = "ScrollRoad_BestMonthPointsD";
+        const string BestPointsMonthKey = "ScrollRoad_BestPointsMonth";
+        const string PointsMigratedFromKmKey = "ScrollRoad_PointsMigratedFromKmD"; // yalnız iz/teşhis için
+
         // Cihaza özel tercihler — cloud'a bilerek dahil edilmez.
         const string MasterVolumeKey = "ScrollRoad_MasterVolume";
         const string StartInCompanionKey = "ScrollRoad_StartInCompanion";
@@ -39,6 +52,8 @@ namespace ScrollRoad
         const string CardLeftKey = "ScrollRoad_CardLeft";
         const string CardTopKey = "ScrollRoad_CardTop";
         const string GoalsKey = "ScrollRoad_Goals"; // günlük/haftalık hedefler (JSON) — şimdilik yalnız yerel
+        const string EnvironmentKey = "ScrollRoad_Environment"; // seçili ortam (yerel)
+        const string FishingKey = "ScrollRoad_Fishing";         // Olta ilerlemesi + balık defteri (JSON, şimdilik yerel)
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -54,6 +69,7 @@ namespace ScrollRoad
 
         public static ScrollRoadSaveData Load()
         {
+            EnsurePointsMigrated();
             var local = LoadLocal();
 
             if (!cloudMergeDone && CloudAvailable())
@@ -78,6 +94,97 @@ namespace ScrollRoad
             SetDouble(MaxDistanceKey, maxDistanceKm);
             PlayerPrefs.Save();
             PushLocalToCloud();
+        }
+
+        public static void SavePoints(string raceMonth, double monthPoints, double monthBestPoints,
+            double lifetimePoints, double bestMonthPoints, string bestMonth)
+        {
+            PlayerPrefs.SetString(PointsRaceMonthKey, raceMonth);
+            SetDouble(MonthPointsKey, monthPoints);
+            SetDouble(MonthBestPointsKey, monthBestPoints);
+            SetDouble(LifetimePointsKey, lifetimePoints);
+            SetDouble(BestMonthPointsKey, bestMonthPoints);
+            PlayerPrefs.SetString(BestPointsMonthKey, bestMonth);
+            PlayerPrefs.Save();
+            PushLocalToCloud();
+        }
+
+        // Ömür boyu puan (ScoreEngine yokken ucuz okuma).
+        public static double LoadLifetimePoints()
+        {
+            EnsurePointsMigrated();
+            return GetDouble(LifetimePointsKey);
+        }
+
+        // Puan katmanından önceki kaydı bir kez puana taşır (2026-10-13). İdempotent: sürüm anahtarı
+        // yazıldıktan sonra hiçbir şey yapmaz. Yol km anahtarlarına DOKUNMAZ (silmez, değiştirmez) —
+        // Yol ilerlemesi onlardan aynen devam eder. 1 km = 1000 puan.
+        public static void EnsurePointsMigrated()
+        {
+            if (PlayerPrefs.GetInt(PointsVersionKey, 0) >= CurrentPointsVersion) return;
+
+            double ppk = 1.0 / EnvironmentCatalog.Road.UnitsPerPoint;
+            string raceMonth = PlayerPrefs.GetString(RaceMonthKey, "");
+            double current = GetDouble(CurrentDistanceKey) * ppk;
+            double max = Math.Max(GetDouble(MaxDistanceKey) * ppk, current);
+            double lifetime = Math.Max(GetDouble(LifetimeKmKey) * ppk, max);
+            double bestMonth = GetDouble(BestMonthKmKey) * ppk;
+            string bestMonthName = PlayerPrefs.GetString(BestMonthKey, "");
+            if (max > bestMonth)
+            {
+                bestMonth = max;
+                bestMonthName = raceMonth;
+            }
+
+            PlayerPrefs.SetString(PointsRaceMonthKey, raceMonth);
+            SetDouble(MonthPointsKey, current);
+            SetDouble(MonthBestPointsKey, max);
+            SetDouble(LifetimePointsKey, lifetime);
+            SetDouble(BestMonthPointsKey, bestMonth);
+            PlayerPrefs.SetString(BestPointsMonthKey, bestMonthName);
+            SetDouble(PointsMigratedFromKmKey, GetDouble(LifetimeKmKey));
+            PlayerPrefs.SetInt(PointsVersionKey, CurrentPointsVersion);
+            PlayerPrefs.Save();
+            Debug.Log($"Puan katmanına taşındı: ömür boyu {lifetime:0} puan, bu ay en iyi {max:0} puan ({raceMonth}).");
+        }
+
+        // Açıldığı duyurulmuş ortamlar (bit maskesi, yerel): her ortam bir kez duyurulur.
+        const string EnvironmentsAnnouncedKey = "ScrollRoad_EnvironmentsAnnounced";
+
+        public static bool IsEnvironmentAnnounced(int id) => (PlayerPrefs.GetInt(EnvironmentsAnnouncedKey, 0) & (1 << id)) != 0;
+
+        public static void MarkEnvironmentAnnounced(int id)
+        {
+            PlayerPrefs.SetInt(EnvironmentsAnnouncedKey, PlayerPrefs.GetInt(EnvironmentsAnnouncedKey, 0) | (1 << id));
+            PlayerPrefs.Save();
+        }
+
+        public static int LoadEnvironment() => PlayerPrefs.GetInt(EnvironmentKey, 0);
+
+        public static void SaveEnvironment(int id)
+        {
+            PlayerPrefs.SetInt(EnvironmentKey, id);
+            PlayerPrefs.Save();
+        }
+
+        public static FishingProgress LoadFishing()
+        {
+            string json = PlayerPrefs.GetString(FishingKey, "");
+            if (string.IsNullOrEmpty(json)) return new FishingProgress();
+            try
+            {
+                return JsonUtility.FromJson<FishingProgress>(json) ?? new FishingProgress();
+            }
+            catch (Exception)
+            {
+                return new FishingProgress();
+            }
+        }
+
+        public static void SaveFishing(FishingProgress progress)
+        {
+            PlayerPrefs.SetString(FishingKey, JsonUtility.ToJson(progress));
+            PlayerPrefs.Save();
         }
 
         public static void SaveCloseTimestamp(long unixSeconds)
@@ -242,6 +349,13 @@ namespace ScrollRoad
                 bestMonthKm = GetDouble(BestMonthKmKey),
                 bestMonth = PlayerPrefs.GetString(BestMonthKey, ""),
                 secretCarUnlocked = LoadSecretCarUnlocked(),
+                pointsVersion = PlayerPrefs.GetInt(PointsVersionKey, 0),
+                pointsRaceMonth = PlayerPrefs.GetString(PointsRaceMonthKey, ""),
+                monthPoints = GetDouble(MonthPointsKey),
+                monthBestPoints = GetDouble(MonthBestPointsKey),
+                lifetimePoints = GetDouble(LifetimePointsKey),
+                bestMonthPoints = GetDouble(BestMonthPointsKey),
+                bestPointsMonth = PlayerPrefs.GetString(BestPointsMonthKey, ""),
             };
 
             if (data.hasLastClose &&
@@ -269,6 +383,12 @@ namespace ScrollRoad
             SetDouble(BestMonthKmKey, data.bestMonthKm);
             PlayerPrefs.SetString(BestMonthKey, data.bestMonth);
             PlayerPrefs.SetInt(SecretCarUnlockedKey, data.secretCarUnlocked ? 1 : 0);
+            PlayerPrefs.SetString(PointsRaceMonthKey, data.pointsRaceMonth);
+            SetDouble(MonthPointsKey, data.monthPoints);
+            SetDouble(MonthBestPointsKey, data.monthBestPoints);
+            SetDouble(LifetimePointsKey, data.lifetimePoints);
+            SetDouble(BestMonthPointsKey, data.bestMonthPoints);
+            PlayerPrefs.SetString(BestPointsMonthKey, data.bestPointsMonth);
             if (data.hasLastClose)
             {
                 PlayerPrefs.SetString(LastCloseUnixSecondsKey, data.lastCloseUnixSeconds.ToString(CultureInfo.InvariantCulture));
@@ -282,6 +402,19 @@ namespace ScrollRoad
         //   geri gitmenin skora etkisi yok, max almak güvenli).
         static ScrollRoadSaveData Merge(ScrollRoadSaveData local, ScrollRoadSaveData cloud)
         {
+            // Puan katmanından önceki bir cihazın bulut kaydı: puanları onun km'sinden türet.
+            if (cloud.pointsVersion < CurrentPointsVersion)
+            {
+                double ppk = 1.0 / EnvironmentCatalog.Road.UnitsPerPoint;
+                cloud.pointsRaceMonth = cloud.raceMonth;
+                cloud.monthPoints = cloud.currentDistanceKm * ppk;
+                cloud.monthBestPoints = Math.Max(cloud.maxDistanceKm * ppk, cloud.monthPoints);
+                cloud.lifetimePoints = Math.Max(cloud.lifetimeKm * ppk, cloud.monthBestPoints);
+                cloud.bestMonthPoints = cloud.bestMonthKm * ppk;
+                cloud.bestPointsMonth = cloud.bestMonth;
+                cloud.pointsVersion = CurrentPointsVersion;
+            }
+
             long localClose = local.hasLastClose ? local.lastCloseUnixSeconds : long.MinValue;
             long cloudClose = cloud.hasLastClose ? cloud.lastCloseUnixSeconds : long.MinValue;
             var baseData = cloudClose > localClose ? cloud : local;
@@ -314,6 +447,21 @@ namespace ScrollRoad
             result.bestMonthKm = best.bestMonthKm;
             result.bestMonth = best.bestMonth;
             result.secretCarUnlocked = local.secretCarUnlocked || cloud.secretCarUnlocked;
+
+            // Ortak puan: Yol mesafesiyle aynı kurallar (aynı ayda yüksek olan, ömür boyu max).
+            result.pointsVersion = CurrentPointsVersion;
+            result.pointsRaceMonth = baseData.pointsRaceMonth;
+            result.monthPoints = baseData.monthPoints;
+            result.monthBestPoints = baseData.monthBestPoints;
+            if (otherData.pointsRaceMonth == baseData.pointsRaceMonth)
+            {
+                result.monthPoints = Math.Max(baseData.monthPoints, otherData.monthPoints);
+                result.monthBestPoints = Math.Max(baseData.monthBestPoints, otherData.monthBestPoints);
+            }
+            result.lifetimePoints = Math.Max(local.lifetimePoints, cloud.lifetimePoints);
+            var bestP = cloud.bestMonthPoints > local.bestMonthPoints ? cloud : local;
+            result.bestMonthPoints = bestP.bestMonthPoints;
+            result.bestPointsMonth = bestP.bestPointsMonth;
 
             return result;
         }

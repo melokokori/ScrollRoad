@@ -76,6 +76,13 @@ namespace ScrollRoad
             var rootRect = (RectTransform)root.transform;
             rootRect.offsetMax = new Vector2(0f, -companionWindow.StripOverflowUnits);
 
+            // Olta: kadran yok; solda toplam kg + makara durumu, sağında sahne (FishingSceneView).
+            if (EnvironmentManager.Current.Id == EnvironmentId.Fishing)
+            {
+                UpdateFishing();
+                return;
+            }
+
             var style = GaugeSkins.Strip;
             bool plate = style == GaugeSkins.StripStyle.Plate;
             if (plateRoot.activeSelf != plate) plateRoot.SetActive(plate);
@@ -154,10 +161,45 @@ namespace ScrollRoad
             }
         }
 
+        void UpdateFishing()
+        {
+            if (plateRoot.activeSelf) plateRoot.SetActive(false);
+            if (dialGauge.gameObject.activeSelf) dialGauge.gameObject.SetActive(false);
+            kmText.gameObject.SetActive(true);
+            subText.gameObject.SetActive(true);
+
+            float x = ((RectTransform)dialGauge.transform).anchoredPosition.x;
+            kmText.rectTransform.anchoredPosition = new Vector2(x, kmText.rectTransform.anchoredPosition.y);
+            subText.rectTransform.anchoredPosition = new Vector2(x, subText.rectTransform.anchoredPosition.y);
+
+            var fishing = FishingController.Instance;
+            kmText.text = fishing != null ? EnvironmentCatalog.Fishing.Format(fishing.MonthFish * EnvironmentCatalog.FishIntervalPoints) : "";
+
+            string message = CurrentMessage(out var messageColor, out bool italic);
+            if (message != null)
+            {
+                subText.text = message;
+                subText.color = messageColor;
+                subText.fontStyle = italic ? FontStyle.Italic : FontStyle.Bold;
+                return;
+            }
+
+            string status;
+            if (fishing == null) status = "";
+            else if (fishing.CurrentPhase == FishingController.Phase.Hooked) status = "fish on!";
+            else if (fishing.CurrentPhase == FishingController.Phase.Landing && fishing.LastFish != null)
+                status = $"{fishing.LastFish.Name} {fishing.LastKg:0.00} kg";
+            else if (fishing.ReelDirection < 0f) status = "letting line out";
+            else status = drive.IsUserActive ? "reeling" : "idle · slow reel";
+            subText.text = status;
+            subText.color = SubTextColor;
+            subText.fontStyle = FontStyle.Normal;
+        }
+
         // Gizli bölge fısıltısı görünürken o, sonra damga/hedef duyurusu; yoksa null.
         string CurrentMessage(out Color color, out bool italic)
         {
-            if (secretZone != null && secretZone.CurrentAlpha > 0.05f && !string.IsNullOrEmpty(secretZone.CurrentText))
+            if (secretZone != null && RoadDrive.IsActiveEnvironment && secretZone.CurrentAlpha > 0.05f && !string.IsNullOrEmpty(secretZone.CurrentText))
             {
                 var w = SecretZoneView.WhisperColor;
                 color = new Color(w.r, w.g, w.b, secretZone.CurrentAlpha);

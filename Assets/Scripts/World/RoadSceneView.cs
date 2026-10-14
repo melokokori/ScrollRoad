@@ -199,6 +199,13 @@ namespace ScrollRoad
         VehicleArt.Wheel[] wheels = Array.Empty<VehicleArt.Wheel>();
         float[] wheelAngles = new float[MaxWheels];
 
+        // Dönen parçalar (VehicleArt.Props): aracın çocuğu, aracın yön/eğimini izler.
+        Transform propRoot;
+        VehicleArt.Prop[] props = Array.Empty<VehicleArt.Prop>();
+        SpriteRenderer[] propBlades = Array.Empty<SpriteRenderer>();
+        SpriteRenderer[] propBlurs = Array.Empty<SpriteRenderer>();
+        float[] propAngles = Array.Empty<float>();
+
         SpriteRenderer brakeCore;
         SpriteRenderer brakeHalo;
         Vector2? brakeLightPoint;
@@ -324,6 +331,94 @@ namespace ScrollRoad
                 sr.sprite = wheels[i].mark;
                 sr.transform.localPosition = new Vector3(wheels[i].center.x, wheels[i].center.y, 0f);
                 wheelAngles[i] = UnityEngine.Random.Range(0f, 120f); // tekerlekler aynı açıda donmuş görünmesin
+            }
+            RefreshProps(fromCatalog ? model.id : null);
+        }
+
+        // Pervane/rotor/fan nesneleri araç değişince yeniden kurulur (seyrek; havuz gerekmez).
+        void RefreshProps(string id)
+        {
+            if (propRoot != null) Destroy(propRoot.gameObject);
+            props = id != null ? VehicleArt.Props(id) : Array.Empty<VehicleArt.Prop>();
+            propBlades = new SpriteRenderer[props.Length];
+            propBlurs = new SpriteRenderer[props.Length];
+            propAngles = new float[props.Length];
+            if (props.Length == 0) return;
+
+            propRoot = new GameObject("Props").transform;
+            propRoot.SetParent(carRenderer.transform, false);
+            for (int i = 0; i < props.Length; i++)
+            {
+                var p = props[i];
+                propAngles[i] = UnityEngine.Random.Range(0f, Mathf.PI);
+                if (p.kind == VehicleArt.PropKind.Fan)
+                {
+                    // Dönen fan yalnız kendi açıklığında görünür (önündeki kabinin üstüne taşmaz).
+                    var maskGo = new GameObject($"FanMask{i}", typeof(SpriteMask));
+                    maskGo.transform.SetParent(propRoot, false);
+                    maskGo.transform.localPosition = p.center;
+                    maskGo.GetComponent<SpriteMask>().sprite = p.fanMask;
+                    var fan = CreateRenderer($"Fan{i}", p.fan, 41, propRoot);
+                    fan.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                    fan.transform.localPosition = p.center;
+                    propBlades[i] = fan;
+                    continue;
+                }
+                // Hız bulanıklığı (yarı saydam elips) + kanat.
+                propBlurs[i] = CreateRenderer($"PropBlur{i}", circleSprite, 43, propRoot);
+                propBlades[i] = CreateRenderer($"PropBlade{i}", circleSprite, 44, propRoot);
+                propBlurs[i].transform.localPosition = p.center;
+                propBlades[i].transform.localPosition = p.center;
+                propBlades[i].color = p.color;
+            }
+        }
+
+        // Yandan görülen pervane/rotor dönerken kanat boyu cos(açı) ile salınır (kenardan bakış);
+        // bize dönük kuyruk rotoru ve fan gerçekten döner. Hızla dönüş ve bulanıklık artar; rölantide
+        // de durmazlar.
+        void UpdateProps(float speed, float dt)
+        {
+            float blurAlpha = 0.12f + 0.22f * Mathf.Clamp01(speed / 120f);
+            for (int i = 0; i < props.Length; i++)
+            {
+                var p = props[i];
+                var blade = propBlades[i];
+                var blur = propBlurs[i];
+                switch (p.kind)
+                {
+                    case VehicleArt.PropKind.Nose:
+                    {
+                        propAngles[i] += (24f + speed * 0.25f) * dt;
+                        float thick = p.size * 0.11f;
+                        blade.transform.localScale = new Vector3(thick, 2f * p.size * Mathf.Abs(Mathf.Cos(propAngles[i])) + thick, 1f);
+                        blur.transform.localScale = new Vector3(thick * 1.6f, 2f * p.size, 1f);
+                        blur.color = new Color(p.color.r, p.color.g, p.color.b, blurAlpha);
+                        break;
+                    }
+                    case VehicleArt.PropKind.Rotor:
+                    {
+                        propAngles[i] += (16f + speed * 0.12f) * dt;
+                        float thick = p.size * 0.035f + 0.03f;
+                        blade.transform.localScale = new Vector3(2f * p.size * Mathf.Abs(Mathf.Cos(propAngles[i])) + thick, thick, 1f);
+                        blur.transform.localScale = new Vector3(2f * p.size, thick * 1.8f, 1f);
+                        blur.color = new Color(p.color.r, p.color.g, p.color.b, blurAlpha);
+                        break;
+                    }
+                    case VehicleArt.PropKind.Tail:
+                    {
+                        propAngles[i] += (30f + speed * 0.2f) * dt;
+                        float thick = p.size * 0.25f;
+                        blade.transform.localScale = new Vector3(thick, 2f * p.size, 1f);
+                        blade.transform.localRotation = Quaternion.Euler(0f, 0f, propAngles[i] * Mathf.Rad2Deg);
+                        blur.transform.localScale = new Vector3(2f * p.size, 2f * p.size, 1f);
+                        blur.color = new Color(p.color.r, p.color.g, p.color.b, blurAlpha * 0.8f);
+                        break;
+                    }
+                    default: // Fan
+                        propAngles[i] -= (4f + speed * 0.04f) * dt;
+                        blade.transform.localRotation = Quaternion.Euler(0f, 0f, propAngles[i] * Mathf.Rad2Deg);
+                        break;
+                }
             }
         }
 
@@ -527,8 +622,17 @@ namespace ScrollRoad
 
         // ---------------------------------------------------------------- kare döngüsü
 
+        // Yol yalnız seçili ortamken çizilir; başka ortamda dünya gizli, kamerayı o ortamın görünümü yönetir.
+        bool ShowRoad()
+        {
+            bool active = RoadDrive.IsActiveEnvironment;
+            if (worldRoot.gameObject.activeSelf != active) worldRoot.gameObject.SetActive(active);
+            return active;
+        }
+
         void Update()
         {
+            if (!ShowRoad()) return;
             // Yaylar açık Euler: takılan uzun bir karede (ör. tepsiden dönüş) patlamasınlar.
             float dt = Mathf.Min(Time.unscaledDeltaTime, 1f / 30f);
             bool paused = Time.timeScale <= 0f;
@@ -632,6 +736,7 @@ namespace ScrollRoad
 
         void LateUpdate()
         {
+            if (!ShowRoad()) return;
             bool companion = IsCompanion;
 
             // Kamera: kartta yol + tepeler + şehir bandı; şeritte yolun altından arabanın üstüne kadar,
@@ -1139,6 +1244,7 @@ namespace ScrollRoad
             {
                 wheelRenderers[i].transform.localRotation = Quaternion.Euler(0f, 0f, wheelAngles[i]);
             }
+            UpdateProps(speed, Time.deltaTime);
 
             // Stop lambası: küçük kırmızı çekirdek + yumuşak hale; boyutlar dünya biriminde sabit.
             bool lit = brakeLightPoint.HasValue && brakeLevel > 0.01f;

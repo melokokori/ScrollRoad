@@ -29,6 +29,7 @@ namespace ScrollRoad
         [SerializeField] TMP_Text monthBestText;
         [SerializeField] TMP_Text headerSubText;
         [SerializeField] TMP_Text steamText;
+        [SerializeField] TMP_Text collectionLabel; // "Passport" (Yol) / "Fish log" (Olta) satırı
         [SerializeField] Button[] panelButtons; // Passport, Garage, Stats, Settings: panelleri kendi denetleyicileri açar
         [SerializeField] Button leaderboardButton;
         [SerializeField] Button taskbarButton;
@@ -138,11 +139,13 @@ namespace ScrollRoad
 
         void RefreshHeader()
         {
-            monthBestText.SetText(Fmt.Km(drive.MaxDistanceKmPrecise));
+            // Ay rekoru = gizli ortak puanın ay rekoru, aktif ortamın biriminde.
+            var engine = ScoreEngine.Instance;
+            if (engine != null) monthBestText.SetText(EnvironmentManager.Current.Format(engine.MonthBestPoints));
+            if (collectionLabel != null) collectionLabel.text = EnvironmentManager.Current.CollectionName;
             if (goals != null)
             {
-                string weekKm = goals.IsDone(GoalTracker.Goal.WeeklyDistance)
-                    ? $"{goals.WeeklyKmGoal:0} km done" : $"{Fmt.Int((long)goals.WeekKm)} / {goals.WeeklyKmGoal:0} km";
+                string weekKm = goals.AmountLine(weekly: true);
                 string weekTime = goals.IsDone(GoalTracker.Goal.WeeklyTime)
                     ? $"{goals.WeeklyHoursGoal:0} h done" : $"{goals.WeekHours:0.0} / {goals.WeeklyHoursGoal:0} h";
                 headerSubText.text = $"Week  {weekKm}  ·  {weekTime}\nStreak  {Fmt.Count(goals.DayStreak, "day")}  ·  {Fmt.Count(goals.WeekStreak, "week")}";
@@ -189,18 +192,20 @@ namespace ScrollRoad
             }
 
             var sb = new StringBuilder();
-            float cityKm = drive != null ? drive.CityDistanceKm : RoadDrive.DefaultCityDistanceKm;
+            // Skor gizli puan; bakan oyuncunun aktif ortamının biriminde yazılır (puan görünmez).
+            var env = EnvironmentManager.Current;
+            double cityPoints = (drive != null ? drive.CityDistanceKm : RoadDrive.DefaultCityDistanceKm) / EnvironmentCatalog.Road.UnitsPerPoint;
             foreach (var entry in entries)
             {
-                double km = entry.Score / 1000.0;
+                double points = entry.Score;
 
                 // Bu ayki tablo canlı yarış: kim şehre ulaştı bilgisi ay sonuna kadar rakiplerden gizli.
                 // Kendi skorumuz gerçek görünür, başkalarınınki şehir mesafesinde kırpılır.
                 // Geçen ayın tablosu (reveal) kırpılmadan gösterilir.
                 bool isLocalUser = entry.User.Id == SteamClient.SteamId;
-                if (!previousMonth && !isLocalUser && km >= cityKm) km = cityKm;
+                if (!previousMonth && !isLocalUser && points >= cityPoints) points = cityPoints;
 
-                sb.AppendLine($"{entry.GlobalRank,3}.  {entry.User.Name}   {Fmt.Km(km)}");
+                sb.AppendLine($"{entry.GlobalRank,3}.  {entry.User.Name}   {env.Format(points)}");
             }
             leaderboardText.text = sb.ToString();
         }

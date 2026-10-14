@@ -3,10 +3,15 @@ using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Tüm ses geri bildirimi tek yerde. Klipler Kenney.nl CC0 ses paketlerinden (Assets/Audio).
+    // Tüm ses geri bildirimi tek yerde. Klipler Kenney.nl CC0 ses paketlerinden (Assets/Audio);
+    // araçların kendi sesleri VehicleSound'da.
+    // Ses YALNIZ KART MODUNDA (kullanıcı kararı, 11.10): görev çubuğu şeridinde ve tepsideyken
+    // dinleyici sesi yumuşakça sıfıra iner (kart arka planda kalsa da kart modundaysa çalar).
     public class SoundController : MonoBehaviour
     {
         [SerializeField] RoadDrive drive;
+        [SerializeField] CompanionWindowController companionWindow;
+        [SerializeField] float muteFadeSeconds = 0.4f;
         [SerializeField] AudioClip[] stepClips;
         [SerializeField] AudioClip turnClip;
         [SerializeField] AudioClip cityReachedClip;
@@ -51,6 +56,14 @@ namespace ScrollRoad
             {
                 button.onClick.AddListener(PlayUiClick);
             }
+        }
+
+        void Update()
+        {
+            // Ana ses tercihi (Ayarlar) × kart modu: şeritte ve tepside sessiz.
+            bool card = (companionWindow == null || !companionWindow.IsCompanionMode) && !BackgroundLifecycle.IsHiddenToTray;
+            float target = card ? SaveService.LoadMasterVolume() : 0f;
+            AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, target, Time.unscaledDeltaTime / Mathf.Max(0.01f, muteFadeSeconds));
         }
 
         void OnDestroy()

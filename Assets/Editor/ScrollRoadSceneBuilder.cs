@@ -303,6 +303,11 @@ namespace ScrollRoad.EditorTools
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var cam = CreateCamera(SkyColor);
 
+            // Gizli ortak puan motoru + seçili ortam (2026-10-13): RoadDrive ve ortamlar bundan ilerler.
+            var engineGo = new GameObject("ScoreEngine");
+            engineGo.AddComponent<ScoreEngine>();
+            var environments = engineGo.AddComponent<EnvironmentManager>();
+
             var roadGo = new GameObject("RoadDrive");
             var drive = roadGo.AddComponent<RoadDrive>();
 
@@ -329,27 +334,44 @@ namespace ScrollRoad.EditorTools
             Bind(secret, "drive", drive);
             var stats = roadGo.AddComponent<StatsTracker>();
             Bind(stats, "drive", drive);
-            var sync = roadGo.AddComponent<LeaderboardSync>();
-            Bind(sync, "drive", drive);
+            roadGo.AddComponent<LeaderboardSync>();
             var route = roadGo.AddComponent<RouteProgress>();
             Bind(route, "drive", drive);
-            var goals = roadGo.AddComponent<GoalTracker>();
-            Bind(goals, "drive", drive);
+            var goals = engineGo.AddComponent<GoalTracker>();
+
+            // Olta ortamı: mantık + sahne (yalnız seçiliyken çizer ve kamerayı yönetir).
+            var fishingGo = new GameObject("Fishing");
+            var fishing = fishingGo.AddComponent<FishingController>();
+            var lake = fishingGo.AddComponent<FishingSceneView>();
+            Bind(lake, "fishing", fishing);
+            Bind(lake, "companionWindow", companion);
+            Bind(lake, "viewCamera", cam);
+            BindArray(lake, "fishermanSprites", new Object[] { LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(FishingArt + "fisherman_river.png"), LoadArtSprite(FishingArt + "fisherman_coast.png"),
+                LoadArtSprite(FishingArt + "fisherman_boat.png"), LoadArtSprite(FishingArt + "fisherman_ice.png") });
+            BindArray(lake, "fishSprites", FishSprites());
+            Bind(lake, "hillsSprite", LoadArtSprite("Assets/Art/Background/hills_far.png"));
+            Bind(lake, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
 
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
+            var vehicleSound = roadGo.AddComponent<VehicleSound>();
+            Bind(vehicleSound, "drive", drive);
+            Bind(vehicleSound, "catalog", LoadCarCatalog());
             BindArray(sound, "stepClips", new Object[] { LoadClip("tick_001"), LoadClip("tick_002"), LoadClip("tick_004") });
             Bind(sound, "turnClip", LoadClip("scratch_001"));
             Bind(sound, "cityReachedClip", LoadClip("city_reached"));
             Bind(sound, "uiClickClip", LoadClip("click_001"));
 
-            CreateHud(drive, view, secret, companion, route, goals, out var notice, out var windowButtons);
+            Bind(sound, "companionWindow", companion);
+            CreateHud(drive, view, secret, companion, route, goals, fishing, out var notice, out var windowButtons);
+            Bind(fishing, "notice", notice);
+            Bind(environments, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);
             Bind(unlocks, "catalog", LoadCarCatalog());
             Bind(unlocks, "notice", notice);
-            var menu = CreateMenu(drive, stats, goals, companion, windowButtons);
+            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing);
             CreateOnboarding(companion, menu);
             CreateCompanionHud(drive, secret, companion, notice);
 
@@ -363,8 +385,17 @@ namespace ScrollRoad.EditorTools
             public Button Menu, Minimize, Close;
         }
 
+        const string FishingArt = "Assets/Art/Fishing/";
+
+        static Object[] FishSprites()
+        {
+            var sprites = new Object[FishCatalog.All.Length];
+            for (int i = 0; i < sprites.Length; i++) sprites[i] = LoadArtSprite(FishingArt + FishCatalog.All[i].Id + ".png");
+            return sprites;
+        }
+
         static HudController CreateHud(RoadDrive drive, RoadSceneView view, SecretZoneView secret,
-            CompanionWindowController companion, RouteProgress route, GoalTracker goals,
+            CompanionWindowController companion, RouteProgress route, GoalTracker goals, FishingController fishing,
             out NoticeController notice, out WindowButtons windowButtons)
         {
             var canvas = CreateCanvas("HudCanvas", 0);
@@ -455,10 +486,63 @@ namespace ScrollRoad.EditorTools
             Bind(hud, "whisperText", whisper);
             Bind(hud, "progressFill", fillRect);
             Bind(hud, "maxMarker", markerRect);
+            BindArray(hud, "roadOnly", new Object[] { gauge.gameObject, sign, cityPlate, whisper.gameObject });
+
+            CreateFishingHud(root.transform, fishing);
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
             return hud;
+        }
+
+        // Olta'nın kart HUD'u (Yol HUD'unun yerleşimiyle): sol üstte toplam kg plakası, sağ üstte göl
+        // tabelası (durum + yemin uzaklığı), sol altta balık defteri özeti. Bugünkü hedef plakası ortak.
+        static void CreateFishingHud(Transform hudRoot, FishingController fishing)
+        {
+            var root = new GameObject("FishingHud", typeof(RectTransform));
+            root.transform.SetParent(hudRoot, false);
+            Stretch((RectTransform)root.transform);
+            root.transform.SetSiblingIndex(1); // sürükleme yüzeyinin hemen üstünde, pencere düğmelerinin altında
+
+            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
+            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
+            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
+            var label = Tmp(totalPlate.transform, "Label", "TOTAL CATCH", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            label.characterSpacing = 16;
+            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
+            label.rectTransform.sizeDelta = new Vector2(150, 12);
+            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
+            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
+            total.rectTransform.sizeDelta = new Vector2(160, 26);
+            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            status.characterSpacing = 10;
+            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
+            status.rectTransform.sizeDelta = new Vector2(160, 12);
+
+            var sign = CreateSign(root.transform, "LakeSign", out var signInner, out _);
+            Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
+            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            place.characterSpacing = 16;
+            var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
+            var phase = Tmp(phaseRow.transform, "Phase", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+            var distance = Tmp(phaseRow.transform, "Distance", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
+            Object.DestroyImmediate(phaseRow.GetComponent<ContentSizeFitter>());
+
+            var logPlate = PlateRow(root.transform, "FishLogPlate");
+            Anchor((RectTransform)logPlate.transform, new Vector2(0, 0), new Vector2(16, 9), new Vector2(0, 0));
+            var log = Tmp(logPlate.transform, "FishLog", "", 11, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
+            log.characterSpacing = 3;
+
+            var controller = new GameObject("FishingHudController").AddComponent<FishingHudController>();
+            Bind(controller, "fishing", fishing);
+            Bind(controller, "root", root);
+            Bind(controller, "totalText", total);
+            Bind(controller, "statusText", status);
+            Bind(controller, "placeText", place);
+            Bind(controller, "phaseText", phase);
+            Bind(controller, "distanceText", distance);
+            Bind(controller, "logText", log);
+            root.SetActive(false);
         }
 
         // Durak/hedef duyurusu: üst ortada küçük yeşil tabela.
@@ -563,7 +647,7 @@ namespace ScrollRoad.EditorTools
 
         // ≡ çekmecesi (yeşil çıkış tabelası) + kartı kaplayan paneller (Passport, Leaderboard, Garage, Stats, Settings).
         static CardMenuController CreateMenu(RoadDrive drive, StatsTracker stats, GoalTracker goals,
-            CompanionWindowController companion, WindowButtons windowButtons)
+            CompanionWindowController companion, WindowButtons windowButtons, FishingController fishing)
         {
             var canvas = CreateCanvas("MenuCanvas", 10);
 
@@ -602,7 +686,8 @@ namespace ScrollRoad.EditorTools
             sub.rectTransform.sizeDelta = new Vector2(208, 30);
             sub.lineSpacing = 6;
 
-            string[] labels = { "Passport", "Leaderboard", "Garage", "Stats", "Settings", "Taskbar mode" };
+            // Activities = ortam seçici (2026-10-13). "Passport" satırı Olta'da "Fish log" olur.
+            string[] labels = { "Activities", "Passport", "Leaderboard", "Garage", "Stats", "Settings", "Taskbar mode" };
             var buttons = new Button[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
@@ -615,10 +700,13 @@ namespace ScrollRoad.EditorTools
             Anchor(steam.rectTransform, new Vector2(0, 0), new Vector2(72, 18), new Vector2(0, 0));
             steam.rectTransform.sizeDelta = new Vector2(156, 14);
 
-            var passport = CreatePassportPanel(canvas.transform, buttons[0], drive);
-            var garage = CreateGaragePanel(canvas.transform, buttons[2]);
-            var statsCtrl = CreateStatsPanel(canvas.transform, buttons[3], drive, stats);
-            var settings = CreateSettingsPanel(canvas.transform, buttons[4], companion);
+            var activities = CreateActivitiesPanel(canvas.transform, buttons[0]);
+            var passport = CreatePassportPanel(canvas.transform, buttons[1], drive);
+            var fishLog = CreateFishLogPanel(canvas.transform, fishing);
+            Bind(passport, "fishLog", fishLog);
+            var garage = CreateGaragePanel(canvas.transform, buttons[3]);
+            var statsCtrl = CreateStatsPanel(canvas.transform, buttons[4], drive, stats);
+            var settings = CreateSettingsPanel(canvas.transform, buttons[5], companion);
 
             var lbPanel = CreatePanel(canvas.transform, "LeaderboardPanel", "Leaderboard", out var lbClose, out _);
             var thisMonth = CreateButton(lbPanel.transform, "ThisMonthTab", "This month", Vector2.zero, new Vector2(104, 24), ButtonIdle, 11.5f, UiFonts.SemiBold);
@@ -643,20 +731,232 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "monthBestText", best);
             Bind(menu, "headerSubText", sub);
             Bind(menu, "steamText", steam);
-            BindArray(menu, "panelButtons", new Object[] { buttons[0], buttons[2], buttons[3], buttons[4] });
-            Bind(menu, "leaderboardButton", buttons[1]);
-            Bind(menu, "taskbarButton", buttons[5]);
+            BindArray(menu, "panelButtons", new Object[] { buttons[0], buttons[1], buttons[3], buttons[4], buttons[5] });
+            Bind(menu, "leaderboardButton", buttons[2]);
+            Bind(menu, "taskbarButton", buttons[6]);
+            Bind(menu, "collectionLabel", buttons[1].GetComponentInChildren<TMP_Text>());
             Bind(menu, "quitButton", quit);
             Bind(menu, "leaderboardPanel", lbPanel);
             Bind(menu, "leaderboardText", lbText);
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel });
+            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel });
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
             return menu;
+        }
+
+        // Ortam seçici: her ortam bir kart (küçük görsel, ad, tarif, birim; durum satırı; kilitliyse
+        // ilerleme çubuğu). Kartlar EnvironmentCatalog.All sırasıyla.
+        static ActivitiesController CreateActivitiesPanel(Transform parent, Button openButton)
+        {
+            var panel = CreatePanel(parent, "ActivitiesPanel", "Activities", out var close, out _);
+            var hint = Tmp(panel.transform, "Hint", "Only the activity you pick moves forward. Your monthly score counts them all.",
+                10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Left);
+            Anchor(hint.rectTransform, new Vector2(0, 1), new Vector2(26, -52), new Vector2(0, 1));
+            hint.rectTransform.sizeDelta = new Vector2(700, 16);
+
+            var all = EnvironmentCatalog.All;
+            Sprite[] pictures = { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png") };
+            int n = all.Length;
+            var buttons = new Object[n];
+            var frames = new Object[n];
+            var thumbs = new Object[n];
+            var statuses = new Object[n];
+            var tracks = new Object[n];
+            var fills = new Object[n];
+            const float cardW = 360f, cardH = 232f, gap = 24f;
+            float startX = -(n * cardW + (n - 1) * gap) / 2f + cardW / 2f;
+            for (int i = 0; i < n; i++)
+            {
+                var def = all[i];
+                var frame = Plate(panel.transform, $"Card_{def.Id}", Cell, RoundSprite);
+                frame.raycastTarget = true;
+                frame.rectTransform.anchorMin = frame.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                SetRect(frame.rectTransform, new Vector2(startX + i * (cardW + gap), -28f), new Vector2(cardW, cardH));
+                var button = frame.gameObject.AddComponent<Button>();
+                button.targetGraphic = frame;
+                var colors = button.colors;
+                colors.disabledColor = Color.white; // kilitli/aktif kartın rengini Image.color belirler
+                colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f);
+                button.colors = colors;
+
+                var thumb = new GameObject("Thumb", typeof(RectTransform), typeof(Image));
+                thumb.transform.SetParent(frame.transform, false);
+                var thumbImage = thumb.GetComponent<Image>();
+                thumbImage.sprite = pictures[Mathf.Min(i, pictures.Length - 1)];
+                thumbImage.preserveAspect = true;
+                thumbImage.raycastTarget = false;
+                var tr = (RectTransform)thumb.transform;
+                tr.anchorMin = tr.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(tr, new Vector2(0f, -62f), new Vector2(200f, 100f));
+
+                var name = Tmp(frame.transform, "Name", def.Name, 18, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(name.rectTransform, new Vector2(0f, -130f), new Vector2(cardW - 20f, 24f));
+                var tag = Tmp(frame.transform, "Tagline", $"{def.Tagline}  <alpha=#88>Counted in {def.Unit}.", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Center);
+                tag.rectTransform.anchorMin = tag.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(tag.rectTransform, new Vector2(0f, -154f), new Vector2(cardW - 20f, 16f));
+
+                var status = Tmp(frame.transform, "Status", "", 10.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                status.characterSpacing = 8;
+                status.rectTransform.anchorMin = status.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                SetRect(status.rectTransform, new Vector2(0f, 38f), new Vector2(cardW - 20f, 16f));
+
+                var track = new GameObject("ProgressTrack", typeof(RectTransform), typeof(Image));
+                track.transform.SetParent(frame.transform, false);
+                track.GetComponent<Image>().color = new Color(PlateText.r, PlateText.g, PlateText.b, 0.2f);
+                track.GetComponent<Image>().raycastTarget = false;
+                var trackRect = (RectTransform)track.transform;
+                trackRect.anchorMin = trackRect.anchorMax = new Vector2(0.5f, 0f);
+                SetRect(trackRect, new Vector2(0f, 20f), new Vector2(cardW - 80f, 5f));
+                var fill = new GameObject("Fill", typeof(RectTransform), typeof(Image));
+                fill.transform.SetParent(track.transform, false);
+                fill.GetComponent<Image>().color = Amber;
+                fill.GetComponent<Image>().raycastTarget = false;
+                var fillRect = (RectTransform)fill.transform;
+                fillRect.anchorMin = Vector2.zero;
+                fillRect.anchorMax = new Vector2(0f, 1f);
+                fillRect.offsetMin = fillRect.offsetMax = Vector2.zero;
+
+                buttons[i] = button;
+                frames[i] = frame;
+                thumbs[i] = thumbImage;
+                statuses[i] = status;
+                tracks[i] = track;
+                fills[i] = fillRect;
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("ActivitiesController").AddComponent<ActivitiesController>();
+            Bind(controller, "panel", panel);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            BindArray(controller, "cardButtons", buttons);
+            BindArray(controller, "cardFrames", frames);
+            BindArray(controller, "thumbs", thumbs);
+            BindArray(controller, "statusTexts", statuses);
+            BindArray(controller, "progressTracks", tracks);
+            BindArray(controller, "progressFills", fills);
+            return controller;
+        }
+
+        // Balık defteri: üstte mekân sekmeleri + "Fish here", altta seçili mekânın türleri 3x2 yuvada
+        // (görsel, ad, en büyük kg, sayı, ilk tutuluş). Her mekânın yuvaları aynı yerde üst üste; denetleyici
+        // yalnız seçili sekmeninkileri açar.
+        static FishLogController CreateFishLogPanel(Transform parent, FishingController fishing)
+        {
+            var panel = CreatePanel(parent, "FishLogPanel", "Fish log · " + FishCatalog.Lake.Name, out var close, out var title);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(420, 16);
+            count.characterSpacing = 2;
+
+            // Sekmeler soldan (5 mekân), "Fish here" sağda; aynı satır.
+            const float tabY = 112f, tabW = 118f, tabH = 24f, tabGap = 6f;
+            var tabs = new Object[FishCatalog.Spots.Length];
+            var tabTexts = new Object[FishCatalog.Spots.Length];
+            for (int i = 0; i < tabs.Length; i++)
+            {
+                var tab = CreateButton(panel.transform, $"Tab_{FishCatalog.Spots[i].Id}", FishCatalog.Spots[i].Name,
+                    new Vector2(-376 + tabW / 2f + i * (tabW + tabGap), tabY), new Vector2(tabW, tabH), ButtonIdle, 10.5f, UiFonts.ExtraBold);
+                tabs[i] = tab;
+                tabTexts[i] = tab.GetComponentInChildren<TMP_Text>();
+            }
+            var fishHere = CreateButton(panel.transform, "FishHereButton", "FISH HERE", new Vector2(376 - 58f, tabY),
+                new Vector2(116f, tabH), SignGreen, 10.5f, UiFonts.ExtraBold);
+
+            var sprites = FishSprites();
+            int n = FishCatalog.All.Length;
+            var images = new Object[n];
+            var roots = new Object[n];
+            var names = new Object[n];
+            var details = new Object[n];
+            const float cellW = 240f, cellH = 116f, gapX = 12f, gapY = 8f, firstRowY = 38f;
+            foreach (var spot in FishCatalog.Spots)
+            {
+                // Gizli efsane: ızgaranın altında altın şerit (tutulunca görünür). Diziler FishCatalog.All sırasında.
+                if (spot.Legendary != null)
+                {
+                    int li = FishCatalog.IndexOf(spot.Legendary.Id);
+                    var band = Plate(panel.transform, $"Legend_{spot.Legendary.Id}", new Color(0.78f, 0.60f, 0.16f), RoundSprite);
+                    band.rectTransform.anchorMin = band.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    SetRect(band.rectTransform, new Vector2(0f, -158f), new Vector2(3 * cellW + 2 * gapX, 22f));
+                    var legendGo = new GameObject("Fish", typeof(RectTransform), typeof(Image));
+                    legendGo.transform.SetParent(band.transform, false);
+                    var legendImage = legendGo.GetComponent<Image>();
+                    legendImage.sprite = (Sprite)sprites[li];
+                    legendImage.preserveAspect = true;
+                    legendImage.raycastTarget = false;
+                    var lr = (RectTransform)legendGo.transform;
+                    lr.anchorMin = lr.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(lr, new Vector2(28f, 0f), new Vector2(44f, 20f));
+                    var legendName = Tmp(band.transform, "Name", "", 11.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+                    legendName.rectTransform.anchorMin = legendName.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(legendName.rectTransform, new Vector2(60f + 130f, 0f), new Vector2(260f, 18f));
+                    var legendDetail = Tmp(band.transform, "Detail", "", 10f, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Right);
+                    legendDetail.rectTransform.anchorMin = legendDetail.rectTransform.anchorMax = new Vector2(1f, 0.5f);
+                    SetRect(legendDetail.rectTransform, new Vector2(-10f - 200f, 0f), new Vector2(400f, 18f));
+                    images[li] = legendImage;
+                    roots[li] = band.gameObject;
+                    names[li] = legendName;
+                    details[li] = legendDetail;
+                    band.gameObject.SetActive(false);
+                }
+
+                for (int j = 0; j < spot.Species.Length; j++)
+                {
+                    int slot = FishCatalog.IndexOf(spot.Species[j].Id);
+                    int col = j % 3, row = j / 3;
+                    var cell = Plate(panel.transform, $"Slot_{spot.Species[j].Id}", Cell, RoundSprite);
+                    cell.rectTransform.anchorMin = cell.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    float x = (col - 1) * (cellW + gapX);
+                    float y = firstRowY - row * (cellH + gapY);
+                    SetRect(cell.rectTransform, new Vector2(x, y), new Vector2(cellW, cellH));
+
+                    var fishGo = new GameObject("Fish", typeof(RectTransform), typeof(Image));
+                    fishGo.transform.SetParent(cell.transform, false);
+                    var image = fishGo.GetComponent<Image>();
+                    image.sprite = (Sprite)sprites[slot];
+                    image.preserveAspect = true;
+                    image.raycastTarget = false;
+                    var fr = (RectTransform)fishGo.transform;
+                    fr.anchorMin = fr.anchorMax = new Vector2(0.5f, 1f);
+                    SetRect(fr, new Vector2(0f, -32f), new Vector2(150f, 50f));
+
+                    var name = Tmp(cell.transform, "Name", "", 13, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                    name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                    SetRect(name.rectTransform, new Vector2(0f, 43f), new Vector2(cellW - 12f, 18f));
+                    var detail = Tmp(cell.transform, "Detail", "", 9.5f, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Center);
+                    detail.lineSpacing = 4;
+                    detail.rectTransform.anchorMin = detail.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                    SetRect(detail.rectTransform, new Vector2(0f, 18f), new Vector2(cellW - 12f, 28f));
+
+                    images[slot] = image;
+                    roots[slot] = cell.gameObject;
+                    names[slot] = name;
+                    details[slot] = detail;
+                }
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("FishLogController").AddComponent<FishLogController>();
+            Bind(controller, "fishing", fishing);
+            Bind(controller, "panel", panel);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "tabButtons", tabs);
+            BindArray(controller, "tabTexts", tabTexts);
+            Bind(controller, "fishHereButton", fishHere);
+            Bind(controller, "fishHereText", fishHere.GetComponentInChildren<TMP_Text>());
+            BindArray(controller, "fishImages", images);
+            BindArray(controller, "slotRoots", roots);
+            BindArray(controller, "nameTexts", names);
+            BindArray(controller, "detailTexts", details);
+            Bind(controller, "closeButton", close);
+            return controller;
         }
 
         // Çekmece satırı: üstte ince ayraç, solda ad, sağda ok (çıkış tabelası listesi gibi).

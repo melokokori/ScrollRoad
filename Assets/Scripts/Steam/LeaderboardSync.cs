@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Aylık skorun Steam'e periyodik gönderimi. Sadece ay rekoru arttıysa gönderir
-    // (gereksiz istek yok). Steam yoksa sessizce hiçbir şey yapmaz.
+    // Aylık skorun (gizli ortak puanın ay rekoru) Steam'e periyodik gönderimi. Sadece ay rekoru
+    // arttıysa gönderir (gereksiz istek yok). Steam yoksa sessizce hiçbir şey yapmaz.
     public class LeaderboardSync : MonoBehaviour
     {
-        [SerializeField] RoadDrive drive;
         [SerializeField] float syncIntervalSeconds = 60f;
 
         float timer;
-        double lastSubmittedKm = -1;
+        double lastSubmitted = -1;
         bool submitting;
 
         public string LastStatus { get; private set; } = "—";
@@ -29,22 +28,23 @@ namespace ScrollRoad
 
         public async Task SyncNow()
         {
-            if (drive == null || submitting) return;
+            var engine = ScoreEngine.Instance;
+            if (engine == null || submitting) return;
             if (!SteamManager.IsInitialized)
             {
                 LastStatus = "Steam not connected";
                 return;
             }
 
-            double km = drive.MaxDistanceKmPrecise;
-            if (Math.Abs(km - lastSubmittedKm) < 0.001) return;
+            double points = engine.MonthBestPoints;
+            if (Math.Abs(points - lastSubmitted) < 1) return;
 
             submitting = true;
             try
             {
-                bool ok = await ScrollRoadLeaderboard.SubmitDistanceKmAsync(km);
-                if (ok) lastSubmittedKm = km;
-                LastStatus = ok ? $"Submitted: {km:0.00} km" : "Submission failed";
+                bool ok = await ScrollRoadLeaderboard.SubmitPointsAsync(points);
+                if (ok) lastSubmitted = points;
+                LastStatus = ok ? $"Submitted: {EnvironmentManager.Current.Format(points)}" : "Submission failed";
             }
             catch (Exception e)
             {

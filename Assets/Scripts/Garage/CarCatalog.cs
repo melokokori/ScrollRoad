@@ -101,9 +101,25 @@ namespace ScrollRoad
             set => liveProgress = value;
         }
 
+        // İNCELEME MODU (yalnız Editor ve geliştirici build'i): "-unlockall" argümanıyla her araç,
+        // renk (gizli dahil) ve gösterge skini açık görünür. Hiçbir şey kaydedilmez; yayın build'inde
+        // derlenmez (kozmetik koleksiyonun hilesi olmasın).
+#if UNITY_EDITOR
+        // Editor'de menüden: ScrollRoad → İnceleme modu (her şey açık).
+        public const string ReviewPrefKey = "ScrollRoad_ReviewUnlockAll";
+        public static bool ReviewUnlockAll => UnityEditor.EditorPrefs.GetBool(ReviewPrefKey, false);
+#elif DEVELOPMENT_BUILD
+        static bool? reviewUnlockAll;
+        public static bool ReviewUnlockAll => reviewUnlockAll ??= Array.Exists(Environment.GetCommandLineArgs(),
+            a => string.Equals(a, "-unlockall", StringComparison.OrdinalIgnoreCase));
+#else
+        public static bool ReviewUnlockAll => false;
+#endif
+
         public static bool IsUnlocked(Model model)
         {
             if (model == null) return false;
+            if (ReviewUnlockAll) return true;
             var p = CurrentProgress;
             return model.unlock switch
             {
@@ -137,7 +153,7 @@ namespace ScrollRoad
             _ => "",
         };
 
-        public static bool IsAvailable(Paint paint) => paint != null && (!paint.secret || SaveService.LoadSecretCarUnlocked());
+        public static bool IsAvailable(Paint paint) => paint != null && (!paint.secret || ReviewUnlockAll || SaveService.LoadSecretCarUnlocked());
 
         public Model DefaultModel => models.Length > 0 ? models[0] : null;
         public Paint DefaultPaint => paints.Length > 0 ? paints[0] : null;

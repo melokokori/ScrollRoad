@@ -23,6 +23,10 @@ namespace ScrollRoad.EditorTools
                 gauge.textureType = TextureImporterType.Sprite;
                 gauge.spriteImportMode = SpriteImportMode.Single;
                 gauge.mipmapEnabled = true;
+                // Kaiser + hafif negatif bias: Box mipleri ve trilinear karışım 512 px'lik kadranı
+                // görev çubuğunda (44-88 px) bulanıklaştırıyordu.
+                gauge.mipmapFilter = TextureImporterMipFilter.KaiserFilter;
+                gauge.mipMapBias = -0.5f;
                 gauge.alphaIsTransparency = true;
                 gauge.filterMode = UnityEngine.FilterMode.Trilinear;
                 gauge.textureCompression = TextureImporterCompression.CompressedHQ;

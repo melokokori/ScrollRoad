@@ -28,6 +28,11 @@ namespace ScrollRoad
         [SerializeField] float jitterFromKmh = 140f;
         [SerializeField] float jitterDeg = 1.2f;
 
+        // Görev çubuğu kadranlarında (44-88 px) kadran içi yazılar okunmaz lekeye dönüyor: IDLE
+        // 100 px'in, sayaç 60 px'in altında gizlenir (km ve rölanti şeritte kadranın yanında yazıyor).
+        const float HideIdleBelowSize = 100f, HideOdometerBelowSize = 60f;
+        bool hideIdle, hideOdometer;
+
         GaugeSkins.Skin skin;
         float needleKmh;
         float needleVelocity;
@@ -87,7 +92,14 @@ namespace ScrollRoad
         public void SetSize(float size)
         {
             ((RectTransform)transform).sizeDelta = new Vector2(size, size);
-            if (odometer != null) odometer.SetFontSize(size * 13f / 200f);
+            hideIdle = size < HideIdleBelowSize;
+            hideOdometer = size < HideOdometerBelowSize;
+            if (odometer != null)
+            {
+                odometer.gameObject.SetActive(!hideOdometer);
+                odometer.SetFontSize(size * 13f / 200f);
+            }
+            if (idleLabel != null && hideIdle) idleLabel.gameObject.SetActive(false);
             if (bigNumber != null) bigNumber.fontSize = size * 38f / 200f;
             if (idleLabel != null) idleLabel.fontSize = size * 9f / 200f;
         }
@@ -118,10 +130,10 @@ namespace ScrollRoad
             }
             if (idleLabel != null)
             {
-                bool idle = !drive.IsUserActive;
+                bool idle = !drive.IsUserActive && !hideIdle;
                 if (idleLabel.gameObject.activeSelf != idle) idleLabel.gameObject.SetActive(idle);
             }
-            if (odometer != null) odometer.Show(drive.CurrentDistanceKmPrecise);
+            if (odometer != null && !hideOdometer) odometer.Show(drive.CurrentDistanceKmPrecise);
         }
     }
 }

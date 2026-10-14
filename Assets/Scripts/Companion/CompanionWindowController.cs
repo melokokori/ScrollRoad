@@ -334,6 +334,7 @@ namespace ScrollRoad
             // Boyut ve konum native (sol-üst orijinli fiziksel piksel): UniWinC'nin sol-alt orijinli
             // windowPosition'ı kenarlıksız karttan geçerken şeridi ekran dışına (y=1344) koymuştu.
             IntPtr window = NativeWindow.FindUnityWindow();
+            NativeWindow.ApplyStripFrame(window); // kart modundan kalan köşe/kenarlık/gölge şeritte çerçeve gibi duruyordu
             float deadline = Time.realtimeSinceStartup + applyTimeoutSeconds;
             while (Time.realtimeSinceStartup < deadline)
             {
@@ -343,6 +344,7 @@ namespace ScrollRoad
                 if (NativeWindow.TryGetBounds(window, out var b) && b.Width == strip.Width && b.Height == strip.Height)
                 {
                     NativeWindow.SetBounds(window, strip); // boyut değişince konum kaymış olabilir
+                    NativeWindow.ApplyStripFrame(window); // Unity/UniWinC stil değiştirirken sıfırlamış olabilir
                     stripPlaced = true;
                     yield break;
                 }

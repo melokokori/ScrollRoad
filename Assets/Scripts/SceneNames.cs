@@ -27,6 +27,9 @@ namespace ScrollRoad
         public static string Km(double km, int decimals = 1) => km.ToString("N" + decimals, En) + " km";
         public static string Int(long value) => value.ToString("N0", En);
 
+        // Ortam birimiyle miktar: "12.4 kg", "1,234 km".
+        public static string Amount(double value, int decimals, string unit) => value.ToString("N" + decimals, En) + " " + unit;
+
         // "1 day", "3 days" (yalnız düzenli çoğul alan birimler için).
         public static string Count(long value, string unit) => $"{Int(value)} {unit}{(value == 1 ? "" : "s")}";
     }

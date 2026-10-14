@@ -72,6 +72,7 @@ namespace ScrollRoad
 
         public static bool IsUnlocked(Skin s)
         {
+            if (CarCatalog.ReviewUnlockAll) return true;
             var p = CarCatalog.CurrentProgress;
             return s.unlock switch
             {

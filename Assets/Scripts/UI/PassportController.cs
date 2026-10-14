@@ -19,6 +19,7 @@ namespace ScrollRoad
         [SerializeField] TMP_Text[] stampTexts;
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
+        [SerializeField] FishLogController fishLog; // Olta'dayken koleksiyon satırı balık defterini açar
 
         static readonly Color EmptyFrame = new Color(1f, 1f, 1f, 0.05f);
         static readonly Color EmptyText = new Color(0.95f, 0.95f, 0.93f, 0.28f);
@@ -36,6 +37,12 @@ namespace ScrollRoad
 
         void Open()
         {
+            if (fishLog != null && EnvironmentManager.Current.Id == EnvironmentId.Fishing)
+            {
+                fishLog.Open();
+                return;
+            }
+
             int passed = RouteMap.CountPassed(drive.MaxDistanceKmPrecise);
             var en = CultureInfo.GetCultureInfo("en-US");
             titleText.text = "Passport · " + DateTime.Now.ToString("MMMM yyyy", en);

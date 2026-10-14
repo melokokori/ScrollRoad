@@ -9,19 +9,40 @@ namespace ScrollRoad.EditorTools
     {
         public const string OutputPath = "Builds/Windows/ScrollRoad.exe";
 
+        // Geliştirici build'i (ayrı klasör): "-unlockall" inceleme modu ve F3 paneli yalnız burada çalışır.
+        public const string ReviewOutputPath = "Builds/Review/ScrollRoad.exe";
+
         [MenuItem("ScrollRoad/Windows Build Al")]
         public static void BuildFromMenu() => BuildStandaloneWindows();
 
-        public static string BuildStandaloneWindows()
+        [MenuItem("ScrollRoad/İnceleme Build Al (geliştirici, -unlockall)")]
+        public static void BuildReviewFromMenu() => BuildStandaloneWindows(ReviewOutputPath, BuildOptions.Development);
+
+        public static string BuildStandaloneWindows() => BuildStandaloneWindows(OutputPath, BuildOptions.None);
+
+        // Editor Play'de her araç/renk/gösterge skini açık (CarCatalog.ReviewUnlockAll). Kayda dokunmaz.
+        const string ReviewMenu = "ScrollRoad/İnceleme modu (her şey açık)";
+
+        [MenuItem(ReviewMenu)]
+        static void ToggleReviewMode() => EditorPrefs.SetBool(CarCatalog.ReviewPrefKey, !EditorPrefs.GetBool(CarCatalog.ReviewPrefKey, false));
+
+        [MenuItem(ReviewMenu, true)]
+        static bool ToggleReviewModeValidate()
+        {
+            Menu.SetChecked(ReviewMenu, EditorPrefs.GetBool(CarCatalog.ReviewPrefKey, false));
+            return true;
+        }
+
+        public static string BuildStandaloneWindows(string outputPath, BuildOptions buildOptions)
         {
             ScrollRoadSceneBuilder.ConfigureProjectSettings();
 
             var options = new BuildPlayerOptions
             {
                 scenes = new[] { ScrollRoadSceneBuilder.GameScenePath },
-                locationPathName = OutputPath,
+                locationPathName = outputPath,
                 target = BuildTarget.StandaloneWindows64,
-                options = BuildOptions.None,
+                options = buildOptions,
             };
 
             var report = BuildPipeline.BuildPlayer(options);
@@ -32,10 +53,10 @@ namespace ScrollRoad.EditorTools
             }
 
             // Steam testi için App ID dosyası exe'nin yanında olmalı (gerçek Steam dağıtımında gerekmez).
-            string buildDir = Path.GetDirectoryName(Path.GetFullPath(OutputPath));
+            string buildDir = Path.GetDirectoryName(Path.GetFullPath(outputPath));
             if (File.Exists("steam_appid.txt")) File.Copy("steam_appid.txt", Path.Combine(buildDir, "steam_appid.txt"), true);
 
-            string msg = $"Build başarılı: {OutputPath} ({report.summary.totalSize / 1024 / 1024} MB)";
+            string msg = $"Build başarılı: {outputPath} ({report.summary.totalSize / 1024 / 1024} MB)";
             Debug.Log(msg);
             return msg;
         }

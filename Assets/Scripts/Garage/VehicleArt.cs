@@ -36,6 +36,8 @@ namespace ScrollRoad
             wheelCache.Clear();
             rearLights.Clear();
             wheelTable = null;
+            propCache.Clear();
+            propTable = null;
         }
 
         // Dönen jant işareti: görseldeki tekerleğin göbeğine oturan, üç koyu dilimli saydam disk.
@@ -80,6 +82,129 @@ namespace ScrollRoad
                 };
             }
             return wheelCache[id] = wheels;
+        }
+
+        // Dönen parçalar (props.txt): pervane, rotor, fan. Konum/boy aracın yerel biriminde.
+        public enum PropKind { Nose, Rotor, Tail, Fan }
+
+        public struct Prop
+        {
+            public PropKind kind;
+            public Vector2 center;
+            public float size;     // nose/rotor: kanat yarı boyu, tail/fan: yarıçap (yerel birim)
+            public Color color;
+            public Sprite fan;     // yalnız fan: görselden kırpılan daire (döndürülür)
+            public Sprite fanMask; // yalnız fan: dairenin önü örtülmemiş kısmı (dönen fan bunun içinde görünür)
+        }
+
+        static readonly Dictionary<string, Prop[]> propCache = new();
+        static Dictionary<string, List<string[]>> propTable;
+
+        public static Prop[] Props(string id)
+        {
+            if (propCache.TryGetValue(id, out var cached)) return cached;
+            var table = LoadPropTable();
+            if (!table.TryGetValue(id, out var rows) || !File.Exists(BasePath(id))) return propCache[id] = new Prop[0];
+
+            var decoded = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+            decoded.LoadImage(File.ReadAllBytes(BasePath(id)));
+            int w = decoded.width, h = decoded.height;
+            var pixels = decoded.GetPixels32();
+            Object.Destroy(decoded);
+
+            var inv = System.Globalization.CultureInfo.InvariantCulture;
+            var props = new Prop[rows.Count];
+            for (int i = 0; i < rows.Count; i++)
+            {
+                var r = rows[i];
+                var kind = r[0] switch { "rotor" => PropKind.Rotor, "tail" => PropKind.Tail, "fan" => PropKind.Fan, _ => PropKind.Nose };
+                float x = float.Parse(r[1], inv) * w, y = float.Parse(r[2], inv) * h, size = float.Parse(r[3], inv) * w;
+                var color = r.Length > 4 && ColorUtility.TryParseHtmlString("#" + r[4], out var c) ? c : new Color(0.24f, 0.25f, 0.29f);
+                props[i] = new Prop
+                {
+                    kind = kind,
+                    center = new Vector2((x - w / 2f) / PixelsPerUnit, (y - h / 2f) / PixelsPerUnit),
+                    size = size / PixelsPerUnit,
+                    color = color,
+                };
+                if (kind == PropKind.Fan) BuildFan(ref props[i], pixels, w, h, x, y, size, $"{id}_fan{i}");
+            }
+            return propCache[id] = props;
+        }
+
+        // Fan: dairenin pikselleri ayrı dokuya kopyalanır (döndürülür). Yalnız fana ait pikseller sayılır
+        // (koyu kanat/göbek ya da mercan kanal); önündeki gövde parçaları (kabin, cam, çerçeve) maskenin
+        // dışında kalır ki dönen fan onların üstüne taşmasın, dönen dokuda da kanal rengiyle doldurulur
+        // ki gövde parçaları fanla birlikte dönmesin.
+        static void BuildFan(ref Prop prop, Color32[] px, int w, int h, float cx, float cy, float r, string name)
+        {
+            int size = Mathf.CeilToInt(r * 2f) + 2;
+            var fan = new Color32[size * size];
+            var mask = new Color32[size * size];
+            var isFan = new bool[size * size];
+            float half = size / 2f;
+            Vector3 duct = Vector3.zero;
+            int ductCount = 0;
+            for (int j = 0; j < size; j++)
+            for (int i = 0; i < size; i++)
+            {
+                float dx = i + 0.5f - half, dy = j + 0.5f - half;
+                if (dx * dx + dy * dy > r * r) continue;
+                int sx = Mathf.RoundToInt(cx + dx), sy = Mathf.RoundToInt(cy + dy);
+                if (sx < 0 || sy < 0 || sx >= w || sy >= h) continue;
+                var c = px[sy * w + sx];
+                if (c.a < 128) continue;
+                Color.RGBToHSV(c, out float hue, out float s, out float v);
+                bool coral = s > 0.35f && (hue < 0.06f || hue > 0.95f);
+                bool dark = v < 0.72f; // kanat/göbek griler; açık mavi cam ve beyaz kabin bunun üstünde
+                isFan[j * size + i] = coral || dark;
+                if (coral) { duct += new Vector3(c.r, c.g, c.b); ductCount++; }
+            }
+            var ductColor = ductCount > 0 ? duct / ductCount : new Vector3(200, 90, 70);
+
+            for (int j = 0; j < size; j++)
+            for (int i = 0; i < size; i++)
+            {
+                float dx = i + 0.5f - half, dy = j + 0.5f - half;
+                float d = Mathf.Sqrt(dx * dx + dy * dy);
+                if (d > r) continue;
+                int sx = Mathf.Clamp(Mathf.RoundToInt(cx + dx), 0, w - 1), sy = Mathf.Clamp(Mathf.RoundToInt(cy + dy), 0, h - 1);
+                var c = px[sy * w + sx];
+                byte edge = (byte)(255 * Mathf.Clamp01(r - d)); // yumuşak kenar
+                var fill = isFan[j * size + i] ? c : new Color32((byte)ductColor.x, (byte)ductColor.y, (byte)ductColor.z, 255);
+                fan[j * size + i] = new Color32(fill.r, fill.g, fill.b, edge);
+                if (isFan[j * size + i]) mask[j * size + i] = new Color32(255, 255, 255, 255);
+            }
+            prop.fan = MakeSprite(fan, size, name);
+            prop.fanMask = MakeSprite(mask, size, name + "_mask");
+        }
+
+        static Sprite MakeSprite(Color32[] pixels, int size, string name)
+        {
+            var tex = new Texture2D(size, size, TextureFormat.RGBA32, true) { name = name, filterMode = FilterMode.Bilinear, wrapMode = TextureWrapMode.Clamp };
+            tex.SetPixels32(pixels);
+            tex.Apply(true, false); // maske için CPU kopyası kalsın (SpriteMask alfa okur)
+            var sprite = Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), PixelsPerUnit, 0, SpriteMeshType.FullRect);
+            sprite.name = name;
+            return sprite;
+        }
+
+        static Dictionary<string, List<string[]>> LoadPropTable()
+        {
+            if (propTable != null) return propTable;
+            propTable = new Dictionary<string, List<string[]>>();
+            string path = Path.Combine(Application.streamingAssetsPath, "Vehicles", "props.txt");
+            if (!File.Exists(path)) return propTable;
+            foreach (var raw in File.ReadAllLines(path))
+            {
+                string line = raw.Trim();
+                if (line.Length == 0 || line[0] == '#') continue;
+                var parts = line.Split(new[] { ' ', '\t' }, System.StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length < 5) continue;
+                if (!propTable.TryGetValue(parts[0], out var list)) propTable[parts[0]] = list = new List<string[]>();
+                list.Add(parts[1..]);
+            }
+            return propTable;
         }
 
         // Stop lambası (geri viteste/frende yanar): arka tekerleğin biraz üstündeki satırda aracın arka

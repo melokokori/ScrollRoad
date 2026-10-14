@@ -1,0 +1,331 @@
+"""Araç seslerini üretir: ElevenLabs Sound Effects v2 — ELEVENLABS_API_KEY tanımlıysa doğrudan
+ElevenLabs'ten, değilse fal.ai üzerinden (FAL_KEY).
+
+Her araç için iki ses:
+  <model>_loop.ogg   kesintisiz döngü (sürüş sesi; oyunda perdesi ve şiddeti hıza göre kayar)
+  <model>_start.ogg  kısa tek seferlik ses (garajda seçilince: marş, korna, düdük...)
+Çıktı: Assets/Resources/VehicleSounds/ (VehicleSound çalışma zamanında Resources.Load ile yükler).
+Ham indirmeler Tools/sound_source/raw/ altında kalır (git dışı).
+
+Ses yüksekliği ffmpeg loudnorm ile eşitlenir (döngü -23 LUFS, tek seferlik -20 LUFS) ki araçlar
+arasında ses düzeyi zıplamasın.
+
+Kullanım:
+  python Tools/gen_sound.py car vesper            # listedeki tarifle üret
+  python Tools/gen_sound.py car --only loop       # yalnız döngüyü yeniden üret
+  python Tools/gen_sound.py car --loop "<tarif>"  # tarifi elle ver (listedekini geçersiz kılar)
+"""
+import argparse
+import json
+import os
+import subprocess
+import sys
+import time
+import urllib.request
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "Assets", "Resources", "VehicleSounds")
+RAW = os.path.join(ROOT, "Tools", "sound_source", "raw")
+ENDPOINT = "https://fal.run/fal-ai/elevenlabs/sound-effects/v2"
+
+# Tarifler gerçek modellerin KARAKTERİNİ anlatır (marka adı yok). Döngü: dışarıdan, sabit hızda,
+# müziksiz. Tek seferlik: kısa ve karakteristik.
+RECIPES = {
+    "car": (
+        "Small 1990s European hatchback with a 1.3 litre four-cylinder petrol engine cruising at a steady speed, "
+        "heard from outside, smooth even engine hum with light tyre roll on asphalt, no music, no voices",
+        "Small hatchback petrol engine start: key turn, short starter crank, engine catches and settles into a calm idle",
+    ),
+    "vesper": (
+        "Classic Italian 125cc two-stroke scooter riding at a steady speed, buzzy high-pitched two-stroke engine, "
+        "light wind, heard from outside, no music, no voices",
+        "Vintage two-stroke scooter kick start, engine sputters to life and idles, then one short cheerful horn beep",
+    ),
+    "heavyboy": (
+        "Big American V-twin cruiser motorcycle cruising at a steady speed, deep loping uneven potato-potato exhaust rumble, "
+        "heard from outside, no music, no voices",
+        "Big V-twin motorcycle electric start, deep loping idle and one throttle blip",
+    ),
+    "ferry": (
+        "Old Istanbul passenger ferry crossing the Bosphorus at steady speed, slow deep diesel engine thumping, "
+        "water rushing along the hull, a few distant seagulls, no music, no voices",
+        "Large old passenger ferry steam horn, one long deep blast echoing over the water",
+    ),
+    "airliner": (
+        "Commercial twin-engine jet airliner cruising high in the sky, steady turbofan engine roar and wind rush "
+        "heard from outside, no music, no voices",
+        "Jet airliner engines spooling up from idle to take-off thrust",
+    ),
+}
+
+# Kalan kadro: tarifte ilham alınan GERÇEK modelin adı geçer (yalnız üretime yol gösterir; oyunda
+# kurgusal adlar kullanılır, ses dosyasında marka yoktur). (araç, döngü tarifi, tek seferlik tarif)
+LOOP_TAIL = ", steady constant speed, heard from outside, continuous, no music, no voices"
+_ROSTER = [
+    # Otomobiller
+    ("atmaca", "Tofas Sahin, a 1990s Turkish Fiat 131 based sedan with a 1.6 litre carburetted four-cylinder petrol engine driving",
+     "Old Tofas Sahin sedan start: key turn, long carburettor starter crank, engine coughs to life and idles roughly"),
+    ("zefir", "1970s Turkish Anadol sedan with a small Ford Kent four-cylinder engine driving, slightly rough old engine",
+     "1970s small four-cylinder car starting on a cold morning, short crank and a light throttle blip"),
+    ("coralsedan", "Toyota Corolla sedan with a quiet 1.6 litre four-cylinder petrol engine driving, smooth and refined",
+     "Toyota Corolla push-button start, quiet engine idles, one short polite horn beep"),
+    ("t10s", "Togg T10F electric sedan driving, soft electric motor whine and tyre roll on asphalt, no engine",
+     "Modern electric car powering on: soft futuristic chime and a gentle electric hum rising"),
+    ("dreier", "BMW 3 Series E46 with a 2.5 litre straight-six petrol engine driving, smooth silky six-cylinder hum",
+     "BMW straight-six engine starting and settling into a smooth idle with one rev"),
+    ("van", "1960s camper van with an air-cooled flat-four engine driving, distinctive clattery boxer engine buzz",
+     "Air-cooled flat-four camper van starting, clattery starter and lumpy idle"),
+    ("impulso", "Subaru Impreza WRX with a turbocharged flat-four boxer engine driving, deep uneven boxer rumble with turbo whistle",
+     "Subaru boxer engine starting with its burbling uneven idle and a turbo blow-off on a rev"),
+    ("type3", "Tesla Model 3 electric car driving, quiet high-pitched electric motor whine and tyre roll",
+     "Tesla style electric car waking up: door chime and a soft electric hum"),
+    ("chaser", "Dodge Charger with a 6.4 litre Hemi V8 driving, loud deep American V8 burble",
+     "Dodge Charger Hemi V8 cold start, loud bark then deep rumbling idle"),
+    ("towne", "Lincoln Town Car with a soft 4.6 litre V8 driving, smooth quiet luxury cruiser",
+     "Old American luxury V8 sedan starting smoothly and idling softly"),
+    ("panorama", "Porsche Panamera with a twin-turbo V8 driving, refined sporty growl",
+     "Porsche Panamera V8 start with a sharp rev flare then settling"),
+    ("apparition", "Rolls-Royce Phantom with a V12 engine driving, almost silent, only a faint deep hum and soft tyre roll",
+     "Rolls-Royce V12 engine starting almost silently, a soft deep murmur"),
+    # Arazi, SUV, pikap
+    ("duner", "Dacia Duster with a 1.5 litre diesel engine driving on a gravel road, diesel clatter and gravel crunch",
+     "Small diesel SUV starting with diesel clatter"),
+    ("taiga", "Lada Niva 4x4 with a 1.7 litre petrol engine driving on a dirt track, old gearbox whine and rattles",
+     "Old Lada Niva starting with a choke, rough idle"),
+    ("jinny", "Suzuki Jimny small 4x4 driving on a dirt trail, buzzy small four-cylinder and bumpy suspension",
+     "Suzuki Jimny engine starting and revving playfully"),
+    ("pickup", "Toyota Hilux pickup with a 2.8 litre turbo diesel driving on a dirt road, diesel rumble and gravel",
+     "Toyota Hilux diesel pickup starting, glow plug pause then diesel idle"),
+    ("atv", "Quad bike ATV with a 450cc single-cylinder four-stroke engine riding on a dirt trail, buzzy thumping",
+     "Quad bike ATV starting with a pull and a few throttle blips"),
+    ("t10x", "Togg T10X electric SUV driving on a gravel track, electric motor whine and tyre crunch, no engine",
+     "Electric SUV powering on: futuristic startup chime and soft hum"),
+    ("landcrawler", "Toyota Land Cruiser 70 series with a V8 diesel driving off-road, deep diesel rumble and gravel",
+     "Toyota Land Cruiser V8 diesel starting, deep diesel idle"),
+    ("guardian", "classic Land Rover Defender with a 2.4 litre diesel driving off-road, agricultural diesel clatter and rattles",
+     "Old Land Rover Defender diesel starting, clattery idle"),
+    ("wrangel", "Jeep Wrangler with a 3.6 litre V6 driving off-road, open top wind and rugged engine",
+     "Jeep Wrangler V6 starting with a rev"),
+    ("mercatorg", "Mercedes-Benz G63 with a twin-turbo V8 driving, deep aggressive exhaust rumble",
+     "Mercedes G63 V8 starting with a loud bark"),
+    ("ibex", "Ram 3500 dually pickup with a Cummins turbo diesel driving, loud heavy diesel and turbo spool",
+     "Big Cummins diesel pickup starting, heavy diesel clatter and turbo whistle"),
+    ("escapade", "Cadillac Escalade with a 6.2 litre V8 driving, smooth heavy luxury SUV",
+     "Cadillac Escalade V8 starting and idling smoothly"),
+    ("hammerhx", "Hummer H1 with a 6.5 litre turbo diesel V8 driving off-road, gruff heavy diesel and chunky tyres",
+     "Hummer H1 diesel V8 starting, gruff military truck idle"),
+    ("toro", "Lamborghini Urus with a twin-turbo V8 driving, sporty aggressive super SUV exhaust",
+     "Lamborghini Urus V8 starting with a loud rev flare"),
+    # İki teker
+    ("mobilo", "Motobecane Mobylette 50cc moped riding, high-pitched two-stroke moped buzz like a sewing machine",
+     "Mobylette moped pedal start, tiny two-stroke engine sputters to life"),
+    ("pcx", "Honda PCX 125 scooter riding, smooth quiet four-stroke scooter hum with CVT whine",
+     "Honda PCX scooter push-button start and short beep of the horn"),
+    ("javo", "Jawa 350 vintage two-stroke twin motorcycle riding, ringing two-stroke exhaust",
+     "Jawa 350 two-stroke motorcycle kick start, ringing idle with blue smoke crackle"),
+    ("chimp", "Honda Monkey 125 mini bike riding, cute small four-stroke single putter",
+     "Honda Monkey mini bike starting and blipping cheerfully"),
+    ("atlasgs", "BMW R 1250 GS adventure motorcycle with a boxer twin riding on a gravel road, distinctive boxer thrum",
+     "BMW GS boxer twin motorcycle starting, the bike rocks with a boxer twin rev"),
+    ("anfield", "Royal Enfield Classic 350 riding, slow deep single-cylinder thump thump",
+     "Royal Enfield Classic 350 starting, classic single-cylinder thumping idle"),
+    ("bonnevale", "Triumph Bonneville parallel-twin motorcycle riding, smooth British twin burble",
+     "Triumph Bonneville parallel twin starting with a rev"),
+    ("baron", "KTM 390 Duke single-cylinder naked bike riding, sharp punchy single-cylinder bark",
+     "KTM 390 Duke starting with sharp throttle blips"),
+    ("snodoo", "Ski-Doo snowmobile with a two-stroke engine riding over snow, buzzy engine and track clatter on snow",
+     "Snowmobile pull start, two-stroke engine catches and revs"),
+    ("tarantula", "Can-Am Spyder three-wheel roadster with a Rotax three-cylinder riding, smooth triple growl",
+     "Can-Am Spyder Rotax triple engine starting with a rev"),
+    ("hayate", "Suzuki Hayabusa sport bike riding fast, high-revving inline-four howl",
+     "Suzuki Hayabusa inline-four starting and revving high"),
+    ("monza", "Ducati V-twin sport bike riding, loud desmo V-twin with dry clutch rattle",
+     "Ducati V-twin starting, dry clutch rattle and loud rev"),
+    # Deniz
+    ("swanboat", "Swan pedal boat moving on a lake, clearly audible paddle wheel churning and splashing water, "
+     "rhythmic pedal creaks, close up",
+     "Pedal boat creaking as someone starts pedalling, water splashes"),
+    ("rowboat", "Small wooden rowboat on a calm lake, rhythmic oars splashing and creaking oarlocks",
+     "Wooden oars dipping into water for the first strokes, oarlocks creak"),
+    ("sailboat", "Small sailboat sailing, wind in the sails, sail flapping and water lapping on the hull",
+     "Sail being hoisted and filling with wind with a snap"),
+    ("tugboat", "Harbour tugboat chugging along, deep slow diesel thumping and water wash",
+     "Tugboat horn, two short deep toots"),
+    ("watercraft", "Sea-Doo jet ski personal watercraft riding, revving jet pump engine and water spray slaps",
+     "Jet ski engine starting and revving in water"),
+    ("speedboat", "Speedboat with a V8 inboard engine racing across water, engine roar and hull slapping waves",
+     "Speedboat V8 engine starting with a deep burble on the water"),
+    ("seiner", "Fishing boat with an old diesel engine at sea, slow diesel putter, waves and seagulls",
+     "Fishing boat diesel engine starting, then seagulls cry"),
+    ("yacht", "Luxury motor yacht with twin diesels cruising, smooth deep engines and water wash",
+     "Luxury yacht horn, one elegant short blast"),
+    ("hovercraft", "Hovercraft with large propeller fans moving over water, loud fan roar and air rush",
+     "Hovercraft fans spooling up and the skirt inflating with air"),
+    ("seabus", "Istanbul high-speed sea bus catamaran ferry cruising, engines whine and water jets",
+     "Passenger sea bus ferry horn, one medium blast"),
+    ("container", "Huge container ship at sea, very slow deep diesel engine thump and heavy water",
+     "Huge container ship horn, very deep long blast"),
+    ("icebreaker", "Icebreaker ship pushing through sea ice, crunching cracking ice and deep engines",
+     "Icebreaker ship horn and a loud ice crack"),
+    ("submarine", "Submarine moving underwater, deep low engine hum, muffled water and occasional distant sonar ping",
+     "Submarine sonar ping echoing twice"),
+    ("liner", "1910s steam ocean liner at sea, rhythmic steam engines, water against the hull",
+     "Old ocean liner steam whistle, deep long blast"),
+    ("cruise", "Modern cruise ship at sea, soft deep engine hum, sea breeze and waves",
+     "Cruise ship horn, deep and long"),
+    # Hava
+    ("cropduster", "Boeing Stearman biplane with a radial engine flying, loud rough radial engine drone",
+     "Radial engine biplane starting: whine, cough, puffs of smoke and the engine catches"),
+    ("helicopter", "Bell 206 JetRanger helicopter flying, turbine whine and steady rotor blade thwop",
+     "Helicopter turbine starting and rotor blades spinning up"),
+    ("seaplane", "de Havilland Beaver floatplane with a radial engine flying, steady radial drone",
+     "Beaver floatplane radial engine starting with coughs and catching"),
+    ("glider", "Sailplane glider soaring silently, only smooth wind rushing over the wings",
+     "Glider tow release click and wind rushing"),
+    ("balloon", "Hot air balloon floating high, gentle wind with occasional loud propane burner roars",
+     "Hot air balloon propane burner firing, one long roar"),
+    ("bizjet", "Gulfstream business jet cruising, smooth high turbofan whine and wind",
+     "Business jet engines spooling up"),
+    ("airship", "Zeppelin NT airship floating, soft propeller drone and gentle wind",
+     "Airship propeller engines starting up softly"),
+    ("fighter", "F-16 fighter jet flying fast, loud jet engine roar",
+     "Fighter jet afterburner lighting with a thunderous roar"),
+    ("shuttle", "Space Shuttle rocket ascending, thunderous rocket engine roar and rumble",
+     "Space Shuttle main engines igniting, countdown-free thunderous ignition"),
+]
+for _id, _loop, _start in _ROSTER:
+    RECIPES[_id] = (_loop + LOOP_TAIL, _start)
+
+
+def generate(text, seconds, loop, influence):
+    # ELEVENLABS_API_KEY varsa doğrudan ElevenLabs, yoksa fal.ai (aynı model).
+    eleven = os.environ.get("ELEVENLABS_API_KEY")
+    if eleven:
+        body = {"text": text, "loop": loop, "prompt_influence": influence, "model_id": "eleven_text_to_sound_v2"}
+        if seconds:
+            body["duration_seconds"] = seconds
+        req = urllib.request.Request("https://api.elevenlabs.io/v1/sound-generation?output_format=mp3_44100_192",
+                                     data=json.dumps(body).encode(), method="POST",
+                                     headers={"xi-api-key": eleven, "Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=300) as r:
+            return r.read()
+
+    key = os.environ.get("FAL_KEY")
+    if not key:
+        sys.exit("ELEVENLABS_API_KEY ya da FAL_KEY tanımlı değil")
+    body = json.dumps({
+        "text": text,
+        "duration_seconds": seconds,
+        "loop": loop,
+        "prompt_influence": influence,
+        "output_format": "mp3_44100_192",
+    }).encode()
+    req = urllib.request.Request(ENDPOINT, data=body, method="POST", headers={
+        "Authorization": "Key " + key,
+        "Content-Type": "application/json",
+    })
+    with urllib.request.urlopen(req, timeout=300) as r:
+        result = json.load(r)
+    url = result["audio"]["url"]
+    with urllib.request.urlopen(url, timeout=300) as r:
+        return r.read()
+
+
+CROSSFADE_SECONDS = 0.5
+
+
+def _decode(path):
+    import numpy as np
+    pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", path, "-f", "f32le", "-ac", "2", "-ar", "44100", "-"],
+                         capture_output=True, check=True).stdout
+    return np.frombuffer(pcm, dtype=np.float32).reshape(-1, 2).copy()
+
+
+def _loudness(x):
+    """Bütünleşik ses yüksekliği (LUFS), ffmpeg ebur128 ile."""
+    out = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-f", "f32le", "-ac", "2", "-ar", "44100", "-i", "-",
+                          "-af", "loudnorm=print_format=json", "-f", "null", "-"],
+                         input=x.tobytes(), capture_output=True).stderr.decode("utf-8", "replace")
+    return float(json.loads(out[out.rindex("{"):out.rindex("}") + 1])["input_i"])
+
+
+def to_ogg(raw_path, out_path, lufs, loop):
+    """Tüm işlem örnek düzeyinde (gecikme yok, döngü eki bozulmaz):
+    döngüde son 0,5 sn başa eşit güçlü geçişle bindirilir; ses yüksekliği ölçülüp sabit kazanç
+    verilir (bas ağırlıklı seslerde kazanç büyük kalmasın diye en fazla +9 dB); tepeler yumuşak
+    doyumla 0,92'nin altına çekilir; tek seferlik sesin son 0,35 sn'si söner."""
+    import numpy as np
+    x = _decode(raw_path)
+    n = int(CROSSFADE_SECONDS * 44100)
+    if loop and len(x) > 4 * n:
+        t = np.linspace(0, np.pi / 2, n, dtype=np.float32)[:, None]
+        x = np.concatenate([x[:n] * np.sin(t) + x[-n:] * np.cos(t), x[n:-n]])
+    # Kazanç: ses yüksekliği hedefi, ama en fazla +9 dB ve tepe en çok 3 dB doyuma girecek kadar
+    # (ani tepeli sesler — tık, çatırtı — aşırı doyumda kare dalgaya döner, Vorbis onu tepeden taşırır).
+    peak = float(np.abs(x).max()) or 1.0
+    gain_db = min(9.0, lufs - _loudness(x), 20 * np.log10(0.8 / peak) + 3.0)
+    x = x * (10 ** (gain_db / 20))
+    # Yumuşak doyum: |x| > 0.6 bölgesi tanh ile 0.8 tavanına bükülür (Vorbis'e taşma payı).
+    t, ceil = 0.6, 0.8
+    a = np.abs(x)
+    over = a > t
+    x[over] = np.sign(x[over]) * (t + (ceil - t) * np.tanh((a[over] - t) / (ceil - t)))
+    if not loop:
+        f = min(len(x), int(0.35 * 44100))
+        x[-f:] *= np.linspace(1, 0, f, dtype=np.float32)[:, None]
+    wav = out_path + ".tmp.wav"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "f32le", "-ac", "2", "-ar", "44100", "-i", "-",
+                    "-c:a", "pcm_s16le", wav], input=x.astype(np.float32).tobytes(), check=True)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav, "-c:a", "libvorbis", "-q:a", "6", out_path], check=True)
+    os.remove(wav)
+
+
+def latest_raw(model, kind):
+    files = sorted(f for f in os.listdir(RAW) if f.startswith(f"{model}_{kind}_") and f.endswith(".mp3"))
+    return os.path.join(RAW, files[-1]) if files else None
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("models", nargs="+")
+    ap.add_argument("--only", choices=["loop", "start"])
+    ap.add_argument("--loop", dest="loop_text")
+    ap.add_argument("--start", dest="start_text")
+    ap.add_argument("--seconds", type=float, default=10.0, help="döngü süresi")
+    ap.add_argument("--start-seconds", type=float, default=3.5, help="tek seferlik ses süresi")
+    ap.add_argument("--reprocess", action="store_true", help="üretmeden son ham kaydı yeniden işle")
+    args = ap.parse_args()
+
+    os.makedirs(OUT, exist_ok=True)
+    os.makedirs(RAW, exist_ok=True)
+    for model in args.models:
+        loop_text, start_text = RECIPES.get(model, (None, None))
+        loop_text = args.loop_text or loop_text
+        start_text = args.start_text or start_text
+        jobs = []
+        if args.only in (None, "loop") and loop_text:
+            jobs.append(("loop", loop_text, args.seconds, True, -23))
+        if args.only in (None, "start") and start_text:
+            jobs.append(("start", start_text, args.start_seconds, False, -20))
+        if not jobs:
+            print(f"{model}: tarif yok, atlandı")
+            continue
+        for kind, text, seconds, loop, lufs in jobs:
+            t0 = time.time()
+            if args.reprocess:
+                raw = latest_raw(model, kind)
+                if raw is None:
+                    print(f"{model}_{kind}: ham kayıt yok, atlandı")
+                    continue
+            else:
+                data = generate(text, seconds, loop, 0.5)
+                raw = os.path.join(RAW, f"{model}_{kind}_{int(t0)}.mp3")
+                with open(raw, "wb") as f:
+                    f.write(data)
+            out = os.path.join(OUT, f"{model}_{kind}.ogg")
+            to_ogg(raw, out, lufs, loop)
+            print(f"{model}_{kind}: {time.time() - t0:.1f} sn -> {os.path.relpath(out, ROOT)}")
+
+
+if __name__ == "__main__":
+    main()

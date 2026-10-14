@@ -118,11 +118,26 @@ namespace ScrollRoad.Platform
             style |= WS_POPUP | WS_MINIMIZEBOX | WS_SYSMENU;
             SetWindowLongPtr(hwnd, GWL_STYLE, new IntPtr(style));
 
-            int corner = DWMWCP_ROUND;
-            DwmSetWindowAttribute(hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, ref corner, sizeof(int));
+            SetDwmFrame(hwnd, DWMWCP_ROUND, DWMWA_COLOR_DEFAULT, DWMNCRP_USEWINDOWSTYLE);
 
             SetWindowPos(hwnd, IntPtr.Zero, bounds.Left, bounds.Top, bounds.Width, bounds.Height,
                 SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+        }
+
+        // Görev çubuğu şeridi: Windows 11'in pencereye çizdiği yuvarlak köşe, 1 px sistem kenarlığı
+        // ve gölge kapatılır — şerit görev çubuğunun parçası gibi görünsün. Kart moduna dönüşte
+        // ApplyBorderless varsayılanları geri yükler. (Windows 10'da çağrılar sessizce başarısız olur.)
+        public static void ApplyStripFrame(IntPtr hwnd)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            SetDwmFrame(hwnd, DWMWCP_DONOTROUND, DWMWA_COLOR_NONE, DWMNCRP_DISABLED);
+        }
+
+        static void SetDwmFrame(IntPtr hwnd, int corner, int borderColor, int ncPolicy)
+        {
+            DwmSetWindowAttribute(hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, ref corner, sizeof(int));
+            DwmSetWindowAttribute(hwnd, DWMWA_BORDER_COLOR, ref borderColor, sizeof(int));
+            DwmSetWindowAttribute(hwnd, DWMWA_NCRENDERING_POLICY, ref ncPolicy, sizeof(int));
         }
 
         public static bool TryGetBounds(IntPtr hwnd, out ScreenRect bounds)
@@ -235,7 +250,9 @@ namespace ScrollRoad.Platform
         const int GWL_STYLE = -16;
         const long WS_POPUP = 0x80000000L, WS_CAPTION = 0x00C00000L, WS_SYSMENU = 0x00080000L,
             WS_THICKFRAME = 0x00040000L, WS_MINIMIZEBOX = 0x00020000L, WS_MAXIMIZEBOX = 0x00010000L;
-        const int DWMWA_WINDOW_CORNER_PREFERENCE = 33, DWMWCP_ROUND = 2;
+        const int DWMWA_WINDOW_CORNER_PREFERENCE = 33, DWMWCP_DONOTROUND = 1, DWMWCP_ROUND = 2;
+        const int DWMWA_BORDER_COLOR = 34, DWMWA_COLOR_DEFAULT = unchecked((int)0xFFFFFFFF), DWMWA_COLOR_NONE = unchecked((int)0xFFFFFFFE);
+        const int DWMWA_NCRENDERING_POLICY = 2, DWMNCRP_USEWINDOWSTYLE = 0, DWMNCRP_DISABLED = 1;
         static readonly UIntPtr HKEY_CURRENT_USER = new UIntPtr(0x80000001u);
         const int KEY_QUERY_VALUE = 0x0001;
         const int REG_DWORD = 4;

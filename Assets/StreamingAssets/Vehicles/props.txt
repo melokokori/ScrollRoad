@@ -1,0 +1,15 @@
+# Dönen parçalar (RoadSceneView çizer; elle ölçüldü, görsel değişirse güncelle).
+# model tür x y boy [renk]
+#   x, y: merkez (görselin sol-alt köşesinden, genişlik/yükseklik oranı)
+#   boy: genişliğe oran — nose/rotor için kanat yarı boyu, tail/fan için yarıçap
+#   tür: nose  = yandan görülen pervane (dikey çubuk, boyu dönüşle salınır; görselde kanat yok)
+#        rotor = helikopter ana rotoru (yatay çubuk, boyu salınır; görselde kanat yok)
+#        tail  = bize dönük küçük rotor (iki kanat dönerek)
+#        fan   = bize dönük fan; görselin o dairesi kırpılıp döndürülür, önündeki parçalar maskelenir
+cropduster nose 0.890 0.530 0.165 3A3539
+seaplane nose 0.902 0.535 0.120 4B4F57
+helicopter rotor 0.700 0.975 0.400 4A5260
+helicopter tail 0.070 0.720 0.065 4A5260
+submarine nose 0.028 0.360 0.075 343B4D
+hovercraft fan 0.215 0.715 0.074
+hovercraft fan 0.430 0.805 0.074

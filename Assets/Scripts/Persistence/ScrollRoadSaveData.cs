@@ -23,6 +23,16 @@ namespace ScrollRoad
         public double bestMonthKm;
         public string bestMonth = "";
 
+        // Gizli ortak puan (2026-10-13): tüm ortamların ilerlemesi buradan türer. pointsVersion 0 =
+        // puan katmanından önceki kayıt (cloud birleştirmede km'den türetilir).
+        public int pointsVersion;
+        public string pointsRaceMonth = "";
+        public double monthPoints;
+        public double monthBestPoints;
+        public double lifetimePoints;
+        public double bestMonthPoints;
+        public string bestPointsMonth = "";
+
         // Gizli bölge ödülü (garajdaki gizli araç) — bir kez açılınca kalıcı.
         public bool secretCarUnlocked;
     }

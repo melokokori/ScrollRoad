@@ -121,7 +121,12 @@ namespace ScrollRoad
         {
             if (drive == null) drive = FindAnyObjectByType<RoadDrive>();
             if (drive == null) return "ScrollRoad";
-            return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + (drive.IsUserActive ? "" : " (idle)");
+            string idle = drive.IsUserActive ? "" : " (idle)";
+            if (EnvironmentManager.Current.Id == EnvironmentId.Fishing && FishingController.Instance != null)
+            {
+                return $"ScrollRoad — {EnvironmentCatalog.Fishing.Format(FishingController.Instance.MonthFish * EnvironmentCatalog.FishIntervalPoints)} this month" + idle;
+            }
+            return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + idle;
         }
 
         // userClosed=false: açılışta (-autostart).

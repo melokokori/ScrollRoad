@@ -24,12 +24,22 @@ namespace ScrollRoad
         [SerializeField] TMP_Text whisperText;
         [SerializeField] RectTransform progressFill;
         [SerializeField] RectTransform maxMarker;
+        [SerializeField] GameObject[] roadOnly; // kadran, tabela, şehir plakası, fısıltı: Olta'da gizli
 
         void Update()
         {
             bool companion = companionWindow != null && companionWindow.IsCompanionMode;
             if (hudRoot.activeSelf == companion) hudRoot.SetActive(!companion);
             if (companion) return;
+
+            // Bugünkü hedef plakası ortak (birim aktif ortamdan); geri kalanı Yol'a özel.
+            goalsText.text = TodayLine();
+            bool road = RoadDrive.IsActiveEnvironment;
+            foreach (var go in roadOnly)
+            {
+                if (go != null && go.activeSelf != road) go.SetActive(road);
+            }
+            if (!road) return;
 
             UpdateSign();
 
@@ -38,7 +48,6 @@ namespace ScrollRoad
             cityText.text = drive.ReachedCity
                 ? "THE CITY  <alpha=#99>REACHED"
                 : Fmt.Km(System.Math.Max(0, remaining), 0) + "  <alpha=#99>TO THE CITY";
-            goalsText.text = TodayLine();
 
             float progress = Mathf.Clamp01((float)(drive.CurrentDistanceKmPrecise / drive.CityDistanceKm));
             progressFill.anchorMax = new Vector2(progress, 1f);
@@ -85,8 +94,7 @@ namespace ScrollRoad
         string TodayLine()
         {
             if (goals == null) return "";
-            string dayKm = goals.IsDone(GoalTracker.Goal.DailyDistance)
-                ? $"{goals.DailyKmGoal:0} km done" : $"{Fmt.Int((long)goals.DayKm)} / {goals.DailyKmGoal:0} km";
+            string dayKm = goals.AmountLine(weekly: false);
             string dayTime = goals.IsDone(GoalTracker.Goal.DailyTime)
                 ? $"{goals.DailyMinutesGoal:0} min done" : $"{goals.DayMinutes:0} / {goals.DailyMinutesGoal:0} min";
             return $"<alpha=#99>TODAY<alpha=#FF>  {dayKm}  ·  {dayTime}";

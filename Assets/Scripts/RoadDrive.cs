@@ -14,21 +14,9 @@ namespace ScrollRoad
         [Header("Yol")]
         [SerializeField] float cityDistanceKm = DefaultCityDistanceKm;
 
-        // 3. iterasyon hız modeli (2026-07-10): araç kendi kendine seyir hızında ilerler,
-        // scroll yukarı/aşağı hızı anlık artırır/azaltır, bırakınca üstel olarak seyire döner.
-        // (1. iterasyon: sıfıra sönümlenen momentum — reddedildi; 2. iterasyon: sabit 100m adım —
-        // kullanıcı isteğiyle bu modele çevrildi. Eksi hız = geri gitme, minSpeedKmh ile sınırlı.)
-        // 2026-10-10: seyir yalnız kullanıcı aktifken — son gerçek scroll'dan activeWindowSeconds
-        // geçince araç rölanti hızına iner. Aksi halde skor "oyunu kim daha uzun açık bıraktı"
-        // yarışına dönüyordu (8 saat açık = 480 km, yoğun bir scroll günü ~50 km).
-        [Header("Hız Modeli")]
-        [SerializeField] float cruiseSpeedKmh = 60f;
-        [SerializeField] float idleCruiseSpeedKmh = 10f;
-        [SerializeField] float activeWindowSeconds = 180f;
-        [SerializeField] float boostPerNotchKmh = 30f;
-        [SerializeField] float maxSpeedKmh = 220f;
-        [SerializeField] float minSpeedKmh = -60f;
-        [SerializeField] float returnToCruiseSeconds = 2f; // seyire dönüş zaman sabiti (üstel)
+        // Hız modeli (seyir + boost, aktiflik penceresi, rölanti) 2026-10-13'te ortak puan motoruna
+        // (ScoreEngine) taşındı; Yol yalnız aktif ortamken ilerler ve km = puan × Yol oranı. Yol'da
+        // tempo birimi km/sa'e birebir eşit olduğu için görünüş ve davranış değişmedi.
 
         [Header("Kalıcılık")]
         [SerializeField] float autosaveIntervalSeconds = 10f;
@@ -37,7 +25,6 @@ namespace ScrollRoad
         DriveState lastMovingDirection = DriveState.Forward;
         bool hasEnteredSecretZone;
         bool hasNotifiedCity;
-        double lastScrollRealtime = double.NegativeInfinity; // açılışta rölantide başlar
 
         // Mesafe double tutulur: float'ın 18.000 km civarındaki çözünürlüğü (~2 m) kare başına
         // seyir ilerlemesinden (~0,3 m) büyük olduğu için araç float'ta fiilen dururdu.
@@ -52,11 +39,18 @@ namespace ScrollRoad
         public DriveState State { get; private set; } = DriveState.Idle;
         public float CityDistanceKm => cityDistanceKm;
         public bool ReachedCity => maxDistanceKm >= cityDistanceKm;
-        public float CruiseSpeedKmh => cruiseSpeedKmh;
+        static ScoreEngine Engine => ScoreEngine.Instance;
+        static double KmPerPoint => EnvironmentCatalog.Road.UnitsPerPoint;
+        static float KmhPerPace => (float)(ScoreEngine.PointsPerPaceHour * KmPerPoint);
 
-        // Son gerçek scroll'dan bu yana activeWindowSeconds geçmediyse seyir hızında, yoksa rölantide.
-        public bool IsUserActive => Time.realtimeSinceStartupAsDouble - lastScrollRealtime < activeWindowSeconds;
-        public float TargetCruiseSpeedKmh => IsUserActive ? cruiseSpeedKmh : idleCruiseSpeedKmh;
+        public float CruiseSpeedKmh => Engine != null ? Engine.CruisePace * KmhPerPace : 60f;
+
+        // Son gerçek scroll'dan bu yana 3 dk geçmediyse seyir hızında, yoksa rölantide (ScoreEngine).
+        public bool IsUserActive => Engine != null && Engine.IsUserActive;
+        public float TargetCruiseSpeedKmh => Engine != null ? Engine.TargetPace * KmhPerPace : 0f;
+
+        // Yol yalnız seçili ortamken ilerler (diğer ortamlarda araç bekler, ses/olay yok).
+        public static bool IsActiveEnvironment => EnvironmentManager.Current.Id == EnvironmentId.Road;
 
         // Şehrin ötesi UI'da hiç belirtilmez, kasıtlı olarak belgelenmemiş/organik keşif.
         public bool InSecretZone => distanceKm > cityDistanceKm;
@@ -72,7 +66,7 @@ namespace ScrollRoad
             // (SteamManager BeforeSceneLoad'da kurulduğu için cloud birleştirmesi de burada olur.)
             // Oyun kapalıyken ilerleme yok (2026-10-10 kararı).
             LoadPersistedProgress();
-            CurrentSpeedKmh = idleCruiseSpeedKmh;
+            CurrentSpeedKmh = 0f;
         }
 
         void OnApplicationQuit() => SaveAll();
@@ -121,30 +115,22 @@ namespace ScrollRoad
         void Update()
         {
             float dt = Time.deltaTime;
+            var engine = Engine;
+            if (engine == null || dt <= 0f) return;
 
-            // Scroll = anlık hız boost'u (yukarı +, aşağı -; eksiye inerse geri gidilir).
-            // Kaynak sistem geneli: oyun odakta değilken yapılan scroll da sayılır (GlobalScrollSource).
-            // Duraklatılmışken (timeScale=0) scroll hıza yazılmaz — devam edince sıçrama olmasın.
-            var scrollSource = GlobalScrollSource.Instance;
-            float scrollTicks = scrollSource != null ? scrollSource.FrameNotchesSigned : 0f;
-            if (dt <= 0f) return;
-
-            // Yön fark etmez: aşağı scroll da kullanıcının başında olduğunu gösterir.
-            // Enjekte (makro) scroll FrameNotches'a hiç girmediği için aktiflik de saymaz.
-            if (Mathf.Abs(scrollTicks) > 0.0001f)
+            if (IsActiveEnvironment)
             {
-                lastScrollRealtime = Time.realtimeSinceStartupAsDouble;
-                CurrentSpeedKmh = Mathf.Clamp(CurrentSpeedKmh + scrollTicks * boostPerNotchKmh, minSpeedKmh, maxSpeedKmh);
-                OnStep?.Invoke();
+                // Scroll = anlık hız boost'u (yukarı +, aşağı -; eksiye inerse geri gidilir); tempo ve
+                // seyre dönüş ScoreEngine'de. Kaynak sistem geneli (GlobalScrollSource).
+                if (Mathf.Abs(engine.FrameNotches) > 0.0001f) OnStep?.Invoke();
+                CurrentSpeedKmh = engine.Pace * KmhPerPace;
+                distanceKm = Math.Max(0.0, distanceKm + engine.FrameRawPoints * KmPerPoint);
+                maxDistanceKm = Math.Max(maxDistanceKm, distanceKm);
             }
-
-            // Scroll bırakılınca hız üstel olarak hedef seyre döner (aktifken seyir, değilse rölanti;
-            // rölantiye iniş de aynı yumuşak geçişle olur).
-            float returnLerp = 1f - Mathf.Exp(-dt / Mathf.Max(0.01f, returnToCruiseSeconds));
-            CurrentSpeedKmh = Mathf.Lerp(CurrentSpeedKmh, TargetCruiseSpeedKmh, returnLerp);
-
-            distanceKm = Math.Max(0.0, distanceKm + CurrentSpeedKmh * (double)dt / 3600.0);
-            maxDistanceKm = Math.Max(maxDistanceKm, distanceKm);
+            else
+            {
+                CurrentSpeedKmh = 0f;
+            }
 
             // ±1 km/h bandı: seyire dönüş sırasında işaret değişimi anındaki titremeyi önler.
             var direction = CurrentSpeedKmh > 1f ? DriveState.Forward

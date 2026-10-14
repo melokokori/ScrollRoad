@@ -11,6 +11,8 @@ Assets/StreamingAssets/Vehicles/<model>.png (kurucudaki Def(...) id'siyle aynı 
 Kullanım (proje kökünden): python Tools/gen_vehicle.py <model> "<araç tarifi>" [çıktı klasörü]
   ör. python Tools/gen_vehicle.py pickup "a small pickup truck with an open cargo bed"
   Tarif "free:" ile başlarsa teker/gövde rengi kuralı uygulanmaz (gemi, uçak, balon, sürücülü motor).
+  Tarif "edit:" ile başlarsa MEVCUT görsel düzenlenir (ör. "edit:remove the propeller blades, keep the hub");
+  geri kalan her şey aynı kalsın diye referans olarak yalnız o görsel verilir.
 Gereken: GOOGLE_API_KEY ortam değişkeni.
 """
 import base64
@@ -45,11 +47,34 @@ FREE_PROMPT = (
 )
 
 
-def generate(desc):
-    ref = base64.b64encode(REFERENCE.read_bytes()).decode()
+EDIT_PROMPT = (
+    "Edit the attached image: {desc}. Keep EVERYTHING else exactly the same: the same shapes, colors, "
+    "proportions, size and position of the vehicle, the same flat vector style. Keep the plain solid pure "
+    "green (#00FF00) background, no shadow, no text."
+)
+
+
+def on_green(path):
+    """Saydam taban görseli yeşil zemine oturtur (düzenleme girdisi)."""
+    img = Image.open(path).convert("RGBA")
+    pad = 24
+    bg = Image.new("RGBA", (img.width + 2 * pad, img.height + 2 * pad), (0, 255, 0, 255))
+    bg.alpha_composite(img, (pad, pad))
+    buf = io.BytesIO()
+    bg.convert("RGB").save(buf, "PNG")
+    return buf.getvalue()
+
+
+def generate(desc, vid=None):
+    if desc.startswith("edit:"):
+        src = Path("Assets/StreamingAssets/Vehicles") / f"{vid}.png"
+        text, ref = EDIT_PROMPT.format(desc=desc[5:]), base64.b64encode(on_green(src)).decode()
+    else:
+        text = FREE_PROMPT.format(desc=desc[5:]) if desc.startswith("free:") else PROMPT.format(desc=desc)
+        ref = base64.b64encode(REFERENCE.read_bytes()).decode()
     body = {
         "contents": [{"parts": [
-            {"text": (FREE_PROMPT.format(desc=desc[5:]) if desc.startswith("free:") else PROMPT.format(desc=desc))},
+            {"text": text},
             {"inline_data": {"mime_type": "image/png", "data": ref}},
         ]}],
         "generationConfig": {"responseModalities": ["IMAGE"]},
@@ -210,7 +235,7 @@ def main():
     vid, desc = sys.argv[1], sys.argv[2]
     out_dir = Path(sys.argv[3]) if len(sys.argv) > 3 else Path("Assets/StreamingAssets/Vehicles")
     out_dir.mkdir(parents=True, exist_ok=True)
-    raw = generate(desc)
+    raw = generate(desc, vid)
     raw_dir = Path("Tools/art_source/raw")  # Assets dışında: oyuna girmez; yeniden işlemek için
     raw_dir.mkdir(parents=True, exist_ok=True)
     raw.save(raw_dir / f"{vid}.png")
