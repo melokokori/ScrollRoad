@@ -51,7 +51,7 @@ namespace ScrollRoad
 
         protected override void Build()
         {
-            planetSprite = CreatePlanetSprite(256);
+            // Kıta dokusu (256², gürültü) ilk görünüşte üretilir: ortamı hiç açmayan oyuncu açılışta beklemesin.
             shadowSprite = CreateShadowSprite(128);
             var bigCircle = CreateCircleSprite(128);
 
@@ -59,7 +59,7 @@ namespace ScrollRoad
             sunGlow = Create("SunGlow", bigCircle, 2);
             sun = Create("Sun", bigCircle, 3);
             atmosphere = Create("Atmosphere", bigCircle, 4);
-            planet = Create("Planet", planetSprite, 5);
+            planet = Create("Planet", whiteSprite, 5);
             shade = Create("NightSide", shadowSprite, 7);
             ground = CreatePool("Ground", whiteSprite, 5, GroundSegments);
             items = CreatePool("Item", whiteSprite, 10, ItemPool);
@@ -94,6 +94,11 @@ namespace ScrollRoad
 
             if (!strip)
             {
+                if (planetSprite == null)
+                {
+                    planetSprite = CreatePlanetSprite(256);
+                    planet.sprite = planetSprite;
+                }
                 for (int i = 0; i < StarCount; i++)
                 {
                     float hx = Hash(i, 1), hy = Hash(i, 2), hs = Hash(i, 3);
