@@ -375,6 +375,10 @@ namespace ScrollRoad.EditorTools
             Bind(sound, "uiClickClip", LoadClip("click_001"));
 
             Bind(sound, "companionWindow", companion);
+            // Ortam sesleri (2026-10-14): Olta, Döner kapı; klipler Resources/EnvSounds.
+            var envSound = new GameObject("EnvironmentSound").AddComponent<EnvironmentSound>();
+            Bind(envSound, "fishing", fishing);
+            Bind(envSound, "door", door);
             CreateHud(drive, view, secret, companion, route, goals, fishing, door, out var notice, out var windowButtons);
             Bind(fishing, "notice", notice);
             Bind(door, "notice", notice);

@@ -14,6 +14,11 @@ Kullanım:
   python Tools/gen_sound.py car vesper            # listedeki tarifle üret
   python Tools/gen_sound.py car --only loop       # yalnız döngüyü yeniden üret
   python Tools/gen_sound.py car --loop "<tarif>"  # tarifi elle ver (listedekini geçersiz kılar)
+  python Tools/gen_sound.py --env door_loop reel_loop   # ortam sesleri (ENV_SOUNDS) -> Resources/EnvSounds
+
+Ortam sesleri (2026-10-14): oyun saatlerce arka planda açık kaldığı için sade, yumuşak, alçak
+seviyeli (döngü -27 LUFS, tek seferlik -24 LUFS; araçlardan ~4 dB kısık). İnce işaret sesleri
+(misafir/efsane: guest_chime, legend_chime) yapay zekâyla değil prosedürel üretilir (sinüs çan, telifsiz).
 """
 import argparse
 import json
@@ -196,6 +201,50 @@ _ROSTER = [
 for _id, _loop, _start in _ROSTER:
     RECIPES[_id] = (_loop + LOOP_TAIL, _start)
 
+# Ortam sesleri (Döner kapı, Olta, sonraki ortamlar): ad -> (döngü mü, tarif, süre sn).
+ENV_OUT = os.path.join(ROOT, "Assets", "Resources", "EnvSounds")
+ENV_SOUNDS = {
+    # Döner kapı: her kanat geçişinde bir süpürme (oyunda kanat sıklığı = dönüş hızı; şiddet/perde hıza göre).
+    "door_sweep": (False, "One single soft whoosh of a glass revolving door wing sweeping past, rubber seal gently brushing "
+                          "the floor and curved glass, airy and calm, close up, quiet, no music, no voices", 1.5),
+    # Olta: makara sarma (scroll hızına bağlı perde), atış, vuruş, tutuş.
+    "reel_loop": (True, "Spinning fishing reel handle being cranked steadily by hand, soft smooth gear whirr with a light "
+                        "rhythmic ticking, quiet lakeside, close up" + LOOP_TAIL, 8.0),
+    "fish_cast": (False, "Fishing rod cast: one quick soft whoosh of the rod, line zipping off a spinning reel, then a small "
+                         "lure plop into calm water in the distance, quiet, no music", 2.5),
+    "fish_strike": (False, "A fish bites: short zip of a fishing reel drag as the line tightens, then a small splash, quiet, no music", 1.8),
+    "fish_catch": (False, "A medium fish lifted out of the water: a gentle splash and water dripping, quiet lakeside, no music", 2.2),
+    # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
+    "guest_chime": (False, None, 0),
+    "legend_chime": (False, None, 0),
+}
+
+
+def _chime(notes, gap, tau, length, path):
+    """Yumuşak çan: her nota sinüs + çan benzeri iki üst kısmi (2,76x / 5,4x), 6 ms atak, üstel sönüm."""
+    import numpy as np
+    sr = 44100
+    t = np.arange(int(length * sr)) / sr
+    x = np.zeros_like(t)
+    for i, (f, amp) in enumerate(notes):
+        tt = t - i * gap
+        on = tt >= 0
+        env = np.where(on, np.minimum(1.0, np.maximum(tt, 0) / 0.006) * np.exp(-np.maximum(tt, 0) / tau), 0.0)
+        tone = np.sin(2 * np.pi * f * tt) + 0.16 * np.sin(2 * np.pi * f * 2.76 * tt) * np.exp(-np.maximum(tt, 0) / (tau * 0.35))             + 0.05 * np.sin(2 * np.pi * f * 5.4 * tt) * np.exp(-np.maximum(tt, 0) / (tau * 0.2))
+        x += amp * env * tone
+    x = (x / np.abs(x).max() * 0.5).astype(np.float32)
+    stereo = np.stack([x, x], axis=1)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "f32le", "-ac", "2", "-ar", str(sr), "-i", "-",
+                    "-c:a", "pcm_s16le", path], input=stereo.tobytes(), check=True)
+
+
+PROCEDURAL = {
+    # Kapı zili gibi iki nota (E6 → C6), kısa ve yumuşak.
+    "guest_chime": lambda path: _chime([(1318.5, 1.0), (1046.5, 0.9)], 0.17, 0.55, 1.8, path),
+    # Efsane: yükselen dört nota (C6 E6 G6 C7), biraz daha uzun sönüm.
+    "legend_chime": lambda path: _chime([(1046.5, 0.9), (1318.5, 0.85), (1568.0, 0.8), (2093.0, 0.55)], 0.13, 0.9, 2.8, path),
+}
+
 
 def generate(text, seconds, loop, influence):
     # ELEVENLABS_API_KEY varsa doğrudan ElevenLabs, yoksa fal.ai (aynı model).
@@ -294,7 +343,28 @@ def main():
     ap.add_argument("--seconds", type=float, default=10.0, help="döngü süresi")
     ap.add_argument("--start-seconds", type=float, default=3.5, help="tek seferlik ses süresi")
     ap.add_argument("--reprocess", action="store_true", help="üretmeden son ham kaydı yeniden işle")
+    ap.add_argument("--env", action="store_true", help="adlar ENV_SOUNDS'tan (ortam sesleri)")
     args = ap.parse_args()
+
+    if args.env:
+        os.makedirs(ENV_OUT, exist_ok=True)
+        os.makedirs(RAW, exist_ok=True)
+        for name in args.models:
+            loop, text, seconds = ENV_SOUNDS[name]
+            t0 = time.time()
+            if name in PROCEDURAL:
+                raw = os.path.join(RAW, f"{name}_env.wav")
+                PROCEDURAL[name](raw)
+            elif args.reprocess:
+                raw = latest_raw(name, "env")
+            else:
+                raw = os.path.join(RAW, f"{name}_env_{int(t0)}.mp3")
+                with open(raw, "wb") as f:
+                    f.write(generate(text, seconds, loop, 0.6))
+            out = os.path.join(ENV_OUT, f"{name}.ogg")
+            to_ogg(raw, out, -27 if loop else -24, loop)
+            print(f"{name}: {time.time() - t0:.1f} sn -> {os.path.relpath(out, ROOT)}")
+        return
 
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(RAW, exist_ok=True)
