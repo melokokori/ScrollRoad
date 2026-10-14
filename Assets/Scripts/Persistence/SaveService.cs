@@ -55,6 +55,7 @@ namespace ScrollRoad
         const string EnvironmentKey = "ScrollRoad_Environment"; // seçili ortam (yerel)
         const string FishingKey = "ScrollRoad_Fishing";         // Olta ilerlemesi + balık defteri (JSON, şimdilik yerel)
         const string DoorKey = "ScrollRoad_Door";               // Döner kapı ilerlemesi + misafir defteri (JSON, şimdilik yerel)
+        const string WindKey = "ScrollRoad_Wind";               // Rüzgârgülü ilerlemesi + şebeke defteri (JSON, şimdilik yerel)
 
         const string CloudFileName = "scrollroad_save.json";
 
@@ -205,6 +206,26 @@ namespace ScrollRoad
         public static void SaveDoor(DoorProgress progress)
         {
             PlayerPrefs.SetString(DoorKey, JsonUtility.ToJson(progress));
+            PlayerPrefs.Save();
+        }
+
+        public static WindProgress LoadWind()
+        {
+            string json = PlayerPrefs.GetString(WindKey, "");
+            if (string.IsNullOrEmpty(json)) return new WindProgress();
+            try
+            {
+                return JsonUtility.FromJson<WindProgress>(json) ?? new WindProgress();
+            }
+            catch (Exception)
+            {
+                return new WindProgress();
+            }
+        }
+
+        public static void SaveWind(WindProgress progress)
+        {
+            PlayerPrefs.SetString(WindKey, JsonUtility.ToJson(progress));
             PlayerPrefs.Save();
         }
 

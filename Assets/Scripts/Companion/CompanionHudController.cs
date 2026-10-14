@@ -87,6 +87,11 @@ namespace ScrollRoad
                 UpdateDoor();
                 return;
             }
+            if (EnvironmentManager.Current.Id == EnvironmentId.Wind)
+            {
+                UpdateWind();
+                return;
+            }
 
             var style = GaugeSkins.Strip;
             bool plate = style == GaugeSkins.StripStyle.Plate;
@@ -198,6 +203,30 @@ namespace ScrollRoad
             if (door == null) status = "";
             else if (door.TurnDirection < 0f) status = "backing out";
             else status = drive.IsUserActive ? "turning" : "idle · slow turn";
+            subText.text = status;
+            subText.color = SubTextColor;
+            subText.fontStyle = FontStyle.Normal;
+        }
+
+        void UpdateWind()
+        {
+            ShowTextOnly();
+            var wind = WindController.Instance;
+            kmText.text = wind != null ? EnvironmentCatalog.Wind.Format(wind.Connected * EnvironmentCatalog.KwhIntervalPoints) : "";
+
+            string message = CurrentMessage(out var messageColor, out bool italic);
+            if (message != null)
+            {
+                subText.text = message;
+                subText.color = messageColor;
+                subText.fontStyle = italic ? FontStyle.Italic : FontStyle.Bold;
+                return;
+            }
+
+            string status;
+            if (wind == null) status = "";
+            else if (wind.SpinDirection < 0f) status = "braking";
+            else status = drive.IsUserActive ? "generating" : "idle · light breeze";
             subText.text = status;
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;

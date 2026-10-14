@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -82,7 +82,25 @@ namespace ScrollRoad
             CollectionName = "Guest book",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door };
+        // Rüzgârgülü (2026-10-14, ajan kararı — onay bekliyor): birim kWh, her KwhIntervalPoints'te bir kWh
+        // (seyirde ~30 sn'de bir; günlük hedef 160, haftalık 1.000). Aylık sıfırlanır. Açılma: ömür boyu
+        // 1.000.000 puan (Yol'da 1.000 km; Kapı'nın iki katı).
+        public const double KwhIntervalPoints = 500;
+
+        public static readonly EnvironmentDef Wind = new EnvironmentDef
+        {
+            Id = EnvironmentId.Wind,
+            Name = "Wind turbine",
+            Tagline = "Spin the blades, power the valley.",
+            Unit = "kWh",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / KwhIntervalPoints,
+            UnlockLifetimePoints = 1000000,
+            AmountNoun = "power",
+            CollectionName = "Grid log",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {

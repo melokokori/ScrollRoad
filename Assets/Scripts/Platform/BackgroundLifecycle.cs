@@ -130,6 +130,10 @@ namespace ScrollRoad
             {
                 return $"ScrollRoad — {EnvironmentCatalog.Door.Format(DoorController.Instance.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints)} this month" + idle;
             }
+            if (EnvironmentManager.Current.Id == EnvironmentId.Wind && WindController.Instance != null)
+            {
+                return $"ScrollRoad — {EnvironmentCatalog.Wind.Format(WindController.Instance.Connected * EnvironmentCatalog.KwhIntervalPoints)} this month" + idle;
+            }
             return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + idle;
         }
 

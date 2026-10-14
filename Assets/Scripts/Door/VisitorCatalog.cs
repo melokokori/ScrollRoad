@@ -230,7 +230,7 @@ namespace ScrollRoad
             return v;
         }
 
-        static ulong Fnv(string s)
+        internal static ulong Fnv(string s)
         {
             ulong h = 14695981039346656037UL;
             foreach (char c in s ?? "")
@@ -242,7 +242,7 @@ namespace ScrollRoad
         }
 
         // splitmix64 → [0,1)
-        static double Hash01(ulong seed, long index, int salt)
+        internal static double Hash01(ulong seed, long index, int salt)
         {
             ulong z = seed + (ulong)index * 0x9E3779B97F4A7C15UL + (ulong)salt * 0xD1B54A32D192ED03UL;
             z = (z ^ (z >> 30)) * 0xBF58476D1CE4E5B9UL;
