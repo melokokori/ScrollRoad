@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -118,7 +118,25 @@ namespace ScrollRoad
             CollectionName = "Record crate",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl };
+        // Dünyayı döndüren el (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim YIL,
+        // her YearIntervalPoints'te bir yıl (seyirde dakikada bir; günlük hedef 80, haftalık 500). Aylık
+        // sıfırlanır. Açılma: ömür boyu 2.000.000 puan (Plak'tan sonra, merdiven 500.000'er artar).
+        public const double YearIntervalPoints = 1000;
+
+        public static readonly EnvironmentDef Globe = new EnvironmentDef
+        {
+            Id = EnvironmentId.Globe,
+            Name = "Turn the world",
+            Tagline = "Spin the globe, let the years roll by.",
+            Unit = "years",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / YearIntervalPoints,
+            UnlockLifetimePoints = 2000000,
+            AmountNoun = "history",
+            CollectionName = "Chronicle",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {

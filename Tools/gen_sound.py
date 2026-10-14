@@ -214,6 +214,11 @@ ENV_SOUNDS = {
                          "lure plop into calm water in the distance, quiet, no music", 2.5),
     "fish_strike": (False, "A fish bites: short zip of a fishing reel drag as the line tightens, then a small splash, quiet, no music", 1.8),
     "fish_catch": (False, "A medium fish lifted out of the water: a gentle splash and water dripping, quiet lakeside, no music", 2.2),
+    # Dünyayı döndüren el (2026-10-14): tur başına bir el itişi, yıl dönünce sayfa çevirme.
+    "globe_push": (False, "A hand giving a big wooden desk globe one gentle push: a soft dry brush of a palm on a smooth "
+                          "surface and a low airy whoosh as it spins, calm, close up, quiet, no music, no voices", 1.4),
+    "year_page": (False, "One single soft page turn of an old thick book, dry paper, gentle and quiet, close up, "
+                         "no music, no voices", 1.2),
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),

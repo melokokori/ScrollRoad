@@ -138,6 +138,11 @@ namespace ScrollRoad
             {
                 return $"ScrollRoad — {EnvironmentCatalog.Vinyl.Format(VinylController.Instance.TracksDone * EnvironmentCatalog.TrackIntervalPoints)} this month" + idle;
             }
+            var interval = IntervalEnvironment.Current;
+            if (interval != null)
+            {
+                return $"ScrollRoad — {interval.Def.Format(interval.Done * interval.Interval)} this month" + idle;
+            }
             return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + idle;
         }
 

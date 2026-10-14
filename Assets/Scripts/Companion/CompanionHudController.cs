@@ -97,6 +97,12 @@ namespace ScrollRoad
                 UpdateVinyl();
                 return;
             }
+            var interval = IntervalEnvironment.Current;
+            if (interval != null)
+            {
+                UpdateInterval(interval);
+                return;
+            }
 
             var style = GaugeSkins.Strip;
             bool plate = style == GaugeSkins.StripStyle.Plate;
@@ -233,6 +239,30 @@ namespace ScrollRoad
             else if (vinyl.SpinDirection < 0f) status = "rewinding";
             else status = drive.IsUserActive ? vinyl.Current.Name.ToLowerInvariant() : "idle · slow spin";
             subText.text = status;
+            subText.color = SubTextColor;
+            subText.fontStyle = FontStyle.Normal;
+        }
+
+        // Eşit aralıklı ortamlar (2026-10-14: dünya, bumerang, çömlek, soyacak, kebap): solda bu ayın
+        // sayısı + durum, sağında ortamın kendi şerit sahnesi.
+        void UpdateInterval(IntervalEnvironment env)
+        {
+            ShowTextOnly();
+            kmText.text = env.Def.Format(env.Done * env.Interval);
+
+            string message = CurrentMessage(out var messageColor, out bool italic);
+            if (message != null)
+            {
+                subText.text = message;
+                subText.color = messageColor;
+                subText.fontStyle = italic ? FontStyle.Italic : FontStyle.Bold;
+                return;
+            }
+
+            string status;
+            if (env.Direction < 0f) status = env.StatusBack;
+            else status = drive.IsUserActive ? env.StatusActive : env.StatusIdle;
+            subText.text = status.ToLowerInvariant();
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;
         }

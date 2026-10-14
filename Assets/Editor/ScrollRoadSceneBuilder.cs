@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Kirurobo;
 using TMPro;
 using UnityEditor;
@@ -298,8 +299,34 @@ namespace ScrollRoad.EditorTools
 
         // ------------------------------------------------------------------ Oyun
 
+        // Eşit aralıklı ortamlar (2026-10-14: dünya, bumerang, çömlek, soyacak, kebap): HUD, defter paneli
+        // ve Activities kartı kurulumda bu listeden üretilir (EnvironmentCatalog.All sırasıyla eklenmeli).
+        sealed class IntervalSetup
+        {
+            public IntervalEnvironment Env;
+            public Object[] LogSprites; // Site.Specials sırasıyla
+            public Sprite Card;
+        }
+
+        static readonly List<IntervalSetup> intervalSetups = new List<IntervalSetup>();
+
+        static Object[] ItemSprites(string folder, ItemType[] types)
+        {
+            var sprites = new Object[types.Length];
+            for (int i = 0; i < sprites.Length; i++) sprites[i] = LoadArtSprite(folder + types[i].Id + ".png");
+            return sprites;
+        }
+
+        static void BindIntervalView(IntervalSceneView view, CompanionWindowController companion, Camera cam)
+        {
+            Bind(view, "companionWindow", companion);
+            Bind(view, "viewCamera", cam);
+            Bind(view, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
+        }
+
         static void BuildGameScene()
         {
+            intervalSetups.Clear();
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var cam = CreateCamera(SkyColor);
 
@@ -389,6 +416,17 @@ namespace ScrollRoad.EditorTools
             Bind(vinylMusic, "vinyl", vinyl);
             Bind(vinylMusic, "scratchClip", LoadClip("scratch_001"));
 
+            // Dünyayı döndüren el (2026-10-14): eşit aralıklı ortam (IntervalEnvironment).
+            var globeGo = new GameObject("Globe");
+            var globe = globeGo.AddComponent<GlobeEnvironment>();
+            var globeView = globeGo.AddComponent<GlobeSceneView>();
+            Bind(globeView, "env", globe);
+            BindIntervalView(globeView, companion, cam);
+            BindArray(globeView, "commonSprites", ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Commons));
+            BindArray(globeView, "specialSprites", ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Specials));
+            Bind(globeView, "handSprite", LoadArtSprite(GlobeArt + "hand.png"));
+            intervalSetups.Add(new IntervalSetup { Env = globe, LogSprites = ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Specials), Card = LoadArtSprite(GlobeArt + "globe_card.png") });
+
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
             var vehicleSound = roadGo.AddComponent<VehicleSound>();
@@ -404,11 +442,13 @@ namespace ScrollRoad.EditorTools
             var envSound = new GameObject("EnvironmentSound").AddComponent<EnvironmentSound>();
             Bind(envSound, "fishing", fishing);
             Bind(envSound, "door", door);
+            new GameObject("IntervalSound").AddComponent<IntervalSound>();
             CreateHud(drive, view, secret, companion, route, goals, fishing, door, wind, vinyl, out var notice, out var windowButtons);
             Bind(fishing, "notice", notice);
             Bind(door, "notice", notice);
             Bind(wind, "notice", notice);
             Bind(vinyl, "notice", notice);
+            foreach (var setup in intervalSetups) Bind(setup.Env, "notice", notice);
             Bind(environments, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
@@ -450,6 +490,7 @@ namespace ScrollRoad.EditorTools
         }
 
         const string VinylArt = "Assets/Art/Vinyl/";
+        const string GlobeArt = "Assets/Art/Globe/";
 
         static Object[] VinylSprites()
         {
@@ -563,6 +604,7 @@ namespace ScrollRoad.EditorTools
             CreateDoorHud(root.transform, door);
             CreateWindHud(root.transform, wind);
             CreateVinylHud(root.transform, vinyl);
+            foreach (var setup in intervalSetups) CreateIntervalHud(root.transform, setup.Env);
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
@@ -773,6 +815,59 @@ namespace ScrollRoad.EditorTools
             root.SetActive(false);
         }
 
+        // Eşit aralıklı ortamların kart HUD'u (Rüzgârgülü HUD'unun yerleşimi): sol üstte sayı plakası, sağ
+        // üstte mekân tabelası (sıradaki / yaklaşan nadir öğe), sol altta defter özeti.
+        static void CreateIntervalHud(Transform hudRoot, IntervalEnvironment env)
+        {
+            var root = new GameObject(env.Def.Id + "Hud", typeof(RectTransform));
+            root.transform.SetParent(hudRoot, false);
+            Stretch((RectTransform)root.transform);
+            root.transform.SetSiblingIndex(1);
+
+            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
+            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
+            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
+            var label = Tmp(totalPlate.transform, "Label", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            label.characterSpacing = 16;
+            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
+            label.rectTransform.sizeDelta = new Vector2(150, 12);
+            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
+            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
+            total.rectTransform.sizeDelta = new Vector2(160, 26);
+            FitToWidth(total, 13f);
+            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            status.characterSpacing = 10;
+            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
+            status.rectTransform.sizeDelta = new Vector2(160, 12);
+            FitToWidth(status, 7f);
+
+            var sign = CreateSign(root.transform, "SiteSign", out var signInner, out _);
+            Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
+            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            place.characterSpacing = 16;
+            var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
+            var phase = Tmp(phaseRow.transform, "Phase", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
+            var next = Tmp(phaseRow.transform, "Next", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+            Object.DestroyImmediate(phaseRow.GetComponent<ContentSizeFitter>());
+
+            var logPlate = PlateRow(root.transform, "LogPlate");
+            Anchor((RectTransform)logPlate.transform, new Vector2(0, 0), new Vector2(16, 9), new Vector2(0, 0));
+            var log = Tmp(logPlate.transform, "Log", "", 11, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
+            log.characterSpacing = 3;
+
+            var controller = new GameObject(env.Def.Id + "HudController").AddComponent<IntervalHudController>();
+            Bind(controller, "env", env);
+            Bind(controller, "root", root);
+            Bind(controller, "labelText", label);
+            Bind(controller, "totalText", total);
+            Bind(controller, "statusText", status);
+            Bind(controller, "placeText", place);
+            Bind(controller, "phaseText", phase);
+            Bind(controller, "nextText", next);
+            Bind(controller, "logText", log);
+            root.SetActive(false);
+        }
+
         // Durak/hedef duyurusu: üst ortada küçük yeşil tabela.
         static NoticeController CreateNotice(Transform canvas, RouteProgress route, GoalTracker goals,
             CompanionWindowController companion, CelebrationController celebration)
@@ -939,6 +1034,15 @@ namespace ScrollRoad.EditorTools
             Bind(passport, "gridLog", gridLog);
             var crateLog = CreateCrateLogPanel(canvas.transform, vinyl);
             Bind(passport, "crateLog", crateLog);
+            var intervalLogs = new Object[intervalSetups.Count];
+            var intervalPanels = new List<Object>();
+            for (int i = 0; i < intervalSetups.Count; i++)
+            {
+                var log = CreateIntervalLogPanel(canvas.transform, intervalSetups[i].Env, intervalSetups[i].LogSprites);
+                intervalLogs[i] = log;
+                intervalPanels.Add(log.Panel);
+            }
+            BindArray(passport, "intervalLogs", intervalLogs);
             var garage = CreateGaragePanel(canvas.transform, buttons[3]);
             var statsCtrl = CreateStatsPanel(canvas.transform, buttons[4], drive, stats);
             var settings = CreateSettingsPanel(canvas.transform, buttons[5], companion);
@@ -976,7 +1080,9 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel });
+            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel };
+            subPanels.AddRange(intervalPanels);
+            BindArray(menu, "subPanels", subPanels.ToArray());
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
@@ -994,8 +1100,10 @@ namespace ScrollRoad.EditorTools
             hint.rectTransform.sizeDelta = new Vector2(700, 16);
 
             var all = EnvironmentCatalog.All;
-            Sprite[] pictures = { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(DoorArt + "walker_coat.png"),
+            var pictureList = new List<Sprite> { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(DoorArt + "walker_coat.png"),
                 LoadArtSprite(WindArt + "turbine_card.png"), LoadArtSprite(VinylArt + "turntable_card.png") };
+            foreach (var setup in intervalSetups) pictureList.Add(setup.Card);
+            var pictures = pictureList.ToArray();
             int n = all.Length;
             var buttons = new Object[n];
             var frames = new Object[n];
@@ -1003,16 +1111,22 @@ namespace ScrollRoad.EditorTools
             var statuses = new Object[n];
             var tracks = new Object[n];
             var fills = new Object[n];
-            const float cardH = 232f, gap = 18f;
-            float cardW = Mathf.Min(360f, (748f - (n - 1) * gap) / n); // 3 ortamda ~237
-            float startX = -(n * cardW + (n - 1) * gap) / 2f + cardW / 2f;
+            // 5 ortama kadar tek sıra; daha fazlasında (2026-10-14: 10 ortam) iki sıra küçük kart.
+            bool compact = n > 5;
+            int perRow = compact ? (n + 1) / 2 : n;
+            float gap = compact ? 12f : 18f;
+            float cardH = compact ? 120f : 232f;
+            float cardW = Mathf.Min(360f, (748f - (perRow - 1) * gap) / perRow); // 3 ortamda ~237, 10 ortamda 140
+            float startX = -(perRow * cardW + (perRow - 1) * gap) / 2f + cardW / 2f;
             for (int i = 0; i < n; i++)
             {
                 var def = all[i];
+                int col = i % perRow, rowIndex = i / perRow;
+                float cardY = compact ? 40f - rowIndex * (cardH + 8f) : -28f;
                 var frame = Plate(panel.transform, $"Card_{def.Id}", Cell, RoundSprite);
                 frame.raycastTarget = true;
                 frame.rectTransform.anchorMin = frame.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-                SetRect(frame.rectTransform, new Vector2(startX + i * (cardW + gap), -28f), new Vector2(cardW, cardH));
+                SetRect(frame.rectTransform, new Vector2(startX + col * (cardW + gap), cardY), new Vector2(cardW, cardH));
                 var button = frame.gameObject.AddComponent<Button>();
                 button.targetGraphic = frame;
                 var colors = button.colors;
@@ -1028,22 +1142,28 @@ namespace ScrollRoad.EditorTools
                 thumbImage.raycastTarget = false;
                 var tr = (RectTransform)thumb.transform;
                 tr.anchorMin = tr.anchorMax = new Vector2(0.5f, 1f);
-                SetRect(tr, new Vector2(0f, -62f), new Vector2(Mathf.Min(200f, cardW - 16f), 100f));
+                if (compact) SetRect(tr, new Vector2(0f, -30f), new Vector2(cardW - 20f, 46f));
+                else SetRect(tr, new Vector2(0f, -62f), new Vector2(Mathf.Min(200f, cardW - 16f), 100f));
 
-                var name = Tmp(frame.transform, "Name", def.Name, 18, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                var name = Tmp(frame.transform, "Name", def.Name, compact ? 13 : 18, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
                 name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0.5f, 1f);
-                SetRect(name.rectTransform, new Vector2(0f, -130f), new Vector2(cardW - 20f, 24f));
-                FitToWidth(name, 11f); // 4+ ortamda kart daralır
-                var tag = Tmp(frame.transform, "Tagline", $"{def.Tagline}  <alpha=#88>Counted in {def.Unit}.", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Center);
+                if (compact) SetRect(name.rectTransform, new Vector2(0f, -64f), new Vector2(cardW - 12f, 18f));
+                else SetRect(name.rectTransform, new Vector2(0f, -130f), new Vector2(cardW - 20f, 24f));
+                FitToWidth(name, compact ? 9f : 11f); // 4+ ortamda kart daralır
+                // İki sıralı küçük kartta yalnız birim (tarif sığmıyor).
+                string tagText = compact ? $"<alpha=#88>Counted in {def.Unit}." : $"{def.Tagline}  <alpha=#88>Counted in {def.Unit}.";
+                var tag = Tmp(frame.transform, "Tagline", tagText, compact ? 9f : 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Center);
                 tag.rectTransform.anchorMin = tag.rectTransform.anchorMax = new Vector2(0.5f, 1f);
-                SetRect(tag.rectTransform, new Vector2(0f, -164f), new Vector2(cardW - 16f, 38f)); // dar kartta iki-üç satır
-                tag.textWrappingMode = TextWrappingModes.Normal;
-                FitToWidth(tag, 8f);
+                if (compact) SetRect(tag.rectTransform, new Vector2(0f, -80f), new Vector2(cardW - 12f, 14f));
+                else SetRect(tag.rectTransform, new Vector2(0f, -164f), new Vector2(cardW - 16f, 38f)); // dar kartta iki-üç satır
+                tag.textWrappingMode = compact ? TextWrappingModes.NoWrap : TextWrappingModes.Normal;
+                FitToWidth(tag, compact ? 7f : 8f);
 
-                var status = Tmp(frame.transform, "Status", "", 10.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
-                status.characterSpacing = 8;
+                var status = Tmp(frame.transform, "Status", "", compact ? 8f : 10.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                status.characterSpacing = compact ? 4 : 8;
                 status.rectTransform.anchorMin = status.rectTransform.anchorMax = new Vector2(0.5f, 0f);
-                SetRect(status.rectTransform, new Vector2(0f, 38f), new Vector2(cardW - 20f, 16f));
+                SetRect(status.rectTransform, new Vector2(0f, compact ? 22f : 38f), new Vector2(cardW - (compact ? 8f : 20f), 16f));
+                FitToWidth(status, 6f);
 
                 var track = new GameObject("ProgressTrack", typeof(RectTransform), typeof(Image));
                 track.transform.SetParent(frame.transform, false);
@@ -1051,7 +1171,7 @@ namespace ScrollRoad.EditorTools
                 track.GetComponent<Image>().raycastTarget = false;
                 var trackRect = (RectTransform)track.transform;
                 trackRect.anchorMin = trackRect.anchorMax = new Vector2(0.5f, 0f);
-                SetRect(trackRect, new Vector2(0f, 20f), new Vector2(cardW - 80f, 5f));
+                SetRect(trackRect, new Vector2(0f, compact ? 10f : 20f), new Vector2(cardW - (compact ? 30f : 80f), compact ? 4f : 5f));
                 var fill = new GameObject("Fill", typeof(RectTransform), typeof(Image));
                 fill.transform.SetParent(track.transform, false);
                 fill.GetComponent<Image>().color = Amber;
@@ -1323,6 +1443,70 @@ namespace ScrollRoad.EditorTools
             panel.SetActive(false);
             var controller = new GameObject("CrateLogController").AddComponent<CrateLogController>();
             Bind(controller, "vinyl", vinyl);
+            Bind(controller, "panel", panel);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "images", images);
+            BindArray(controller, "slotRoots", roots);
+            BindArray(controller, "nameTexts", names);
+            BindArray(controller, "detailTexts", details);
+            Bind(controller, "closeButton", close);
+            return controller;
+        }
+
+        // Eşit aralıklı ortamların defteri: plak sandığının ızgarası (sekmesiz, tek mekân, 6 nadir öğe).
+        static IntervalLogController CreateIntervalLogPanel(Transform parent, IntervalEnvironment env, Object[] sprites)
+        {
+            var site = env.Sites[0];
+            var panel = CreatePanel(parent, env.Def.Id + "LogPanel", env.Def.CollectionName + " · " + site.Name, out var close, out var title);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(440, 16);
+            count.characterSpacing = 2;
+            FitToWidth(count, 8f);
+
+            int n = site.Specials.Length;
+            var images = new Object[n];
+            var roots = new Object[n];
+            var names = new Object[n];
+            var details = new Object[n];
+            const float cellW = 240f, cellH = 118f, gapX = 12f, gapY = 10f, firstRowY = 50f;
+            for (int j = 0; j < n; j++)
+            {
+                int col = j % 3, row = j / 3;
+                var cell = Plate(panel.transform, $"Slot_{site.Specials[j].Id}", Cell, RoundSprite);
+                cell.rectTransform.anchorMin = cell.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                SetRect(cell.rectTransform, new Vector2((col - 1) * (cellW + gapX), firstRowY - row * (cellH + gapY)), new Vector2(cellW, cellH));
+
+                var go = new GameObject("Picture", typeof(RectTransform), typeof(Image));
+                go.transform.SetParent(cell.transform, false);
+                var image = go.GetComponent<Image>();
+                image.sprite = j < sprites.Length ? (Sprite)sprites[j] : null;
+                image.preserveAspect = true;
+                image.raycastTarget = false;
+                var gr = (RectTransform)go.transform;
+                gr.anchorMin = gr.anchorMax = new Vector2(0f, 0.5f);
+                SetRect(gr, new Vector2(56f, 0f), new Vector2(96f, 96f));
+
+                var name = Tmp(cell.transform, "Name", "", 13, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+                name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                SetRect(name.rectTransform, new Vector2(112f + 60f, 16f), new Vector2(120f, 18f));
+                FitToWidth(name, 9f);
+                var detail = Tmp(cell.transform, "Detail", "", 9.5f, UiFonts.SemiBold, PlateText, TextAlignmentOptions.TopLeft);
+                detail.lineSpacing = 4;
+                detail.rectTransform.anchorMin = detail.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                SetRect(detail.rectTransform, new Vector2(112f + 60f, -12f), new Vector2(120f, 30f));
+                FitToWidth(detail, 7.5f);
+
+                images[j] = image;
+                roots[j] = cell.gameObject;
+                names[j] = name;
+                details[j] = detail;
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject(env.Def.Id + "LogController").AddComponent<IntervalLogController>();
+            Bind(controller, "env", env);
             Bind(controller, "panel", panel);
             Bind(controller, "titleText", title);
             Bind(controller, "countText", count);

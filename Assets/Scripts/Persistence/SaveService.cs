@@ -250,6 +250,30 @@ namespace ScrollRoad
             PlayerPrefs.Save();
         }
 
+        // Eşit aralıklı ortamların ilerlemesi + defteri (2026-10-14; JSON, şimdilik yerel). Anahtarlar
+        // ortam sınıflarında: "ScrollRoad_Globe", "ScrollRoad_Boomerang", "ScrollRoad_Pottery",
+        // "ScrollRoad_Peeler", "ScrollRoad_Kebab".
+        public static T LoadJson<T>(string key) where T : new()
+        {
+            string json = PlayerPrefs.GetString(key, "");
+            if (string.IsNullOrEmpty(json)) return new T();
+            try
+            {
+                var value = JsonUtility.FromJson<T>(json);
+                return value != null ? value : new T();
+            }
+            catch (Exception)
+            {
+                return new T();
+            }
+        }
+
+        public static void SaveJson(string key, object value)
+        {
+            PlayerPrefs.SetString(key, JsonUtility.ToJson(value));
+            PlayerPrefs.Save();
+        }
+
         public static void SaveCloseTimestamp(long unixSeconds)
         {
             PlayerPrefs.SetString(LastCloseUnixSecondsKey, unixSeconds.ToString(CultureInfo.InvariantCulture));

@@ -23,6 +23,7 @@ namespace ScrollRoad
         [SerializeField] GuestBookController guestBook; // Döner kapı'dayken misafir defterini
         [SerializeField] GridLogController gridLog;     // Rüzgârgülü'ndeyken şebeke defterini
         [SerializeField] CrateLogController crateLog;   // Plak tablasındayken plak sandığını
+        [SerializeField] IntervalLogController[] intervalLogs; // eşit aralıklı ortamlarda kendi defterlerini
 
         static readonly Color EmptyFrame = new Color(1f, 1f, 1f, 0.05f);
         static readonly Color EmptyText = new Color(0.95f, 0.95f, 0.93f, 0.28f);
@@ -59,6 +60,15 @@ namespace ScrollRoad
             {
                 crateLog.Open();
                 return;
+            }
+            if (intervalLogs != null)
+            {
+                foreach (var log in intervalLogs)
+                {
+                    if (log == null || log.Environment == null || log.Environment.Def.Id != EnvironmentManager.Current.Id) continue;
+                    log.Open();
+                    return;
+                }
             }
 
             int passed = RouteMap.CountPassed(drive.MaxDistanceKmPrecise);
