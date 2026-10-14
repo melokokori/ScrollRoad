@@ -134,6 +134,10 @@ namespace ScrollRoad
             {
                 return $"ScrollRoad — {EnvironmentCatalog.Wind.Format(WindController.Instance.Connected * EnvironmentCatalog.KwhIntervalPoints)} this month" + idle;
             }
+            if (EnvironmentManager.Current.Id == EnvironmentId.Vinyl && VinylController.Instance != null)
+            {
+                return $"ScrollRoad — {EnvironmentCatalog.Vinyl.Format(VinylController.Instance.TracksDone * EnvironmentCatalog.TrackIntervalPoints)} this month" + idle;
+            }
             return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + idle;
         }
 

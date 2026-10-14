@@ -92,6 +92,11 @@ namespace ScrollRoad
                 UpdateWind();
                 return;
             }
+            if (EnvironmentManager.Current.Id == EnvironmentId.Vinyl)
+            {
+                UpdateVinyl();
+                return;
+            }
 
             var style = GaugeSkins.Strip;
             bool plate = style == GaugeSkins.StripStyle.Plate;
@@ -203,6 +208,30 @@ namespace ScrollRoad
             if (door == null) status = "";
             else if (door.TurnDirection < 0f) status = "backing out";
             else status = drive.IsUserActive ? "turning" : "idle · slow turn";
+            subText.text = status;
+            subText.color = SubTextColor;
+            subText.fontStyle = FontStyle.Normal;
+        }
+
+        void UpdateVinyl()
+        {
+            ShowTextOnly();
+            var vinyl = VinylController.Instance;
+            kmText.text = vinyl != null ? EnvironmentCatalog.Vinyl.Format(vinyl.TracksDone * EnvironmentCatalog.TrackIntervalPoints) : "";
+
+            string message = CurrentMessage(out var messageColor, out bool italic);
+            if (message != null)
+            {
+                subText.text = message;
+                subText.color = messageColor;
+                subText.fontStyle = italic ? FontStyle.Italic : FontStyle.Bold;
+                return;
+            }
+
+            string status;
+            if (vinyl == null) status = "";
+            else if (vinyl.SpinDirection < 0f) status = "rewinding";
+            else status = drive.IsUserActive ? vinyl.Current.Name.ToLowerInvariant() : "idle · slow spin";
             subText.text = status;
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;

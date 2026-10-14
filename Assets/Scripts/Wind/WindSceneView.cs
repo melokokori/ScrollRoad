@@ -53,7 +53,7 @@ namespace ScrollRoad
         static readonly Color PoleWood = new Color(0.45f, 0.34f, 0.25f);
         static readonly Color Wire = new Color(0.22f, 0.23f, 0.26f);
         static readonly Color Energy = new Color(1.0f, 0.86f, 0.30f);
-        static readonly Color UnlitDay = new Color(0.30f, 0.33f, 0.40f);
+        static readonly Color UnlitDay = new Color(0.24f, 0.26f, 0.33f);
         static readonly Color UnlitNight = new Color(0.10f, 0.11f, 0.16f);
         static readonly Color Glow = new Color(1.0f, 0.82f, 0.45f);
 
@@ -269,7 +269,7 @@ namespace ScrollRoad
                 if (phase < 0) phase += 1f;
                 float x = left - 2f + phase * span;
                 float y = groundY + 1.6f + (i * 0.73f % 1f) * (top0 - groundY - 2.2f);
-                var c = night ? new Color(1f, 1f, 1f, 0.10f) : new Color(1f, 1f, 1f, 0.45f);
+                var c = night ? new Color(1f, 1f, 1f, 0.05f) : new Color(1f, 1f, 1f, 0.45f);
                 c.a *= Mathf.Sin(phase * Mathf.PI); // kenarlarda söner
                 PlaceRect(streaks[i], x, y, 1.1f + (i % 3) * 0.35f, 0.035f, c);
             }
@@ -294,6 +294,8 @@ namespace ScrollRoad
             // Ana türbin.
             var body = Opaque(WorldTheme.Surface(Turbine) * (night ? 0.72f : 1f));
             var shade = Opaque(WorldTheme.Surface(TurbineShade) * (night ? 0.72f : 1f));
+            // Şeritte türbin yapıların önünde (kayan yapılar arkasında kalmasın); kartta tepede, arkada.
+            SetOrder(main, strip ? 50 : 8);
             DrawTurbine(main, turbineX, baseY, hubY, blade, rotor, body, shade);
 
             // Enerji hattı: kulenin ortasından direğin tepesine, üstünde sarı darbeler akar.
@@ -325,6 +327,14 @@ namespace ScrollRoad
             PlaceSpan(grass, left - 0.2f, right + 0.2f, groundY - (strip ? 0.12f : 0.3f), groundY, grassC);
 
             UpdateBuildings(strip, night, left, right, turbineX);
+        }
+
+        static void SetOrder(TurbineParts t, int order)
+        {
+            t.Tower.sortingOrder = order;
+            t.Nacelle.sortingOrder = order + 1;
+            foreach (var b in t.Blades) b.sortingOrder = order + 2;
+            t.Hub.sortingOrder = order + 3;
         }
 
         void SetTurbineEnabled(TurbineParts t, bool on)
@@ -409,7 +419,8 @@ namespace ScrollRoad
                 var c = Color.Lerp(unlit, lit, on);
                 if (u >= 0 && u < 0.18) c = Color.Lerp(c, Color.white * 1.15f, (float)(1.0 - u / 0.18) * 0.35f);
                 // Şeritte solda yazının altında, kartta sol kenarda söner.
-                float fadeEdge = strip ? turbineX - 0.8f : left - 0.3f;
+                // Şeritte türbine varmadan söner (türbin önde, yazı solda).
+                float fadeEdge = strip ? turbineX + 0.3f : left - 0.3f;
                 c.a = Mathf.Clamp01((x - fadeEdge) / 1.2f);
                 sr.color = c;
                 if (c.a <= 0.01f) sr.enabled = false;

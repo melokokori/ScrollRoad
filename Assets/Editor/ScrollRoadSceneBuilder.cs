@@ -376,6 +376,19 @@ namespace ScrollRoad.EditorTools
             Bind(windView, "hillsSprite", LoadArtSprite("Assets/Art/Background/hills_far.png"));
             Bind(windView, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
 
+            // Plak tablası ortamı (2026-10-14): mantık + sahne + prosedürel müzik.
+            var vinylGo = new GameObject("RecordPlayer");
+            var vinyl = vinylGo.AddComponent<VinylController>();
+            var vinylView = vinylGo.AddComponent<VinylSceneView>();
+            Bind(vinylView, "vinyl", vinyl);
+            Bind(vinylView, "companionWindow", companion);
+            Bind(vinylView, "viewCamera", cam);
+            BindArray(vinylView, "coverSprites", VinylSprites());
+            Bind(vinylView, "spriteMaterial", AssetDatabase.LoadAssetAtPath<Material>(SpriteUnlitMaterialPath));
+            var vinylMusic = new GameObject("VinylMusic").AddComponent<VinylMusic>();
+            Bind(vinylMusic, "vinyl", vinyl);
+            Bind(vinylMusic, "scratchClip", LoadClip("scratch_001"));
+
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
             var vehicleSound = roadGo.AddComponent<VehicleSound>();
@@ -391,17 +404,18 @@ namespace ScrollRoad.EditorTools
             var envSound = new GameObject("EnvironmentSound").AddComponent<EnvironmentSound>();
             Bind(envSound, "fishing", fishing);
             Bind(envSound, "door", door);
-            CreateHud(drive, view, secret, companion, route, goals, fishing, door, wind, out var notice, out var windowButtons);
+            CreateHud(drive, view, secret, companion, route, goals, fishing, door, wind, vinyl, out var notice, out var windowButtons);
             Bind(fishing, "notice", notice);
             Bind(door, "notice", notice);
             Bind(wind, "notice", notice);
+            Bind(vinyl, "notice", notice);
             Bind(environments, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);
             Bind(unlocks, "catalog", LoadCarCatalog());
             Bind(unlocks, "notice", notice);
-            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing, door, wind);
+            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing, door, wind, vinyl);
             CreateOnboarding(companion, menu);
             CreateCompanionHud(drive, secret, companion, notice);
 
@@ -435,6 +449,15 @@ namespace ScrollRoad.EditorTools
             return sprites;
         }
 
+        const string VinylArt = "Assets/Art/Vinyl/";
+
+        static Object[] VinylSprites()
+        {
+            var sprites = new Object[RecordCatalog.AllSpecials.Length];
+            for (int i = 0; i < sprites.Length; i++) sprites[i] = LoadArtSprite(VinylArt + RecordCatalog.AllSpecials[i].Id + ".png");
+            return sprites;
+        }
+
         static Object[] FishSprites()
         {
             var sprites = new Object[FishCatalog.All.Length];
@@ -444,7 +467,7 @@ namespace ScrollRoad.EditorTools
 
         static HudController CreateHud(RoadDrive drive, RoadSceneView view, SecretZoneView secret,
             CompanionWindowController companion, RouteProgress route, GoalTracker goals, FishingController fishing,
-            DoorController door, WindController wind, out NoticeController notice, out WindowButtons windowButtons)
+            DoorController door, WindController wind, VinylController vinyl, out NoticeController notice, out WindowButtons windowButtons)
         {
             var canvas = CreateCanvas("HudCanvas", 0);
             var root = new GameObject("HudRoot", typeof(RectTransform));
@@ -539,6 +562,7 @@ namespace ScrollRoad.EditorTools
             CreateFishingHud(root.transform, fishing);
             CreateDoorHud(root.transform, door);
             CreateWindHud(root.transform, wind);
+            CreateVinylHud(root.transform, vinyl);
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
@@ -698,6 +722,57 @@ namespace ScrollRoad.EditorTools
             root.SetActive(false);
         }
 
+        // Plak tablasının kart HUD'u (Rüzgârgülü HUD'unun yerleşimiyle): sol üstte parça plakası, sağ üstte
+        // mekân tabelası (parça sırası + çalan plak), sol altta plak sandığı özeti.
+        static void CreateVinylHud(Transform hudRoot, VinylController vinyl)
+        {
+            var root = new GameObject("VinylHud", typeof(RectTransform));
+            root.transform.SetParent(hudRoot, false);
+            Stretch((RectTransform)root.transform);
+            root.transform.SetSiblingIndex(1);
+
+            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
+            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
+            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
+            var label = Tmp(totalPlate.transform, "Label", "PLAYED", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            label.characterSpacing = 16;
+            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
+            label.rectTransform.sizeDelta = new Vector2(150, 12);
+            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
+            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
+            total.rectTransform.sizeDelta = new Vector2(160, 26);
+            FitToWidth(total, 13f);
+            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
+            status.characterSpacing = 10;
+            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
+            status.rectTransform.sizeDelta = new Vector2(160, 12);
+
+            var sign = CreateSign(root.transform, "ShopSign", out var signInner, out _);
+            Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
+            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            place.characterSpacing = 16;
+            var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
+            var phase = Tmp(phaseRow.transform, "Phase", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
+            var now = Tmp(phaseRow.transform, "Now", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+            Object.DestroyImmediate(phaseRow.GetComponent<ContentSizeFitter>());
+
+            var logPlate = PlateRow(root.transform, "CratePlate");
+            Anchor((RectTransform)logPlate.transform, new Vector2(0, 0), new Vector2(16, 9), new Vector2(0, 0));
+            var log = Tmp(logPlate.transform, "Crate", "", 11, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
+            log.characterSpacing = 3;
+
+            var controller = new GameObject("VinylHudController").AddComponent<VinylHudController>();
+            Bind(controller, "vinyl", vinyl);
+            Bind(controller, "root", root);
+            Bind(controller, "totalText", total);
+            Bind(controller, "statusText", status);
+            Bind(controller, "placeText", place);
+            Bind(controller, "phaseText", phase);
+            Bind(controller, "nowText", now);
+            Bind(controller, "logText", log);
+            root.SetActive(false);
+        }
+
         // Durak/hedef duyurusu: üst ortada küçük yeşil tabela.
         static NoticeController CreateNotice(Transform canvas, RouteProgress route, GoalTracker goals,
             CompanionWindowController companion, CelebrationController celebration)
@@ -801,7 +876,7 @@ namespace ScrollRoad.EditorTools
         // ≡ çekmecesi (yeşil çıkış tabelası) + kartı kaplayan paneller (Passport, Leaderboard, Garage, Stats, Settings).
         static CardMenuController CreateMenu(RoadDrive drive, StatsTracker stats, GoalTracker goals,
             CompanionWindowController companion, WindowButtons windowButtons, FishingController fishing, DoorController door,
-            WindController wind)
+            WindController wind, VinylController vinyl)
         {
             var canvas = CreateCanvas("MenuCanvas", 10);
 
@@ -862,6 +937,8 @@ namespace ScrollRoad.EditorTools
             Bind(passport, "guestBook", guestBook);
             var gridLog = CreateGridLogPanel(canvas.transform, wind);
             Bind(passport, "gridLog", gridLog);
+            var crateLog = CreateCrateLogPanel(canvas.transform, vinyl);
+            Bind(passport, "crateLog", crateLog);
             var garage = CreateGaragePanel(canvas.transform, buttons[3]);
             var statsCtrl = CreateStatsPanel(canvas.transform, buttons[4], drive, stats);
             var settings = CreateSettingsPanel(canvas.transform, buttons[5], companion);
@@ -899,7 +976,7 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel });
+            BindArray(menu, "subPanels", new Object[] { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel });
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
@@ -918,7 +995,7 @@ namespace ScrollRoad.EditorTools
 
             var all = EnvironmentCatalog.All;
             Sprite[] pictures = { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(DoorArt + "walker_coat.png"),
-                LoadArtSprite(WindArt + "turbine_card.png") };
+                LoadArtSprite(WindArt + "turbine_card.png"), LoadArtSprite(VinylArt + "turntable_card.png") };
             int n = all.Length;
             var buttons = new Object[n];
             var frames = new Object[n];
@@ -1139,7 +1216,7 @@ namespace ScrollRoad.EditorTools
             var roots = new Object[n];
             var names = new Object[n];
             var details = new Object[n];
-            const float cellW = 240f, cellH = 126f, gapX = 12f, gapY = 10f, firstRowY = 54f;
+            const float cellW = 240f, cellH = 118f, gapX = 12f, gapY = 10f, firstRowY = 50f; // sekme yok: ızgara başlığın hemen altında
             foreach (var site in GridCatalog.Sites)
             {
                 for (int j = 0; j < site.Specials.Length; j++)
@@ -1148,7 +1225,7 @@ namespace ScrollRoad.EditorTools
                     int col = j % 3, row = j / 3;
                     var cell = Plate(panel.transform, $"Slot_{site.Specials[j].Id}", Cell, RoundSprite);
                     cell.rectTransform.anchorMin = cell.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
-                    SetRect(cell.rectTransform, new Vector2((col - 1) * (cellW + gapX), firstRowY - row * (cellH + gapY) - 40f), new Vector2(cellW, cellH));
+                    SetRect(cell.rectTransform, new Vector2((col - 1) * (cellW + gapX), firstRowY - row * (cellH + gapY)), new Vector2(cellW, cellH));
 
                     var go = new GameObject("Building", typeof(RectTransform), typeof(Image));
                     go.transform.SetParent(cell.transform, false);
@@ -1179,6 +1256,73 @@ namespace ScrollRoad.EditorTools
             panel.SetActive(false);
             var controller = new GameObject("GridLogController").AddComponent<GridLogController>();
             Bind(controller, "wind", wind);
+            Bind(controller, "panel", panel);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "images", images);
+            BindArray(controller, "slotRoots", roots);
+            BindArray(controller, "nameTexts", names);
+            BindArray(controller, "detailTexts", details);
+            Bind(controller, "closeButton", close);
+            return controller;
+        }
+
+        // Plak sandığı (Plak tablası): şebeke defterinin ızgarası, kare kapaklar; sekmesiz (prototipte tek mekân).
+        static CrateLogController CreateCrateLogPanel(Transform parent, VinylController vinyl)
+        {
+            var panel = CreatePanel(parent, "CrateLogPanel", "Record crate · " + RecordCatalog.Shop.Name, out var close, out var title);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(420, 16);
+            count.characterSpacing = 2;
+
+            var sprites = VinylSprites();
+            int n = RecordCatalog.AllSpecials.Length;
+            var images = new Object[n];
+            var roots = new Object[n];
+            var names = new Object[n];
+            var details = new Object[n];
+            const float cellW = 240f, cellH = 118f, gapX = 12f, gapY = 10f, firstRowY = 50f; // sekme yok: ızgara başlığın hemen altında
+            foreach (var shop in RecordCatalog.Shops)
+            {
+                for (int j = 0; j < shop.Specials.Length; j++)
+                {
+                    int slot = RecordCatalog.SpecialIndex(shop.Specials[j].Id);
+                    int col = j % 3, row = j / 3;
+                    var cell = Plate(panel.transform, $"Slot_{shop.Specials[j].Id}", Cell, RoundSprite);
+                    cell.rectTransform.anchorMin = cell.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    SetRect(cell.rectTransform, new Vector2((col - 1) * (cellW + gapX), firstRowY - row * (cellH + gapY)), new Vector2(cellW, cellH));
+
+                    var go = new GameObject("Cover", typeof(RectTransform), typeof(Image));
+                    go.transform.SetParent(cell.transform, false);
+                    var image = go.GetComponent<Image>();
+                    image.sprite = (Sprite)sprites[slot];
+                    image.preserveAspect = true;
+                    image.raycastTarget = false;
+                    var gr = (RectTransform)go.transform;
+                    gr.anchorMin = gr.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(gr, new Vector2(56f, 0f), new Vector2(96f, 96f));
+
+                    var name = Tmp(cell.transform, "Name", "", 13, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+                    name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(name.rectTransform, new Vector2(112f + 60f, 16f), new Vector2(120f, 18f));
+                    FitToWidth(name, 9f);
+                    var detail = Tmp(cell.transform, "Detail", "", 9.5f, UiFonts.SemiBold, PlateText, TextAlignmentOptions.TopLeft);
+                    detail.lineSpacing = 4;
+                    detail.rectTransform.anchorMin = detail.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(detail.rectTransform, new Vector2(112f + 60f, -12f), new Vector2(120f, 30f));
+                    FitToWidth(detail, 7.5f);
+
+                    images[slot] = image;
+                    roots[slot] = cell.gameObject;
+                    names[slot] = name;
+                    details[slot] = detail;
+                }
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("CrateLogController").AddComponent<CrateLogController>();
+            Bind(controller, "vinyl", vinyl);
             Bind(controller, "panel", panel);
             Bind(controller, "titleText", title);
             Bind(controller, "countText", count);

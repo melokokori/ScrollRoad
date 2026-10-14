@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -100,7 +100,25 @@ namespace ScrollRoad
             CollectionName = "Grid log",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind };
+        // Plak tablası (2026-10-14, ajan kararı — onay bekliyor): birim PARÇA, her TrackIntervalPoints'te bir
+        // parça (seyirde ~4 dk, gerçek bir şarkı uzunluğu; günlük hedef 20, haftalık 125). Aylık sıfırlanır.
+        // Açılma: ömür boyu 1.500.000 puan (Yol'da 1.500 km).
+        public const double TrackIntervalPoints = 4000;
+
+        public static readonly EnvironmentDef Vinyl = new EnvironmentDef
+        {
+            Id = EnvironmentId.Vinyl,
+            Name = "Record player",
+            Tagline = "Spin the record, the music follows your scroll.",
+            Unit = "tracks",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / TrackIntervalPoints,
+            UnlockLifetimePoints = 1500000,
+            AmountNoun = "music",
+            CollectionName = "Record crate",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {
