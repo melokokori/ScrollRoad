@@ -438,6 +438,17 @@ namespace ScrollRoad.EditorTools
             BindArray(boomerangView, "specialSprites", ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials));
             intervalSetups.Add(new IntervalSetup { Env = boomerang, LogSprites = ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials), Card = LoadArtSprite(BoomerangArt + "boomerang_card.png") });
 
+            // Çömlekçi çarkı (2026-10-14).
+            var potteryGo = new GameObject("PotteryWheel");
+            var pottery = potteryGo.AddComponent<PotteryEnvironment>();
+            var potteryView = potteryGo.AddComponent<PotterySceneView>();
+            Bind(potteryView, "env", pottery);
+            BindIntervalView(potteryView, companion, cam);
+            Bind(potteryView, "potterSprite", LoadArtSprite(PotteryArt + "potter.png"));
+            BindArray(potteryView, "commonSprites", ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Commons));
+            BindArray(potteryView, "specialSprites", ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials));
+            intervalSetups.Add(new IntervalSetup { Env = pottery, LogSprites = ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials), Card = LoadArtSprite(PotteryArt + "pottery_card.png") });
+
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
             var vehicleSound = roadGo.AddComponent<VehicleSound>();
@@ -503,6 +514,7 @@ namespace ScrollRoad.EditorTools
         const string VinylArt = "Assets/Art/Vinyl/";
         const string GlobeArt = "Assets/Art/Globe/";
         const string BoomerangArt = "Assets/Art/Boomerang/";
+        const string PotteryArt = "Assets/Art/Pottery/";
 
         static Object[] VinylSprites()
         {

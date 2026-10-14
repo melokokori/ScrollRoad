@@ -226,6 +226,13 @@ ENV_SOUNDS = {
                         "rattle, outdoors, quiet, no music, no voices", 1.2),
     "boom_catch": (False, "Catching a returning wooden boomerang: a short soft whoosh ending in one gentle slap of a "
                           "hand catching it, outdoors, quiet, no music, no voices", 1.2),
+    # Çömlekçi çarkı (2026-10-14): çark döngüsü (yalnız kullanıcı aktifken), çarka topak konması, rafa konma.
+    "wheel_loop": (True, "Electric pottery wheel spinning steadily with soft wet clay being shaped by hands, a gentle "
+                         "smooth motor hum and quiet slippery squelching, calm workshop, close up" + LOOP_TAIL, 8.0),
+    "clay_slap": (False, "One soft wet lump of clay slapped down onto a pottery wheel, a single dull thud, quiet, "
+                         "no music, no voices", 1.0),
+    "pot_shelf": (False, "A small ceramic pot placed gently on a wooden shelf: one soft hollow clunk of fired clay on "
+                         "wood, quiet, close up, no music, no voices", 1.0),
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),

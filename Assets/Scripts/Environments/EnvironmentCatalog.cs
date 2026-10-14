@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6, Pottery = 7 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -154,7 +154,25 @@ namespace ScrollRoad
             CollectionName = "Target log",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang };
+        // Çömlekçi çarkı (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim BİTEN ÇÖMLEK,
+        // her PotIntervalPoints'te bir çömlek (seyirde ~2 dk'da bir; günlük hedef 40, haftalık 250). Aylık
+        // sıfırlanır. Açılma: ömür boyu 3.000.000 puan.
+        public const double PotIntervalPoints = 2000;
+
+        public static readonly EnvironmentDef Pottery = new EnvironmentDef
+        {
+            Id = EnvironmentId.Pottery,
+            Name = "Pottery wheel",
+            Tagline = "Spin the wheel, shape the clay.",
+            Unit = "pots",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / PotIntervalPoints,
+            UnlockLifetimePoints = 3000000,
+            AmountNoun = "pottery",
+            CollectionName = "Pottery shelf",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang, Pottery };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {
