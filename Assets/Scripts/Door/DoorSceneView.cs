@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Döner kapı ortamının sahnesi (2026-10-14 prototip): yandan kesit. Solda dışarısı (gökyüzü, uzakta şehir,
+    // Döner kapı ortamının sahnesi (2026-10-14): mekâna göre (AVM/Otel/Havalimanı/Müze/Gökdelen) renkler ve
+    // içerideki bölmeler değişir (VenueLook), yerleşim aynı. Yandan kesit. Solda dışarısı (gökyüzü, uzakta şehir,
     // kaldırım, ağaçlar), ortada AVM'nin cephe duvarı ve duvarın içine oturan cam döner kapı, sağda AVM'nin
     // içi (kesit: zemin kat vitrinleri, asma kat, sarkan lambalar). İnsanlar soldan yürür, kapının bir
     // bölmesine girip dönerek içeri geçer, içeride sağa yürüyüp kaybolur. Düz renk, Yol'un görsel diliyle;
@@ -73,6 +74,71 @@ namespace ScrollRoad
         {
             new Color(0.40f, 0.62f, 0.66f), new Color(0.90f, 0.66f, 0.36f), new Color(0.62f, 0.52f, 0.72f),
         };
+
+        // Mekânın görünümü (2026-10-14): cephe/saçak/iç renkleri ve iç düzen. Yerleşim (kapı, zemin, asma kat,
+        // 3 bölme, lambalar) bütün mekânlarda aynı; bölmelere ne çizileceği Decor'a göre değişir.
+        enum Decor { Shops, Hotel, Airport, Museum, Tower }
+
+        enum Lamp { None, Pendant, Chandelier, Spot }
+
+        sealed class VenueLook
+        {
+            public Decor Decor;
+            public Color Facade, Accent, Wall, Floor;
+            public Color[] Bays;
+            public Lamp Lamps;
+        }
+
+        static readonly VenueLook MallLook = new VenueLook
+        {
+            Decor = Decor.Shops, Facade = Facade, Accent = Accent, Wall = InteriorWall, Floor = InteriorFloor,
+            Bays = ShopColors, Lamps = Lamp.Pendant,
+        };
+
+        static readonly VenueLook HotelLook = new VenueLook
+        {
+            Decor = Decor.Hotel,
+            Facade = new Color(0.86f, 0.78f, 0.66f), Accent = new Color(0.52f, 0.17f, 0.22f),
+            Wall = new Color(0.95f, 0.89f, 0.78f), Floor = new Color(0.62f, 0.27f, 0.27f), // kırmızı halı
+            Bays = new[] { new Color(0.45f, 0.30f, 0.20f), new Color(0.55f, 0.38f, 0.25f), new Color(0.55f, 0.38f, 0.25f) },
+            Lamps = Lamp.Chandelier,
+        };
+
+        static readonly VenueLook AirportLook = new VenueLook
+        {
+            Decor = Decor.Airport,
+            Facade = new Color(0.80f, 0.83f, 0.86f), Accent = new Color(0.22f, 0.45f, 0.74f),
+            Wall = new Color(0.93f, 0.95f, 0.96f), Floor = new Color(0.78f, 0.80f, 0.82f),
+            Bays = new[] { new Color(0.22f, 0.45f, 0.74f), new Color(0.22f, 0.45f, 0.74f), new Color(0.95f, 0.74f, 0.20f) },
+            Lamps = Lamp.None,
+        };
+
+        static readonly VenueLook MuseumLook = new VenueLook
+        {
+            Decor = Decor.Museum,
+            Facade = new Color(0.93f, 0.91f, 0.87f), Accent = new Color(0.22f, 0.38f, 0.34f),
+            Wall = new Color(0.30f, 0.42f, 0.43f), Floor = new Color(0.62f, 0.46f, 0.31f), // koyu duvar, parke
+            Bays = new[] { new Color(0.85f, 0.62f, 0.30f), new Color(0.35f, 0.50f, 0.70f), new Color(0.72f, 0.36f, 0.32f) },
+            Lamps = Lamp.Spot,
+        };
+
+        static readonly VenueLook TowerLook = new VenueLook
+        {
+            Decor = Decor.Tower,
+            Facade = new Color(0.40f, 0.48f, 0.56f), Accent = new Color(0.18f, 0.20f, 0.23f),
+            Wall = new Color(0.84f, 0.84f, 0.82f), Floor = new Color(0.36f, 0.37f, 0.40f), // granit
+            Bays = new[] { new Color(0.70f, 0.73f, 0.76f), new Color(0.70f, 0.73f, 0.76f), new Color(0.70f, 0.73f, 0.76f) },
+            Lamps = Lamp.None,
+        };
+
+        static VenueLook LookFor(DoorVenue venue)
+        {
+            if (venue == VisitorCatalog.Hotel) return HotelLook;
+            if (venue == VisitorCatalog.Airport) return AirportLook;
+            if (venue == VisitorCatalog.Museum) return MuseumLook;
+            if (venue == VisitorCatalog.Skyscraper) return TowerLook;
+            return MallLook;
+        }
 
         Transform root;
         Sprite whiteSprite, circleSprite;
@@ -197,6 +263,7 @@ namespace ScrollRoad
             if (!Show() || door == null) return;
             bool strip = IsCompanion;
             bool night = WorldTheme.Current == WorldTheme.Kind.Night;
+            var look = LookFor(door.Venue);
 
             // Kamera: kartta sabit bant; şeritte zeminin altından kapı saçağının üstüne.
             float aspect = Mathf.Max(0.1f, viewCamera.aspect);
@@ -256,11 +323,11 @@ namespace ScrollRoad
             PlaceSpan(sidewalk, left - 0.2f, outX + 0.01f, gY - (strip ? 0.12f : FloorDepth), gY, walk);
 
             // AVM'nin içi: gecede de ışıklı (sıcak), yalnız sepya tonlanır.
-            var wallIn = Opaque(WorldTheme.Surface(InteriorWall));
+            var wallIn = Opaque(WorldTheme.Surface(look.Wall));
             if (strip) wallIn.a = 0.92f;
             float interiorTop = strip ? gY + DoorHeight + 0.12f : top0 + 0.2f;
             PlaceSpan(interiorWall, inX, right + 0.2f, gY, interiorTop, wallIn);
-            var floorColor = Opaque(WorldTheme.Surface(InteriorFloor));
+            var floorColor = Opaque(WorldTheme.Surface(look.Floor));
             if (strip) floorColor.a = 0.95f;
             PlaceSpan(floorIn, outX, right + 0.2f, gY - (strip ? 0.12f : FloorDepth), gY, floorColor);
             foundation.enabled = !strip;
@@ -275,14 +342,7 @@ namespace ScrollRoad
                 bool on = !strip && shopW > 0.6f;
                 shopFrames[i].enabled = shopGlass[i].enabled = shopAwnings[i].enabled = upperShops[i].enabled = on;
                 if (!on) continue;
-                float cx = shopsLeft + shopW * (i + 0.5f);
-                float w = shopW * 0.82f, h = 2.1f, bottom = gY + 0.0f;
-                PlaceRect(shopFrames[i], cx, bottom + h / 2f, w, h, Opaque(WorldTheme.Surface(ShopFrame)));
-                var glassC = Color.Lerp(ShopColors[i % ShopColors.Length], Color.white, night ? 0.25f : 0.55f);
-                PlaceRect(shopGlass[i], cx, bottom + (h - 0.12f) / 2f, w - 0.14f, h - 0.12f, Opaque(WorldTheme.Surface(glassC)));
-                PlaceRect(shopAwnings[i], cx, bottom + h + 0.12f, w + 0.12f, 0.28f, Opaque(WorldTheme.Surface(ShopColors[i % ShopColors.Length])));
-                float upperBottom = mezY + 0.45f;
-                PlaceSpan(upperShops[i], cx - w / 2f, cx + w / 2f, upperBottom, top0 + 0.2f, Opaque(WorldTheme.Surface(Color.Lerp(glassC, ShopFrame, 0.2f))));
+                DrawBay(look, i, shopsLeft + shopW * (i + 0.5f), shopW * 0.82f, gY, mezY, top0, night);
             }
             slab.enabled = railing.enabled = !strip;
             if (!strip)
@@ -294,28 +354,120 @@ namespace ScrollRoad
             }
             for (int i = 0; i < LampCount; i++)
             {
-                lampCords[i].enabled = lamps[i].enabled = !strip && shopW > 0.6f;
+                lampCords[i].enabled = lamps[i].enabled = !strip && shopW > 0.6f && look.Lamps != Lamp.None;
                 if (!lamps[i].enabled) continue;
+                var lampC = WorldTheme.Surface(LampLight);
+                lampC.a = 1f;
+                if (look.Lamps == Lamp.Spot)
+                {
+                    // Müze: her tablonun üstünde asma katın altına asılı küçük spot.
+                    float sx = shopsLeft + shopW * (i + 0.5f);
+                    PlaceSpan(lampCords[i], sx - 0.012f, sx + 0.012f, mezY - 0.22f, mezY, Opaque(WorldTheme.Surface(Metal)));
+                    PlaceRect(lamps[i], sx, mezY - 0.28f, 0.2f, 0.14f, lampC);
+                    continue;
+                }
                 float lx = shopsLeft + shopW * (i + 0.5f) + shopW * 0.5f * (i == LampCount - 1 ? -1f : 1f) * 0.3f;
                 float cordLen = 0.55f + (i % 2) * 0.25f;
                 PlaceSpan(lampCords[i], lx - 0.012f, lx + 0.012f, mezY - cordLen, mezY, Opaque(WorldTheme.Surface(Metal)));
-                var lampC = WorldTheme.Surface(LampLight);
-                lampC.a = 1f;
-                PlaceRect(lamps[i], lx, mezY - cordLen - 0.12f, 0.3f, 0.26f, lampC);
+                if (look.Lamps == Lamp.Chandelier)
+                    PlaceRect(lamps[i], lx, mezY - cordLen - 0.18f, 0.62f, 0.36f, lampC);
+                else
+                    PlaceRect(lamps[i], lx, mezY - cordLen - 0.12f, 0.3f, 0.26f, lampC);
             }
 
             // Cephe duvarı (kapının üstünden yukarı) + kapı saçağı (dışarıya taşar).
             float capTop = gY + DoorHeight + 0.18f;
-            var facade = Opaque(WorldTheme.Surface(Facade) * (night ? 0.55f : 1f));
+            var facade = Opaque(WorldTheme.Surface(look.Facade) * (night ? 0.55f : 1f));
             wallUpper.enabled = !strip;
             if (!strip) PlaceSpan(wallUpper, doorX - WallThickness / 2f, doorX + WallThickness / 2f, capTop, top0 + 0.2f, facade);
-            var accent = Opaque(WorldTheme.Surface(Accent) * (night ? 0.75f : 1f));
+            var accent = Opaque(WorldTheme.Surface(look.Accent) * (night ? 0.75f : 1f));
             PlaceSpan(canopy, doorX - DoorRadius - (strip ? 0.25f : 0.55f), doorX + WallThickness / 2f, capTop, capTop + (strip ? 0.14f : 0.22f), accent);
             canopyLip.enabled = !strip;
             if (!strip) PlaceSpan(canopyLip, doorX - DoorRadius - 0.55f, doorX - DoorRadius - 0.47f, capTop - 0.12f, capTop + 0.22f, accent * 0.85f);
 
             UpdateDoor(strip, gY);
             UpdatePeople(strip, gY, left, right);
+        }
+
+        // İçerideki bir bölme (zemin kat + asma katın üstü). Dört parça her mekânda başka bir şeye dönüşür:
+        // AVM vitrin/cam/tente/üst vitrin, Otel resepsiyon ya da oda kapısı, Havalimanı check-in bankosu ve
+        // asılı tabela, Müze çerçeveli tablo ve etiketi, Gökdelen asansör kapısı ve kat göstergesi.
+        void DrawBay(VenueLook look, int i, float cx, float w, float gY, float mezY, float top0, bool night)
+        {
+            var bay = look.Bays[i % look.Bays.Length];
+            var frameC = Opaque(WorldTheme.Surface(ShopFrame));
+            float upperBottom = mezY + 0.45f;
+            switch (look.Decor)
+            {
+                case Decor.Hotel:
+                {
+                    var wood = Opaque(WorldTheme.Surface(bay));
+                    var woodLight = Opaque(WorldTheme.Surface(Color.Lerp(bay, Color.white, 0.25f)));
+                    if (i == 0)
+                    {
+                        // Resepsiyon bankosu + arkasında anahtar panosu.
+                        PlaceRect(shopFrames[i], cx, gY + 0.52f, w, 1.04f, wood);
+                        PlaceRect(shopGlass[i], cx, gY + 1.08f, w + 0.12f, 0.1f, woodLight);
+                        PlaceRect(shopAwnings[i], cx, gY + 2.05f, w * 0.6f, 0.62f, woodLight);
+                    }
+                    else
+                    {
+                        // Oda kapısı + altın numara plakası.
+                        float dw = Mathf.Min(1.0f, w * 0.6f);
+                        PlaceRect(shopFrames[i], cx, gY + 1.07f, dw, 2.14f, wood);
+                        PlaceRect(shopGlass[i], cx, gY + 1.0f, dw - 0.2f, 1.75f, woodLight);
+                        PlaceRect(shopAwnings[i], cx, gY + 2.36f, 0.3f, 0.14f, Opaque(WorldTheme.Surface(new Color(0.85f, 0.68f, 0.30f))));
+                    }
+                    // Üst kat: sıcak duvar kâğıdı panosu.
+                    PlaceSpan(upperShops[i], cx - w / 2f, cx + w / 2f, upperBottom, top0 + 0.2f,
+                        Opaque(WorldTheme.Surface(Color.Lerp(look.Wall, bay, 0.18f))));
+                    break;
+                }
+                case Decor.Airport:
+                {
+                    // Check-in bankosu (bagaj bandı üstte), üstünde asılı tabela; üst katta büyük cam (gökyüzü).
+                    PlaceRect(shopFrames[i], cx, gY + 0.5f, w * 0.85f, 1.0f, Opaque(WorldTheme.Surface(new Color(0.60f, 0.63f, 0.67f))));
+                    PlaceRect(shopGlass[i], cx, gY + 1.04f, w * 0.9f, 0.08f, Opaque(WorldTheme.Surface(Metal)));
+                    PlaceRect(shopAwnings[i], cx, gY + 2.55f, w * 0.7f, 0.42f, Opaque(WorldTheme.Surface(bay)));
+                    var sky = WorldTheme.Sky(SkyDay);
+                    PlaceSpan(upperShops[i], cx - w / 2f - 0.05f, cx + w / 2f + 0.05f, upperBottom, top0 + 0.2f,
+                        Opaque(Color.Lerp(sky, Glass, 0.35f) * (night ? 0.55f : 1f)));
+                    break;
+                }
+                case Decor.Museum:
+                {
+                    // Altın çerçeveli tablo, altında küçük etiket; üst katta sergi afişi.
+                    float pw = Mathf.Min(1.6f, w * 0.62f), ph = 1.15f, py = gY + 1.8f;
+                    PlaceRect(shopFrames[i], cx, py, pw, ph, Opaque(WorldTheme.Surface(new Color(0.80f, 0.64f, 0.28f))));
+                    PlaceRect(shopGlass[i], cx, py, pw - 0.16f, ph - 0.16f, Opaque(WorldTheme.Surface(bay)));
+                    PlaceRect(shopAwnings[i], cx, gY + 1.0f, 0.32f, 0.13f, Opaque(WorldTheme.Surface(new Color(0.95f, 0.93f, 0.88f))));
+                    PlaceSpan(upperShops[i], cx - w * 0.18f, cx + w * 0.18f, upperBottom + 0.2f, top0 + 0.2f,
+                        Opaque(WorldTheme.Surface(Color.Lerp(bay, look.Wall, 0.35f))));
+                    break;
+                }
+                case Decor.Tower:
+                {
+                    // Asansör: çelik çerçeve + kapı, üstünde kehribar kat göstergesi; üst katta cam giydirme cephe.
+                    float ew = Mathf.Min(1.2f, w * 0.62f);
+                    PlaceRect(shopFrames[i], cx, gY + 1.12f, ew + 0.16f, 2.24f, frameC);
+                    PlaceRect(shopGlass[i], cx, gY + 1.05f, ew, 2.1f, Opaque(WorldTheme.Surface(bay)));
+                    PlaceRect(shopAwnings[i], cx, gY + 2.45f, 0.42f, 0.14f, Opaque(WorldTheme.Surface(new Color(0.95f, 0.66f, 0.22f))));
+                    PlaceSpan(upperShops[i], cx - w / 2f - 0.05f, cx + w / 2f + 0.05f, upperBottom, top0 + 0.2f,
+                        Opaque(WorldTheme.Surface(Color.Lerp(Glass, look.Facade, 0.45f)) * (night ? 0.6f : 1f)));
+                    break;
+                }
+                default:
+                {
+                    // AVM: vitrin + cam + tente; asma katın üstünde üst kat vitrini.
+                    float h = 2.1f;
+                    PlaceRect(shopFrames[i], cx, gY + h / 2f, w, h, frameC);
+                    var glassC = Color.Lerp(bay, Color.white, night ? 0.25f : 0.55f);
+                    PlaceRect(shopGlass[i], cx, gY + (h - 0.12f) / 2f, w - 0.14f, h - 0.12f, Opaque(WorldTheme.Surface(glassC)));
+                    PlaceRect(shopAwnings[i], cx, gY + h + 0.12f, w + 0.12f, 0.28f, Opaque(WorldTheme.Surface(bay)));
+                    PlaceSpan(upperShops[i], cx - w / 2f, cx + w / 2f, upperBottom, top0 + 0.2f, Opaque(WorldTheme.Surface(Color.Lerp(glassC, ShopFrame, 0.2f))));
+                    break;
+                }
+            }
         }
 
         void UpdateDoor(bool strip, float gY)

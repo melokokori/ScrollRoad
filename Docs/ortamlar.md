@@ -116,3 +116,15 @@ Kullanıcı Olta'dan sonraki ortam olarak **AVM döner kapısı**nı seçti, iç
 - **Görseller:** `Tools/gen_visitors.py` (gen_fishing.py boru hattı) → `Assets/Art/Door/`. Maskotun ilk tarifi Gemini'nin içerik filtresine takıldı, "mall mascot character ... bear suit" tarifiyle üretildi.
 - **Kod:** `Assets/Scripts/Door/` (VisitorCatalog, DoorController, DoorSceneView, DoorHudController, GuestBookController). Activities seçicisi 3 kart, çekmecedeki koleksiyon satırı kapıdayken misafir defterini açar, şerit ve tepsi ipucu ziyaretçi sayısını yazar.
 - Sırada (kullanıcı onayından sonra): kapı sesi, Otel/Havalimanı/Müze/Gökdelen, gizli efsane misafir.
+
+## 14.10 — Döner kapı: kalan 4 mekân + gizli efsane UYGULANDI
+Kullanıcı "kalan 4 mekân"ı seçti (toplu). Kararlarım (onay bekliyor):
+- **Açılma (ömür boyu ziyaretçi):** Otel 2.000 · Havalimanı 5.000 · Müze 10.000 · Gökdelen 18.000 — Olta'nın 20/50/100/180 balığının puan karşılığı (200 puan/ziyaretçi). Açılınca duyurulur, kapı oraya geçer.
+- **Misafirler** (sıklık 30/24/18/14/9/5, nadir çıkma %1,2 hepsinde aynı):
+  - Otel: The Bellhop, A Bride, A Rock Star, The Magician, A Film Star, The King
+  - Havalimanı: The Pilot, Flight Attendant, A Backpacker, A Surfer, A Mountaineer, A Deep-sea Diver
+  - Müze: The Painter, Tour Guide, An Archaeologist, A Ballerina, A Centurion, The Mummy
+  - Gökdelen: Window Cleaner, The CEO, A Firefighter, A Superhero, A Robot, An Alien
+- **Gizli efsane: Bigfoot (Koca Ayak), AVM'de** (Altın Sazan'ın Göl'de olması gibi): ziyaretçi başına 1/5.000 (seyirde ~17 sa), ayın ilk 600 ziyaretçisinde çıkmaz. Kimlik saf fonksiyon kalsın diye ömür boyu sayıya değil ayın sırasına bağlandı. "x / 6"ya girmez, defterde gelene kadar görünmez, gelince altın şerit + "Legendary" duyurusu.
+- **Sahne (VenueLook):** yerleşim aynı, renkler ve 3 iç bölme mekâna göre: Otel resepsiyon + oda kapıları + avize + kırmızı halı; Havalimanı check-in bankoları + asılı tabelalar + üst katta büyük cam; Müze çerçeveli tablolar + etiket + spot + parke; Gökdelen asansörler + kat göstergesi + cam cephe, granit zemin.
+- Görseller `Tools/gen_visitors.py` (mavi anahtar renk yüzünden mavi kostümler bordo/mor/gri/turuncuya çevrildi; Koca Ayak'a referanstaki sürücü de çiziliyordu → ayrı tarif).

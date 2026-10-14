@@ -15,7 +15,7 @@ namespace ScrollRoad
     }
 
     // Mekân (Olta'daki FishingSpot'un karşılığı): kendi nadir ziyaretçi seti; ömür boyu ziyaretçi
-    // sayısıyla açılır. AVM → (Otel → Havalimanı → Müze → Gökdelen). Sıradan yürüyenler ortak.
+    // sayısıyla açılır. AVM → Otel → Havalimanı → Müze → Gökdelen. Sıradan yürüyenler ortak.
     public sealed class DoorVenue
     {
         public string Id;
@@ -24,11 +24,17 @@ namespace ScrollRoad
         public VisitorType[] Guests;
         public float GuestChance;  // bir ziyaretçinin nadir çıkma olasılığı
         public int GuestMinIndex;  // ayın ilk ziyaretçileri hep sıradan (açılışta kalabalık ortalık)
+        // Gizli efsane (yalnız AVM: Koca Ayak; Olta'daki Altın Sazan'ın karşılığı): Guests'te değil, "x / 6"
+        // sayımına girmez, defterde gelene kadar görünmez. Ziyaretçi başına LegendaryChance olasılıkla, ayın
+        // LegendaryMinIndex. ziyaretçisinden sonra (kimlik ay + sıradan belirlendiği için ömür boyu sayıya bağlanmadı).
+        public VisitorType Legendary;
+        public float LegendaryChance;
+        public int LegendaryMinIndex;
 
         public bool Contains(string id)
         {
             foreach (var g in Guests) if (g.Id == id) return true;
-            return false;
+            return Legendary != null && Legendary.Id == id;
         }
     }
 
@@ -64,9 +70,87 @@ namespace ScrollRoad
                 new VisitorType { Id = "knight", Name = "A Knight", Frequency = 9f, Height = 1.05f },
                 new VisitorType { Id = "astronaut", Name = "An Astronaut", Frequency = 5f, Height = 1.05f },
             },
+            // 2026-10-14: Koca Ayak — 5.000 ziyaretçide bir (seyirde ~17 sa), ayın ilk 600 ziyaretçisinde çıkmaz.
+            Legendary = new VisitorType { Id = "bigfoot", Name = "Bigfoot", Height = 1.3f },
+            LegendaryChance = 0.0002f,
+            LegendaryMinIndex = 600,
         };
 
-        public static readonly DoorVenue[] Venues = { Mall };
+        // 2026-10-14: kalan 4 mekân. Açılma eşikleri Olta'nın 20/50/100/180 balığının puan karşılığı
+        // (200 puan/ziyaretçi): 2.000 / 5.000 / 10.000 / 18.000 ömür boyu ziyaretçi.
+        public static readonly DoorVenue Hotel = new DoorVenue
+        {
+            Id = "hotel",
+            Name = "The Hotel",
+            UnlockTotalVisitors = 2000,
+            GuestChance = 0.012f,
+            GuestMinIndex = 12,
+            Guests = new[]
+            {
+                new VisitorType { Id = "bellhop", Name = "The Bellhop", Frequency = 30f },
+                new VisitorType { Id = "bride", Name = "A Bride", Frequency = 24f, Height = 1.02f },
+                new VisitorType { Id = "rockstar", Name = "A Rock Star", Frequency = 18f },
+                new VisitorType { Id = "magician", Name = "The Magician", Frequency = 14f, Height = 1.12f },
+                new VisitorType { Id = "filmstar", Name = "A Film Star", Frequency = 9f },
+                new VisitorType { Id = "king", Name = "The King", Frequency = 5f, Height = 1.08f },
+            },
+        };
+
+        public static readonly DoorVenue Airport = new DoorVenue
+        {
+            Id = "airport",
+            Name = "The Airport",
+            UnlockTotalVisitors = 5000,
+            GuestChance = 0.012f,
+            GuestMinIndex = 12,
+            Guests = new[]
+            {
+                new VisitorType { Id = "pilot", Name = "The Pilot", Frequency = 30f },
+                new VisitorType { Id = "attendant", Name = "Flight Attendant", Frequency = 24f },
+                new VisitorType { Id = "backpacker", Name = "A Backpacker", Frequency = 18f, Height = 1.1f },
+                new VisitorType { Id = "surfer", Name = "A Surfer", Frequency = 14f },
+                new VisitorType { Id = "mountaineer", Name = "A Mountaineer", Frequency = 9f, Height = 1.05f },
+                new VisitorType { Id = "diver", Name = "A Deep-sea Diver", Frequency = 5f, Height = 1.05f },
+            },
+        };
+
+        public static readonly DoorVenue Museum = new DoorVenue
+        {
+            Id = "museum",
+            Name = "The Museum",
+            UnlockTotalVisitors = 10000,
+            GuestChance = 0.012f,
+            GuestMinIndex = 12,
+            Guests = new[]
+            {
+                new VisitorType { Id = "painter", Name = "The Painter", Frequency = 30f },
+                new VisitorType { Id = "guide", Name = "Tour Guide", Frequency = 24f, Height = 1.1f },
+                new VisitorType { Id = "archaeologist", Name = "An Archaeologist", Frequency = 18f },
+                new VisitorType { Id = "ballerina", Name = "A Ballerina", Frequency = 14f },
+                new VisitorType { Id = "centurion", Name = "A Centurion", Frequency = 9f, Height = 1.08f },
+                new VisitorType { Id = "mummy", Name = "The Mummy", Frequency = 5f },
+            },
+        };
+
+        public static readonly DoorVenue Skyscraper = new DoorVenue
+        {
+            Id = "skyscraper",
+            Name = "The Skyscraper",
+            UnlockTotalVisitors = 18000,
+            GuestChance = 0.012f,
+            GuestMinIndex = 12,
+            Guests = new[]
+            {
+                new VisitorType { Id = "window_cleaner", Name = "Window Cleaner", Frequency = 30f, Height = 1.05f },
+                new VisitorType { Id = "ceo", Name = "The CEO", Frequency = 24f },
+                new VisitorType { Id = "firefighter", Name = "A Firefighter", Frequency = 18f, Height = 1.03f },
+                new VisitorType { Id = "superhero", Name = "A Superhero", Frequency = 14f },
+                new VisitorType { Id = "robot", Name = "A Robot", Frequency = 9f, Height = 1.02f },
+                new VisitorType { Id = "alien", Name = "An Alien", Frequency = 5f, Height = 0.72f },
+            },
+        };
+
+        public static readonly DoorVenue[] Venues = { Mall, Hotel, Airport, Museum, Skyscraper };
 
         // Bütün nadirler mekân sırasıyla (görsel dizileri bu sırayla bağlanır).
         public static readonly VisitorType[] AllGuests = Flatten();
@@ -74,7 +158,11 @@ namespace ScrollRoad
         static VisitorType[] Flatten()
         {
             var list = new List<VisitorType>();
-            foreach (var v in Venues) list.AddRange(v.Guests);
+            foreach (var v in Venues)
+            {
+                list.AddRange(v.Guests);
+                if (v.Legendary != null) list.Add(v.Legendary);
+            }
             return list.ToArray();
         }
 
@@ -104,6 +192,7 @@ namespace ScrollRoad
         {
             public VisitorType Type;
             public bool IsGuest;
+            public bool IsLegendary;
             public float Jitter; // -1..1 kaldırımdaki aralık oynaması
             public float Scale;  // 0,94..1,06 boy çeşitliliği
         }
@@ -116,6 +205,12 @@ namespace ScrollRoad
                 Jitter = (float)(Hash01(seed, index, 4) * 2.0 - 1.0),
                 Scale = (float)(0.94 + Hash01(seed, index, 5) * 0.12),
             };
+            if (venue.Legendary != null && index >= venue.LegendaryMinIndex && Hash01(seed, index, 6) < venue.LegendaryChance)
+            {
+                v.Type = venue.Legendary;
+                v.IsGuest = v.IsLegendary = true;
+                return v;
+            }
             if (index >= venue.GuestMinIndex && Hash01(seed, index, 1) < venue.GuestChance)
             {
                 float total = 0f;

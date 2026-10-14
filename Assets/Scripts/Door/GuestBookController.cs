@@ -8,7 +8,8 @@ namespace ScrollRoad
     // 6 nadir misafirinin yuvası. Gelmemiş misafir koyu silüet + "???"; gelince renkli görsel, ad, kaç kez
     // geldiği ve ilk geliş tarihi. Açık mekânın sekmesinde "Go here" kapıyı oraya geçirir; kilitli mekânda
     // yuvalar silüet ve kalan ziyaretçi sayısı yazar. Çekmecedeki koleksiyon satırı Döner kapı'dayken bunu
-    // açar (PassportController).
+    // açar (PassportController). Mekânın gizli efsanesi (AVM: Koca Ayak) gelene kadar görünmez; gelince
+    // ızgaranın altında altın şerit olarak çıkar ve "x / 6" sayımına girmez.
     public class GuestBookController : MonoBehaviour
     {
         [SerializeField] DoorController door;
@@ -89,6 +90,14 @@ namespace ScrollRoad
 
                 var record = p.Find(guest.Id);
                 bool met = record != null;
+                if (guest == venue.Legendary)
+                {
+                    slotRoots[i].SetActive(met);
+                    if (!met) continue;
+                    nameTexts[i].text = $"LEGENDARY  ·  {guest.Name}";
+                    detailTexts[i].text = $"Visited ×{record.count}  ·  <alpha=#99>First visit {record.firstSeen}";
+                    continue;
+                }
                 guestImages[i].color = met ? Color.white : Silhouette;
                 nameTexts[i].text = met ? guest.Name : "???";
                 detailTexts[i].text = met

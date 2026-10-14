@@ -15,8 +15,9 @@ namespace ScrollRoad
     // aşan ziyaretçi ömür boyu sayıya ve deftere yazılır — geri çıkıp yeniden giren iki kez sayılmaz.
     // Sayaç aylık: ay değişince konum ve rekor sıfırlanır, misafir defteri kalıcıdır.
     //
-    // Mekânlar (FishingController'daki gibi): her biri ömür boyu ziyaretçi sayısıyla açılır, açıldığında
-    // duyurulur ve kapı oraya geçer; oyuncu defterden açık bir mekâna dönebilir.
+    // Mekânlar (FishingController'daki gibi): AVM → Otel → Havalimanı → Müze → Gökdelen; her biri ömür boyu
+    // ziyaretçi sayısıyla açılır, açıldığında duyurulur ve kapı oraya geçer; oyuncu defterden açık bir mekâna
+    // dönebilir. AVM'nin gizli efsanesi (Koca Ayak) gelince ayrıca duyurulur.
     //
     // Yalnız Döner kapı seçiliyken ilerler. Görünüm DoorSceneView'da, HUD DoorHudController'da.
     public class DoorController : MonoBehaviour
@@ -171,7 +172,11 @@ namespace ScrollRoad
             Save();
 
             GuestArrived?.Invoke(guest, isNew);
-            if (isNew && notice != null)
+            if (visitor.IsLegendary && notice != null)
+            {
+                notice.Announce($"Legendary: {guest.Name}", $"The rarest guest of {Venue.Name} walked in", $"Legendary {guest.Name}!");
+            }
+            else if (isNew && notice != null)
             {
                 notice.Announce($"Special guest: {guest.Name}", "Signed in your guest book", $"{guest.Name} · new guest");
             }

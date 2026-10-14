@@ -1037,7 +1037,7 @@ namespace ScrollRoad.EditorTools
         }
 
         // Misafir defteri: balık defterinin yerleşimi — üstte mekân sekmeleri + "Go here", altta seçili mekânın
-        // 6 nadir misafiri 3x2 yuvada (görsel solda, ad ve geliş bilgisi sağda; insanlar dikey).
+        // 6 nadir misafiri 3x2 yuvada (görsel solda, ad ve geliş bilgisi sağda; insanlar dikey), altta efsane şeridi.
         static GuestBookController CreateGuestBookPanel(Transform parent, DoorController door)
         {
             var panel = CreatePanel(parent, "GuestBookPanel", "Guest book · " + VisitorCatalog.Mall.Name, out var close, out var title);
@@ -1069,6 +1069,35 @@ namespace ScrollRoad.EditorTools
             const float cellW = 240f, cellH = 116f, gapX = 12f, gapY = 8f, firstRowY = 38f;
             foreach (var venue in venues)
             {
+                // Gizli efsane: ızgaranın altında altın şerit (gelince görünür). Diziler VisitorCatalog.AllGuests sırasında.
+                if (venue.Legendary != null)
+                {
+                    int li = VisitorCatalog.GuestIndex(venue.Legendary.Id);
+                    var band = Plate(panel.transform, $"Legend_{venue.Legendary.Id}", new Color(0.78f, 0.60f, 0.16f), RoundSprite);
+                    band.rectTransform.anchorMin = band.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    SetRect(band.rectTransform, new Vector2(0f, -158f), new Vector2(3 * cellW + 2 * gapX, 22f));
+                    var legendGo = new GameObject("Guest", typeof(RectTransform), typeof(Image));
+                    legendGo.transform.SetParent(band.transform, false);
+                    var legendImage = legendGo.GetComponent<Image>();
+                    legendImage.sprite = (Sprite)sprites[li];
+                    legendImage.preserveAspect = true;
+                    legendImage.raycastTarget = false;
+                    var lr = (RectTransform)legendGo.transform;
+                    lr.anchorMin = lr.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(lr, new Vector2(28f, 0f), new Vector2(44f, 20f));
+                    var legendName = Tmp(band.transform, "Name", "", 11.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+                    legendName.rectTransform.anchorMin = legendName.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+                    SetRect(legendName.rectTransform, new Vector2(60f + 130f, 0f), new Vector2(260f, 18f));
+                    var legendDetail = Tmp(band.transform, "Detail", "", 10f, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Right);
+                    legendDetail.rectTransform.anchorMin = legendDetail.rectTransform.anchorMax = new Vector2(1f, 0.5f);
+                    SetRect(legendDetail.rectTransform, new Vector2(-10f - 200f, 0f), new Vector2(400f, 18f));
+                    images[li] = legendImage;
+                    roots[li] = band.gameObject;
+                    names[li] = legendName;
+                    details[li] = legendDetail;
+                    band.gameObject.SetActive(false);
+                }
+
                 for (int j = 0; j < venue.Guests.Length; j++)
                 {
                     int slot = VisitorCatalog.GuestIndex(venue.Guests[j].Id);
