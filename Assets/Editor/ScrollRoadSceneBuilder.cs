@@ -449,6 +449,19 @@ namespace ScrollRoad.EditorTools
             BindArray(potteryView, "specialSprites", ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials));
             intervalSetups.Add(new IntervalSetup { Env = pottery, LogSprites = ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials), Card = LoadArtSprite(PotteryArt + "pottery_card.png") });
 
+            // Meyve soyacağı (2026-10-14): bütün meyve + aynı görselden türetilmiş soyulmuş hâli (<id>_flesh.png).
+            var peelerGo = new GameObject("FruitPeeler");
+            var peeler = peelerGo.AddComponent<PeelerEnvironment>();
+            var peelerView = peelerGo.AddComponent<PeelerSceneView>();
+            Bind(peelerView, "env", peeler);
+            BindIntervalView(peelerView, companion, cam);
+            BindArray(peelerView, "commonSprites", ItemSprites(PeelerArt, PeelerEnvironment.Stall.Commons));
+            BindArray(peelerView, "specialSprites", ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials));
+            BindArray(peelerView, "commonFlesh", FleshSprites(PeelerEnvironment.Stall.Commons));
+            BindArray(peelerView, "specialFlesh", FleshSprites(PeelerEnvironment.Stall.Specials));
+            intervalSetups.Add(new IntervalSetup { Env = peeler, LogSprites = ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials), Card = LoadArtSprite(PeelerArt + "peeler_card.png") });
+
+
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
             var vehicleSound = roadGo.AddComponent<VehicleSound>();
@@ -515,6 +528,14 @@ namespace ScrollRoad.EditorTools
         const string GlobeArt = "Assets/Art/Globe/";
         const string BoomerangArt = "Assets/Art/Boomerang/";
         const string PotteryArt = "Assets/Art/Pottery/";
+        const string PeelerArt = "Assets/Art/Peeler/";
+
+        static Object[] FleshSprites(ItemType[] types)
+        {
+            var sprites = new Object[types.Length];
+            for (int i = 0; i < sprites.Length; i++) sprites[i] = LoadArtSprite(PeelerArt + types[i].Id + "_flesh.png");
+            return sprites;
+        }
 
         static Object[] VinylSprites()
         {

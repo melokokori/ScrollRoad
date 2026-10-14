@@ -233,6 +233,11 @@ ENV_SOUNDS = {
                          "no music, no voices", 1.0),
     "pot_shelf": (False, "A small ceramic pot placed gently on a wooden shelf: one soft hollow clunk of fired clay on "
                          "wood, quiet, close up, no music, no voices", 1.0),
+    # Meyve soyacağı (2026-10-14): kol + soyma döngüsü (yalnız kullanıcı aktifken), meyvenin kâseye düşmesi.
+    "peel_loop": (True, "A hand-cranked cast iron apple peeler turning steadily: soft rhythmic gear clicks and a gentle "
+                        "continuous scraping of a blade peeling fruit skin, quiet kitchen, close up" + LOOP_TAIL, 8.0),
+    "fruit_drop": (False, "A peeled apple dropping into a wooden fruit bowl: one soft dull wooden thud, quiet, close "
+                          "up, no music, no voices", 1.0),
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),

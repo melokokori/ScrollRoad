@@ -2,7 +2,7 @@ using System;
 
 namespace ScrollRoad
 {
-    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6, Pottery = 7 }
+    public enum EnvironmentId { Road = 0, Fishing = 1, Door = 2, Wind = 3, Vinyl = 4, Globe = 5, Boomerang = 6, Pottery = 7, Peeler = 8 }
 
     // Bir ortam (2026-10-13, Docs/ortamlar.md): kendi birimi, gizli puandan birime oranı, açılma
     // eşiği (gizli puanın ömür boyu toplamı) ve oyuncunun gördüğü metinler. Puan hiç görünmez:
@@ -172,7 +172,25 @@ namespace ScrollRoad
             CollectionName = "Pottery shelf",
         };
 
-        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang, Pottery };
+        // Meyve soyacağı (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim SOYULAN MEYVE,
+        // her FruitIntervalPoints'te bir meyve (seyirde ~75 sn'de bir; günlük hedef 64, haftalık 400). Kabuk
+        // uzunluğu meyvenin özelliği ("kopmayan kabuk" rekoru). Aylık sıfırlanır. Açılma: ömür boyu 3.500.000 puan.
+        public const double FruitIntervalPoints = 1250;
+
+        public static readonly EnvironmentDef Peeler = new EnvironmentDef
+        {
+            Id = EnvironmentId.Peeler,
+            Name = "Fruit peeler",
+            Tagline = "Turn the crank, keep the peel in one piece.",
+            Unit = "fruit",
+            Decimals = 0,
+            UnitsPerPoint = 1.0 / FruitIntervalPoints,
+            UnlockLifetimePoints = 3500000,
+            AmountNoun = "peeling",
+            CollectionName = "Fruit bowl",
+        };
+
+        public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang, Pottery, Peeler };
 
         public static EnvironmentDef Get(EnvironmentId id)
         {
