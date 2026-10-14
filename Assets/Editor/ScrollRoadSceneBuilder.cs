@@ -537,6 +537,7 @@ namespace ScrollRoad.EditorTools
             var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
             Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
             total.rectTransform.sizeDelta = new Vector2(160, 26);
+            FitToWidth(total, 13f); // 4+ haneli sayı ("7,546 visitors") plakadan taşmasın
             var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
             status.characterSpacing = 10;
             Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
@@ -587,6 +588,7 @@ namespace ScrollRoad.EditorTools
             var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
             Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
             total.rectTransform.sizeDelta = new Vector2(160, 26);
+            FitToWidth(total, 13f); // 4+ haneli sayı ("7,546 visitors") plakadan taşmasın
             var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
             status.characterSpacing = 10;
             Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
@@ -1785,6 +1787,14 @@ namespace ScrollRoad.EditorTools
             text.overflowMode = TextOverflowModes.Overflow;
             text.raycastTarget = false;
             return text;
+        }
+
+        // Tek satırlık sayaç metni kutusuna sığmazsa küçülür (en çok fontSize, en az min).
+        static void FitToWidth(TMP_Text text, float min)
+        {
+            text.enableAutoSizing = true;
+            text.fontSizeMax = text.fontSize;
+            text.fontSizeMin = min;
         }
 
         static Image Plate(Transform parent, string name, Color color, Sprite sprite)
