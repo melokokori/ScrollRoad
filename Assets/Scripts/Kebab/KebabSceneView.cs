@@ -122,13 +122,14 @@ namespace ScrollRoad
                 PlaceRect(flames[i], fx, fireY1 + fh * 0.4f, fh * 0.55f, fh, c);
             }
 
-            // Usta (yalnız kart): şişin arkasında, kesimde bıçağı izler.
+            // Usta (yalnız kart): şişin sağında, çarkın yanında durur, eli ete uzanır; kesimde bıçağa doğru hafifçe
+            // eğilir. Bıçağı izleyip şişin arkasına girerse ocak ve et gövdesini örtüyordu (yalnız bacakları kalıyordu).
             chef.enabled = !strip && chefSprite != null;
             if (chef.enabled)
             {
-                float restX = l.MeatX1 + 1.3f;
-                float cx = cutting ? Mathf.Lerp(restX, knifeX + 1.0f, Smooth(0f, 0.15f, slicing) * (1f - Smooth(0.85f, 1f, slicing))) : restX;
-                PlaceSprite(chef, chefSprite, cx, l.CounterY - 0.75f, 3.6f, tint);
+                float restX = l.MeatX1 + 1.75f;
+                float lean = cutting ? 0.3f * Smooth(0f, 0.1f, slicing) * (1f - Smooth(0.9f, 1f, slicing)) : 0f;
+                PlaceSprite(chef, chefSprite, restX - lean, l.CounterY - 0.75f, 3.6f, tint);
             }
 
             // Şiş çubuğu + çark.
