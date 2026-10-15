@@ -20,6 +20,17 @@ namespace ScrollRoad.EditorTools
 
         public static string BuildStandaloneWindows() => BuildStandaloneWindows(OutputPath, BuildOptions.None);
 
+        // Batchmode: Unity.exe -batchmode -quit -projectPath <proje> -executeMethod ScrollRoad.EditorTools.ScrollRoadBuilder.BuildFromCommandLine [-buildOut <exe yolu>]
+        // Oyun Builds/Windows'tan çalışırken (dosyalar kilitli) yalnız derleme doğrulaması için başka klasöre build alınabilir.
+        public static void BuildFromCommandLine()
+        {
+            string output = OutputPath;
+            var args = System.Environment.GetCommandLineArgs();
+            for (int i = 0; i < args.Length - 1; i++)
+                if (args[i] == "-buildOut") output = args[i + 1];
+            if (BuildStandaloneWindows(output, BuildOptions.None).StartsWith("FAILED")) EditorApplication.Exit(1);
+        }
+
         // Editor Play'de her araç/renk/gösterge skini açık (CarCatalog.ReviewUnlockAll). Kayda dokunmaz.
         const string ReviewMenu = "ScrollRoad/İnceleme modu (her şey açık)";
 

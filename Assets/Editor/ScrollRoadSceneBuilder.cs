@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Kirurobo;
 using TMPro;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -196,8 +195,8 @@ namespace ScrollRoad.EditorTools
             Debug.Log("ScrollRoad sahnesi kuruldu: Game (kart arayüzü), Build Settings güncellendi.");
         }
 
-        // UniWindowController saydamlığı D3D12'de hiç, D3D11'de de flip-model swapchain açıkken
-        // çalışmıyor (UniWinC README, Limitations). URP'de ayrıca HDR kapalı olmalı (alfa kanalı korunsun).
+        // Şerit saydamlığı (DwmExtendFrameIntoClientArea, NativeWindow.SetStripTransparent) D3D12'de hiç,
+        // D3D11'de de flip-model swapchain açıkken çalışmıyor. URP'de ayrıca HDR kapalı olmalı (alfa kanalı korunsun).
         public static void ConfigureProjectSettings()
         {
             PlayerSettings.productName = "ScrollRoad";
@@ -339,13 +338,7 @@ namespace ScrollRoad.EditorTools
             var drive = roadGo.AddComponent<RoadDrive>();
 
             var windowGo = new GameObject("CompanionWindow");
-            var uni = windowGo.AddComponent<UniWindowController>();
-            uni.isHitTestEnabled = false;          // CompanionWindowController saydamlığa geçerken açar
-            uni.autoSwitchCameraBackground = false; // arka planı RoadSceneView yönetiyor
-            uni.currentCamera = cam;
-            uni.hitTestType = UniWindowController.HitTestType.Opacity;
             var companion = windowGo.AddComponent<CompanionWindowController>();
-            Bind(companion, "uniWindow", uni);
 
             var view = roadGo.AddComponent<RoadSceneView>();
             Bind(view, "drive", drive);

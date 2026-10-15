@@ -121,7 +121,7 @@ namespace ScrollRoad.Platform
             RegisterClassEx(ref wc); // ikinci kez (editor domain reload) ERROR_CLASS_ALREADY_EXISTS döner, sorun değil
 
             // Message-only pencere (HWND_MESSAGE): EnumWindows'ta GÖRÜNMEZ. Üst düzey bir pencere
-            // UniWindowController'ın "kendi penceremi bul" aramasına takılıyor, saydamlık/boyut oyun
+            // UniWindowController'ın (2026-10-15 kaldırıldı) "kendi penceremi bul" aramasına takılıyordu, saydamlık/boyut oyun
             // penceresi yerine ona uygulanıyordu. Bedeli: "TaskbarCreated" yayını gelmez — Explorer
             // yeniden başlarsa simge SetTooltip'te NIM_MODIFY başarısız olunca geri eklenir.
             IntPtr hwnd = CreateWindowEx(0, WindowClassName, "ScrollRoad Tray", 0, 0, 0, 0, 0,

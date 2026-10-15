@@ -133,6 +133,58 @@ namespace ScrollRoad.Platform
             SetDwmFrame(hwnd, DWMWCP_DONOTROUND, DWMWA_COLOR_NONE, DWMNCRP_DISABLED);
         }
 
+        // Şerit saydamlığı (2026-10-15): eskiden UniWindowController'ın LibUniWinC.dll'i yapıyordu; Smart App
+        // Control imzasız DLL'i engelleyince şerit başlıklı siyah pencere kalıyordu. Aynı yöntem doğrudan sistem
+        // DLL'leriyle: DWM "cam" alanı tüm istemci alanına yayılır, Unity'nin alfa 0 çizdiği pikseller arkayı
+        // gösterir (D3D11 + flip-model swapchain KAPALI şart). Pencere salt WS_POPUP olur (başlık/kenarlık yok).
+        // Kapatırken cam ve tıklama geçirgenliği geri alınır; kart stilini ApplyBorderless ayrıca uygular.
+        public static void SetStripTransparent(IntPtr hwnd, bool transparent)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            var margins = transparent ? new MARGINS { Left = -1, Right = -1, Top = -1, Bottom = -1 } : default;
+            DwmExtendFrameIntoClientArea(hwnd, ref margins);
+            if (transparent)
+            {
+                SetWindowLongPtr(hwnd, GWL_STYLE, new IntPtr(WS_POPUP | WS_VISIBLE));
+                SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0,
+                    SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOACTIVATE | SWP_NOOWNERZORDER | SWP_FRAMECHANGED);
+            }
+            else
+            {
+                long ex = GetWindowLongPtr(hwnd, GWL_EXSTYLE).ToInt64();
+                SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(ex & ~(WS_EX_TRANSPARENT | WS_EX_LAYERED)));
+            }
+        }
+
+        // Tıklama geçirgenliği: WS_EX_LAYERED + WS_EX_TRANSPARENT ile fare olayları alttaki pencereye gider.
+        // Katmanlı pencere sabit alfa 255 ile görünür kalır; piksel başına saydamlık DWM camından gelir.
+        public static void SetClickThrough(IntPtr hwnd, bool through)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            long ex = GetWindowLongPtr(hwnd, GWL_EXSTYLE).ToInt64();
+            if (through)
+            {
+                bool wasLayered = (ex & WS_EX_LAYERED) != 0;
+                SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(ex | WS_EX_TRANSPARENT | WS_EX_LAYERED));
+                if (!wasLayered) SetLayeredWindowAttributes(hwnd, 0, 255, LWA_ALPHA);
+            }
+            else
+            {
+                // Katman kalır (UniWinC de böyle yapıyordu): her geçişte katmanı açıp kapamak titretir.
+                SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(ex & ~WS_EX_TRANSPARENT));
+            }
+        }
+
+        // İmlecin pencerenin istemci alanındaki konumu (fiziksel piksel, sol-üst orijin).
+        public static bool TryGetClientCursor(IntPtr hwnd, out int x, out int y)
+        {
+            x = y = 0;
+            if (hwnd == IntPtr.Zero || !GetCursorPos(out var p) || !ScreenToClient(hwnd, ref p)) return false;
+            x = p.X;
+            y = p.Y;
+            return true;
+        }
+
         static void SetDwmFrame(IntPtr hwnd, int corner, int borderColor, int ncPolicy)
         {
             DwmSetWindowAttribute(hwnd, DWMWA_WINDOW_CORNER_PREFERENCE, ref corner, sizeof(int));
@@ -247,7 +299,10 @@ namespace ScrollRoad.Platform
         static readonly IntPtr HWND_NOTOPMOST = new IntPtr(-2);
         const uint SWP_NOSIZE = 0x0001, SWP_NOMOVE = 0x0002, SWP_NOZORDER = 0x0004, SWP_NOACTIVATE = 0x0010,
             SWP_FRAMECHANGED = 0x0020, SWP_NOOWNERZORDER = 0x0200;
-        const int GWL_STYLE = -16;
+        const int GWL_STYLE = -16, GWL_EXSTYLE = -20;
+        const long WS_EX_TRANSPARENT = 0x00000020L, WS_EX_LAYERED = 0x00080000L;
+        const uint LWA_ALPHA = 0x00000002;
+        const long WS_VISIBLE = 0x10000000L;
         const long WS_POPUP = 0x80000000L, WS_CAPTION = 0x00C00000L, WS_SYSMENU = 0x00080000L,
             WS_THICKFRAME = 0x00040000L, WS_MINIMIZEBOX = 0x00020000L, WS_MAXIMIZEBOX = 0x00010000L;
         const int DWMWA_WINDOW_CORNER_PREFERENCE = 33, DWMWCP_DONOTROUND = 1, DWMWCP_ROUND = 2;
@@ -273,6 +328,9 @@ namespace ScrollRoad.Platform
             public RECT rc;
             public IntPtr lParam;
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        struct MARGINS { public int Left, Right, Top, Bottom; }
 
         [StructLayout(LayoutKind.Sequential)]
         struct MONITORINFO
@@ -339,6 +397,17 @@ namespace ScrollRoad.Platform
 
         [DllImport("dwmapi.dll")]
         static extern int DwmSetWindowAttribute(IntPtr hwnd, int attribute, ref int value, int size);
+
+        [DllImport("dwmapi.dll")]
+        static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS margins);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool ScreenToClient(IntPtr hWnd, ref POINT lpPoint);
 
         [DllImport("user32.dll")]
         static extern uint GetDpiForWindow(IntPtr hwnd);

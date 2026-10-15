@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Kirurobo;
 using ScrollRoad.Platform;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,15 +11,16 @@ namespace ScrollRoad
     //    (taban 800x340, monitör ölçeği ve Ayarlar'daki boyut ön ayarıyla büyür). Sürüklenir,
     //    konumu hatırlanır, istenirse her zaman üstte. Tam ekran ya da büyük pencere yok.
     //  - GÖREV ÇUBUĞU ŞERİDİ (F9): görev çubuğunun boş kısmına oturan saydam, her zaman üstte şerit
-    //    (yükseklik = görev çubuğu). Saydamlığı UniWindowController (MIT, kirurobo) yapıyor. Görev
-    //    çubuğu da topmost olduğundan şerit periyodik olarak öne alınır; ön planda tam ekran bir
-    //    uygulama varken gizlenir.
+    //    (yükseklik = görev çubuğu). Saydamlık doğrudan Win32/DWM ile (NativeWindow.SetStripTransparent);
+    //    2026-10-15'e kadar UniWindowController yapıyordu, Smart App Control imzasız LibUniWinC.dll'i
+    //    engelleyince şerit başlıklı siyah pencere kalıyordu. Görev çubuğu da topmost olduğundan şerit
+    //    periyodik olarak öne alınır; ön planda tam ekran bir uygulama varken gizlenir.
     //
     // Saydamlık için ön koşullar (sahne kurucu ve Player Settings bunları zorluyor):
     //  - Kamera arka planı alfa 0 (RoadSceneView şerit modunda yapıyor), HDR ve post-process kapalı.
-    //  - Windows build'de yalnız Direct3D11 ve "Use DXGI Flip Model Swapchain" KAPALI (UniWinC README, Limitations).
+    //  - Windows build'de yalnız Direct3D11 ve "Use DXGI Flip Model Swapchain" KAPALI (DWM camı alfa görmez).
     //
-    // EDITOR'DE native pencere işlemi YAPILMAZ: UniWinC orada Editor penceresinin kendisine bağlanır.
+    // EDITOR'DE native pencere işlemi YAPILMAZ: FindUnityWindow orada Editor penceresinin kendisini bulur.
     // Editor'de mod yalnız görsel olarak simüle edilir (Game görünümünü ScrollRoad → Game görünümü:
     // kart boyutu menüsüyle 800x340'a ayarla); gerçek pencere davranışı yalnız build'de doğrulanabilir.
     public class CompanionWindowController : MonoBehaviour
@@ -29,12 +29,12 @@ namespace ScrollRoad
         public static readonly float[] CardSizePresets = { 0.85f, 1f, 1.25f };
         public static readonly string[] CardSizeNames = { "Small", "Medium", "Large" };
 
-        [SerializeField] UniWindowController uniWindow;
         [SerializeField] int stripBaseWidth = 440; // 48 px'lik (%100 ölçek) görev çubuğu için
-        [SerializeField] float applyTimeoutSeconds = 3f;
 #pragma warning disable CS0414 // aşağıdakiler yalnız Windows build'de okunuyor (Editor'de pencereye dokunulmaz)
+        [SerializeField] float applyTimeoutSeconds = 3f;
         [SerializeField] float keepOnTopInterval = 0.25f;
         [SerializeField] int cardScreenMargin = 24;
+        [SerializeField] float opacityThreshold = 0.1f; // şeritte bu alfanın altındaki pikseller tıklamayı arkaya geçirir
 #pragma warning restore CS0414
 
         static bool companionArgConsumed;
@@ -72,6 +72,9 @@ namespace ScrollRoad
 #if !UNITY_EDITOR
         IntPtr hwnd;
         int dragOffsetX, dragOffsetY;
+        bool stripTransparent, clickThrough;
+        Coroutine hitTestRoutine;
+        Texture2D hitTestPixel;
 #endif
 
         public bool IsCompanionMode { get; private set; }
@@ -90,13 +93,6 @@ namespace ScrollRoad
         public static bool LaunchedWithCompanionArg =>
             Array.Exists(Environment.GetCommandLineArgs(), a => string.Equals(a, "-companion", StringComparison.OrdinalIgnoreCase));
         public event Action<bool> OnModeChanged;
-
-        void Awake()
-        {
-#if UNITY_EDITOR
-            if (uniWindow != null) uniWindow.enabled = false;
-#endif
-        }
 
         void Start()
         {
@@ -203,10 +199,7 @@ namespace ScrollRoad
 
             if (applyRoutine != null) StopCoroutine(applyRoutine);
 #if !UNITY_EDITOR
-            if (uniWindow != null)
-            {
-                applyRoutine = StartCoroutine(companion ? EnterCompanionRoutine(stripRect) : ExitCompanionRoutine());
-            }
+            applyRoutine = StartCoroutine(companion ? EnterCompanionRoutine(stripRect) : ExitCompanionRoutine());
 #endif
         }
 
@@ -323,17 +316,19 @@ namespace ScrollRoad
             yield return null; // mod değişikliği kare sonunda uygulanıyor
             yield return null; // pencere stilinin oturması için bir kare daha
 
+#if !UNITY_EDITOR
             // Saydamlık/topmost SetResolution'dan SONRA: Unity pencereyi Windowed'a çevirirken
-            // stilleri sıfırlıyor. SetTransparent aynı değerde bile native stili yeniden uygular.
-            uniWindow.isTransparent = true;
-            uniWindow.isTopmost = true;
+            // stilleri sıfırlıyor.
+            IntPtr window = NativeWindow.FindUnityWindow();
+            if (window != IntPtr.Zero) hwnd = window;
+            NativeWindow.SetStripTransparent(window, true);
+            stripTransparent = true;
+            NativeWindow.SetTopmost(window, true);
             // Tamamen click-through değil: yalnız saydam pikseller tıklamayı arkaya geçirir,
             // araba/≡ üzerinde pencere tıklanabilir kalır.
-            uniWindow.isHitTestEnabled = true;
+            if (hitTestRoutine == null) hitTestRoutine = StartCoroutine(StripHitTestRoutine());
 
-            // Boyut ve konum native (sol-üst orijinli fiziksel piksel): UniWinC'nin sol-alt orijinli
-            // windowPosition'ı kenarlıksız karttan geçerken şeridi ekran dışına (y=1344) koymuştu.
-            IntPtr window = NativeWindow.FindUnityWindow();
+            // Boyut ve konum native (sol-üst orijinli fiziksel piksel).
             NativeWindow.ApplyStripFrame(window); // kart modundan kalan köşe/kenarlık/gölge şeritte çerçeve gibi duruyordu
             float deadline = Time.realtimeSinceStartup + applyTimeoutSeconds;
             while (Time.realtimeSinceStartup < deadline)
@@ -344,31 +339,91 @@ namespace ScrollRoad
                 if (NativeWindow.TryGetBounds(window, out var b) && b.Width == strip.Width && b.Height == strip.Height)
                 {
                     NativeWindow.SetBounds(window, strip); // boyut değişince konum kaymış olabilir
-                    NativeWindow.ApplyStripFrame(window); // Unity/UniWinC stil değiştirirken sıfırlamış olabilir
+                    NativeWindow.SetStripTransparent(window, true); // Unity boyut değişiminde stili sıfırlamış olabilir
+                    NativeWindow.ApplyStripFrame(window);
                     stripPlaced = true;
                     yield break;
                 }
             }
             stripPlaced = true;
             Debug.LogWarning($"Şerit pencere boyutu {applyTimeoutSeconds}sn içinde uygulanamadı.");
+#else
+            yield break;
+#endif
         }
 
         IEnumerator ExitCompanionRoutine()
         {
-            // UniWinC saydamlığı kapatırken pencereye bağlandığı andaki (çerçeveli) stili geri yükler;
-            // kart stili ardından yeniden uygulanır.
-            uniWindow.isTransparent = false;
-            uniWindow.isTopmost = false;
-            uniWindow.isHitTestEnabled = false;
+#if !UNITY_EDITOR
+            // Cam ve tıklama geçirgenliği kapatılır; kart stili ve üstte kalma ApplyCardWindow'da.
+            StopStripHitTest();
+            NativeWindow.SetStripTransparent(hwnd, false);
+            stripTransparent = false;
+            NativeWindow.SetTopmost(hwnd, false);
             yield return null;
 
-#if !UNITY_EDITOR
             var size = CardPixelSize(NativeWindow.DpiScale(hwnd));
             Screen.SetResolution(size.x, size.y, FullScreenMode.Windowed);
             yield return null;
             yield return null;
             ApplyCardWindow();
+#else
+            yield break;
 #endif
         }
+
+#if !UNITY_EDITOR
+        // Şeritte imlecin altındaki piksel kare sonunda okunur: saydamsa pencere tıklamayı alttaki görev
+        // çubuğuna geçirir, değilse (araba, ≡, sayaç) tıklanabilir. İmleç pencere dışındayken okuma yapılmaz.
+        IEnumerator StripHitTestRoutine()
+        {
+            var endOfFrame = new WaitForEndOfFrame();
+            if (hitTestPixel == null) hitTestPixel = new Texture2D(1, 1, TextureFormat.RGBA32, false);
+            while (true)
+            {
+                yield return endOfFrame;
+                if (!IsCompanionMode || !stripTransparent) continue;
+                bool hit = CursorOnOpaquePixel();
+                if (hit == clickThrough)
+                {
+                    clickThrough = !hit;
+                    NativeWindow.SetClickThrough(hwnd, clickThrough);
+                }
+            }
+        }
+
+        bool CursorOnOpaquePixel()
+        {
+            if (!NativeWindow.TryGetClientCursor(hwnd, out int x, out int y)) return false;
+            int w = Screen.width, h = Screen.height;
+            if (x < 0 || y < 0 || x >= w || y >= h) return false;
+            try
+            {
+                hitTestPixel.ReadPixels(new Rect(x, h - 1 - y, 1, 1), 0, 0, false);
+                return hitTestPixel.GetPixel(0, 0).a >= opacityThreshold;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Şerit isabet testi okunamadı: {e.Message}");
+                return true;
+            }
+        }
+
+        void StopStripHitTest()
+        {
+            if (hitTestRoutine != null) StopCoroutine(hitTestRoutine);
+            hitTestRoutine = null;
+            if (clickThrough) NativeWindow.SetClickThrough(hwnd, false);
+            clickThrough = false;
+        }
+
+        // Odak gelince tıklama geçirgenliği kapatılır (UniWinC'deki gibi): pencere klavye/fareyle kurtarılabilsin.
+        void OnApplicationFocus(bool focus)
+        {
+            if (!focus || !clickThrough) return;
+            clickThrough = false;
+            NativeWindow.SetClickThrough(hwnd, false);
+        }
+#endif
     }
 }

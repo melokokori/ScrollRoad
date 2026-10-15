@@ -12,8 +12,6 @@ namespace ProjectBootstrap
     {
         static readonly string[] PackagesToAdd =
         {
-            // Saydam masaüstü (companion) penceresi
-            "https://github.com/kirurobo/UniWindowController.git#upm",
             // Claude Code <-> Unity Editor köprüsü (MCP for Unity, http://127.0.0.1:8080/mcp)
             "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
         };
@@ -23,6 +21,8 @@ namespace ProjectBootstrap
             "com.unity.visualscripting",
             "com.unity.multiplayer.center",
             "com.unity.collab-proxy",
+            // Şerit saydamlığı artık kendi Win32 kodumuzla (Smart App Control imzasız LibUniWinC.dll'yi engelliyordu)
+            "com.kirurobo.uniwinc",
         };
 
         const double TimeoutSeconds = 600;

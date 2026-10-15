@@ -78836,7 +78836,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1395304871}
-  - component: {fileID: 1395304870}
   - component: {fileID: 1395304869}
   m_Layer: 0
   m_Name: CompanionWindow
@@ -78857,43 +78856,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3440ad4574884744eab71865c801409f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScrollRoad.CompanionWindowController
-  uniWindow: {fileID: 1395304870}
   stripBaseWidth: 440
   applyTimeoutSeconds: 3
   keepOnTopInterval: 0.25
   cardScreenMargin: 24
---- !u!114 &1395304870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1395304868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb951500192d2430eb3e306480cc2f31, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Kirurobo.UniWindowController::Kirurobo.UniWindowController
-  _isTransparent: 0
-  _alphaValue: 1
-  _isTopmost: 0
-  _isBottommost: 0
-  _isZoomed: 0
-  _shouldFitMonitor: 0
-  _allowDropFiles: 0
-  isHitTestEnabled: 0
-  hitTestType: 1
-  opacityThreshold: 0.1
-  autoSwitchCameraBackground: 0
-  forceWindowed: 0
-  currentCamera: {fileID: 832267857}
-  transparentType: 1
-  keyColor:
-    serializedVersion: 2
-    rgba: 65537
-  _isFreePositioningEnabled: 0
-  onObject: 1
-  pickedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &1395304871
 Transform:
   m_ObjectHideFlags: 0
