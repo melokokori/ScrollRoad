@@ -660,8 +660,9 @@ namespace ScrollRoad.EditorTools
             return hud;
         }
 
-        // Olta'nın kart HUD'u (Yol HUD'unun yerleşimiyle): sol üstte toplam kg plakası, sağ üstte göl
-        // tabelası (durum + yemin uzaklığı), sol altta balık defteri özeti. Bugünkü hedef plakası ortak.
+        // Olta'nın kart HUD'u (Yol HUD'unun yerleşimiyle): sol üstte makara kadranı (Yol kadranının yerinde;
+        // bu ayın balığı kadranın sayacında), sağ üstte göl tabelası (durum + yemin uzaklığı), sol altta balık
+        // defteri özeti. Bugünkü hedef plakası ortak.
         static void CreateFishingHud(Transform hudRoot, FishingController fishing)
         {
             var root = new GameObject("FishingHud", typeof(RectTransform));
@@ -669,21 +670,8 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1); // sürükleme yüzeyinin hemen üstünde, pencere düğmelerinin altında
 
-            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
-            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
-            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
-            var label = Tmp(totalPlate.transform, "Label", "TOTAL CATCH", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            label.characterSpacing = 16;
-            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
-            label.rectTransform.sizeDelta = new Vector2(150, 12);
-            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
-            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
-            total.rectTransform.sizeDelta = new Vector2(160, 26);
-            FitToWidth(total, 13f); // 4+ haneli sayı ("7,546 visitors") plakadan taşmasın
-            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            status.characterSpacing = 10;
-            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
-            status.rectTransform.sizeDelta = new Vector2(160, 12);
+            var reelGauge = CreateReelGauge(root.transform, fishing, 128f);
+            Anchor((RectTransform)reelGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "LakeSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -702,8 +690,6 @@ namespace ScrollRoad.EditorTools
             var controller = new GameObject("FishingHudController").AddComponent<FishingHudController>();
             Bind(controller, "fishing", fishing);
             Bind(controller, "root", root);
-            Bind(controller, "totalText", total);
-            Bind(controller, "statusText", status);
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);
             Bind(controller, "distanceText", distance);
@@ -1093,6 +1079,8 @@ namespace ScrollRoad.EditorTools
             }
             BindArray(passport, "intervalLogs", intervalLogs);
             var garage = CreateGaragePanel(canvas.transform, buttons[3]);
+            var tackleBox = CreateTackleBoxPanel(canvas.transform, fishing);
+            Bind(garage, "tackleBox", tackleBox);
             var statsCtrl = CreateStatsPanel(canvas.transform, buttons[4], drive, stats);
             var settings = CreateSettingsPanel(canvas.transform, buttons[5], companion);
 
@@ -1123,13 +1111,14 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "leaderboardButton", buttons[2]);
             Bind(menu, "taskbarButton", buttons[6]);
             Bind(menu, "collectionLabel", buttons[1].GetComponentInChildren<TMP_Text>());
+            Bind(menu, "garageLabel", buttons[3].GetComponentInChildren<TMP_Text>());
             Bind(menu, "quitButton", quit);
             Bind(menu, "leaderboardPanel", lbPanel);
             Bind(menu, "leaderboardText", lbText);
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel };
+            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, tackleBox.Panel };
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
@@ -1362,6 +1351,73 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "fishHereText", fishHere.GetComponentInChildren<TMP_Text>());
             BindArray(controller, "fishImages", images);
             BindArray(controller, "slotRoots", roots);
+            BindArray(controller, "nameTexts", names);
+            BindArray(controller, "detailTexts", details);
+            Bind(controller, "closeButton", close);
+            return controller;
+        }
+
+        // Takım kutusu (Olta'nın garajı): dört takım yan yana kart — çerçeve (seçili yeşil), önizleme olarak
+        // takımın makara kadranı, ad, tarif / kilit. Kadran görselleri çalışma zamanında (Resources).
+        static TackleBoxController CreateTackleBoxPanel(Transform parent, FishingController fishing)
+        {
+            var panel = CreatePanel(parent, "TackleBoxPanel", "Tackle box", out var close, out _);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(420, 16);
+            count.characterSpacing = 2;
+
+            int n = FishingGear.All.Length;
+            var buttons = new Object[n];
+            var frames = new Object[n];
+            var dials = new Object[n];
+            var names = new Object[n];
+            var details = new Object[n];
+            const float cardW = 176f, cardH = 232f, gap = 12f, cardY = -22f;
+            for (int i = 0; i < n; i++)
+            {
+                float x = (i - (n - 1) / 2f) * (cardW + gap);
+                var button = CreateButton(panel.transform, $"Tackle_{FishingGear.All[i].Id}", "", new Vector2(x, cardY),
+                    new Vector2(cardW, cardH), ButtonIdle, 10f);
+                var frame = button.GetComponent<Image>();
+                var cell = Plate(button.transform, "Cell", Cell, RoundSprite);
+                Stretch(cell.rectTransform);
+                cell.rectTransform.offsetMin = new Vector2(3f, 3f);
+                cell.rectTransform.offsetMax = new Vector2(-3f, -3f);
+
+                var dialGo = new GameObject("Dial", typeof(RectTransform), typeof(Image));
+                dialGo.transform.SetParent(button.transform, false);
+                var dial = dialGo.GetComponent<Image>();
+                dial.preserveAspect = true;
+                dial.raycastTarget = false;
+                var dr = (RectTransform)dialGo.transform;
+                dr.anchorMin = dr.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(dr, new Vector2(0f, -70f), new Vector2(118f, 118f));
+
+                var name = Tmp(button.transform, "Name", "", 14, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                SetRect(name.rectTransform, new Vector2(0f, 76f), new Vector2(cardW - 14f, 20f));
+                var detail = Tmp(button.transform, "Detail", "", 9.5f, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Top);
+                detail.lineSpacing = 6;
+                detail.textWrappingMode = TextWrappingModes.Normal;
+                detail.rectTransform.anchorMin = detail.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                SetRect(detail.rectTransform, new Vector2(0f, 38f), new Vector2(cardW - 18f, 44f));
+
+                buttons[i] = button;
+                frames[i] = frame;
+                dials[i] = dial;
+                names[i] = name;
+                details[i] = detail;
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("TackleBoxController").AddComponent<TackleBoxController>();
+            Bind(controller, "fishing", fishing);
+            Bind(controller, "panel", panel);
+            Bind(controller, "countText", count);
+            BindArray(controller, "cardButtons", buttons);
+            BindArray(controller, "cardFrames", frames);
+            BindArray(controller, "dialImages", dials);
             BindArray(controller, "nameTexts", names);
             BindArray(controller, "detailTexts", details);
             Bind(controller, "closeButton", close);
@@ -2231,6 +2287,34 @@ namespace ScrollRoad.EditorTools
                 Bind(view, "idleLabel", idle);
                 Bind(view, "odometer", odometer);
             }
+            return view;
+        }
+
+        // Olta'nın makara kadranı (ReelGaugeView): Yol kadranının yapısı — yüz, kadran içi sayaç (bu ayın
+        // balığı), IDLE, ibre. Görseller çalışma zamanında seçili takımla atanır (FishingGear.Dial).
+        static ReelGaugeView CreateReelGauge(Transform parent, FishingController fishing, float size)
+        {
+            var go = new GameObject("ReelGauge", typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            ((RectTransform)go.transform).sizeDelta = new Vector2(size, size);
+
+            var face = GaugeImage(go.transform, "Face");
+            var odometer = CreateOdometer(go.transform, "Odometer", size * 13f / 200f, out _);
+            Stretch((RectTransform)odometer.transform);
+            var idle = Tmp(go.transform, "Idle", "IDLE", size * 9f / 200f, UiFonts.ExtraBold, Amber);
+            idle.characterSpacing = 10;
+            var ir = idle.rectTransform;
+            ir.anchorMin = new Vector2(0.25f, 1f - 125f / 200f);
+            ir.anchorMax = new Vector2(0.75f, 1f - 111f / 200f);
+            ir.offsetMin = ir.offsetMax = Vector2.zero;
+            var needle = GaugeImage(go.transform, "Needle");
+
+            var view = go.AddComponent<ReelGaugeView>();
+            Bind(view, "fishing", fishing);
+            Bind(view, "face", face);
+            Bind(view, "needle", needle);
+            Bind(view, "idleLabel", idle);
+            Bind(view, "odometer", odometer);
             return view;
         }
 

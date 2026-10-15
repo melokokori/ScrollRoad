@@ -210,6 +210,14 @@ ENV_SOUNDS = {
     # Olta: makara sarma (scroll hızına bağlı perde), atış, vuruş, tutuş.
     "reel_loop": (True, "Spinning fishing reel handle being cranked steadily by hand, soft smooth gear whirr with a light "
                         "rhythmic ticking, quiet lakeside, close up" + LOOP_TAIL, 8.0),
+    # Olta takımı skinleri (2026-10-15, FishingGear): her takımın kendi makara döngüsü (Klasik = reel_loop).
+    "reel_loop_centerpin": (True, "Old wooden centerpin fishing reel spinning freely as line is wound in by hand: a soft "
+                                  "dry clicking ratchet, light hollow wooden rattle, slow and gentle, quiet riverside, "
+                                  "close up" + LOOP_TAIL, 8.0),
+    "reel_loop_carbon": (True, "Modern high-end carbon spinning fishing reel cranked steadily: very smooth silky "
+                               "ball-bearing whirr, barely any clicking, precise and quiet, close up" + LOOP_TAIL, 8.0),
+    "reel_loop_gold": (True, "Luxury polished brass baitcasting fishing reel cranked steadily: a smooth fine metallic "
+                             "purr with a delicate high soft ticking, quiet, close up" + LOOP_TAIL, 8.0),
     "fish_cast": (False, "Fishing rod cast: one quick soft whoosh of the rod, line zipping off a spinning reel, then a small "
                          "lure plop into calm water in the distance, quiet, no music", 2.5),
     "fish_strike": (False, "A fish bites: short zip of a fishing reel drag as the line tightens, then a small splash, quiet, no music", 1.8),

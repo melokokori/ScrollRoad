@@ -9,11 +9,16 @@
   <skin>_mini_lit.png     128x128  yalnız Dijital
   <skin>_plate.png        512x128  görev çubuğu plakası (206x42 tasarım, dikeyde ortalı)
 
+Olta takımlarının makara kadranları (reel_*, 2026-10-15, FishingGear): aynı geometri, ölçek RPM = km/h / 2
+(-30..110), birim "RPM", geri bölge "OUT", sayacın altında "FISH" (sayaç bu ayın balığı). Yalnız kart kadranı
+(yüz + ibre) üretilir; görev çubuğu görünümleri yok (card_only).
+
 Koordinatlar 200 birimlik kadran uzayında (maketteki SVG ile aynı). 4x süper örnekleme ile çizilir.
 Kullanım: python Tools/make_gauges.py
 """
 import math
 import os
+import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -48,6 +53,19 @@ SKINS = {
     "airspeed": dict(face="#101113", bezel="#2A2C30", tick="#F2F2F0", num="#F2F2F0", needle="#F2F2F0", hub="#2A2C30",
                      unit="#9A9A96", rev="#3A3C40", knots=True, arcs=[(30, 90, "#3DBE5C"), (90, 110, "#E8C23A")],
                      redline=115, odoBg="#000000", odoCell="#1C1D20", odoLastBg="#F2F2F0"),
+    # Olta takımları (FishingGear.Dial): Klasik, Bambu, Karbon, Altın.
+    "reel_classic": dict(rpm=True, card_only=True, face="#E6ECEF", bezel="#26314A", tick="#26314A", num="#26314A",
+                         needle="#E8644A", hub="#26314A", unit="#5E6B7A", rev="#9AA6B2", odoBg="#26314A",
+                         odoCell="#33405C", odoLastBg="#E8644A"),
+    "reel_bamboo": dict(rpm=True, card_only=True, face="#EFE2BF", face2="#D9C08A", bezel="#6E4B2A", tick="#3B2A1A",
+                        num="#3B2A1A", needle="#2B1E14", tip="#B5452B", hub="#3B2A1A", unit="#7A6448", rev="#B39A70",
+                        deco=True, odoBg="#3B2A1A", odoCell="#52402C", odoLastBg="#B5452B"),
+    "reel_carbon": dict(rpm=True, card_only=True, face="#16181B", weave="#1E2125", bezel="#34383F", tick="#E6E8EA",
+                        num="#E6E8EA", needle="#E23B3B", hub="#0B0C0E", unit="#8C9096", rev="#4A4E55", red="#E23B3B",
+                        italic=True, odoBg="#0B0C0E", odoCell="#202328", odoLastBg="#E23B3B"),
+    "reel_gold": dict(rpm=True, card_only=True, face="#1B1813", bezel="gold", tick="#E9C873", num="#E9C873",
+                      needle="#F3D27E", hub="#2A241A", unit="#A88F55", rev="#5A4E38", odoBg="#0F0D09",
+                      odoCell="#2A241A", odoLastBg="#E9C873"),
 }
 
 
@@ -224,18 +242,24 @@ def dilate_transparent(img, passes=3):
 
 
 CHROME = [(0, "#F7F7F5"), (0.45, "#9EA2A6"), (0.55, "#C9CCCF"), (1, "#6E7276")]
+GOLD = [(0, "#FFF1C4"), (0.45, "#C9A048"), (0.55, "#E6C46E"), (1, "#8A6A26")]
+RPM = 0.5  # makara kadranı: RPM = km/h * RPM
 
 
 def draw_dial(c, s, mini):
     cx = cy = 100
     if s["bezel"] == "chrome":
         c.gradient_circle(cx, cy, 99, CHROME)
+    elif s["bezel"] == "gold":
+        c.gradient_circle(cx, cy, 99, GOLD)
     else:
         c.circle(cx, cy, 99, s["bezel"])
     if s.get("face2"):
         c.gradient_circle(cx, cy, 92, [(0, s["face"]), (1, s["face2"])], radial=True)
     else:
         c.circle(cx, cy, 92, s["face"])
+    if s.get("weave"):
+        draw_weave(c, cx, cy, 92, s["weave"])
     if s.get("ring"):
         c.ring(cx, cy, 88, 1.6, s["ring"])
 
@@ -263,13 +287,13 @@ def draw_dial(c, s, mini):
     else:
         c.arc(cx, cy, 84, MIN, 0, 2, s["rev"], dash=(3, 3))
 
-    f = KN if s.get("knots") else 1.0
+    f = KN if s.get("knots") else RPM if s.get("rpm") else 1.0
     if mini:
-        step = 20 if s.get("knots") else 40
+        step = 20 if s.get("knots") or s.get("rpm") else 40
     else:
-        step = 5 if s.get("knots") else 10
+        step = 5 if s.get("knots") or s.get("rpm") else 10
     major = step if mini else 20
-    label = 20 if s.get("knots") else 40
+    label = 20 if s.get("knots") or s.get("rpm") else 40
     u = math.ceil(MIN * f / step) * step
     while u <= MAX * f + 1e-6:
         kmh = u / f
@@ -293,8 +317,34 @@ def draw_dial(c, s, mini):
                9 if mini else 3.5, "#E23B3B")
     if not mini:
         a = math.radians(angle_for(-40))
-        c.text(cx + 68 * math.cos(a), cy - 68 * math.sin(a), "R", FONT_BOLD, 10, s["rev"])
-        c.text(cx, 67, "KNOTS" if s.get("knots") else "KM/H", FONT_MONO, 8.5, s["unit"], spacing=1.5)
+        if s.get("rpm"):
+            c.text(cx + 66 * math.cos(a), cy - 66 * math.sin(a), "OUT", FONT_BOLD, 7.5, s["rev"], spacing=0.5)
+            c.text(cx, 67, "RPM", FONT_MONO, 8.5, s["unit"], spacing=1.5)
+            c.text(cx, 160, "FISH", FONT_MONO, 7.5, s["unit"], spacing=1.5)
+        else:
+            c.text(cx + 68 * math.cos(a), cy - 68 * math.sin(a), "R", FONT_BOLD, 10, s["rev"])
+            c.text(cx, 67, "KNOTS" if s.get("knots") else "KM/H", FONT_MONO, 8.5, s["unit"], spacing=1.5)
+
+
+def draw_weave(c, cx, cy, r, color):
+    """Karbon örgüsü: yüzün içinde küçük çapraz dama (yalnız hafif ton farkı)."""
+    size = int(round(2 * r * c.k))
+    layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer, "RGBA")
+    cell = 5 * c.k
+    n = int(size / cell) + 2
+    for j in range(n):
+        for i in range(n):
+            if (i + j) % 2:
+                continue
+            x0, y0 = i * cell, j * cell
+            d.rectangle([x0, y0, x0 + cell - 1, y0 + cell - 1], fill=rgba(color))
+    layer = layer.rotate(45, resample=Image.BICUBIC)
+    mask = Image.new("L", (size, size), 0)
+    ImageDraw.Draw(mask).ellipse([0, 0, size - 1, size - 1], fill=255)
+    layer.putalpha(Image.composite(layer.getchannel("A"), Image.new("L", (size, size), 0), mask))
+    x0, y0 = c.P(cx - r, cy - r)
+    c.img.alpha_composite(layer, (int(round(x0)), int(round(y0))))
 
 
 def draw_odometer(c, s, ox, oy, cw, ch, gap):
@@ -364,11 +414,21 @@ def draw_plate(s):
 
 def main():
     os.makedirs(OUT, exist_ok=True)
+    only = set(sys.argv[1:])
     for name, s in SKINS.items():
+        if only and name not in only:
+            continue
         face = Canvas(512)
         draw_dial(face, s, mini=False)
         draw_odometer(face, s, 100 - (6 * 12.5 + 5 * 1.5) / 2, 128 if s.get("lcd") else 132, 12.5, 17, 1.5)
         face.save(os.path.join(OUT, f"{name}_face.png"))
+
+        if s.get("card_only"):
+            needle = Canvas(512)
+            draw_needle(needle, s, mini=False)
+            needle.save(os.path.join(OUT, f"{name}_needle.png"))
+            print("ok", name)
+            continue
 
         mini = Canvas(128)
         draw_dial(mini, s, mini=True)

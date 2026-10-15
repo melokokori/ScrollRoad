@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Olta'nın kart bilgi katmanı (Yol HUD'unun "tabela" diliyle): sol üstte koyu plakada bu ay
-    // tutulan balık sayısı + makara durumu, sağ üstte yeşil tabelada mekân + atışın durumu + yemin kıyıya uzaklığı,
+    // Olta'nın kart bilgi katmanı (Yol HUD'unun "tabela" diliyle): sol üstte makara kadranı (ReelGaugeView;
+    // bu ayın balığı kadranın sayacında, 2026-10-15'ten önce burada koyu plaka vardı — alanlar artık
+    // isteğe bağlı), sağ üstte yeşil tabelada mekân + atışın durumu + yemin kıyıya uzaklığı,
     // sol altta balık defteri özeti. Bugünkü hedef plakası (sağ alt) Yol ile ortak (HudController).
     // Görev çubuğu şeridinde ve Yol'da gizli.
     public class FishingHudController : MonoBehaviour
@@ -31,24 +32,27 @@ namespace ScrollRoad
             if (!show) return;
 
             var p = fishing.Progress;
-            totalText.SetText(EnvironmentCatalog.Fishing.Format(p.monthFish * EnvironmentCatalog.FishIntervalPoints));
+            if (totalText != null) totalText.SetText(EnvironmentCatalog.Fishing.Format(p.monthFish * EnvironmentCatalog.FishIntervalPoints));
 
             var engine = ScoreEngine.Instance;
             bool active = engine != null && engine.IsUserActive;
-            if (fishing.ReelDirection < 0f)
+            if (statusText != null)
             {
-                statusText.text = "LETTING LINE OUT";
-                statusText.color = Normal;
-            }
-            else if (!active)
-            {
-                statusText.text = "IDLE · SLOW REEL";
-                statusText.color = Idle;
-            }
-            else
-            {
-                statusText.text = "REELING";
-                statusText.color = Normal;
+                if (fishing.ReelDirection < 0f)
+                {
+                    statusText.text = "LETTING LINE OUT";
+                    statusText.color = Normal;
+                }
+                else if (!active)
+                {
+                    statusText.text = "IDLE · SLOW REEL";
+                    statusText.color = Idle;
+                }
+                else
+                {
+                    statusText.text = "REELING";
+                    statusText.color = Normal;
+                }
             }
 
             placeText.SetText(fishing.Spot.Name.ToUpperInvariant());

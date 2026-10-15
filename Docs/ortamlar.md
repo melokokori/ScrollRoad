@@ -298,3 +298,27 @@ Dünya, bumerang, çömlek, soyacak ve kebap Rüzgârgülü/Plak'ın kalıbıyla
 - **Editör, Play, inceleme modu (LoL maçı bittikten sonra, kayıt yedeği + birebir geri yükleme, sha256 aynı):** beş ortamın her biri için arayüzüyle birlikte kart, nadir öğe gelirken tabela ("Rising · The Great Wall", "Aiming at · The Gong", "Shaping · The Amphora", "Peeling · Dragon Fruit", "Order up · Iskender"), görev çubuğu şeridi (sayı + durum yazısı + sahne, 440×48 oranı), beş defter paneli (dolu hâli; "best" değerleri test verisi) ve 10 kartlı iki sıralı Activities görüldü. Önceki turlardaki düzeltmeler (Güneş halesi, el konumu, büyütülen hedef/meyve/şiş, pass) bu çekimlerde doğrulandı.
 - **Küçük düzeltme:** Dünya'nın kıta dokusu (256², gürültü) artık ortam ilk görüldüğünde üretiliyor (açılışta herkes için üretilmesin).
 - **Hiçbir ortamda doğrulanmayan:** gerçek fare tekerleğiyle hız/geri sarma hissi (enjekte scroll sayılmıyor), nadir öğenin ilk geldiği andaki duyuru tabelası ve çan, seslerin kulakla dinlenmesi (yalnız süre/LUFS/zarf ölçüldü), Sepya teması, build'de görev çubuğu şeridi (gerçek pencere).
+
+## 15.10 — Olta takımı: kamış/makara skinleri, makara kadranı, makara sesleri (ajan; bütün ayrıntı kararları onay bekliyor)
+
+- **Takımlar (`FishingGear`)** — kamış + makara + kadran + ses birlikte değişir, kozmetik, ömür boyu balıkla açılır
+  (mekân eşiklerinin arasına: Nehir 20, Kıyı 50, Açık deniz 100, Buz 180):
+  Classic (0; lacivert grafit kamış, gümüş spinning makara) · Bamboo (10; kamış rengi bambu, ahşap **merkez makara** —
+  tamburun kendisi döner, telleri görünür) · Carbon (75; siyah kamış, kırmızı ayrıntılı makara) · Gold (250; altın
+  sarılı kamış, pirinç makara). Açılınca bir kez "New tackle: …" duyurusu; seçim olta kaydında (`FishingProgress.gear`).
+- **Görsel yöntem:** balıkçı görsellerinden makara ve elden uca kamış `Tools/strip_rods.py` ile silindi (özgünler
+  `Tools/art_source/fishing_rods/`), ikisi `FishingSceneView.DrawTackle`'da kodla, takım rengiyle çiziliyor: elden uca
+  incelen kamış + 4 kılavuz, makara ayağı/gövde/makara ağzı ve **scroll hızıyla dönen kol** (misina boşalırken ters,
+  atış/tutuşta durur). Sap (elin arkası) görselde kaldı. Makara kart ölçeğinde özgününden %20 büyük.
+- **Makara kadranı (`ReelGaugeView`)** — Olta kartında sol üstte, Yol kadranının yerinde (eski "TOTAL CATCH" plakası
+  kaldırıldı): ibre kol devri **RPM = Yol km/h ÷ 2** (seyir 30, rölanti 5, boost 110'a kadar, misina salınırken "OUT"
+  bölgesi), kadran içi sayaç **bu ayın balığı**, ondalık hane sıradaki balığa sarılan kısım. Her takımın kendi kadranı
+  (`Tools/make_gauges.py` reel_classic/bamboo/carbon/gold; yalnız kart, şerit görünümü yok — şerit eskisi gibi sayı + durum).
+- **Takım kutusu:** ≡ çekmecesindeki "Garage" satırı Olta'dayken "Tackle box" olur; 4 kart (önizleme = takımın kadranı).
+- **Sesler (ElevenLabs, `gen_sound.py --env`):** `reel_loop_centerpin` (ahşap cırcır), `reel_loop_carbon` (ipeksi rulman),
+  `reel_loop_gold` (ince metalik tıkırtı); Classic eski `reel_loop`. Hepsi ~-27 LUFS (mevcut makarayla aynı); takım
+  değişince döngü kesilmeden yeni sesle sürer.
+- **Doğrulama:** batchmode Play'de kameradan RenderTexture yakalamasıyla 5 mekân × takımlar, takım kutusu ve şerit
+  görüldü (`Desktop\IDLE\ekran_goruntuleri_olta_takim\`). Kulakla dinlenmedi; build'de ve gerçek scroll'la denenmedi
+  (kullanıcının oyunu Builds/Windows'tan açıktı, LoL maçı sürüyordu).
+- **Sonraya:** sahte yem skinleri (kaşık, rapala, silikon), su ambiyansı, şeritte makara kadranı.

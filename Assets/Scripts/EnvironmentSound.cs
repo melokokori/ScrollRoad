@@ -10,7 +10,9 @@ namespace ScrollRoad
     //    sıklığı dönüş hızının kendisi, şiddeti ve perdesi de hıza göre. Geri dönüşte de çalar.
     //  - Olta: makara sarma döngüsü yalnız kullanıcı aktifken (son scroll'dan 3 dk) sarılırken/misina boşalırken
     //    (perde ve şiddet scroll hızına göre, boşalırken biraz kalın) — rölantide saatlerce tıkırdamasın;
-    //    atış, balık vurma ve tutma tek seferlik (rölantide de).
+    //    atış, balık vurma ve tutma tek seferlik (rölantide de). Makara döngüsü seçili takımın sesi
+    //    (FishingGear.ReelSound, 2026-10-15): Klasik spinning, Bambu ahşap merkez makara cırcırı, Karbon
+    //    ipeksi rulman, Altın ince metalik tıkırtı.
     //  - İşaret: kapıdan nadir misafir girince ince çan; efsane (Koca Ayak, Altın Sazan) gelince dört notalı çan.
     // Ses dosyası yoksa o ses sessizce atlanır.
     public class EnvironmentSound : MonoBehaviour
@@ -32,6 +34,7 @@ namespace ScrollRoad
         AudioSource sweep;
         AudioClip sweepClip, castClip, strikeClip, catchClip, chimeClip, legendClip;
 
+        string reelSound;
         float reelLevel;
         float smoothedSpeed;
         long lastWing = long.MinValue;
@@ -46,7 +49,8 @@ namespace ScrollRoad
             reel.playOnAwake = false;
             reel.loop = true;
             reel.volume = 0f;
-            reel.clip = Load("reel_loop");
+            reelSound = "reel_loop";
+            reel.clip = Load(reelSound);
             effects = gameObject.AddComponent<AudioSource>();
             effects.playOnAwake = false;
             // Süpürmenin perdesi hıza göre oynar; pitch kaynak geneline etki ettiği için ayrı kaynak.
@@ -110,6 +114,22 @@ namespace ScrollRoad
             float target = 0f;
             if (on && fishing != null)
             {
+                // Takım değişince döngü yeni takımın sesiyle sürer (çalıyorsa kesilmeden).
+                var gear = FishingGear.Selected;
+                if (gear.ReelSound != reelSound)
+                {
+                    reelSound = gear.ReelSound;
+                    var clip = Load(reelSound);
+                    if (clip == null) clip = Load("reel_loop");
+                    bool playing = reel.isPlaying;
+                    reel.Stop();
+                    reel.clip = clip;
+                    if (playing && clip != null)
+                    {
+                        reel.time = Random.Range(0f, clip.length);
+                        reel.Play();
+                    }
+                }
                 var phase = fishing.CurrentPhase;
                 bool reeling = userActive && fishing.ReelDirection != 0f
                                && (phase == FishingController.Phase.Retrieving || phase == FishingController.Phase.Hooked);

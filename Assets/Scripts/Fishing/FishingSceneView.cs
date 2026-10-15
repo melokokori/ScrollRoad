@@ -40,9 +40,16 @@ namespace ScrollRoad
 
         // Mekânın görünümü. Balıkçı görselinin ölçüleri normalize (sol-alt köken): kamış ucu, ayak/iskele
         // üstü, iskele direkleri, suyun başladığı yer (iskele ucu ya da öndeki ayak).
+        // Kamışın elden uca kısmı ve makara görselden silindi, takım skiniyle kodla çizilir (FishingGear):
+        // RodHand kamışın elden çıktığı nokta, RodWidth oradaki kalınlık, ReelCenter/ReelSize makaranın
+        // görseldeki yeri ve boyu (boy oranı). Değerler Tools/strip_rods.py çıktısı.
         sealed class Look
         {
             public Vector2 RodTip;
+            public Vector2 RodHand;
+            public float RodWidth;
+            public Vector2 ReelCenter;
+            public float ReelSize;
             public float DeckTop;
             public Vector2[] Posts;
             public float PierEnd;
@@ -58,6 +65,8 @@ namespace ScrollRoad
         static readonly Look LakeLook = new Look
         {
             RodTip = new Vector2(0.994f, 0.970f),
+            RodHand = new Vector2(0.680f, 0.700f), RodWidth = 0.0161f,
+            ReelCenter = new Vector2(0.697f, 0.652f), ReelSize = 0.0585f,
             DeckTop = 0.28f,
             Posts = new[] { new Vector2(0.045f, 0.092f), new Vector2(0.531f, 0.578f) },
             PierEnd = 0.62f,
@@ -78,6 +87,8 @@ namespace ScrollRoad
         static readonly Look RiverLook = new Look
         {
             RodTip = new Vector2(0.995f, 0.977f),
+            RodHand = new Vector2(0.421f, 0.603f), RodWidth = 0.0215f,
+            ReelCenter = new Vector2(0.414f, 0.509f), ReelSize = 0.0957f,
             DeckTop = 0f,
             HeightScale = 0.72f, // iskelesiz boydan figür: göldeki adamla aynı boyda görünsün
             Posts = new Vector2[0],
@@ -100,6 +111,8 @@ namespace ScrollRoad
         static readonly Look CoastLook = new Look
         {
             RodTip = new Vector2(0.992f, 0.996f),
+            RodHand = new Vector2(0.411f, 0.587f), RodWidth = 0.0176f,
+            ReelCenter = new Vector2(0.440f, 0.522f), ReelSize = 0.0840f,
             DeckTop = 0f,
             HeightScale = 0.72f,
             Posts = new Vector2[0],
@@ -124,6 +137,8 @@ namespace ScrollRoad
         static readonly Look OpenSeaLook = new Look
         {
             RodTip = new Vector2(0.902f, 0.99f),
+            RodHand = new Vector2(0.526f, 0.639f), RodWidth = 0.019f,
+            ReelCenter = new Vector2(0.563f, 0.607f), ReelSize = 0.0762f,
             DeckTop = 0.08f,
             DeckAbove = 0f,
             HeightScale = 0.92f,
@@ -151,6 +166,8 @@ namespace ScrollRoad
         static readonly Look IceLook = new Look
         {
             RodTip = new Vector2(0.995f, 0.6f),
+            RodHand = new Vector2(0.758f, 0.539f), RodWidth = 0.0098f,
+            ReelCenter = new Vector2(0.738f, 0.482f), ReelSize = 0.0703f,
             DeckTop = 0f,
             DeckAbove = 0.5f,
             HeightScale = 0.55f,
@@ -181,6 +198,8 @@ namespace ScrollRoad
         static readonly Color LureColor = new Color(0.86f, 0.88f, 0.90f);
         static readonly Color LureTail = new Color(0.86f, 0.30f, 0.26f);
 
+        const int RodSegmentCount = 3;
+        const int RodGuideCount = 4;
         const int WaterBands = 4;
         const int ReedCount = 7;
         const int DropCount = 14;
@@ -196,6 +215,9 @@ namespace ScrollRoad
         SpriteRenderer[] bands, posts, reeds, drops, bankStones, bedStones, streaks;
         float[] streakX;
         SpriteRenderer iceLeft, iceRight, snowLeft, snowRight, holeWater;
+        SpriteRenderer[] rodSegments, rodGuides, drumSpokes;
+        SpriteRenderer reelStem, reelBody, reelSpool, reelLip, reelDrum, reelDrumInner, handleArm, handleKnob;
+        float handleAngle; // makara kolunun açısı (derece), sarma hızıyla döner
         float holeX, holeSurf; // Buz deliği: deliğin ortası ve içindeki su yüzeyi
         Look look = LakeLook;
         Sprite fishermanSprite;
@@ -260,6 +282,20 @@ namespace ScrollRoad
             lure = Create("Lure", circleSprite, 25);
             lureTail = Create("LureTail", circleSprite, 26);
             fisherman = Create("Fisherman", whiteSprite, 30);
+            rodGuides = new SpriteRenderer[RodGuideCount];
+            for (int i = 0; i < RodGuideCount; i++) rodGuides[i] = Create($"RodGuide{i}", circleSprite, 31);
+            rodSegments = new SpriteRenderer[RodSegmentCount];
+            for (int i = 0; i < RodSegmentCount; i++) rodSegments[i] = Create($"Rod{i}", whiteSprite, 32);
+            reelStem = Create("ReelStem", whiteSprite, 33);
+            reelDrum = Create("ReelDrum", circleSprite, 34);
+            reelDrumInner = Create("ReelDrumInner", circleSprite, 35);
+            drumSpokes = new SpriteRenderer[2];
+            for (int i = 0; i < 2; i++) drumSpokes[i] = Create($"DrumSpoke{i}", whiteSprite, 36);
+            reelBody = Create("ReelBody", circleSprite, 34);
+            reelSpool = Create("ReelSpool", whiteSprite, 35);
+            reelLip = Create("ReelLip", whiteSprite, 36);
+            handleArm = Create("HandleArm", whiteSprite, 37);
+            handleKnob = Create("HandleKnob", circleSprite, 38);
             drops = new SpriteRenderer[DropCount];
             dropVel = new Vector2[DropCount];
             dropLife = new float[DropCount];
@@ -493,7 +529,16 @@ namespace ScrollRoad
                 PlaceRect(bankStones[i], cx, cy, w, h, stone);
             }
 
-            Vector2 tip = new Vector2(manLeft + manW * look.RodTip.x, manBottom + manH * look.RodTip.y);
+            // Kamış ve makara (takım skini); kayıkta balıkçıyla birlikte yalpalar.
+            var manCenter = new Vector2(manLeft + manW / 2f, manBottom + manH / 2f);
+            float manAngle = fisherman.transform.localEulerAngles.z;
+            Vector2 ManPoint(Vector2 n)
+            {
+                var local = new Vector2((n.x - 0.5f) * manW, (n.y - 0.5f) * manH);
+                return manCenter + (Vector2)(Quaternion.Euler(0f, 0f, manAngle) * local);
+            }
+            Vector2 tip = ManPoint(look.RodTip);
+            DrawTackle(strip, dt, ManPoint(look.RodHand), tip, ManPoint(look.ReelCenter), manH);
 
             // Buz: balıkçının altından kartın iki kenarına buz tabakası (üstünde ince kar), kamış ucunun
             // altında delik; delikte su buzun üstüne yakın durur. Şeritte de çizilir (balıkçıyı taşır).
@@ -524,6 +569,86 @@ namespace ScrollRoad
 
             UpdateLureAndFish(strip, dt, tip, shoreX, farX, wY, maxDepth);
             UpdateDrops(dt, wY);
+        }
+
+        // Kamış: elden uca incelen üç parça, altında dört kılavuz halka. Makara: kamışa dik ayak, gövde, kamış
+        // yönünde makara + ağız, sarma hızıyla dönen kol. Bambu takımda merkez makara (dönen tambur + teller).
+        // Kol devri kadrandakiyle aynı (ReelGaugeView.Rpm): seyirde ~30, boost'ta 110'a kadar; misina
+        // boşalırken ters döner, atış/tutuş/dinlenmede durur.
+        void DrawTackle(bool strip, float dt, Vector2 hand, Vector2 tip, Vector2 reelCenter, float manH)
+        {
+            var gear = FishingGear.Selected;
+            var tint = fisherman.color;
+            Color Tinted(Color c) => Opaque(new Color(c.r * tint.r, c.g * tint.g, c.b * tint.b));
+
+            var axis = tip - hand;
+            float length = axis.magnitude;
+            var dir = length > 0.0001f ? axis / length : Vector2.right;
+            var down = new Vector2(dir.y, -dir.x);
+            if (Vector2.Dot(reelCenter - hand, down) < 0f) down = -down;
+
+            float w0 = Mathf.Max(look.RodWidth * manH, strip ? 0.03f : 0.012f);
+            var blank = Tinted(gear.Blank);
+            for (int i = 0; i < RodSegmentCount; i++)
+            {
+                float t0 = i / (float)RodSegmentCount, t1 = (i + 1) / (float)RodSegmentCount;
+                // Parçalar hafifçe üst üste biner (eklem boşluğu görünmesin).
+                var a = hand + axis * Mathf.Max(0f, t0 - 0.01f);
+                var b = hand + axis * t1;
+                PlaceLine(rodSegments[i], a, b, w0 * Mathf.Lerp(1f, 0.4f, (t0 + t1) / 2f), blank);
+            }
+            var guide = Tinted(gear.Guide);
+            for (int i = 0; i < RodGuideCount; i++)
+            {
+                float t = 0.25f + i * 0.2f;
+                float w = w0 * Mathf.Lerp(1f, 0.4f, t);
+                var at = hand + axis * t + down * w * 0.9f;
+                float r = Mathf.Max(w * 1.1f, strip ? 0.03f : 0.014f);
+                PlaceRect(rodGuides[i], at.x, at.y, r, r, guide);
+            }
+
+            // Kol devri: kadranla aynı ölçek. Yalnız sarılırken (ya da misina boşalırken) döner.
+            var phase = fishing.CurrentPhase;
+            bool turning = phase == FishingController.Phase.Retrieving || phase == FishingController.Phase.Hooked;
+            float rpm = turning ? ReelGaugeView.Rpm() : 0f;
+            handleAngle = Mathf.Repeat(handleAngle - rpm / 60f * 360f * dt, 360f);
+
+            float s = look.ReelSize * manH * 1.2f; // kart ölçeğinde okunsun diye özgününden biraz büyük
+            var foot = hand + dir * Vector2.Dot(reelCenter - hand, dir);
+            float rodAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            var body = Tinted(gear.Body);
+            var handleColor = Tinted(gear.Handle);
+            var accent = Tinted(gear.Accent);
+            var knobDir = (Vector2)(Quaternion.Euler(0f, 0f, handleAngle) * Vector3.right);
+
+            PlaceLine(reelStem, foot, reelCenter, s * 0.12f, gear.Centerpin ? handleColor : body);
+            reelDrum.enabled = reelDrumInner.enabled = gear.Centerpin;
+            drumSpokes[0].enabled = drumSpokes[1].enabled = gear.Centerpin;
+            reelBody.enabled = reelSpool.enabled = reelLip.enabled = handleArm.enabled = !gear.Centerpin;
+            if (gear.Centerpin)
+            {
+                PlaceRect(reelDrum, reelCenter.x, reelCenter.y, s * 0.8f, s * 0.8f, body);
+                PlaceRect(reelDrumInner, reelCenter.x, reelCenter.y, s * 0.56f, s * 0.56f, Tinted(gear.Spool));
+                for (int i = 0; i < 2; i++)
+                {
+                    var spoke = (Vector2)(Quaternion.Euler(0f, 0f, handleAngle + i * 90f) * Vector3.right) * s * 0.36f;
+                    PlaceLine(drumSpokes[i], reelCenter - spoke, reelCenter + spoke, s * 0.07f, handleColor);
+                }
+                var knob = reelCenter + knobDir * s * 0.3f;
+                PlaceRect(handleKnob, knob.x, knob.y, s * 0.15f, s * 0.15f, accent);
+                return;
+            }
+
+            PlaceRect(reelBody, reelCenter.x, reelCenter.y, s * 0.42f, s * 0.42f, body);
+            var spoolAt = reelCenter + dir * s * 0.3f;
+            PlaceRect(reelSpool, spoolAt.x, spoolAt.y, s * 0.34f, s * 0.44f, Tinted(gear.Spool));
+            reelSpool.transform.localRotation = Quaternion.Euler(0f, 0f, rodAngle);
+            var lipAt = reelCenter + dir * s * 0.48f;
+            PlaceRect(reelLip, lipAt.x, lipAt.y, s * 0.07f, s * 0.5f, accent);
+            reelLip.transform.localRotation = Quaternion.Euler(0f, 0f, rodAngle);
+            var knobAt = reelCenter + knobDir * s * 0.38f;
+            PlaceLine(handleArm, reelCenter, knobAt, s * 0.08f, handleColor);
+            PlaceRect(handleKnob, knobAt.x, knobAt.y, s * 0.17f, s * 0.17f, accent);
         }
 
         void UpdateLureAndFish(bool strip, float dt, Vector2 tip, float shoreX, float farX, float wY, float maxDepth)

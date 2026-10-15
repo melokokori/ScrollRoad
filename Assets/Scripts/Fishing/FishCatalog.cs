@@ -226,6 +226,9 @@ namespace ScrollRoad
         public string spot = "";
         public List<string> announcedSpots = new List<string>();
         public float lastKg;
+        // Olta takımı skini (FishingGear.Id; boş = Klasik) ve açıldığı duyurulmuş takımlar.
+        public string gear = "";
+        public List<string> announcedGear = new List<string>();
 
         // Süren atış
         public string castFishId = "";

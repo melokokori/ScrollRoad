@@ -128,6 +128,7 @@ namespace ScrollRoad
                 NewCast(fromLoad: true);
             }
             CheckSpotUnlocks();
+            CheckGearUnlocks();
 
             double raw = engine.FrameRawPoints;
             ReelDirection = engine.Pace > 1f ? 1f : engine.Pace < -1f ? -1f : 0f;
@@ -199,6 +200,27 @@ namespace ScrollRoad
                     notice.Announce($"New spot: {spot.Name}", $"{spot.Species.Length} new species to catch", $"{spot.Name} unlocked");
                 }
             }
+        }
+
+        // Takım açılınca bir kez duyurulur (seçim kullanıcıda: takım kutusu, ≡ → Tackle box).
+        void CheckGearUnlocks()
+        {
+            if (Time.realtimeSinceStartup < 4f || Time.frameCount % 30 != 15) return;
+            foreach (var gear in FishingGear.All)
+            {
+                if (gear.UnlockTotalFish <= 0 || state.announcedGear.Contains(gear.Id)) continue;
+                if (state.totalFish < gear.UnlockTotalFish) continue;
+                state.announcedGear.Add(gear.Id);
+                Save();
+                if (notice != null) notice.Announce($"New tackle: {gear.Name}", gear.Blurb, $"{gear.Name} tackle unlocked");
+            }
+        }
+
+        public void SetGear(string id)
+        {
+            if (state == null || state.gear == id) return;
+            state.gear = id;
+            Save();
         }
 
         void SetPhase(Phase phase)
