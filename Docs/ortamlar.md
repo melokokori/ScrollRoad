@@ -446,3 +446,22 @@ Ortam Standardı v2'de eklenen 4 mekân genel dünya mutfağıyla doluydu (ramen
 
 - Yeniden kullanılan görseller yeniden adlandırıldı: `salad_plate`→`doner_portion`, `skewer`→`cag_kebab`, `gyros`→`pita_gyros`, `shawarma`→`shawarma_wrap`, `al_pastor`→`tacos_pastor`; `golden_trompo` aynı. 47 alakasız görsel (ve ham kopyaları) silindi, 48 yeni görsel `Tools/gen_kebab.py --all` ile.
 - Eski kimliklerle oyuncunun menüsüne damgalanmış nadirler (ör. Gyros, Shawarma, Al Pastor, kleftiko) kayıtta kalır ama listede görünmez.
+
+## 25.10 gece — "Oyuna başka neler yapabiliriz" listesinin 1. ve 2. grubu (kullanıcı: "1 ve 2 için önerilerini yapalım, yayın işi daha sonra")
+
+**Bitmişlik (grup 1)**
+- **Günlük hedefler kaldırıldı** (f83a573): GoalTracker siparişlerle aynı işi yapıyordu. Seri artık siparişlerde: günün 3 siparişinin hepsi → günlük seri, haftalık sipariş → haftalık seri; eski seri bir kez taşınır. HUD sağ alt: `TODAY ORDERS 1 / 3 · STREAK 4 DAYS`.
+- **Vitrin alt ortada** (f83a573): sol alttaki yeri Rüzgârgülü'nde evlerin önüne geçiyordu; artık defter ve sipariş plakalarının arasında, 20 px yuvalar.
+- **Etkinlik tanıtımı** (500438e, `ActivityGuide`): hiç girilmemiş ortam Activities kartında `NEW · CLICK TO TRY`, çekmece satırında `N NEW`; ilk rehber bittikten sonra Yol'da 8 dk aktif oyunla bir kez "Try something new" ipucu; ortama ilk girişte tanıtım duyurusu. Mevcut oyuncunun oynadığı ortamlar (biten öğesi olan) ve Yol duyurusuz bilinir sayılır.
+- **Defter notları** (500438e, `RareNotes`): 270 nadir + 2 efsane için tek cümlelik İngilizce not. Yeni nadir duyurusunun alt satırı; defterlerde (bulunmuşsa) ve Places'ta imleç ipucu (`RareNoteTooltip`, `RareNoteTarget`).
+- **Ses** (500438e): `peel_loop` elle soyma olarak kodla yeniden (dişli yok); Kapı'ya AVM lobisi ambiyansı `mall_loop` (yalnız aktifken). `Tools/audit_sounds.py`: tüm ortam seslerinin tepe/LUFS/döngü dikişi/tık ölçümü + spektrogram — kulakla dinlenmemiş sentez seslerde dikiş/DC sorunu çıkmadı. Hâlâ kulakla dinlenmedi.
+- `TallyView` takımı OnEnable'da uygular (ortam değişince bir kare beyaz kutu görünüyordu).
+
+**Derinlik (grup 2)**
+- **Kısa etkinlikler** (a960308, `Happenings`): seçili ortamda, kullanıcı aktifken ortalama 40 dk (hafta sonu 25) aktif oyunda bir, aralarında en az 15 dk; 5 dakika boyunca nadir olasılığı ×2,5 (Olta'da sıra ≥ 3 türler). Ortamın dilinde: Feeding frenzy, Tour bus, Gale, Crate delivery, Golden age, Perfect wind, Kiln day, Market day, Lunch rush. Duyuru + vitrinin üstünde kehribar rozet (ad · kalan süre). Kayıt yok.
+- **Gece nadirleri** (a960308): her mekânın 5. nadiri (`EnvironmentContent.NightRareIndex = 4`) yalnız 20:00–06:00 (yerel), gece ×1,5. Places'ta `AFTER DARK ONLY`. Sipariş ödülü gündüz gece nadirini seçmez. Nadir ağırlığı tek yerden: `EnvironmentContent.Weight(env, sıra, …)`. 200.000 öğelik denemede gündüz 0, gece %12,8 pay, etkinlikte nadir oranı 4,8 → 12,0.
+- **Albüm** (fb8ccd2, ≡ → Album): 9 ortam × 5 mekân tek sayfada, doluluk çubuğu, tamamlanan yeşil; hücreye tıklayınca o ortam+mekâna geçiş. Çekmece 9 satır (yükseklik 23).
+- **Yan etkinlik yuvası** (210116c, `SideActivity`): toplam 5 sa seyirden sonra; Activities kartındaki SIDE ile ikinci ortam seçilir, başka ortamdayken ilerlemenin %25'iyle yalnız açılma merdiveninde ilerler (öğe/skor/sipariş yok). Merdiven artık `EnvironmentContent.LadderPoints` = LifetimePoints + `ContentState.sidePoints`.
+- **Steam başarımları** (8ff5745, `Achievements`): 20 başarım, liste ve Steamworks kurulumu `Docs/basarimlar.md`. 480'de gönderilmez; inceleme modunda değerlendirilmez.
+
+**Doğrulama:** her adım editör Play'de RenderTexture çekimiyle görüldü; release build Builds/Windows'a alındı (259 MB), 30 sn duman testinde hep yanıt verdi, istisna yok. Test öncesi editör ve build kayıtları `Desktop\IDLE\kayit_yedegi_2026-10-25\` altına alındı ve testlerden sonra birebir geri yüklendi (hash eşit). Gerçek scroll ile elle oynanmadı; mevcut kayıtta ilk açılışta birkaç başarım ve "yeni etkinlik" duyurusu art arda gelebilir.
