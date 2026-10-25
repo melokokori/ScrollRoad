@@ -38,7 +38,7 @@ namespace ScrollRoad
         [SerializeField] Image[] gaugeIcons;
         [SerializeField] TMP_Text[] gaugeLabels;
         [SerializeField] Button openButton;
-        [SerializeField] TackleBoxController tackleBox; // Olta'dayken "Garage" satırı takım kutusunu açar
+        [SerializeField] SkinBoxController skinBox; // Yol dışında "Garage" satırı ortamın dolabını açar (Ortam Standardı v2)
         [SerializeField] Button closeButton;
         [SerializeField] Color selectedFrameColor = new Color(0.055f, 0.42f, 0.243f); // tabela yeşili
         [SerializeField] Color idleFrameColor = new Color(1f, 1f, 1f, 0.07f);
@@ -94,9 +94,9 @@ namespace ScrollRoad
         // Açılışta seçili aracın sekmesi ve sayfası gösterilir.
         void Open()
         {
-            if (tackleBox != null && EnvironmentManager.Current.Id == EnvironmentId.Fishing)
+            if (skinBox != null && EnvironmentContent.Current != null)
             {
-                tackleBox.Open();
+                skinBox.Open();
                 return;
             }
             detailText.text = "";

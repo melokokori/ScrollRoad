@@ -66,6 +66,7 @@ namespace ScrollRoad
             Array.ConvertAll(GridCatalog.GetSite(venueId).Specials, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public string SkinNoun => "look";
+        public string SkinBoxName => "Looks";
         public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
         public string SkinId => "classic";
         public void SetSkin(string id) { }

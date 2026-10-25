@@ -1083,8 +1083,8 @@ namespace ScrollRoad.EditorTools
             }
             BindArray(passport, "intervalLogs", intervalLogs);
             var garage = CreateGaragePanel(canvas.transform, buttons[4]);
-            var tackleBox = CreateTackleBoxPanel(canvas.transform, fishing);
-            Bind(garage, "tackleBox", tackleBox);
+            var skinBox = CreateSkinBoxPanel(canvas.transform);
+            Bind(garage, "skinBox", skinBox);
             var statsCtrl = CreateStatsPanel(canvas.transform, buttons[5], drive, stats);
             var settings = CreateSettingsPanel(canvas.transform, buttons[6], companion);
 
@@ -1122,7 +1122,7 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, tackleBox.Panel };
+            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
@@ -1479,17 +1479,18 @@ namespace ScrollRoad.EditorTools
             return controller;
         }
 
-        // Takım kutusu (Olta'nın garajı): dört takım yan yana kart — çerçeve (seçili yeşil), önizleme olarak
-        // takımın makara kadranı, ad, tarif / kilit. Kadran görselleri çalışma zamanında (Resources).
-        static TackleBoxController CreateTackleBoxPanel(Transform parent, FishingController fishing)
+        // Dolap (Ortam Standardı v2; Olta takım kutusunun genellemesi): en çok dört takım yan yana kart — çerçeve
+        // (seçili yeşil), önizleme olarak takımın kadranı, ad, tarif / kilit. Kartları SkinBoxController takım
+        // sayısına göre ortalar. Kadran görselleri çalışma zamanında (Resources).
+        static SkinBoxController CreateSkinBoxPanel(Transform parent)
         {
-            var panel = CreatePanel(parent, "TackleBoxPanel", "Tackle box", out var close, out _);
+            var panel = CreatePanel(parent, "SkinBoxPanel", "Looks", out var close, out var title);
             var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
             Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
             count.rectTransform.sizeDelta = new Vector2(420, 16);
             count.characterSpacing = 2;
 
-            int n = FishingGear.All.Length;
+            const int n = 4; // UnlockLadder.SkinHours basamak sayısı
             var buttons = new Object[n];
             var frames = new Object[n];
             var dials = new Object[n];
@@ -1499,7 +1500,7 @@ namespace ScrollRoad.EditorTools
             for (int i = 0; i < n; i++)
             {
                 float x = (i - (n - 1) / 2f) * (cardW + gap);
-                var button = CreateButton(panel.transform, $"Tackle_{FishingGear.All[i].Id}", "", new Vector2(x, cardY),
+                var button = CreateButton(panel.transform, $"Skin_{i}", "", new Vector2(x, cardY),
                     new Vector2(cardW, cardH), ButtonIdle, 10f);
                 var frame = button.GetComponent<Image>();
                 var cell = Plate(button.transform, "Cell", Cell, RoundSprite);
@@ -1533,9 +1534,9 @@ namespace ScrollRoad.EditorTools
             }
 
             panel.SetActive(false);
-            var controller = new GameObject("TackleBoxController").AddComponent<TackleBoxController>();
-            Bind(controller, "fishing", fishing);
+            var controller = new GameObject("SkinBoxController").AddComponent<SkinBoxController>();
             Bind(controller, "panel", panel);
+            Bind(controller, "titleText", title);
             Bind(controller, "countText", count);
             BindArray(controller, "cardButtons", buttons);
             BindArray(controller, "cardFrames", frames);

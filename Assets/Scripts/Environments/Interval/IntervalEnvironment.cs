@@ -131,6 +131,7 @@ namespace ScrollRoad
         }
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public virtual string SkinNoun => "look";
+        public virtual string SkinBoxName => "Looks";
         public virtual SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
         public virtual string SkinId => "classic";
         public virtual void SetSkin(string id) { }

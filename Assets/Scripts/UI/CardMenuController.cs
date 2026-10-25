@@ -30,7 +30,7 @@ namespace ScrollRoad
         [SerializeField] TMP_Text headerSubText;
         [SerializeField] TMP_Text steamText;
         [SerializeField] TMP_Text collectionLabel; // "Passport" (Yol) / "Fish log" (Olta) satırı
-        [SerializeField] TMP_Text garageLabel;     // "Garage" (Yol) / "Tackle box" (Olta) satırı
+        [SerializeField] TMP_Text garageLabel;     // "Garage" (Yol) / ortamın dolabı ("Tackle box"…) satırı
         [SerializeField] Button[] panelButtons; // Passport, Garage, Stats, Settings: panelleri kendi denetleyicileri açar
         [SerializeField] Button leaderboardButton;
         [SerializeField] Button taskbarButton;
@@ -144,7 +144,8 @@ namespace ScrollRoad
             var engine = ScoreEngine.Instance;
             if (engine != null) monthBestText.SetText(EnvironmentManager.Current.Format(engine.MonthBestPoints));
             if (collectionLabel != null) collectionLabel.text = EnvironmentManager.Current.CollectionName;
-            if (garageLabel != null) garageLabel.text = EnvironmentManager.Current.Id == EnvironmentId.Fishing ? "Tackle box" : "Garage";
+            var content = EnvironmentContent.Current;
+            if (garageLabel != null) garageLabel.text = content != null ? content.SkinBoxName : "Garage";
             if (goals != null)
             {
                 string weekKm = goals.AmountLine(weekly: true);

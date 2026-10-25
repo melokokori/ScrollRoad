@@ -95,6 +95,7 @@ namespace ScrollRoad
             Array.ConvertAll(FishCatalog.GetSpot(venueId).Species, f => new RareInfo { Id = f.Id, Name = f.Name, Frequency = f.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public string SkinNoun => "tackle";
+        public string SkinBoxName => "Tackle box";
         public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Dial = g.Dial });
         public string SkinId => FishingGear.SelectedIn(state).Id;
         public void SetSkin(string id)

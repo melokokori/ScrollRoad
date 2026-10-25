@@ -43,6 +43,7 @@ namespace ScrollRoad
         bool IsLogged(string rareId);
 
         string SkinNoun { get; }         // duyurularda: "tackle", "look"
+        string SkinBoxName { get; }      // Dolap'ın adı (çekmece satırı ve panel başlığı): "Tackle box"
         SkinInfo[] Skins { get; }        // merdiven sırasıyla; ilki hep açık
         string SkinId { get; }
         void SetSkin(string id);
