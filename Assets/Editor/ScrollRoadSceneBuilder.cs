@@ -2643,6 +2643,27 @@ namespace ScrollRoad.EditorTools
             root.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
             Bind(root.GetComponent<CardDragHandle>(), "window", companion);
 
+            // İnce çerçeve (2026-10-26): saydam şeridin tutulacak kenarı belli olsun. Dışta koyu, içte açık
+            // çizgi — açık ve koyu görev çubuğunda da görünür. Kenar bandı isabet testinde tutulabilir sayılır
+            // (CompanionWindowController.frameGrabWidth), çizginin kendisi tıklamayı köke bırakır.
+            var frameDark = new GameObject("Frame", typeof(RectTransform), typeof(Image));
+            frameDark.transform.SetParent(root.transform, false);
+            Stretch((RectTransform)frameDark.transform);
+            var frameDarkImage = frameDark.GetComponent<Image>();
+            SetSliced(frameDarkImage, RingSprite);
+            frameDarkImage.color = new Color(0.08f, 0.09f, 0.12f, 0.6f);
+            frameDarkImage.raycastTarget = false;
+            var frameLight = new GameObject("FrameLight", typeof(RectTransform), typeof(Image));
+            frameLight.transform.SetParent(frameDark.transform, false);
+            var frameLightRect = (RectTransform)frameLight.transform;
+            Stretch(frameLightRect);
+            frameLightRect.offsetMin = new Vector2(1f, 1f);
+            frameLightRect.offsetMax = new Vector2(-1f, -1f);
+            var frameLightImage = frameLight.GetComponent<Image>();
+            SetSliced(frameLightImage, RingSprite);
+            frameLightImage.color = new Color(0.95f, 0.96f, 0.98f, 0.55f);
+            frameLightImage.raycastTarget = false;
+
             // Şerit 48 px yüksek (%100 ölçek); CompanionHudController görev çubuğu ölçeğini uygular.
             var km = CreateText(root.transform, "Km", "", 17, Vector2.zero, new Vector2(170, 22), TextLight);
             km.fontStyle = FontStyle.Bold;

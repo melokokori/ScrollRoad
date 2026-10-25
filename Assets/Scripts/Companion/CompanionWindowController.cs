@@ -38,6 +38,7 @@ namespace ScrollRoad
         [SerializeField] int cardScreenMargin = 24;
         [SerializeField] float opacityThreshold = 0.1f; // şeritte bu alfanın altındaki pikseller tıklamayı arkaya geçirir
         [SerializeField] int stripMagnetDistance = 16; // serbest şerit ekran kenarına bu kadar (%100 ölçekte px) yakınsa yapışır
+        [SerializeField] int frameGrabWidth = 6; // şerit bandının kenarından bu kadar (%100 ölçekte px) içerisi saydam olsa da tutulur (çerçeve)
 #pragma warning restore CS0414
 
         static bool companionArgConsumed;
@@ -235,7 +236,7 @@ namespace ScrollRoad
         }
 
         // Kart da şerit de boş bir yerinden (düğme dışı) sürüklenir: CardDragHandle çağırır. Şeritte
-        // saydam pikseller tıklamayı arkaya geçirdiği için tutulan yer araç/sayaç/yazı olur.
+        // saydam pikseller tıklamayı arkaya geçirdiği için tutulan yer araç/sayaç/yazı ya da ince çerçeve olur.
         bool dragging;
 
         public void BeginDrag()
@@ -458,6 +459,9 @@ namespace ScrollRoad
             if (!NativeWindow.TryGetClientCursor(hwnd, out int x, out int y)) return false;
             int w = Screen.width, h = Screen.height;
             if (x < 0 || y < 0 || x >= w || y >= h) return false;
+            // Çerçeve bandı: ince çizgiyi tam tutturmak zor, kenarın birkaç pikseli de tutulur (taşan kadran payı hariç).
+            int grab = Mathf.Max(1, Mathf.RoundToInt(frameGrabWidth * StripScale));
+            if (y >= stripOverflowPx && (x < grab || x >= w - grab || y < stripOverflowPx + grab || y >= h - grab)) return true;
             try
             {
                 hitTestPixel.ReadPixels(new Rect(x, h - 1 - y, 1, 1), 0, 0, false);
