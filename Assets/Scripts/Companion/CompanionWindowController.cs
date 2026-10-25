@@ -39,6 +39,10 @@ namespace ScrollRoad
         [SerializeField] float opacityThreshold = 0.1f; // şeritte bu alfanın altındaki pikseller tıklamayı arkaya geçirir
         [SerializeField] int stripMagnetDistance = 16; // serbest şerit ekran kenarına bu kadar (%100 ölçekte px) yakınsa yapışır
         [SerializeField] int frameGrabWidth = 6; // şerit bandının kenarından bu kadar (%100 ölçekte px) içerisi saydam olsa da tutulur (çerçeve)
+        [Header("Kart ↔ şerit geçişi")]
+        [SerializeField] float switchOutSeconds = 0.2f;
+        [SerializeField] float switchInSeconds = 0.3f;
+        [SerializeField] float switchGlideFraction = 0.35f; // kart, şeride olan yolun bu kadarını süzülür
 #pragma warning restore CS0414
 
         static bool companionArgConsumed;
@@ -152,9 +156,25 @@ namespace ScrollRoad
 
         public void ToggleCompanionMode() => SetCompanionMode(!IsCompanionMode);
 
+        // Geçiş animasyonu sürerken yeni istek (F9 art arda, menü) yok sayılır.
+        bool switching;
+
         public void SetCompanionMode(bool companion)
         {
-            if (companion == IsCompanionMode) return;
+            if (companion == IsCompanionMode || switching) return;
+#if !UNITY_EDITOR
+            if (CanAnimateSwitch())
+            {
+                if (applyRoutine != null) StopCoroutine(applyRoutine);
+                StartCoroutine(SwitchRoutine(companion));
+                return;
+            }
+#endif
+            ApplyMode(companion);
+        }
+
+        void ApplyMode(bool companion)
+        {
             IsCompanionMode = companion;
             stripPlaced = false;
             dragging = false;
@@ -241,7 +261,7 @@ namespace ScrollRoad
 
         public void BeginDrag()
         {
-            if (IsCompanionMode && !stripPlaced) return;
+            if ((IsCompanionMode && !stripPlaced) || switching) return;
 #if !UNITY_EDITOR
             if (!NativeWindow.TryGetBounds(hwnd, out var b) || !NativeWindow.TryGetCursor(out int cx, out int cy)) return;
             dragOffsetX = cx - b.Left;
@@ -420,6 +440,7 @@ namespace ScrollRoad
             // Cam ve tıklama geçirgenliği kapatılır; kart stili ve üstte kalma ApplyCardWindow'da.
             StopStripHitTest();
             NativeWindow.SetStripTransparent(hwnd, false);
+            if (switching) NativeWindow.SetOpacity(hwnd, 0f); // katman kalktı: geçişte pencere görünmez kalsın
             stripTransparent = false;
             NativeWindow.SetTopmost(hwnd, false);
             yield return null;
@@ -429,12 +450,120 @@ namespace ScrollRoad
             yield return null;
             yield return null;
             ApplyCardWindow();
+
+            // Unity çözünürlüğü bazen bir iki kare geç uyguluyor ve kartı çerçeveli boyuta (ör. 1016x464)
+            // büyütüyordu: boyut üst üste birkaç kare doğru kalana kadar yeniden uygulanır.
+            float deadline = Time.realtimeSinceStartup + applyTimeoutSeconds;
+            int stableFrames = 0;
+            while (stableFrames < 3 && Time.realtimeSinceStartup < deadline)
+            {
+                yield return null;
+                if (NativeWindow.TryGetBounds(hwnd, out var b) && b.Width == size.x && b.Height == size.y) stableFrames++;
+                else
+                {
+                    stableFrames = 0;
+                    ApplyCardWindow();
+                }
+            }
 #else
             yield break;
 #endif
         }
 
 #if !UNITY_EDITOR
+        // --- Kart ↔ şerit geçişi (2026-10-26) ---
+        // Yeni bir görsel katman yok, pencerenin kendisi hareket eder: önce gideceği yöne doğru biraz
+        // süzülürken solar, boyut/stil değişimi pencere görünmezken yapılır (eskiden ara karelerde yanlış
+        // boyutlu pencere görünüyordu), sonra yeni hâli belirir — şerit görev çubuğunun içinden hafif
+        // sekerek yükselir, kart şeridin yönünden gelip yerine oturur.
+
+        bool CanAnimateSwitch() =>
+            hwnd != IntPtr.Zero && !cardPending && !hiddenForFullscreen && !BackgroundLifecycle.IsHiddenToTray &&
+            NativeWindow.IsVisible(hwnd) && !NativeWindow.IsMinimized(hwnd);
+
+        IEnumerator SwitchRoutine(bool companion)
+        {
+            if (!NativeWindow.TryGetBounds(hwnd, out var before))
+            {
+                ApplyMode(companion);
+                yield break;
+            }
+            switching = true;
+
+            // Çıkış: kart şeridin yerine doğru, şerit aşağı (görev çubuğunun içine).
+            var outTo = before;
+            if (companion) outTo = Toward(before, PredictedStripBand(), switchGlideFraction);
+            else outTo.Top += before.Height;
+            yield return Glide(before, outTo, 1f, 0f, switchOutSeconds, EaseIn);
+
+            NativeWindow.SetOpacity(hwnd, 0f);
+            ApplyMode(companion);
+            var hold = StartCoroutine(HoldInvisible()); // Unity çözünürlük değişiminde stilleri sıfırlayabiliyor
+            yield return applyRoutine;
+            StopCoroutine(hold);
+
+            // Giriş.
+            if (NativeWindow.TryGetBounds(hwnd, out var placed))
+            {
+                var inFrom = placed;
+                if (companion) inFrom.Top += placed.Height - stripOverflowPx;
+                else inFrom = Toward(placed, before, switchGlideFraction);
+                yield return Glide(inFrom, placed, 0f, 1f, switchInSeconds, companion ? EaseOutBack : EaseOut);
+            }
+            NativeWindow.SetOpacity(hwnd, 1f);
+            if (!companion) NativeWindow.ClearOpacity(hwnd); // kart eskisi gibi katmansız
+            switching = false;
+        }
+
+        IEnumerator HoldInvisible()
+        {
+            while (true)
+            {
+                NativeWindow.SetOpacity(hwnd, 0f);
+                yield return null;
+            }
+        }
+
+        IEnumerator Glide(NativeWindow.ScreenRect from, NativeWindow.ScreenRect to, float alphaFrom, float alphaTo, float seconds, Func<float, float> ease)
+        {
+            float start = Time.realtimeSinceStartup;
+            while (true)
+            {
+                float t = seconds > 0f ? Mathf.Clamp01((Time.realtimeSinceStartup - start) / seconds) : 1f;
+                float e = ease(t);
+                NativeWindow.MoveTo(hwnd, Mathf.RoundToInt(Mathf.LerpUnclamped(from.Left, to.Left, e)), Mathf.RoundToInt(Mathf.LerpUnclamped(from.Top, to.Top, e)));
+                NativeWindow.SetOpacity(hwnd, Mathf.Lerp(alphaFrom, alphaTo, e));
+                if (t >= 1f) yield break;
+                yield return null;
+            }
+        }
+
+        // r'nin merkezini target'ın merkezine doğru verilen oranda kaydırır (boyut aynı kalır).
+        static NativeWindow.ScreenRect Toward(NativeWindow.ScreenRect r, NativeWindow.ScreenRect target, float fraction)
+        {
+            r.Left += Mathf.RoundToInt((target.Left + target.Width / 2 - (r.Left + r.Width / 2)) * fraction);
+            r.Top += Mathf.RoundToInt((target.Top + target.Height / 2 - (r.Top + r.Height / 2)) * fraction);
+            return r;
+        }
+
+        // Şeridin açılacağı yer (ApplyMode'daki hesabın taşan kadransız hâli; yalnız süzülme yönü için).
+        NativeWindow.ScreenRect PredictedStripBand()
+        {
+            if (NativeWindow.TryGetTaskbarStrip(stripBaseWidth, out var auto, out _)) return SavedStripBand(auto);
+            var monitor = Screen.currentResolution;
+            return new NativeWindow.ScreenRect { Left = 12, Top = monitor.height - 48, Width = stripBaseWidth, Height = 48 };
+        }
+
+        static float EaseIn(float t) => t * t * t;
+        static float EaseOut(float t) => 1f - (1f - t) * (1f - t) * (1f - t);
+
+        static float EaseOutBack(float t)
+        {
+            const float c1 = 1.70158f, c3 = c1 + 1f;
+            float u = t - 1f;
+            return 1f + c3 * u * u * u + c1 * u * u;
+        }
+
         // Şeritte imlecin altındaki piksel kare sonunda okunur: saydamsa pencere tıklamayı alttaki görev
         // çubuğuna geçirir, değilse (araba, ≡, sayaç) tıklanabilir. İmleç pencere dışındayken okuma yapılmaz.
         IEnumerator StripHitTestRoutine()

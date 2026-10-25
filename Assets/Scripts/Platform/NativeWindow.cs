@@ -186,6 +186,27 @@ namespace ScrollRoad.Platform
             }
         }
 
+        // Bütün pencerenin opaklığı (kart ↔ şerit geçişi). Katman gerekirse açılır; şerit camıyla birlikte
+        // çalışır (DWM önce piksel alfasını, sonra bu sabit alfayı uygular).
+        public static void SetOpacity(IntPtr hwnd, float alpha)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            long ex = GetWindowLongPtr(hwnd, GWL_EXSTYLE).ToInt64();
+            if ((ex & WS_EX_LAYERED) == 0) SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(ex | WS_EX_LAYERED));
+            int a = (int)Math.Round(Math.Max(0f, Math.Min(1f, alpha)) * 255f);
+            SetLayeredWindowAttributes(hwnd, 0, (byte)a, LWA_ALPHA);
+        }
+
+        // Kart geçişten sonra eski hâline döner: katmansız, tam opak.
+        public static void ClearOpacity(IntPtr hwnd)
+        {
+            if (hwnd == IntPtr.Zero) return;
+            long ex = GetWindowLongPtr(hwnd, GWL_EXSTYLE).ToInt64();
+            if ((ex & WS_EX_LAYERED) != 0) SetWindowLongPtr(hwnd, GWL_EXSTYLE, new IntPtr(ex & ~WS_EX_LAYERED));
+        }
+
+        public static bool IsMinimized(IntPtr hwnd) => hwnd != IntPtr.Zero && IsIconic(hwnd);
+
         // İmlecin pencerenin istemci alanındaki konumu (fiziksel piksel, sol-üst orijin).
         public static bool TryGetClientCursor(IntPtr hwnd, out int x, out int y)
         {
@@ -399,6 +420,10 @@ namespace ScrollRoad.Platform
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool IsWindowVisible(IntPtr hWnd);
+
+        [DllImport("user32.dll")]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool IsIconic(IntPtr hWnd);
 
         [DllImport("user32.dll", EntryPoint = "GetWindowLongPtrW")]
         static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int nIndex);
