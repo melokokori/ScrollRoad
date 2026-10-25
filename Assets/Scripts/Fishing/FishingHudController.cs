@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Olta'nın kart bilgi katmanı (Yol HUD'unun "tabela" diliyle): sol üstte makara kadranı (ReelGaugeView;
-    // bu ayın balığı kadranın sayacında, 2026-10-15'ten önce burada koyu plaka vardı — alanlar artık
+    // Olta'nın kart bilgi katmanı (Yol HUD'unun "tabela" diliyle): sol üstte balık kovası (FishingTallyView;
+    // bu ayın balığı kovanın üstünde, 2026-10-15'ten önce burada koyu plaka vardı — alanlar artık
     // isteğe bağlı), sağ üstte yeşil tabelada mekân + atışın durumu + yemin kıyıya uzaklığı,
     // sol altta balık defteri özeti. Bugünkü hedef plakası (sağ alt) Yol ile ortak (HudController).
     // Görev çubuğu şeridinde ve Yol'da gizli.

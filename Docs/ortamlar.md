@@ -404,3 +404,24 @@ Ortam başına ~60 sa, 9 ortam ~540 sa; Yol kendi araç merdiveninde.
 - **Soyacak = elle soyan manav** (kullanıcı seçti; eskisi kollu makine). Taburede oturan manav (Gemini, `--split` ile bıçak tutan el meyvenin önünde), meyve avuçta döner, bıçak (kodla) elden meyvenin sağ kenarına; kabuk yere sarkar, yerde sağa uzar, sandığa varınca katlanıp yığılır. Solda 3 kasa (mekânın ilk 3 sıradan meyvesi), meyve üst kasadan avuca gelir; soyulan meyve sağdaki sandık üstündeki kâseye atılır. Skin paleti artık bıçak (bilezik/sap/ağız); açıklamalar güncellendi, tagline "Peel by hand…", durum "IDLE · SLOW PEEL".
 - Yeni Activities kartları (`kebab_card`, `peeler_card`). Şeritler: küçük dikey döner + porsiyonlar / meyve + bıçak + uzun kabuk.
 - **Doğrulama:** editörde RenderTexture çekimleriyle (HUD yok) tüm evreler, Gece, şerit ve 3 kebap mekânı görüldü; derleme 0 hata. Gerçek oynanışta (Play + scroll) kullanıcı henüz görmedi; sesler (`sizzle_loop`, `peel_loop`) değişmedi — `peel_loop` hâlâ makine dişlisi tıkırtısı içeriyor olabilir.
+
+## 25.10 gece — Kadran yalnız Yol'da; diğer 9 ortamda ortama özgü nesne (kullanıcı kararı)
+
+Kullanıcı: "her aktivitede kadran olmasına gerek yok" → "sadece yolda kalsın kadran, diğer ortamlar için o ortama özgü nesne düşünelim" → aşağıdaki öneriyi olduğu gibi onayladı ("önerilerini beğendim"), nesne skin takımıyla değişir.
+
+| Ortam | Nesne | Sayı | Tepki |
+|---|---|---|---|
+| Olta | balık kovası (Bambu'da hasır sepet) | tebeşirle bu ayın balığı | su ve kuyruklar sarma hızıyla çalkalanır; balıkta sıçrama + yeni kuyruk (en çok 3) |
+| Kapı | güvenlikçinin el sayacı | 4 haneli mekanik pencere | her ziyaretçide düğme basılır, "tık" (`tally_click`) |
+| Rüzgârgülü | Ferraris elektrik sayacı | kWh, kırmızı onda bir hane | yarıktaki disk işareti üretim hızıyla döner |
+| Plak | kapağın arkası (A1 A2 B1 B2) | bantta ayın parçası | çalan parçanın çubuğu dolar, biten parçaya işaret |
+| Dünya | yaprak takvim | ayın yılı | köşe kesirle kıvrılır, yılda yaprak koparılıp savrulur |
+| Bumerang | çetele tahtası | ayın hedefi | her hedefte çentik (5'li gruplar, 25'te tahta silinir) |
+| Çömlek | kil çuvalı | etikette ayın çömleği | çuval kesirle söner, çömlekte yaylanarak dolar |
+| Soyacak | tuşlu yazar kasa | 3 hane | her meyvede çekmece açılır, "çın" (`register_ding`) |
+| Kebap | "NOW SERVING" numaratör | 3 haneli LED | her porsiyonda numara atlar, 2 kez yanıp söner, "dıt-dıt" (`ticket_ding`) |
+
+- Kod: `Assets/Scripts/UI/Tally/` (`TallyView` ortak taban: takım yenileme, tempo, birim olayı ±3 sınırıyla; ortam başına bir alt sınıf). Kurulum `ScrollRoadSceneBuilder.CreateTally`; koordinatlar 200 birimlik yuva uzayında (`TallyLayout`).
+- Görseller: `Tools/make_tallies.py` → `Assets/Resources/Tallies/` (PIL, düz vektör; katmanlı + Dolap önizlemesi `_preview`). `SkinInfo.Dial/DialInk/DialInkLast` → `Tally/Ink/Accent`; `FishingGear.Dial` → `Tally` (`bucket_*`) + `TallyInk`.
+- Silinen: `EnvGaugeView`, `ReelGaugeView`, 36 kadran takımının yüz/ibre görselleri, `make_gauges.py`'deki makara/ortam kadranı tanımları. Yol kadranları ve görev çubuğu şeridi değişmedi.
+- Sesler `gen_sound.py --env` ile prosedürel; kulakla dinlenmedi.

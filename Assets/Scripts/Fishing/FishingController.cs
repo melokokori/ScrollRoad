@@ -99,7 +99,7 @@ namespace ScrollRoad
         public double MonthUnits => state.monthFish + Math.Min(Reeled, 0.999f);
         public string SkinNoun => "tackle";
         public string SkinBoxName => "Tackle box";
-        public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Dial = g.Dial });
+        public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Tally = g.Tally, Ink = g.TallyInk, Accent = g.TallyInk });
         public string SkinId => FishingGear.SelectedIn(state).Id;
         public void SetSkin(string id)
         {

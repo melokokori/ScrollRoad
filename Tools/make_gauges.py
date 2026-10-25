@@ -9,9 +9,7 @@
   <skin>_mini_lit.png     128x128  yalnız Dijital
   <skin>_plate.png        512x128  görev çubuğu plakası (206x42 tasarım, dikeyde ortalı)
 
-Olta takımlarının makara kadranları (reel_*, 2026-10-15, FishingGear): aynı geometri, ölçek RPM = km/h / 2
-(-30..110), birim "RPM", geri bölge "OUT", sayacın altında "FISH" (sayaç bu ayın balığı). Yalnız kart kadranı
-(yüz + ibre) üretilir; görev çubuğu görünümleri yok (card_only).
+Kadran yalnız Yol'da (2026-10-25); diğer ortamların kartındaki nesneler Tools/make_tallies.py ile.
 
 Koordinatlar 200 birimlik kadran uzayında (maketteki SVG ile aynı). 4x süper örnekleme ile çizilir.
 Kullanım: python Tools/make_gauges.py
@@ -53,65 +51,7 @@ SKINS = {
     "airspeed": dict(face="#101113", bezel="#2A2C30", tick="#F2F2F0", num="#F2F2F0", needle="#F2F2F0", hub="#2A2C30",
                      unit="#9A9A96", rev="#3A3C40", knots=True, arcs=[(30, 90, "#3DBE5C"), (90, 110, "#E8C23A")],
                      redline=115, odoBg="#000000", odoCell="#1C1D20", odoLastBg="#F2F2F0"),
-    # Olta takımları (FishingGear.Dial): Klasik, Bambu, Karbon, Altın.
-    "reel_classic": dict(rpm=True, card_only=True, face="#E6ECEF", bezel="#26314A", tick="#26314A", num="#26314A",
-                         needle="#E8644A", hub="#26314A", unit="#5E6B7A", rev="#9AA6B2", odoBg="#26314A",
-                         odoCell="#33405C", odoLastBg="#E8644A"),
-    "reel_bamboo": dict(rpm=True, card_only=True, face="#EFE2BF", face2="#D9C08A", bezel="#6E4B2A", tick="#3B2A1A",
-                        num="#3B2A1A", needle="#2B1E14", tip="#B5452B", hub="#3B2A1A", unit="#7A6448", rev="#B39A70",
-                        deco=True, odoBg="#3B2A1A", odoCell="#52402C", odoLastBg="#B5452B"),
-    "reel_carbon": dict(rpm=True, card_only=True, face="#16181B", weave="#1E2125", bezel="#34383F", tick="#E6E8EA",
-                        num="#E6E8EA", needle="#E23B3B", hub="#0B0C0E", unit="#8C9096", rev="#4A4E55", red="#E23B3B",
-                        italic=True, odoBg="#0B0C0E", odoCell="#202328", odoLastBg="#E23B3B"),
-    "reel_gold": dict(rpm=True, card_only=True, face="#1B1813", bezel="gold", tick="#E9C873", num="#E9C873",
-                      needle="#F3D27E", hub="#2A241A", unit="#A88F55", rev="#5A4E38", odoBg="#0F0D09",
-                      odoCell="#2A241A", odoLastBg="#E9C873"),
 }
-
-
-# Ortam kadranları (Ortam Standardı v2, 2026-10-25; SkinCatalog.Dial): makara kadranının geometrisi, geri bölge
-# "BACK", sayacın altında ortamın birimi. env(...) ortak alanları doldurur.
-def env(face, bezel, ink, needle, odo, unit, rev, odo_bg, odo_cell, odo_last, **extra):
-    d = dict(rpm=True, card_only=True, face=face, bezel=bezel, tick=ink, num=ink, needle=needle, hub=bezel,
-             unit=unit, rev=rev, odoBg=odo_bg, odoCell=odo_cell, odoLastBg=odo_last, rev_label="BACK", odo_label=odo)
-    d.update(extra)
-    return d
-
-
-SKINS.update({
-    "door_brass": env("#F6E7C4", "#B08A3E", "#3A2A1A", "#8A3A1A", "VISITORS", "#8A7450", "#CDB88A", "#3A2A1A", "#503A26", "#F6E7C4"),
-    "door_black": env("#14161B", "#2C2F37", "#E9E6DC", "#F2B33D", "VISITORS", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#F2B33D"),
-    "door_rose": env("#FBE9E4", "#C98A7A", "#4A2420", "#C2412F", "VISITORS", "#9A7068", "#E0BDB4", "#4A2420", "#5E302A", "#FBE9E4"),
-    "door_classic": env("#ECEFF1", "#2F3640", "#2F3640", "#D9534F", "VISITORS", "#6B7480", "#AEB6BF", "#2F3640", "#3C4552", "#E8EDF1"),
-    "wind_timber": env("#EFE2BF", "#8A5A32", "#3B2A1A", "#C8323C", "KWH", "#8A6A4A", "#C9B48A", "#3B2A1A", "#503826", "#EFE2BF", face2="#D9C08A"),
-    "wind_midnight": env("#14161B", "#2C2F37", "#E9E6DC", "#7FE0FF", "KWH", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#7FE0FF"),
-    "wind_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "KWH", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
-    "vinyl_white": env("#F6F7F8", "#9AA6B2", "#2A3A4A", "#E8644A", "TRACKS", "#7A8794", "#C3CCD4", "#2A3A4A", "#3A4C5E", "#F2F4F6"),
-    "vinyl_dj": env("#14161B", "#2C2F37", "#E9E6DC", "#E23B3B", "TRACKS", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#E23B3B"),
-    "vinyl_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "TRACKS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
-    "wind_classic": env("#F4F6F2", "#4C6B3C", "#2E4A22", "#F2B33D", "KWH", "#6F7F66", "#B7C2AE", "#2E4A22", "#3B5A2E", "#EEF3EA"),
-    "vinyl_classic": env("#1E1A17", "#8A6A45", "#EADFC8", "#E8644A", "TRACKS", "#A89878", "#4A4038", "#120F0D", "#2A2420", "#EADFC8"),
-    "globe_red": env("#3A1A12", "#C2643A", "#F6D9C4", "#FFB38A", "YEARS", "#C79A82", "#6A3A2A", "#2A120C", "#4A2418", "#F6D9C4"),
-    "globe_ice": env("#E8F6FB", "#4E8FA8", "#123A4A", "#2E9CC4", "YEARS", "#5E8494", "#A9CCD8", "#123A4A", "#1E5064", "#E4F6FC"),
-    "globe_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "YEARS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
-    "globe_classic": env("#1C2547", "#C9A24A", "#F2E6C2", "#F2B33D", "YEARS", "#B9AE8E", "#45507A", "#111833", "#26305A", "#F2E6C2"),
-    "boomerang_blue": env("#E6F2FA", "#2E6FA8", "#123A5A", "#F2B33D", "TARGETS", "#5E7F96", "#A9C4D8", "#123A5A", "#1E5076", "#E2F1FA"),
-    "boomerang_carbon": env("#16181B", "#34383F", "#E6E8EA", "#FF5A48", "TARGETS", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#FF5A48", weave="#1E2125"),
-    "boomerang_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "TARGETS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
-    "boomerang_classic": env("#F3E2C7", "#8A4B2A", "#4A2A18", "#C8323C", "TARGETS", "#8A6A52", "#C9B394", "#4A2A18", "#5E3A24", "#F3E2C7"),
-    "pottery_wood": env("#EFE2BF", "#6E4B2A", "#3B2A1A", "#8A4B2A", "POTS", "#8A6A4A", "#C9B48A", "#3B2A1A", "#503826", "#EFE2BF", face2="#D9C08A"),
-    "pottery_porcelain": env("#FFFFFF", "#9AA6B2", "#2A3A4A", "#3E7EB8", "POTS", "#7A8794", "#C3CCD4", "#2A3A4A", "#3A4C5E", "#F2F4F6"),
-    "pottery_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "POTS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
-    "pottery_classic": env("#EFE3CF", "#7A5236", "#3D2A1C", "#B5562F", "POTS", "#8A735C", "#C7B49A", "#3D2A1C", "#503826", "#EFE3CF"),
-    "peeler_brass": env("#F6E7C4", "#A07A34", "#3A2A1A", "#8A3A1A", "FRUIT", "#8A7450", "#CDB88A", "#3A2A1A", "#503A26", "#F6E7C4"),
-    "peeler_chrome": env("#F2F4F6", "#8A9098", "#1A1C20", "#E23B3B", "FRUIT", "#6A7078", "#C3C8CE", "#1A1C20", "#2A2D33", "#F2F4F6", bezel2="chrome"),
-    "peeler_mint": env("#E8F6F0", "#6FBFA6", "#1E4A3E", "#E8644A", "FRUIT", "#5E8A7E", "#B8DCCF", "#1E4A3E", "#2A5E50", "#E8F6F0"),
-    "kebab_copper": env("#F6E2D2", "#C77B4A", "#4A2414", "#E8644A", "PORTIONS", "#8A6A55", "#D8B8A0", "#4A2414", "#5E3220", "#F6E2D2"),
-    "kebab_blue": env("#E6F2FA", "#2E6FA8", "#123A5A", "#3E8FD1", "PORTIONS", "#5E7F96", "#A9C4D8", "#123A5A", "#1E5076", "#E2F1FA"),
-    "kebab_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "PORTIONS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
-    "peeler_classic": env("#F4EEDF", "#3E434B", "#2A2D33", "#C2412F", "FRUIT", "#7A7C80", "#C3C0B6", "#2A2D33", "#3A3E46", "#F4EEDF"),
-    "kebab_classic": env("#F2E8D8", "#6E3A24", "#3A2015", "#E07A1F", "PORTIONS", "#8A6A55", "#C9B39C", "#3A2015", "#4E2C1E", "#F2E8D8"),
-})
 
 
 def rgba(c):

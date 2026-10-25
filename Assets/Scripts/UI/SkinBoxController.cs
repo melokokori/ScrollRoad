@@ -83,7 +83,7 @@ namespace ScrollRoad
                 if (unlocked) open++;
                 bool current = skin.Id == c.SkinId;
                 cardFrames[i].color = current ? Selected : Idle;
-                var dial = string.IsNullOrEmpty(skin.Dial) ? null : Resources.Load<Sprite>($"Gauges/{skin.Dial}_face");
+                var dial = string.IsNullOrEmpty(skin.Tally) ? null : Resources.Load<Sprite>($"Tallies/{skin.Tally}_preview");
                 dialImages[i].sprite = dial;
                 dialImages[i].enabled = dial != null;
                 dialImages[i].color = unlocked ? Color.white : Locked;

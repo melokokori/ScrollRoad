@@ -679,8 +679,8 @@ namespace ScrollRoad.EditorTools
             return hud;
         }
 
-        // Olta'nın kart HUD'u (Yol HUD'unun yerleşimiyle): sol üstte makara kadranı (Yol kadranının yerinde;
-        // bu ayın balığı kadranın sayacında), sağ üstte göl tabelası (durum + yemin uzaklığı), sol altta balık
+        // Olta'nın kart HUD'u (Yol HUD'unun yerleşimiyle): sol üstte balık kovası (Yol kadranının yerinde; bu ayın
+        // balığı kovanın üstünde), sağ üstte göl tabelası (durum + yemin uzaklığı), sol altta balık
         // defteri özeti. Bugünkü hedef plakası ortak.
         static void CreateFishingHud(Transform hudRoot, FishingController fishing)
         {
@@ -689,8 +689,8 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1); // sürükleme yüzeyinin hemen üstünde, pencere düğmelerinin altında
 
-            var reelGauge = CreateReelGauge(root.transform, fishing, 128f);
-            Anchor((RectTransform)reelGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
+            var tally = CreateTally(root.transform, EnvironmentId.Fishing, 128f);
+            Anchor((RectTransform)tally.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "LakeSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -725,9 +725,9 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
-            var envGauge = CreateEnvGauge(root.transform, EnvironmentId.Door, 128f);
-            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
+            // Sol üst: ortam nesnesi (2026-10-25; bu ayın birimi). Durum tabelanın üst satırında.
+            var tally = CreateTally(root.transform, EnvironmentId.Door, 128f);
+            Anchor((RectTransform)tally.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "VenueSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -767,9 +767,9 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
-            var envGauge = CreateEnvGauge(root.transform, EnvironmentId.Wind, 128f);
-            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
+            // Sol üst: ortam nesnesi (2026-10-25; bu ayın birimi). Durum tabelanın üst satırında.
+            var tally = CreateTally(root.transform, EnvironmentId.Wind, 128f);
+            Anchor((RectTransform)tally.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "SiteSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -809,9 +809,9 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
-            var envGauge = CreateEnvGauge(root.transform, EnvironmentId.Vinyl, 128f);
-            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
+            // Sol üst: ortam nesnesi (2026-10-25; bu ayın birimi). Durum tabelanın üst satırında.
+            var tally = CreateTally(root.transform, EnvironmentId.Vinyl, 128f);
+            Anchor((RectTransform)tally.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "ShopSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -851,9 +851,9 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
-            var envGauge = CreateEnvGauge(root.transform, env.Def.Id, 128f);
-            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
+            // Sol üst: ortam nesnesi (2026-10-25; bu ayın birimi). Durum tabelanın üst satırında.
+            var tally = CreateTally(root.transform, env.Def.Id, 128f);
+            Anchor((RectTransform)tally.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "SiteSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -2616,58 +2616,231 @@ namespace ScrollRoad.EditorTools
             return view;
         }
 
-        // Olta'nın makara kadranı (ReelGaugeView): Yol kadranının yapısı — yüz, kadran içi sayaç (bu ayın
-        // balığı), IDLE, ibre. Görseller çalışma zamanında seçili takımla atanır (FishingGear.Dial).
-        static ReelGaugeView CreateReelGauge(Transform parent, FishingController fishing, float size)
+        // Ortam nesnesi (TallyView, 2026-10-25: kadran yalnız Yol'da, diğer ortamlarda yerinde o ortama özgü bir
+        // nesne). Katmanlar ve yazılar 200 birimlik yuva uzayında (TallyLayout; Tools/make_tallies.py ile aynı
+        // sayılar); görseller çalışma zamanında seçili takımla atanır (SkinInfo.Tally).
+        static TallyView CreateTally(Transform parent, EnvironmentId environment, float size)
         {
-            var go = new GameObject("ReelGauge", typeof(RectTransform));
+            var go = new GameObject("Tally", typeof(RectTransform));
             go.transform.SetParent(parent, false);
             ((RectTransform)go.transform).sizeDelta = new Vector2(size, size);
+            var slot = go.transform;
+            float u = size / 200f; // yazı boyu: birim → piksel
 
-            var face = GaugeImage(go.transform, "Face");
-            var odometer = CreateOdometer(go.transform, "Odometer", size * 13f / 200f, out _);
-            Stretch((RectTransform)odometer.transform);
-            var idle = Tmp(go.transform, "Idle", "IDLE", size * 9f / 200f, UiFonts.ExtraBold, Amber);
-            idle.characterSpacing = 10;
-            var ir = idle.rectTransform;
-            ir.anchorMin = new Vector2(0.25f, 1f - 125f / 200f);
-            ir.anchorMax = new Vector2(0.75f, 1f - 111f / 200f);
-            ir.offsetMin = ir.offsetMax = Vector2.zero;
-            var needle = GaugeImage(go.transform, "Needle");
+            TMP_Text Text(Transform at, string name, float x0, float y0, float x1, float y1, float sizeUnits, TMP_FontAsset font,
+                TextAlignmentOptions align = TextAlignmentOptions.Center)
+            {
+                var t = Tmp(at, name, "0", sizeUnits * u, font, PlateText, align);
+                TallyLayout.Place(t.rectTransform, x0, y0, x1, y1);
+                return t;
+            }
 
-            var view = go.AddComponent<ReelGaugeView>();
-            Bind(view, "fishing", fishing);
-            Bind(view, "face", face);
-            Bind(view, "needle", needle);
-            Bind(view, "idleLabel", idle);
-            Bind(view, "odometer", odometer);
-            return view;
-        }
+            Image Part(string name, float x0, float y0, float x1, float y1, string sprite = null)
+            {
+                var image = GaugeImage(slot, name);
+                image.preserveAspect = false;
+                TallyLayout.Place(image.rectTransform, x0, y0, x1, y1);
+                if (sprite != null) image.sprite = AssetDatabase.LoadAssetAtPath<Sprite>($"Assets/Resources/Tallies/{sprite}.png");
+                return image;
+            }
 
-        // Ortam kadranı (EnvGaugeView): makara kadranının yapısı, ortamın skin takımına göre yüz ve ibre.
-        static EnvGaugeView CreateEnvGauge(Transform parent, EnvironmentId environment, float size)
-        {
-            var go = new GameObject("EnvGauge", typeof(RectTransform));
-            go.transform.SetParent(parent, false);
-            ((RectTransform)go.transform).sizeDelta = new Vector2(size, size);
-            var face = GaugeImage(go.transform, "Face");
-            var odometer = CreateOdometer(go.transform, "Odometer", size * 13f / 200f, out _);
-            Stretch((RectTransform)odometer.transform);
-            var idle = Tmp(go.transform, "Idle", "IDLE", size * 9f / 200f, UiFonts.ExtraBold, Amber);
-            idle.characterSpacing = 10;
-            var ir = idle.rectTransform;
-            ir.anchorMin = new Vector2(0.25f, 1f - 125f / 200f);
-            ir.anchorMax = new Vector2(0.75f, 1f - 111f / 200f);
-            ir.offsetMin = ir.offsetMax = Vector2.zero;
-            var needle = GaugeImage(go.transform, "Needle");
-            var view = go.AddComponent<EnvGaugeView>();
+            TallyView view;
+            switch (environment)
+            {
+                case EnvironmentId.Fishing:
+                {
+                    var back = GaugeImage(slot, "Back");
+                    var water = GaugeImage(slot, "Water");
+                    TallyLayout.Pivot(water.rectTransform, 100f, 73f);
+                    var tails = new Object[3];
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float x = 76f + i * 24f;
+                        var tail = Part($"Tail{i}", x - 15f, 48f, x + 15f, 78f, "bucket_tail");
+                        tail.rectTransform.pivot = new Vector2(0.5f, 0f);
+                        tails[i] = tail;
+                    }
+                    var front = GaugeImage(slot, "Front");
+                    var count = Text(slot, "Count", 60f, 104f, 140f, 154f, 28f, UiFonts.ExtraBold);
+                    var drops = new Object[3];
+                    for (int i = 0; i < 3; i++) drops[i] = Part($"Drop{i}", 97f, 66f, 103f, 72f, "dot");
+                    var v = go.AddComponent<FishingTallyView>();
+                    Bind(v, "back", back);
+                    Bind(v, "water", water);
+                    Bind(v, "front", front);
+                    BindArray(v, "tails", tails);
+                    BindArray(v, "drops", drops);
+                    Bind(v, "count", count);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Door:
+                {
+                    var button = GaugeImage(slot, "Button");
+                    var body = GaugeImage(slot, "Body");
+                    var odometer = CreateOdometer(slot, "Odometer", 15f * u, out var cells, 4);
+                    Stretch((RectTransform)odometer.transform);
+                    for (int i = 0; i < cells.Length; i++) TallyLayout.Place(cells[i], 63f + i * 19f, 87f, 80f + i * 19f, 111f);
+                    var v = go.AddComponent<DoorTallyView>();
+                    Bind(v, "body", body);
+                    Bind(v, "button", button);
+                    Bind(v, "odometer", odometer);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Wind:
+                {
+                    var body = GaugeImage(slot, "Body");
+                    var mark = Part("DiskMark", 98f, 103f, 104f, 111f);
+                    mark.color = new Color(0.086f, 0.094f, 0.106f);
+                    var odometer = CreateOdometer(slot, "Odometer", 12f * u, out var cells);
+                    Stretch((RectTransform)odometer.transform);
+                    for (int i = 0; i < cells.Length; i++) TallyLayout.Place(cells[i], 57.25f + i * 14.5f, 59f, 70.25f + i * 14.5f, 79f);
+                    var v = go.AddComponent<WindTallyView>();
+                    Bind(v, "body", body);
+                    Bind(v, "odometer", odometer);
+                    Bind(v, "diskMark", mark.rectTransform);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Vinyl:
+                {
+                    var body = GaugeImage(slot, "Body");
+                    var count = Text(slot, "Count", 80f, 27f, 140f, 54f, 15f, UiFonts.ExtraBold);
+                    float[] rows = { 72f, 94f, 116f, 138f };
+                    var bars = new Object[4];
+                    var checks = new Object[4];
+                    for (int i = 0; i < 4; i++)
+                    {
+                        var bar = Part($"Bar{i}", 46f, rows[i] - 3f, 120f, rows[i] + 3f, "bar");
+                        bar.type = Image.Type.Filled;
+                        bar.fillMethod = Image.FillMethod.Horizontal;
+                        bar.fillOrigin = (int)Image.OriginHorizontal.Left;
+                        bars[i] = bar;
+                        checks[i] = Part($"Check{i}", 126f, rows[i] - 5f, 136f, rows[i] + 5f, "dot");
+                    }
+                    var v = go.AddComponent<VinylTallyView>();
+                    Bind(v, "body", body);
+                    Bind(v, "count", count);
+                    BindArray(v, "bars", bars);
+                    BindArray(v, "checks", checks);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Globe:
+                {
+                    var body = GaugeImage(slot, "Body");
+                    var count = Text(slot, "Count", 50f, 72f, 150f, 150f, 44f, UiFonts.ExtraBold);
+                    var curl = GaugeImage(slot, "Curl");
+                    TallyLayout.Pivot(curl.rectTransform, 150f, 176f);
+                    var binding = GaugeImage(slot, "Binding");
+                    var flyer = new GameObject("Flyer", typeof(RectTransform), typeof(CanvasGroup));
+                    flyer.transform.SetParent(slot, false);
+                    var flyerRect = (RectTransform)flyer.transform;
+                    Stretch(flyerRect);
+                    TallyLayout.Pivot(flyerRect, 150f, 44f);
+                    var flyerGroup = flyer.GetComponent<CanvasGroup>();
+                    flyerGroup.blocksRaycasts = flyerGroup.interactable = false;
+                    var flyerPage = GaugeImage(flyer.transform, "Page");
+                    var flyerCount = Text(flyer.transform, "Count", 50f, 72f, 150f, 150f, 44f, UiFonts.ExtraBold);
+                    flyer.SetActive(false);
+                    var v = go.AddComponent<GlobeTallyView>();
+                    Bind(v, "body", body);
+                    Bind(v, "binding", binding);
+                    Bind(v, "count", count);
+                    Bind(v, "curl", curl);
+                    Bind(v, "flyer", flyerRect);
+                    Bind(v, "flyerPage", flyerPage);
+                    Bind(v, "flyerCount", flyerCount);
+                    Bind(v, "flyerGroup", flyerGroup);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Boomerang:
+                {
+                    var body = GaugeImage(slot, "Body");
+                    var count = Text(slot, "Count", 31f, 60f, 130f, 92f, 26f, UiFonts.ExtraBold, TextAlignmentOptions.Left);
+                    // Çetele: dört dik + bir çapraz (Tools/make_tallies.py tally_marks ile aynı). Pivot çentiğin alt
+                    // ucu: atılırken aşağıdan yukarı uzar.
+                    var marks = new Object[BoomerangTallyView.Board];
+                    for (int i = 0; i < marks.Length; i++)
+                    {
+                        int g = i / 5, k = i % 5;
+                        float x0 = 32f + g * 27.5f;
+                        Image mark;
+                        if (k < 4)
+                        {
+                            float x = x0 + 3f + k * 5.5f;
+                            mark = Part($"Mark{i}", x - 1.5f, 104f, x + 1.5f, 156f);
+                        }
+                        else
+                        {
+                            float length = Mathf.Sqrt(24f * 24f + 36f * 36f);
+                            mark = Part($"Mark{i}", x0 - 1.5f, 148f - length, x0 + 1.5f, 148f);
+                            mark.rectTransform.localRotation = Quaternion.Euler(0f, 0f, -Mathf.Atan2(24f, 36f) * Mathf.Rad2Deg);
+                        }
+                        mark.rectTransform.pivot = new Vector2(0.5f, 0f);
+                        marks[i] = mark;
+                    }
+                    var v = go.AddComponent<BoomerangTallyView>();
+                    Bind(v, "body", body);
+                    Bind(v, "count", count);
+                    BindArray(v, "marks", marks);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Pottery:
+                {
+                    var bag = GaugeImage(slot, "Bag");
+                    TallyLayout.Pivot(bag.rectTransform, 100f, 186f);
+                    var count = Text(bag.transform, "Count", 68f, 124f, 132f, 152f, 19f, UiFonts.ExtraBold);
+                    var v = go.AddComponent<PotteryTallyView>();
+                    Bind(v, "bag", bag);
+                    Bind(v, "count", count);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Peeler:
+                {
+                    var inside = GaugeImage(slot, "Inside");
+                    var body = GaugeImage(slot, "Body");
+                    var count = Text(slot, "Count", 72f, 34f, 128f, 64f, 19f, UiFonts.Mono);
+                    var drawer = GaugeImage(slot, "Drawer");
+                    TallyLayout.Pivot(drawer.rectTransform, 100f, 184f);
+                    var v = go.AddComponent<PeelerTallyView>();
+                    Bind(v, "inside", inside);
+                    Bind(v, "body", body);
+                    Bind(v, "drawer", drawer);
+                    Bind(v, "count", count);
+                    view = v;
+                    break;
+                }
+                case EnvironmentId.Kebab:
+                {
+                    var body = GaugeImage(slot, "Body");
+                    var ghosts = new Object[3];
+                    var digits = new Object[3];
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float x0 = 40f + i * 42f;
+                        ghosts[i] = Part($"Ghost{i}", x0, 82f, x0 + 36f, 142f, "led_8");
+                        digits[i] = Part($"Digit{i}", x0, 82f, x0 + 36f, 142f, "led_0");
+                    }
+                    var v = go.AddComponent<KebabTallyView>();
+                    Bind(v, "body", body);
+                    BindArray(v, "digits", digits);
+                    BindArray(v, "ghosts", ghosts);
+                    view = v;
+                    break;
+                }
+                default:
+                    Debug.LogError($"Ortam nesnesi yok: {environment}");
+                    return null;
+            }
+
             var so = new SerializedObject(view);
             so.FindProperty("environment").enumValueIndex = System.Array.IndexOf(System.Enum.GetValues(typeof(EnvironmentId)), environment);
             so.ApplyModifiedPropertiesWithoutUndo();
-            Bind(view, "face", face);
-            Bind(view, "needle", needle);
-            Bind(view, "idleLabel", idle);
-            Bind(view, "odometer", odometer);
             return view;
         }
 
@@ -2684,14 +2857,14 @@ namespace ScrollRoad.EditorTools
 
         // Yuvarlanan sayaç: 6 maskeli hücre, her birinde şimdiki + bir sonraki rakam (OdometerView).
         // Hücre arka planları skin görselinde; konumları çağıran yerleştirir (ya da PlaceInDial).
-        static OdometerView CreateOdometer(Transform parent, string name, float fontSize, out RectTransform[] cells)
+        static OdometerView CreateOdometer(Transform parent, string name, float fontSize, out RectTransform[] cells, int count = 6)
         {
             var go = new GameObject(name, typeof(RectTransform));
             go.transform.SetParent(parent, false);
-            cells = new RectTransform[6];
-            var current = new Object[6];
-            var next = new Object[6];
-            for (int i = 0; i < 6; i++)
+            cells = new RectTransform[count];
+            var current = new Object[count];
+            var next = new Object[count];
+            for (int i = 0; i < count; i++)
             {
                 var cell = new GameObject($"Cell{i}", typeof(RectTransform), typeof(RectMask2D));
                 cell.transform.SetParent(go.transform, false);

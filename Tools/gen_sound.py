@@ -263,6 +263,10 @@ ENV_SOUNDS = {
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),
+    # Ortam nesneleri (2026-10-25, TallyView): yeni birimde çok kısa işaretler, prosedürel.
+    "tally_click": (False, None, 0),
+    "register_ding": (False, None, 0),
+    "ticket_ding": (False, None, 0),
 }
 
 
@@ -358,11 +362,53 @@ def _breeze_loop(path, length=8.0):
     _write_wav(x / np.abs(x).max() * gust, path, sr)
 
 
+def _tally_click(path):
+    """Kapı'nın el sayacı: basma ve bırakma — iki kısa mekanik tık (bant geçiren gürültü + ince metal tını)."""
+    import numpy as np
+    sr = 44100
+    t = np.arange(int(0.25 * sr)) / sr
+    rng = np.random.default_rng(9)
+    x = np.zeros_like(t)
+    for at, amp in ((0.0, 1.0), (0.075, 0.6)):
+        tt = t - at
+        on = tt >= 0
+        noise = rng.standard_normal(t.size)
+        spec = np.fft.rfft(noise)
+        f = np.fft.rfftfreq(t.size, 1 / sr)
+        noise = np.fft.irfft(spec * np.exp(-((f - 3200) / 1400) ** 2), t.size)
+        env = np.where(on, np.exp(-np.maximum(tt, 0) / 0.004), 0.0)
+        ring = np.where(on, np.sin(2 * np.pi * 2350 * tt) * np.exp(-np.maximum(tt, 0) / 0.02), 0.0)
+        x += amp * (noise / np.abs(noise).max() * env + 0.25 * ring)
+    _write_wav(x, path, sr)
+
+
+def _register_ding(path):
+    """Soyacak'ın yazar kasası: çekmecenin boğuk 'çat'ı ve ardından tek, parlak kasa zili."""
+    import numpy as np
+    sr = 44100
+    _chime([(2093.0, 1.0)], 0.0, 0.45, 1.4, path)
+    import subprocess as sp
+    raw = sp.run(["ffmpeg", "-loglevel", "error", "-i", path, "-f", "f32le", "-ac", "1", "-ar", str(sr), "-"],
+                 capture_output=True, check=True).stdout
+    bell = np.frombuffer(raw, dtype=np.float32).copy()
+    t = np.arange(bell.size) / sr
+    rng = np.random.default_rng(4)
+    thump = rng.standard_normal(bell.size) * np.exp(-t / 0.012) * 0.5 + np.sin(2 * np.pi * 140 * t) * np.exp(-t / 0.05)
+    shift = int(0.06 * sr)  # zil çattan hemen sonra
+    x = 0.55 * thump
+    x[shift:] += bell[:-shift]
+    _write_wav(x, path, sr)
+
+
 PROCEDURAL = {
     "space_hum": _space_hum,
     "breeze_loop": _breeze_loop,
     "wind_loop": _wind_loop,
     "grid_click": _relay_click,
+    "tally_click": _tally_click,
+    "register_ding": _register_ding,
+    # Kebap'ın sıra numaratörü: elektronik "dıt-dıt" (G5 → E5), kısa sönüm.
+    "ticket_ding": lambda path: _chime([(784.0, 1.0), (659.3, 0.9)], 0.2, 0.28, 1.0, path),
     # Kapı zili gibi iki nota (E6 → C6), kısa ve yumuşak.
     "guest_chime": lambda path: _chime([(1318.5, 1.0), (1046.5, 0.9)], 0.17, 0.55, 1.8, path),
     # Efsane: yükselen dört nota (C6 E6 G6 C7), biraz daha uzun sönüm.

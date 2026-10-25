@@ -17,7 +17,8 @@ namespace ScrollRoad.EditorTools
 
             // İbre skinleri (Tools/make_gauges.py, Resources'tan yüklenir): kartta ~130 px, görev
             // çubuğunda ~40 px çizildikleri için mipmap şart; dokular 2'nin kuvveti, sıkıştırılabilir.
-            if (path.StartsWith("Assets/Resources/Gauges/"))
+            // Ortam nesneleri (Tools/make_tallies.py, 2026-10-25) aynı yuvada aynı boyutta çizilir.
+            if (path.StartsWith("Assets/Resources/Gauges/") || path.StartsWith("Assets/Resources/Tallies/"))
             {
                 var gauge = (TextureImporter)assetImporter;
                 gauge.textureType = TextureImporterType.Sprite;

@@ -27,9 +27,9 @@ namespace ScrollRoad
         public string Id;
         public string Name;
         public string Blurb;
-        public string Dial; // Resources/Gauges/<Dial>_face|needle (kadran + Dolap önizlemesi); boşsa yok
-        public Color DialInk = new Color(0.91f, 0.93f, 0.95f);      // kadran sayacının rakamları
-        public Color DialInkLast = new Color(0.12f, 0.16f, 0.27f);  // son (ondalık) hane
+        public string Tally; // ortam nesnesinin takımı: Resources/Tallies/<Tally>_<parça> (+ _preview Dolap'ta); boşsa yok
+        public Color Ink = new Color(0.95f, 0.95f, 0.93f);    // nesnedeki sayının rengi (Kebap'ta LED)
+        public Color Accent = new Color(0.95f, 0.95f, 0.93f); // ikinci renk (Plak'ın çubukları, sayacın son hanesi)
         // Sahnenin ana nesnesinin renkleri (sırası ortamın sahnesine özel; eksik olan varsayılan rengini kullanır).
         public Color[] Palette = Array.Empty<Color>();
         public string Sound; // ortamın döngü sesinin bu takımdaki karşılığı (Resources/EnvSounds); boşsa varsayılan

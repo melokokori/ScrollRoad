@@ -573,7 +573,7 @@ namespace ScrollRoad
 
         // Kamış: elden uca incelen üç parça, altında dört kılavuz halka. Makara: kamışa dik ayak, gövde, kamış
         // yönünde makara + ağız, sarma hızıyla dönen kol. Bambu takımda merkez makara (dönen tambur + teller).
-        // Kol devri kadrandakiyle aynı (ReelGaugeView.Rpm): seyirde ~30, boost'ta 110'a kadar; misina
+        // Kol devri ortak tempodan (Pace / 2): seyirde ~30, boost'ta 110'a kadar; misina
         // boşalırken ters döner, atış/tutuş/dinlenmede durur.
         void DrawTackle(bool strip, float dt, Vector2 hand, Vector2 tip, Vector2 reelCenter, float manH)
         {
@@ -607,10 +607,11 @@ namespace ScrollRoad
                 PlaceRect(rodGuides[i], at.x, at.y, r, r, guide);
             }
 
-            // Kol devri: kadranla aynı ölçek. Yalnız sarılırken (ya da misina boşalırken) döner.
+            // Kol devri: yalnız sarılırken (ya da misina boşalırken) döner.
             var phase = fishing.CurrentPhase;
             bool turning = phase == FishingController.Phase.Retrieving || phase == FishingController.Phase.Hooked;
-            float rpm = turning ? ReelGaugeView.Rpm() : 0f;
+            var engine = ScoreEngine.Instance;
+            float rpm = turning && engine != null ? engine.Pace * 0.5f : 0f;
             handleAngle = Mathf.Repeat(handleAngle - rpm / 60f * 360f * dt, 360f);
 
             float s = look.ReelSize * manH * 1.2f; // kart ölçeğinde okunsun diye özgününden biraz büyük
