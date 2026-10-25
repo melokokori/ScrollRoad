@@ -124,5 +124,9 @@ namespace ScrollRoad
         };
 
         public override SoundCue[] Cues => CueList;
+
+        // Ortam ambiyansı (Ortam Standardı v2 · ses paketi; Tools/gen_sound.py sentezi): yalnız kullanıcı aktifken.
+        public override string LoopClip => "breeze_loop";
+        public override float LoopVolume => 0.2f;
     }
 }

@@ -207,6 +207,8 @@ ENV_SOUNDS = {
     # Rüzgârgülü (Ortam Standardı v2, 2026-10-25): uğultu döngüsü (perde hıza göre) ve bağlanma kliği.
     "wind_loop": (True, "Steady breeze on an open grassy hill with the slow rhythmic whoosh of large wind turbine blades "
                         "turning, soft and calm, distant, no birds, no music" + LOOP_TAIL, 8.0),
+    "space_hum": (True, "procedural", 8.0),
+    "breeze_loop": (True, "procedural", 8.0),
     "grid_click": (False, "One tiny soft electrical relay click with a faint warm hum as a light switches on, close up, "
                           "very quiet, no music, no voices", 0.8),
     # Döner kapı: her kanat geçişinde bir süpürme (oyunda kanat sıklığı = dönüş hızı; şiddet/perde hıza göre).
@@ -324,7 +326,41 @@ def _relay_click(path):
     _write_wav(0.6 * click + 0.25 * hum, path, sr)
 
 
+def _space_hum(path, length=8.0):
+    """Dünya (Ortam Standardı v2): alçak, yumuşak bir uzay uğultusu — 8 sn'de tam sayı döngü yapan üç sinüs
+    akoru ve çok kısık şekillendirilmiş gürültü; dikişsiz döngü."""
+    import numpy as np
+    sr = 44100
+    n = int(length * sr)
+    t = np.arange(n) / sr
+    tones = sum(a * np.sin(2 * np.pi * f * t) * (0.7 + 0.3 * np.sin(2 * np.pi * m * t / length))
+                for f, a, m in ((55.0, 1.0, 1), (82.5, 0.6, 2), (110.0, 0.35, 3), (164.875, 0.15, 1)))
+    rng = np.random.default_rng(11)
+    spec = np.fft.rfft(rng.standard_normal(n))
+    f = np.fft.rfftfreq(n, 1 / sr)
+    air = np.fft.irfft(spec * np.where(f > 0, 1 / (1 + (f / 400) ** 2) / np.maximum(f, 20) ** 0.5, 0), n)
+    _write_wav(tones / np.abs(tones).max() + 0.25 * air / np.abs(air).max(), path, sr)
+
+
+def _breeze_loop(path, length=8.0):
+    """Bumerang (Ortam Standardı v2): açık arazide hafif esinti — şekillendirilmiş gürültü, iki yavaş rüzgâr
+    dalgası; dikişsiz döngü."""
+    import numpy as np
+    sr = 44100
+    n = int(length * sr)
+    rng = np.random.default_rng(5)
+    f = np.fft.rfftfreq(n, 1 / sr)
+    spec = np.fft.rfft(rng.standard_normal(n))
+    gain = np.where(f > 0, (np.maximum(f, 1.0) / 100.0) ** -0.7, 0.0) / (1 + (f / 1500) ** 4) * (1 - 1 / (1 + (f / 60) ** 4))
+    x = np.fft.irfft(spec * gain, n)
+    t = np.arange(n) / sr
+    gust = 0.6 + 0.25 * np.sin(2 * np.pi * t / length) + 0.15 * np.sin(2 * np.pi * 3 * t / length + 1.3)
+    _write_wav(x / np.abs(x).max() * gust, path, sr)
+
+
 PROCEDURAL = {
+    "space_hum": _space_hum,
+    "breeze_loop": _breeze_loop,
     "wind_loop": _wind_loop,
     "grid_click": _relay_click,
     # Kapı zili gibi iki nota (E6 → C6), kısa ve yumuşak.
