@@ -5,7 +5,8 @@ namespace ScrollRoad
     // Açılma duyuruları (Ortam Standardı v2, 2026-10-25): seçili ortamın merdiveninde yeni bir mekân ya da
     // skin takımı açılınca bir kez duyurur. Yeni mekâna kendiliğinden geçmez (oyuncunun Odak'ı bozulmasın);
     // geçiş ≡ → Places'tan. Eski "duyuruldu" listeleri (olta/kapı kaydı) ilk açılışta bir kez taşınır.
-    // Açılışın ilk saniyelerinde bekler: tabela pencere kurulurken görünmeden bitiyordu.
+    // Açılışın ilk saniyelerinde bekler: tabela pencere kurulurken görünmeden bitiyordu. Yan yuvadaki ortam
+    // (SideActivity) da izlenir; onun açılmaları ortamın adıyla duyurulur.
     public class ContentUnlockWatcher : MonoBehaviour
     {
         [SerializeField] NoticeController notice;
@@ -14,8 +15,13 @@ namespace ScrollRoad
         {
             if (Time.realtimeSinceStartup < 4f || Time.frameCount % 30 != 0) return;
             var c = EnvironmentContent.Current;
-            if (c == null) return;
+            if (c != null) Check(c, side: false);
+            var side = SideActivity.Current;
+            if (side != null && side != c) Check(side, side: true);
+        }
 
+        void Check(IEnvironmentContent c, bool side)
+        {
             var id = c.Def.Id;
             var state = EnvironmentContent.State(id);
             bool dirty = false;
@@ -27,7 +33,8 @@ namespace ScrollRoad
             }
 
             // İnceleme modu (her şey açık) duyuru harcamasın: gerçek eşik geçilmiş olmalı.
-            double points = c.LifetimePoints;
+            double points = EnvironmentContent.LadderPoints(c);
+            string where = side ? $"{c.Def.Name} · " : "";
             var venues = c.Venues;
             for (int i = 1; i < venues.Length; i++)
             {
@@ -37,7 +44,8 @@ namespace ScrollRoad
                 dirty = true;
                 if (notice != null)
                 {
-                    notice.Announce($"New {c.VenueNoun}: {venues[i].Name}", "Go there from Places in the ≡ menu", $"{venues[i].Name} unlocked");
+                    notice.Announce($"{where}New {c.VenueNoun}: {venues[i].Name}",
+                        side ? "Unlocked by your side activity" : "Go there from Places in the ≡ menu", $"{venues[i].Name} unlocked");
                 }
             }
 
@@ -48,7 +56,7 @@ namespace ScrollRoad
                 if (state.announced.Contains(key) || points < UnlockLadder.SkinPoints(i)) continue;
                 state.announced.Add(key);
                 dirty = true;
-                if (notice != null) notice.Announce($"New {c.SkinNoun}: {skins[i].Name}", skins[i].Blurb, $"{skins[i].Name} unlocked");
+                if (notice != null) notice.Announce($"{where}New {c.SkinNoun}: {skins[i].Name}", side ? "Unlocked by your side activity" : skins[i].Blurb, $"{skins[i].Name} unlocked");
             }
 
             if (dirty) EnvironmentContent.Save(id);

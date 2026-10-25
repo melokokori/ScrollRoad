@@ -66,7 +66,7 @@ namespace ScrollRoad
         }
 
         public static bool IsUnlocked(Gear g, FishingProgress p) =>
-            UnlockLadder.IsSkinUnlocked(FishingController.LifetimePointsOf(p), Array.IndexOf(All, g));
+            UnlockLadder.IsSkinUnlocked(FishingController.LadderPointsOf(p), Array.IndexOf(All, g));
 
         internal static void RaiseChanged() => Changed?.Invoke();
 

@@ -107,12 +107,12 @@ namespace ScrollRoad
             if (c == null) return;
             var env = c.Def.Id;
             var venues = c.Venues;
-            double points = c.LifetimePoints;
+            double points = EnvironmentContent.LadderPoints(c);
 
             titleText.text = "Places · " + c.Def.Name;
             int open = 0;
             for (int i = 0; i < venues.Length; i++) if (EnvironmentContent.IsVenueUnlocked(c, i)) open++;
-            countText.text = $"{open} / {venues.Length} open  ·  {UnlockLadder.Remaining(points)} played here";
+            countText.text = $"{open} / {venues.Length} open  ·  {UnlockLadder.Remaining(c.LifetimePoints)} played here";
 
             for (int i = 0; i < venueButtons.Length; i++)
             {

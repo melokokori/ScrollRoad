@@ -68,7 +68,7 @@ namespace ScrollRoad
             foreach (var g in venue.Guests) if (p.Find(g.Id) != null) logged++;
             countText.text = unlocked
                 ? $"{logged} / {venue.Guests.Length} guests  ·  {Fmt.Int(p.totalVisitors)} visitors in all"
-                : $"LOCKED  ·  {UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(VisitorCatalog.Venues, venue)) - DoorController.LifetimePointsOf(p))} at the door to go";
+                : $"LOCKED  ·  {UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(VisitorCatalog.Venues, venue)) - DoorController.LadderPointsOf(p))} at the door to go";
 
             for (int i = 0; i < tabTexts.Length && i < VisitorCatalog.Venues.Length; i++)
             {

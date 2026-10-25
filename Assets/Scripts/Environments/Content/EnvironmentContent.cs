@@ -76,6 +76,8 @@ namespace ScrollRoad
         public string rewardVenue = "";
         public string rewardRare = "";
         public long rewardIndex;
+        // Yan etkinlik (SideActivity, 2026-10-25): bu ortam yan yuvadayken kazandığı merdiven puanı.
+        public double sidePoints;
     }
 
     // Kimlik fonksiyonlarına (Identify) geçen garanti: ayın Index. öğesi nadirdir; Rare doluysa tam o nadir.
@@ -142,11 +144,17 @@ namespace ScrollRoad
         public static int SkinIndex(IEnvironmentContent c, string skinId) =>
             Array.FindIndex(c.Skins, s => s.Id == skinId);
 
+        // Açılma merdiveninin puanı: ortamda biten öğeler + yan yuvadayken kazanılan (SideActivity). Sipariş ve
+        // dönüş özeti gibi "burada ne kadar oynandı" ölçüleri yalnız LifetimePoints'i kullanır.
+        public static double SidePoints(EnvironmentId id) => State(id).sidePoints;
+
+        public static double LadderPoints(IEnvironmentContent c) => c.LifetimePoints + SidePoints(c.Def.Id);
+
         public static bool IsVenueUnlocked(IEnvironmentContent c, int index) =>
-            UnlockLadder.IsVenueUnlocked(c.LifetimePoints, index);
+            UnlockLadder.IsVenueUnlocked(LadderPoints(c), index);
 
         public static bool IsSkinUnlocked(IEnvironmentContent c, int index) =>
-            UnlockLadder.IsSkinUnlocked(c.LifetimePoints, index);
+            UnlockLadder.IsSkinUnlocked(LadderPoints(c), index);
 
         public static bool SelectVenue(IEnvironmentContent c, string venueId)
         {
@@ -238,7 +246,7 @@ namespace ScrollRoad
         {
             name = null;
             remaining = double.MaxValue;
-            double points = c.LifetimePoints;
+            double points = LadderPoints(c);
             for (int i = 1; i < c.Venues.Length; i++)
             {
                 double left = UnlockLadder.VenuePoints(i) - points;

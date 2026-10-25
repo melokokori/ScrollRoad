@@ -115,7 +115,7 @@ namespace ScrollRoad
                     cellButtons[i].interactable = unlocked && !here;
 
                     string state = !unlocked
-                        ? $"opens after {UnlockLadder.Remaining(UnlockLadder.VenuePoints(v) - c.LifetimePoints)} more here"
+                        ? $"opens after {UnlockLadder.Remaining(UnlockLadder.VenuePoints(v) - EnvironmentContent.LadderPoints(c))} more here"
                         : here ? "you are here" : "click to go";
                     TooltipTarget.Attach(cellButtons[i].gameObject, $"{venue.Name}  ·  {n} / {rares.Length}  ·  {state}");
                 }

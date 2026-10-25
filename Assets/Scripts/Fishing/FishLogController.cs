@@ -68,7 +68,7 @@ namespace ScrollRoad
             foreach (var s in spot.Species) if (p.Find(s.Id) != null) logged++;
             countText.text = unlocked
                 ? $"{logged} / {spot.Species.Length} species  ·  {Fmt.Int(p.totalFish)} fish  ·  {Fmt.Amount(p.totalKg, 1, "kg")} caught"
-                : $"LOCKED  ·  {UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(FishCatalog.Spots, spot)) - FishingController.LifetimePointsOf(p))} of fishing to go";
+                : $"LOCKED  ·  {UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(FishCatalog.Spots, spot)) - FishingController.LadderPointsOf(p))} of fishing to go";
 
             for (int i = 0; i < tabTexts.Length && i < FishCatalog.Spots.Length; i++)
             {

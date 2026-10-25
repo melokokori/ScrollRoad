@@ -67,7 +67,7 @@ namespace ScrollRoad
                 return;
             }
             var skins = c.Skins;
-            double points = c.LifetimePoints;
+            double points = EnvironmentContent.LadderPoints(c);
             titleText.text = c.SkinBoxName;
             int open = 0;
             for (int i = 0; i < cardButtons.Length; i++)
@@ -93,7 +93,7 @@ namespace ScrollRoad
                     : current ? $"IN USE\n<alpha=#88>{skin.Blurb}" : $"<alpha=#88>{skin.Blurb}";
                 cardButtons[i].interactable = unlocked;
             }
-            countText.text = $"{open} / {skins.Length} unlocked  ·  {UnlockLadder.Remaining(points)} played here";
+            countText.text = $"{open} / {skins.Length} unlocked  ·  {UnlockLadder.Remaining(c.LifetimePoints)} played here";
         }
     }
 }

@@ -75,9 +75,13 @@ namespace ScrollRoad
         public bool IsUnlocked(FishingSpot spot) => IsUnlocked(spot, state);
 
         public static bool IsUnlocked(FishingSpot spot, FishingProgress progress) =>
-            UnlockLadder.IsVenueUnlocked(LifetimePointsOf(progress), Array.IndexOf(FishCatalog.Spots, spot));
+            UnlockLadder.IsVenueUnlocked(LadderPointsOf(progress), Array.IndexOf(FishCatalog.Spots, spot));
 
         // Olta'da ömür boyu tutulan balıkların puanı (merdiven bununla açılır).
+        // Merdiven puanı: tutulan balıklar + yan yuvadayken kazanılan (SideActivity).
+        public static double LadderPointsOf(FishingProgress progress) =>
+            LifetimePointsOf(progress) + EnvironmentContent.SidePoints(EnvironmentId.Fishing);
+
         public static double LifetimePointsOf(FishingProgress progress) =>
             progress == null ? 0.0 : progress.totalFish * EnvironmentCatalog.FishIntervalPoints;
 

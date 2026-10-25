@@ -59,7 +59,11 @@ namespace ScrollRoad
         public bool IsUnlocked(DoorVenue venue) => IsUnlocked(venue, state);
 
         public static bool IsUnlocked(DoorVenue venue, DoorProgress progress) =>
-            UnlockLadder.IsVenueUnlocked(LifetimePointsOf(progress), Array.IndexOf(VisitorCatalog.Venues, venue));
+            UnlockLadder.IsVenueUnlocked(LadderPointsOf(progress), Array.IndexOf(VisitorCatalog.Venues, venue));
+
+        // Merdiven puanı: gelen ziyaretçiler + yan yuvadayken kazanılan (SideActivity).
+        public static double LadderPointsOf(DoorProgress progress) =>
+            LifetimePointsOf(progress) + EnvironmentContent.SidePoints(EnvironmentId.Door);
 
         public static double LifetimePointsOf(DoorProgress progress) =>
             progress == null ? 0.0 : progress.totalVisitors * EnvironmentCatalog.VisitorIntervalPoints;

@@ -508,6 +508,9 @@ namespace ScrollRoad.EditorTools
             // Etkinlikleri tanıtma (2026-10-25): yeni ortam işaretleri, Activities ipucu, ilk giriş duyurusu.
             var guide = engineGo.AddComponent<ActivityGuide>();
             Bind(guide, "notice", notice);
+            // Yan etkinlik yuvası (2026-10-25).
+            var side = engineGo.AddComponent<SideActivity>();
+            Bind(side, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);
@@ -1613,7 +1616,8 @@ namespace ScrollRoad.EditorTools
             var hint = Tmp(panel.transform, "Hint", "Only the activity you pick moves forward. Your monthly score counts them all.",
                 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Left);
             Anchor(hint.rectTransform, new Vector2(0, 1), new Vector2(26, -52), new Vector2(0, 1));
-            hint.rectTransform.sizeDelta = new Vector2(700, 16);
+            hint.rectTransform.sizeDelta = new Vector2(748, 16);
+            FitToWidth(hint, 8f);
 
             var all = EnvironmentCatalog.All;
             var pictures = ActivityPictures();
@@ -1622,6 +1626,9 @@ namespace ScrollRoad.EditorTools
             var frames = new Object[n];
             var thumbs = new Object[n];
             var statuses = new Object[n];
+            var sideButtons = new Object[n];
+            var sideFrames = new Object[n];
+            var sideTexts = new Object[n];
             // 5 ortama kadar tek sıra; daha fazlasında (2026-10-14: 10 ortam) iki sıra küçük kart.
             bool compact = n > 5;
             int perRow = compact ? (n + 1) / 2 : n;
@@ -1676,6 +1683,20 @@ namespace ScrollRoad.EditorTools
                 SetRect(status.rectTransform, new Vector2(0f, compact ? 22f : 38f), new Vector2(cardW - (compact ? 8f : 20f), 16f));
                 FitToWidth(status, 6f);
 
+                // Yan yuva düğmesi (SideActivity): kartın sağ üst köşesinde küçük hap.
+                var sideFrame = Plate(frame.transform, "SideButton", Color.white, RoundSprite);
+                sideFrame.raycastTarget = true;
+                Anchor(sideFrame.rectTransform, new Vector2(1, 1), new Vector2(-5, -5), new Vector2(1, 1));
+                sideFrame.rectTransform.sizeDelta = new Vector2(36f, 15f);
+                var sideButton = sideFrame.gameObject.AddComponent<Button>();
+                sideButton.targetGraphic = sideFrame;
+                var sideText = Tmp(sideFrame.transform, "Text", "SIDE", 7.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                sideText.characterSpacing = 6;
+                Stretch(sideText.rectTransform);
+                sideButtons[i] = sideButton;
+                sideFrames[i] = sideFrame;
+                sideTexts[i] = sideText;
+
                 buttons[i] = button;
                 frames[i] = frame;
                 thumbs[i] = thumbImage;
@@ -1691,6 +1712,10 @@ namespace ScrollRoad.EditorTools
             BindArray(controller, "cardFrames", frames);
             BindArray(controller, "thumbs", thumbs);
             BindArray(controller, "statusTexts", statuses);
+            BindArray(controller, "sideButtons", sideButtons);
+            BindArray(controller, "sideFrames", sideFrames);
+            BindArray(controller, "sideTexts", sideTexts);
+            Bind(controller, "hintText", hint);
             return controller;
         }
 
