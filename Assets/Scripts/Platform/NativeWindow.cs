@@ -74,6 +74,16 @@ namespace ScrollRoad.Platform
             return true;
         }
 
+        // Bildirim alanı (saat + tepsi simgeleri): tepsiye gizlenen pencere bu yöne süzülür.
+        public static bool TryGetTrayArea(out ScreenRect area)
+        {
+            area = default;
+            IntPtr tray = FindWindowEx(FindWindow("Shell_TrayWnd", null), IntPtr.Zero, "TrayNotifyWnd", null);
+            if (tray == IntPtr.Zero || !GetWindowRect(tray, out var r) || r.Right <= r.Left) return false;
+            area = new ScreenRect { Left = r.Left, Top = r.Top, Width = r.Right - r.Left, Height = r.Bottom - r.Top };
+            return true;
+        }
+
         // Görev çubuğu da "topmost": ona tıklanınca şeridin önüne geçer. Periyodik olarak yeniden öne alınır
         // (odak çalmadan).
         public static void KeepOnTop(IntPtr hwnd)

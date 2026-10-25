@@ -52,9 +52,15 @@ namespace ScrollRoad
         {
             var all = EnvironmentCatalog.All;
             if (index < 0 || index >= all.Length) return;
-            if (!EnvironmentManager.Select(all[index])) return;
-            Refresh();
+            var def = all[index];
             panel.SetActive(false); // seçilen ortam hemen görünsün
+            if (def == EnvironmentManager.Current) return;
+            // Ortam pencere kısa bir an görünmezken değişir (CompanionWindowController.SwapContent).
+            CompanionWindowController.SwapContent(() =>
+            {
+                EnvironmentManager.Select(def);
+                Refresh();
+            });
         }
 
         void PickSide(int index)

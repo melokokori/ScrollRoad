@@ -14,6 +14,12 @@ namespace ScrollRoad
 
         bool[] unlocked;
 
+        // Yol sahnesi aracı "sevinçle" sıçratır (RoadSceneView).
+        public static event System.Action VehicleUnlocked;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics() => VehicleUnlocked = null;
+
         void Update()
         {
             CarCatalog.CurrentProgress = new CarCatalog.Progress
@@ -36,6 +42,7 @@ namespace ScrollRoad
                 unlocked[i] = true;
                 string name = catalog.models[i].displayName;
                 notice.Announce($"New vehicle: {name}", "It's waiting in your garage", $"{name} unlocked");
+                VehicleUnlocked?.Invoke();
             }
         }
     }

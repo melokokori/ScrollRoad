@@ -157,8 +157,16 @@ namespace ScrollRoad
                 // Gizli pencerede açık bir menü/panel kalmasın.
                 var menu = FindAnyObjectByType<CardMenuController>();
                 if (menu != null) menu.CloseAll();
-            }
 
+                // Pencere tepsi simgesine doğru süzülüp solar, sonra gizlenir (2026-10-26).
+                var window = CompanionWindowController.Instance;
+                if (window != null && window.TryAnimateHide(() => HideNow(userClosed))) return;
+            }
+            HideNow(userClosed);
+        }
+
+        void HideNow(bool userClosed)
+        {
             ShowWindow(unityWindow, SW_HIDE);
             if (!IsHiddenToTray)
             {
@@ -176,24 +184,33 @@ namespace ScrollRoad
             }
         }
 
-        void Restore()
+        // animate=false: hemen ardından kart ↔ şerit geçişi gelecek (o kendi animasyonunu yapar).
+        void Restore(bool animate = true)
         {
             if (unityWindow == IntPtr.Zero) unityWindow = NativeWindow.FindUnityWindow();
             if (unityWindow == IntPtr.Zero) return;
 
+            bool wasHidden = IsHiddenToTray;
             if (IsHiddenToTray)
             {
                 IsHiddenToTray = false;
                 QualitySettings.vSyncCount = savedVSyncCount;
                 Application.targetFrameRate = savedTargetFrameRate;
             }
+            var window = CompanionWindowController.Instance;
+            if (animate && wasHidden && window != null && window.TryAnimateShow(ShowNow)) return;
+            ShowNow();
+        }
+
+        void ShowNow()
+        {
             ShowWindow(unityWindow, IsIconic(unityWindow) ? SW_RESTORE : SW_SHOW);
             SetForegroundWindow(unityWindow);
         }
 
         void ToggleCompanion()
         {
-            Restore();
+            Restore(animate: false);
             if (companion == null) companion = FindAnyObjectByType<CompanionWindowController>();
             if (companion != null)
             {

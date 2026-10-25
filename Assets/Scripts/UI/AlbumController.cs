@@ -72,9 +72,19 @@ namespace ScrollRoad
             if (row >= rows.Length) return;
             var c = EnvironmentContent.Get(rows[row].Id);
             if (c == null || v >= c.Venues.Length || !EnvironmentContent.IsVenueUnlocked(c, v)) return;
-            EnvironmentManager.Select(rows[row]);
-            EnvironmentContent.SelectVenue(c, c.Venues[v].Id);
+            var def = rows[row];
+            string venue = c.Venues[v].Id;
             panel.SetActive(false);
+            if (def == EnvironmentManager.Current)
+            {
+                EnvironmentContent.SelectVenue(c, venue);
+                return;
+            }
+            CompanionWindowController.SwapContent(() =>
+            {
+                EnvironmentManager.Select(def);
+                EnvironmentContent.SelectVenue(c, venue);
+            });
         }
 
         void Refresh()

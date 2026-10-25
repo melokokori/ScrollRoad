@@ -43,6 +43,10 @@ namespace ScrollRoad
         [SerializeField] float switchOutSeconds = 0.2f;
         [SerializeField] float switchInSeconds = 0.3f;
         [SerializeField] float switchGlideFraction = 0.35f; // kart, şeride olan yolun bu kadarını süzülür
+        [SerializeField] float settleSeconds = 0.18f;       // bırakılan şerit/kart yerine bu sürede seker
+        [SerializeField] float swapOutSeconds = 0.14f;      // ortam değişimi
+        [SerializeField] float swapInSeconds = 0.26f;
+        [SerializeField] float swapRisePx = 10f;
 #pragma warning restore CS0414
 
         static bool companionArgConsumed;
@@ -104,6 +108,54 @@ namespace ScrollRoad
         public static bool LaunchedWithCompanionArg =>
             Array.Exists(Environment.GetCommandLineArgs(), a => string.Equals(a, "-companion", StringComparison.OrdinalIgnoreCase));
         public event Action<bool> OnModeChanged;
+
+        public static CompanionWindowController Instance { get; private set; }
+
+        void Awake() => Instance = this;
+
+        void OnDestroy()
+        {
+            if (Instance == this) Instance = null;
+        }
+
+        // Ortam değişimi gibi sahnenin bütünüyle değiştiği anlar: değişiklik pencere kısa bir an
+        // görünmezken yapılır. Animasyon olamıyorsa (Editor, geçiş sürüyor, pencere gizli) hemen.
+        public static void SwapContent(Action change)
+        {
+#if !UNITY_EDITOR
+            var c = Instance;
+            if (c != null && !c.switching && c.CanAnimateSwitch())
+            {
+                c.StartCoroutine(c.SwapRoutine(change));
+                return;
+            }
+#endif
+            change();
+        }
+
+        // Tepsiye gizleme/tepsiden açma (BackgroundLifecycle). false: animasyon yok, çağıran kendisi yapsın.
+        public bool TryAnimateHide(Action hide)
+        {
+#if !UNITY_EDITOR
+            if (switching || !CanAnimateSwitch()) return false;
+            if (applyRoutine != null && !stripPlaced && IsCompanionMode) return false;
+            StartCoroutine(HideToTrayRoutine(hide));
+            return true;
+#else
+            return false;
+#endif
+        }
+
+        public bool TryAnimateShow(Action show)
+        {
+#if !UNITY_EDITOR
+            if (switching || hwnd == IntPtr.Zero || cardPending || hiddenForFullscreen || NativeWindow.IsMinimized(hwnd)) return false;
+            StartCoroutine(ShowFromTrayRoutine(show));
+            return true;
+#else
+            return false;
+#endif
+        }
 
         void Start()
         {
@@ -263,6 +315,8 @@ namespace ScrollRoad
         {
             if ((IsCompanionMode && !stripPlaced) || switching) return;
 #if !UNITY_EDITOR
+            if (settleRoutine != null) StopCoroutine(settleRoutine);
+            settleRoutine = null;
             if (!NativeWindow.TryGetBounds(hwnd, out var b) || !NativeWindow.TryGetCursor(out int cx, out int cy)) return;
             dragOffsetX = cx - b.Left;
             dragOffsetY = cy - b.Top;
@@ -285,12 +339,12 @@ namespace ScrollRoad
                 if (b.Left == dragStartLeft && b.Top == dragStartTop) return;
                 var band = new NativeWindow.ScreenRect { Left = b.Left, Top = b.Top + stripOverflowPx, Width = b.Width, Height = b.Height - stripOverflowPx };
                 var placement = PlaceStrip(ref band, true);
-                NativeWindow.MoveTo(hwnd, band.Left, band.Top - stripOverflowPx);
+                SettleTo(b, band.Left, band.Top - stripOverflowPx);
                 SaveService.SaveStripPlacement(placement, band.Left, band.Top);
                 return;
             }
             var clamped = ClampToWorkArea(b);
-            if (clamped.Left != b.Left || clamped.Top != b.Top) NativeWindow.MoveTo(hwnd, clamped.Left, clamped.Top);
+            if (clamped.Left != b.Left || clamped.Top != b.Top) SettleTo(b, clamped.Left, clamped.Top);
             SaveService.SaveCardPosition(clamped.Left, clamped.Top);
 #endif
         }
@@ -472,10 +526,10 @@ namespace ScrollRoad
 
 #if !UNITY_EDITOR
         // --- Kart ↔ şerit geçişi (2026-10-26) ---
-        // Yeni bir görsel katman yok, pencerenin kendisi hareket eder: önce gideceği yöne doğru biraz
-        // süzülürken solar, boyut/stil değişimi pencere görünmezken yapılır (eskiden ara karelerde yanlış
-        // boyutlu pencere görünüyordu), sonra yeni hâli belirir — şerit görev çubuğunun içinden hafif
-        // sekerek yükselir, kart şeridin yönünden gelip yerine oturur.
+        // Yeni bir görsel katman yok, pencerenin kendisi hareket eder (WindowMotion): önce gideceği yöne
+        // doğru biraz süzülürken solar, boyut/stil değişimi pencere görünmezken yapılır (eskiden ara
+        // karelerde yanlış boyutlu pencere görünüyordu), sonra yeni hâli belirir — şerit görev çubuğunun
+        // içinden hafif sekerek yükselir, kart şeridin yönünden gelip yerine oturur.
 
         bool CanAnimateSwitch() =>
             hwnd != IntPtr.Zero && !cardPending && !hiddenForFullscreen && !BackgroundLifecycle.IsHiddenToTray &&
@@ -491,10 +545,10 @@ namespace ScrollRoad
             switching = true;
 
             // Çıkış: kart şeridin yerine doğru, şerit aşağı (görev çubuğunun içine).
-            var outTo = before;
-            if (companion) outTo = Toward(before, PredictedStripBand(), switchGlideFraction);
-            else outTo.Top += before.Height;
-            yield return Glide(before, outTo, 1f, 0f, switchOutSeconds, EaseIn);
+            var outTo = companion
+                ? WindowMotion.Toward(before, PredictedStripBand(), switchGlideFraction)
+                : WindowMotion.Offset(before, 0, before.Height);
+            yield return WindowMotion.Glide(hwnd, before, outTo, 1f, 0f, switchOutSeconds, WindowMotion.EaseIn);
 
             NativeWindow.SetOpacity(hwnd, 0f);
             ApplyMode(companion);
@@ -505,13 +559,12 @@ namespace ScrollRoad
             // Giriş.
             if (NativeWindow.TryGetBounds(hwnd, out var placed))
             {
-                var inFrom = placed;
-                if (companion) inFrom.Top += placed.Height - stripOverflowPx;
-                else inFrom = Toward(placed, before, switchGlideFraction);
-                yield return Glide(inFrom, placed, 0f, 1f, switchInSeconds, companion ? EaseOutBack : EaseOut);
+                var inFrom = companion
+                    ? WindowMotion.Offset(placed, 0, placed.Height - stripOverflowPx)
+                    : WindowMotion.Toward(placed, before, switchGlideFraction);
+                yield return WindowMotion.Glide(hwnd, inFrom, placed, 0f, 1f, switchInSeconds, companion ? WindowMotion.EaseOutBack : WindowMotion.EaseOut);
             }
-            NativeWindow.SetOpacity(hwnd, 1f);
-            if (!companion) NativeWindow.ClearOpacity(hwnd); // kart eskisi gibi katmansız
+            FinishOpacity();
             switching = false;
         }
 
@@ -524,26 +577,11 @@ namespace ScrollRoad
             }
         }
 
-        IEnumerator Glide(NativeWindow.ScreenRect from, NativeWindow.ScreenRect to, float alphaFrom, float alphaTo, float seconds, Func<float, float> ease)
+        // Geçiş bitti: şerit katmanlı kalır (cam + tıklama geçirgenliği), kart eskisi gibi katmansız.
+        void FinishOpacity()
         {
-            float start = Time.realtimeSinceStartup;
-            while (true)
-            {
-                float t = seconds > 0f ? Mathf.Clamp01((Time.realtimeSinceStartup - start) / seconds) : 1f;
-                float e = ease(t);
-                NativeWindow.MoveTo(hwnd, Mathf.RoundToInt(Mathf.LerpUnclamped(from.Left, to.Left, e)), Mathf.RoundToInt(Mathf.LerpUnclamped(from.Top, to.Top, e)));
-                NativeWindow.SetOpacity(hwnd, Mathf.Lerp(alphaFrom, alphaTo, e));
-                if (t >= 1f) yield break;
-                yield return null;
-            }
-        }
-
-        // r'nin merkezini target'ın merkezine doğru verilen oranda kaydırır (boyut aynı kalır).
-        static NativeWindow.ScreenRect Toward(NativeWindow.ScreenRect r, NativeWindow.ScreenRect target, float fraction)
-        {
-            r.Left += Mathf.RoundToInt((target.Left + target.Width / 2 - (r.Left + r.Width / 2)) * fraction);
-            r.Top += Mathf.RoundToInt((target.Top + target.Height / 2 - (r.Top + r.Height / 2)) * fraction);
-            return r;
+            NativeWindow.SetOpacity(hwnd, 1f);
+            if (!IsCompanionMode) NativeWindow.ClearOpacity(hwnd);
         }
 
         // Şeridin açılacağı yer (ApplyMode'daki hesabın taşan kadransız hâli; yalnız süzülme yönü için).
@@ -554,14 +592,69 @@ namespace ScrollRoad
             return new NativeWindow.ScreenRect { Left = 12, Top = monitor.height - 48, Width = stripBaseWidth, Height = 48 };
         }
 
-        static float EaseIn(float t) => t * t * t;
-        static float EaseOut(float t) => 1f - (1f - t) * (1f - t) * (1f - t);
+        // Bırakılan şerit/kart son yerine kısa bir sekmeyle oturur (anında atlamak yerine).
+        Coroutine settleRoutine;
 
-        static float EaseOutBack(float t)
+        void SettleTo(NativeWindow.ScreenRect from, int left, int top)
         {
-            const float c1 = 1.70158f, c3 = c1 + 1f;
-            float u = t - 1f;
-            return 1f + c3 * u * u * u + c1 * u * u;
+            if (settleRoutine != null) StopCoroutine(settleRoutine);
+            var to = from;
+            to.Left = left;
+            to.Top = top;
+            settleRoutine = StartCoroutine(WindowMotion.Glide(hwnd, from, to, -1f, -1f, settleSeconds, WindowMotion.EaseOutBack));
+        }
+
+        // --- Ortam değişimi ve tepsi ---
+
+        // Ortam değişimi: pencere kısa bir an solar, değişiklik görünmezken yapılır, yeni sahne hafifçe
+        // yükselerek belirir. Animasyon mümkün değilse (geçiş sürüyor, pencere gizli) değişiklik hemen yapılır.
+        IEnumerator SwapRoutine(Action change)
+        {
+            switching = true;
+            NativeWindow.TryGetBounds(hwnd, out var home);
+            yield return WindowMotion.Glide(hwnd, home, home, 1f, 0f, swapOutSeconds, WindowMotion.EaseIn);
+            NativeWindow.SetOpacity(hwnd, 0f);
+            try { change(); }
+            catch (Exception e) { Debug.LogException(e); }
+            yield return null; // yeni sahnenin ilk karesi çizilsin
+            yield return null;
+            int rise = Mathf.RoundToInt(swapRisePx * NativeWindow.DpiScale(hwnd));
+            yield return WindowMotion.Glide(hwnd, WindowMotion.Offset(home, 0, rise), home, 0f, 1f, swapInSeconds, WindowMotion.EaseOutBack);
+            FinishOpacity();
+            switching = false;
+        }
+
+        // Tepsiye gizlenme: pencere saatin yanındaki tepsi simgesine doğru süzülerek solar.
+        IEnumerator HideToTrayRoutine(Action hide)
+        {
+            switching = true;
+            if (NativeWindow.TryGetBounds(hwnd, out var home))
+            {
+                var tray = NativeWindow.TryGetTrayArea(out var area) ? area : WindowMotion.Offset(home, 0, home.Height);
+                yield return WindowMotion.Glide(hwnd, home, WindowMotion.Toward(home, tray, switchGlideFraction), 1f, 0f, switchOutSeconds, WindowMotion.EaseIn);
+                // Gizliyken yer korunur: tepsiden açılınca buradan geri gelir.
+                NativeWindow.MoveTo(hwnd, home.Left, home.Top);
+            }
+            NativeWindow.SetOpacity(hwnd, 0f);
+            hide();
+            FinishOpacity(); // gizliyken opak: başka yoldan açılırsa görünmez kalmasın
+            switching = false;
+        }
+
+        // Tepsiden açılış: pencere görünmez gösterilir ve tepsi yönünden yerine gelir.
+        IEnumerator ShowFromTrayRoutine(Action show)
+        {
+            switching = true;
+            NativeWindow.SetOpacity(hwnd, 0f);
+            show();
+            yield return null;
+            if (NativeWindow.TryGetBounds(hwnd, out var home))
+            {
+                var tray = NativeWindow.TryGetTrayArea(out var area) ? area : WindowMotion.Offset(home, 0, home.Height);
+                yield return WindowMotion.Glide(hwnd, WindowMotion.Toward(home, tray, switchGlideFraction), home, 0f, 1f, switchInSeconds, WindowMotion.EaseOut);
+            }
+            FinishOpacity();
+            switching = false;
         }
 
         // Şeritte imlecin altındaki piksel kare sonunda okunur: saydamsa pencere tıklamayı alttaki görev

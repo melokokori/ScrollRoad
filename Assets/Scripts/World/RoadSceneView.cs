@@ -88,6 +88,18 @@ namespace ScrollRoad
         [SerializeField] float airCameraLift = 1.3f;       // hava aracında kart kamerası bu kadar yükselir (yer aşağıda kalır)
         [SerializeField] float brakeHoldSeconds = 0.6f;    // yukarı scroll'dan sonra stop lambası açık kalır
 
+        // Anlara özel basılıp esneme (2026-10-26): araç önce basılır, sonra uzar, yaylı söner; tabanı
+        // yerde kalır. Ek çizim yok, aracın kendi ölçeği. Değerler yayın başlangıç hızı.
+        [Header("Araç pop'u")]
+        [SerializeField] float popStiffness = 200f;
+        [SerializeField] float popDamping = 8f;
+        [SerializeField] float unlockPop = 1.6f;          // yeni araç açıldı
+        [SerializeField] float stopPop = 1.0f;            // durağa varış (bölge durağında 1,4 kat)
+        [SerializeField] float boostPop = 0.8f;           // boost'a giriş
+        [SerializeField] float boostPopKmh = 160f;        // bu hızı geçince...
+        [SerializeField] float boostResetKmh = 90f;       // ...ve bunun altına inmeden tekrar etmez
+        [SerializeField] float boostPopCooldown = 8f;
+
         [Header("Ortam")]
         [SerializeField] float cloudUnitsPerKm = 1.2f;
         [SerializeField] float cloudWind = 0.04f;         // birim/sn, araçtan bağımsız sürüklenme
@@ -294,11 +306,16 @@ namespace ScrollRoad
             drive.OnDirectionChanged += HandleDirectionChanged;
             drive.OnStep += HandleStep;
             drive.OnReachedCity += HandleCityReached;
+            CarUnlockTracker.VehicleUnlocked += HandleVehicleUnlocked;
+            route = FindAnyObjectByType<RouteProgress>();
+            if (route != null) route.StopReached += HandleStopReached;
         }
 
         void OnDestroy()
         {
             CarCatalog.SelectionChanged -= HandleCarSelectionChanged;
+            CarUnlockTracker.VehicleUnlocked -= HandleVehicleUnlocked;
+            if (route != null) route.StopReached -= HandleStopReached;
             if (drive == null) return;
             drive.OnDirectionChanged -= HandleDirectionChanged;
             drive.OnStep -= HandleStep;
@@ -450,6 +467,40 @@ namespace ScrollRoad
         {
             bobVelocity += stepBobImpulse * (TurnsAround ? 2f : 1f);
             if (OnLand) for (int i = 0; i < 6; i++) SpawnDust();
+        }
+
+        RouteProgress route;
+        float popOffset, popVelocity;
+        bool boostPopped;
+        float boostPopTimer;
+
+        void Pop(float strength) => popVelocity -= strength; // eksi = önce basılır
+
+        void HandleVehicleUnlocked()
+        {
+            Pop(unlockPop);
+            bobVelocity += stepBobImpulse * 3f;
+        }
+
+        void HandleStopReached(RouteMap.Stop stop)
+        {
+            bool region = stop.Kind == RouteMap.StopKind.Region;
+            Pop(stopPop * (region ? 1.4f : 1f));
+            bobVelocity += stepBobImpulse * (region ? 2.5f : 1.5f);
+        }
+
+        // Boost'a giriş: hız eşiği geçince bir kez; eşiğin altına inip bekleme bitmeden tekrar etmez.
+        void UpdateBoostPop(float dt)
+        {
+            float speed = drive.CurrentSpeedKmh;
+            boostPopTimer -= dt;
+            if (!boostPopped && speed > boostPopKmh && boostPopTimer <= 0f)
+            {
+                boostPopped = true;
+                boostPopTimer = boostPopCooldown;
+                Pop(boostPop);
+            }
+            else if (boostPopped && speed < boostResetKmh) boostPopped = false;
         }
 
         void HandleCityReached()
@@ -644,6 +695,9 @@ namespace ScrollRoad
             {
                 bobVelocity += (-bobOffset * bobStiffness - bobVelocity * bobDamping) * dt;
                 bobOffset = Mathf.Clamp(bobOffset + bobVelocity * dt, -0.12f, 0.25f);
+                popVelocity += (-popOffset * popStiffness - popVelocity * popDamping) * dt;
+                popOffset = Mathf.Clamp(popOffset + popVelocity * dt, -0.15f, 0.15f);
+                UpdateBoostPop(dt);
 
                 UpdatePitch(dt);
                 UpdateBrake(dt);
@@ -1235,9 +1289,11 @@ namespace ScrollRoad
                 return;
             }
             // Zıplarken hafif uzama/basılma (hacim korunur gibi).
-            float squash = Mathf.Clamp(bobVelocity * squashPerBobVelocity, -0.05f, 0.05f);
+            float squash = Mathf.Clamp(bobVelocity * squashPerBobVelocity, -0.05f, 0.05f) + popOffset;
             // Eksi X ölçek = yatay flip; ortadan geçerken araç bir an "kenardan" görünür (U-dönüşü hissi).
             t.localScale = new Vector3(scale * visualFacing * (1f - squash * 0.5f), scale * (1f + squash), 1f);
+            // Pop'ta taban yerde kalsın (basılınca araç havada küçülmesin).
+            t.localPosition += new Vector3(0f, CarHeight * 0.5f * popOffset, 0f);
             carRenderer.color = Color.white;
 
             for (int i = 0; i < wheels.Length && i < MaxWheels; i++)
