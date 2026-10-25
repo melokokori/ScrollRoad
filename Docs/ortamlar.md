@@ -425,3 +425,18 @@ Kullanıcı: "her aktivitede kadran olmasına gerek yok" → "sadece yolda kals�
 - Görseller: `Tools/make_tallies.py` → `Assets/Resources/Tallies/` (PIL, düz vektör; katmanlı + Dolap önizlemesi `_preview`). `SkinInfo.Dial/DialInk/DialInkLast` → `Tally/Ink/Accent`; `FishingGear.Dial` → `Tally` (`bucket_*`) + `TallyInk`.
 - Silinen: `EnvGaugeView`, `ReelGaugeView`, 36 kadran takımının yüz/ibre görselleri, `make_gauges.py`'deki makara/ortam kadranı tanımları. Yol kadranları ve görev çubuğu şeridi değişmedi.
 - Sesler `gen_sound.py --env` ile prosedürel; kulakla dinlenmedi.
+
+## 25.10 gece — Kebap: tezgâha yalnız döner çıkar (kullanıcı: "dönerdeki ortaya çıkan yemekler alakasız olmuş")
+
+Ortam Standardı v2'de eklenen 4 mekân genel dünya mutfağıyla doluydu (ramen, nachos, humus, ahtapot…); usta dönerden kesip tezgâha başka yemek sürüyordu. Kural: **her porsiyon şişten kesilen etle yapılır.** 5 mekân = dikey şişin 5 kültürü (kullanıcı onayladı; Night Grill adı kaldı, içeriği Berlin):
+
+| Mekân | Sıradan (6) | Nadir (30/24/18/14/9/5) |
+|---|---|---|
+| The Kebab House (İstanbul) | lavaş dürüm, yarım ekmek, pilav üstü, döner porsiyon, pide arası, tombik | İskender, tavuk döner, pideli döner, kaşarlı dürüm, Erzurum cağ kebabı, Sultan tabağı (şişsiz) |
+| The Greek Taverna (gyros) | pita gyros, tavuk pita, gyros tabağı, gyros baget, gyros kutusu, açık pita | yoğurtlu, çift pita, fetalı, acılı, kuzu gyros, Gyros Kulesi |
+| The Shawarma Stand | shawarma dürüm, arabi, shawarma tabağı, saj, samoon, shawarma patates | dana, toum özel, fatteh, kaak, kuzu, Royal tabak |
+| The Taqueria (al pastor) | tacos al pastor, gringa, torta, alambre, volcanes, quesadilla | costra, burrito, huarache, ananaslı özel, tacos árabes, Golden Trompo |
+| The Night Grill (Berlin) | Döner im Brot, Berlin dürüm, Dönerteller, döner box, lahmacun dürüm, hellimli döner | Gemüse döner, peynirli, "her şey dahil", ekstra acılı, Midnight Plate, Golden Döner |
+
+- Yeniden kullanılan görseller yeniden adlandırıldı: `salad_plate`→`doner_portion`, `skewer`→`cag_kebab`, `gyros`→`pita_gyros`, `shawarma`→`shawarma_wrap`, `al_pastor`→`tacos_pastor`; `golden_trompo` aynı. 47 alakasız görsel (ve ham kopyaları) silindi, 48 yeni görsel `Tools/gen_kebab.py --all` ile.
+- Eski kimliklerle oyuncunun menüsüne damgalanmış nadirler (ör. Gyros, Shawarma, Al Pastor, kleftiko) kayıtta kalır ama listede görünmez.

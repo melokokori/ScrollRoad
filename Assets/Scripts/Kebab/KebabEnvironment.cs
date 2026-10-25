@@ -28,17 +28,17 @@ namespace ScrollRoad
                 new ItemType { Id = "lavash_wrap", Name = "Lavash wrap", Size = 0.55f },
                 new ItemType { Id = "half_bread", Name = "Half bread", Size = 0.6f },
                 new ItemType { Id = "rice_plate", Name = "Rice plate", Size = 0.5f },
-                new ItemType { Id = "salad_plate", Name = "Salad plate", Size = 0.5f },
+                new ItemType { Id = "doner_portion", Name = "Doner portion", Size = 0.5f },
                 new ItemType { Id = "pita", Name = "Pita", Size = 0.6f },
-                new ItemType { Id = "skewer", Name = "Skewer portion", Size = 0.45f },
+                new ItemType { Id = "tombik", Name = "Tombik", Size = 0.55f },
             },
             Specials = new[]
             {
                 new ItemType { Id = "iskender", Name = "Iskender", Frequency = 30f, Size = 0.55f },
                 new ItemType { Id = "chicken_doner", Name = "Chicken Doner", Frequency = 24f, Size = 0.65f },
-                new ItemType { Id = "gyros", Name = "Gyros", Frequency = 18f, Size = 0.7f },
-                new ItemType { Id = "shawarma", Name = "Shawarma", Frequency = 14f, Size = 0.65f },
-                new ItemType { Id = "al_pastor", Name = "Al Pastor", Frequency = 9f, Size = 0.6f },
+                new ItemType { Id = "pideli_doner", Name = "Pideli Doner", Frequency = 18f, Size = 0.6f },
+                new ItemType { Id = "kasarli_durum", Name = "Cheese Durum", Frequency = 14f, Size = 0.6f },
+                new ItemType { Id = "cag_kebab", Name = "Erzurum Cag Kebab", Frequency = 9f, Size = 0.6f },
                 new ItemType { Id = "sultans_platter", Name = "The Sultan's Platter", Frequency = 5f, Size = 0.75f },
             },
         };
@@ -47,31 +47,37 @@ namespace ScrollRoad
         static ItemType D(string id, string name, float size) => new ItemType { Id = id, Name = name, Size = size };
         static ItemType R(string id, string name, float freq, float size) => new ItemType { Id = id, Name = name, Frequency = freq, Size = size };
 
-        // Ortam Standardı v2 (2026-10-25): dört yeni mutfak. Palette: [0] duvar, [1] ocak, [2] tezgâh, [3] tezgâh üstü.
+        // Ortam Standardı v2 (2026-10-25): dört döner kültürü daha (2026-10-25 gece kullanıcı: "ortaya çıkan yemekler
+        // alakasız" → her mekânın her porsiyonu ustanın şişten kestiği etle yapılır). Palette: [0] duvar, [1] ocak,
+        // [2] tezgâh, [3] tezgâh üstü.
         static ItemSite Kitchen(string id, string name, ItemType[] commons, ItemType[] specials, params string[] palette) => new ItemSite
         {
             Id = id, Name = name, SpecialChance = 0.048f, SpecialMinIndex = 12,
             Commons = commons, Specials = specials, Palette = System.Array.ConvertAll(palette, Hex),
         };
 
+        // Atina: gyros.
         public static readonly ItemSite Taverna = Kitchen("taverna", "The Greek Taverna",
-            new[] { D("souvlaki_pita", "Souvlaki pita", 0.6f), D("greek_salad", "Greek salad", 0.5f), D("fries_plate", "Fries plate", 0.45f), D("tzatziki", "Tzatziki", 0.45f), D("lemon_potatoes", "Lemon potatoes", 0.45f), D("bread_basket", "Bread basket", 0.5f) },
-            new[] { R("kleftiko", "Lamb Kleftiko", 30f, 0.6f), R("octopus", "Grilled Octopus", 24f, 0.6f), R("mezze_board", "The Mezze Board", 18f, 0.7f), R("loukoumades", "Loukoumades", 14f, 0.5f), R("kontosouvli", "Kontosouvli", 9f, 0.7f), R("taverna_feast", "The Taverna Feast", 5f, 0.8f) },
+            new[] { D("pita_gyros", "Pita gyros", 0.6f), D("chicken_gyros", "Chicken pita", 0.6f), D("gyros_plate", "Gyros plate", 0.55f), D("gyros_baguette", "Gyros baguette", 0.6f), D("gyros_box", "Gyros box", 0.5f), D("open_pita", "Open pita", 0.55f) },
+            new[] { R("yogurt_gyros", "Gyros with Yogurt", 30f, 0.55f), R("double_pita", "Double Pita", 24f, 0.65f), R("feta_gyros", "Feta Gyros", 18f, 0.6f), R("spicy_gyros", "Spicy Gyros", 14f, 0.6f), R("lamb_gyros", "Lamb Gyros", 9f, 0.6f), R("gyros_tower", "The Gyros Tower", 5f, 0.75f) },
             "#F4F6F8", "#C8B89A", "#3E6E9E", "#F2F4F6");
 
+        // Beyrut: shawarma.
         public static readonly ItemSite ShawarmaStand = Kitchen("shawarma", "The Shawarma Stand",
-            new[] { D("falafel_wrap", "Falafel wrap", 0.6f), D("hummus", "Hummus", 0.45f), D("fattoush", "Fattoush", 0.5f), D("manakish", "Manakish", 0.5f), D("pickles", "Pickles", 0.45f), D("lentil_soup", "Lentil soup", 0.45f) },
-            new[] { R("kibbeh", "Kibbeh", 30f, 0.55f), R("mansaf", "Mansaf", 24f, 0.7f), R("knafeh", "Knafeh", 18f, 0.55f), R("mixed_grill", "Mixed Grill", 14f, 0.7f), R("maqluba", "Maqluba", 9f, 0.65f), R("royal_mezze", "The Royal Mezze", 5f, 0.8f) },
+            new[] { D("shawarma_wrap", "Shawarma wrap", 0.6f), D("arabi", "Arabi", 0.55f), D("shawarma_plate", "Shawarma plate", 0.55f), D("saj_shawarma", "Saj shawarma", 0.6f), D("samoon", "Samoon", 0.55f), D("shawarma_fries", "Shawarma fries", 0.5f) },
+            new[] { R("beef_shawarma", "Beef Shawarma", 30f, 0.6f), R("toum_special", "Toum Special", 24f, 0.6f), R("shawarma_fatteh", "Shawarma Fatteh", 18f, 0.55f), R("kaak_shawarma", "Kaak Shawarma", 14f, 0.6f), R("lamb_shawarma", "Lamb Shawarma", 9f, 0.6f), R("royal_shawarma", "The Royal Platter", 5f, 0.8f) },
             "#F0E2C8", "#A8763E", "#2E6E5E", "#D8D2C4");
 
+        // Mexico City: al pastor (trompo).
         public static readonly ItemSite Taqueria = Kitchen("taqueria", "The Taqueria",
-            new[] { D("taco_trio", "Taco trio", 0.55f), D("quesadilla", "Quesadilla", 0.5f), D("nachos", "Nachos", 0.5f), D("elote", "Elote", 0.5f), D("guacamole", "Guacamole", 0.45f), D("burrito", "Burrito", 0.6f) },
-            new[] { R("enchiladas", "Enchiladas", 30f, 0.6f), R("mole", "Mole Poblano", 24f, 0.6f), R("pozole", "Pozole", 18f, 0.55f), R("tamales", "Tamales", 14f, 0.55f), R("churros", "Churros", 9f, 0.55f), R("golden_trompo", "The Golden Trompo", 5f, 0.75f) },
+            new[] { D("tacos_pastor", "Tacos al pastor", 0.6f), D("gringa", "Gringa", 0.55f), D("torta_pastor", "Torta al pastor", 0.6f), D("alambre", "Alambre", 0.55f), D("volcan", "Volcanes", 0.55f), D("pastor_quesadilla", "Pastor quesadilla", 0.55f) },
+            new[] { R("costra", "Tacos de Costra", 30f, 0.6f), R("pastor_burrito", "Pastor Burrito", 24f, 0.6f), R("huarache_pastor", "Huarache al Pastor", 18f, 0.6f), R("pineapple_special", "Pineapple Special", 14f, 0.6f), R("tacos_arabes", "Tacos Arabes", 9f, 0.6f), R("golden_trompo", "The Golden Trompo", 5f, 0.75f) },
             "#F6D27A", "#C2412F", "#2E8F6E", "#F2E6D0");
 
+        // Berlin: gece dönercisi.
         public static readonly ItemSite NightGrill = Kitchen("night_grill", "The Night Grill",
-            new[] { D("yakitori", "Yakitori", 0.5f), D("gyoza", "Gyoza", 0.45f), D("onigiri", "Onigiri", 0.45f), D("edamame", "Edamame", 0.45f), D("kimchi", "Kimchi", 0.45f), D("ramen", "Ramen", 0.55f) },
-            new[] { R("bulgogi", "Bulgogi", 30f, 0.6f), R("char_siu", "Char Siu", 24f, 0.6f), R("peking_duck", "Peking Duck", 18f, 0.7f), R("wagyu_skewer", "Wagyu Skewers", 14f, 0.55f), R("katsu_curry", "Katsu Curry", 9f, 0.6f), R("imperial_banquet", "The Imperial Banquet", 5f, 0.8f) },
+            new[] { D("doner_brot", "Doner in bread", 0.6f), D("berlin_durum", "Berlin durum", 0.6f), D("doner_teller", "Doner plate", 0.55f), D("doner_box", "Doner box", 0.5f), D("lahmacun_roll", "Lahmacun roll", 0.6f), D("doner_halloumi", "Halloumi doner", 0.6f) },
+            new[] { R("gemuse_doner", "Gemuse Doner", 30f, 0.6f), R("cheese_doner", "Cheese Doner", 24f, 0.6f), R("mit_alles", "Doner with Everything", 18f, 0.65f), R("scharf_doner", "Extra Spicy Doner", 14f, 0.6f), R("midnight_teller", "The Midnight Plate", 9f, 0.7f), R("golden_doner", "The Golden Doner", 5f, 0.7f) },
             "#2A2433", "#5A4A40", "#3A2A22", "#8A6A4A");
 
         static readonly ItemSite[] AllSites = { House, Taverna, ShawarmaStand, Taqueria, NightGrill };

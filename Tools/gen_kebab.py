@@ -1,4 +1,4 @@
-"""Kebap (çağ kebabı) ortamı görselleri (usta, porsiyonlar, seçici kartı): Gemini ile oyunun düz vektör stilinde.
+"""Kebap (dikey döner) ortamı görselleri (usta, porsiyonlar, seçici kartı): Gemini ile oyunun düz vektör stilinde.
 
 Üretim ve temizleme gen_fishing.py ile aynı (vesper.png stil referansı, düz mavi zemin saydamlaştırılır,
 kırpılır, en uzun kenar 512 px, alt kenara yaslanır). Porsiyonlar yandan hafif yukarıdan, tabağıyla birlikte,
@@ -24,55 +24,58 @@ ONLY = ("Same flat vector style as the reference but do NOT draw the rider, the 
         "this object")
 
 TARIFLER = {
-    # ---- Ortam Standardı v2 (2026-10-25): Yunan Tavernası, Şavurma Tezgâhı, Taqueria, Gece Izgarası
-    "souvlaki_pita": DISH.format(what="a souvlaki pita wrap on a small white plate", look="grilled pork pieces, tomato, onion and tzatziki in a folded pita"),
-    "greek_salad": DISH.format(what="a Greek salad in a white bowl", look="tomato, cucumber, red onion, olives and a block of feta"),
-    "fries_plate": DISH.format(what="a plate of golden fries with a lemon wedge", look="crispy fries sprinkled with oregano"),
-    "tzatziki": DISH.format(what="a bowl of tzatziki with pita triangles", look="white yogurt dip with cucumber and olive oil"),
-    "lemon_potatoes": DISH.format(what="a dish of Greek lemon potatoes", look="golden roasted potato wedges with herbs"),
-    "bread_basket": DISH.format(what="a small basket of sesame bread", look="crusty round sesame bread slices"),
-    "kleftiko": DISH.format(what="lamb kleftiko on a plate", look="slow-roasted lamb with potatoes and herbs on baking paper"),
-    "octopus": DISH.format(what="a grilled octopus tentacle plate", look="charred octopus with lemon and olive oil"),
-    "mezze_board": DISH.format(what="a wooden mezze board", look="olives, feta, dolmades, tzatziki and pita"),
-    "loukoumades": DISH.format(what="a plate of loukoumades", look="golden honey doughnut balls with cinnamon"),
-    "kontosouvli": DISH.format(what="kontosouvli pork on a long skewer over a plate", look="big juicy charred pork chunks on a spit"),
-    "taverna_feast": DISH.format(what="a grand Greek feast platter", look="souvlaki skewers, gyros, salad, potatoes and pita on a big blue-rimmed platter"),
-    "falafel_wrap": DISH.format(what="a falafel wrap cut in half", look="falafel balls, salad and tahini in flatbread"),
-    "hummus": DISH.format(what="a bowl of hummus", look="creamy hummus with olive oil swirl, chickpeas and paprika"),
-    "fattoush": DISH.format(what="a bowl of fattoush salad", look="lettuce, tomato, radish and crispy pita chips"),
-    "manakish": DISH.format(what="a manakish flatbread", look="round flatbread topped with green za'atar"),
-    "pickles": DISH.format(what="a small dish of pink pickled turnips and cucumbers", look="bright pink turnip sticks and green pickles"),
-    "lentil_soup": DISH.format(what="a bowl of red lentil soup", look="orange soup with a lemon wedge"),
-    "kibbeh": DISH.format(what="a plate of kibbeh", look="golden-brown torpedo-shaped croquettes with mint"),
-    "mansaf": DISH.format(what="a mansaf platter", look="lamb on yellow rice with almonds and yogurt sauce"),
-    "knafeh": DISH.format(what="a tray of knafeh", look="orange crispy pastry with melted cheese and pistachios"),
-    "mixed_grill": DISH.format(what="a mixed grill platter", look="kofta, shish tawook and lamb skewers with grilled tomatoes"),
-    "maqluba": DISH.format(what="a maqluba upside-down rice dome on a platter", look="rice dome with eggplant, chicken and pine nuts"),
-    "royal_mezze": DISH.format(what="a royal mezze spread on a brass tray", look="many small bowls of dips, salads and grilled meats"),
-    "taco_trio": DISH.format(what="three tacos on a plate", look="corn tortillas with meat, onion and cilantro, lime wedges"),
-    "quesadilla": DISH.format(what="a quesadilla cut in wedges", look="golden tortilla with melted cheese"),
-    "nachos": DISH.format(what="a plate of nachos", look="tortilla chips with cheese, jalapeños and salsa"),
-    "elote": DISH.format(what="an elote corn cob on a stick", look="grilled corn with mayo, cheese and chili powder"),
-    "guacamole": DISH.format(what="a stone bowl of guacamole with chips", look="chunky green guacamole"),
-    "burrito": DISH.format(what="a burrito cut in half", look="flour tortilla with rice, beans and meat"),
-    "enchiladas": DISH.format(what="a plate of enchiladas", look="rolled tortillas in red sauce with cheese"),
-    "mole": DISH.format(what="a plate of chicken mole poblano", look="chicken in dark mole sauce with sesame seeds and rice"),
-    "pozole": DISH.format(what="a bowl of red pozole", look="red broth with hominy, radish and cabbage"),
-    "tamales": DISH.format(what="tamales on a plate", look="corn husk wrapped tamales, one opened"),
-    "churros": DISH.format(what="churros with chocolate sauce", look="sugar-coated churros and a cup of chocolate"),
+    # ---- Dört döner kültürü (2026-10-25 gece, kullanıcı: "ortaya çıkan yemekler alakasız"): her mekânın her porsiyonu
+    # ustanın şişten kestiği etle yapılır. Yunan tavernası = gyros, şavurma tezgâhı = shawarma, taqueria = al pastor
+    # (trompo), gece ızgarası = Berlin gece dönercisi. Et hep ince kesilmiş, kızarmış dilimler (şiş/köfte yok).
+    "chicken_gyros": DISH.format(what="a chicken gyros pita wrap on a small white plate", look="pita folded around pale golden sliced chicken, tomato, onion, white tzatziki and a few fries"),
+    "gyros_plate": DISH.format(what="a gyros plate", look="a pile of thin sliced browned pork gyros meat, fries, tomato slices, red onion, a scoop of white tzatziki and pita triangles on a white plate"),
+    "gyros_baguette": DISH.format(what="a gyros baguette sandwich on a small white plate", look="a crusty baguette split open and stuffed with thin sliced browned gyros meat, tomato, onion and tzatziki"),
+    "gyros_box": DISH.format(what="an open paper takeaway box of gyros and fries", look="thin sliced browned gyros meat over golden fries with white tzatziki drizzled on top"),
+    "open_pita": DISH.format(what="an open-faced gyros pita on a white plate", look="a flat round pita topped with thin sliced browned gyros meat, tomato, onion and paprika, not folded"),
+    "yogurt_gyros": DISH.format(what="gyros with yogurt on a white plate", look="thin sliced browned gyros meat over pita squares, covered with thick white yogurt and red tomato sauce"),
+    "double_pita": DISH.format(what="two gyros pita wraps side by side on a white plate", look="two folded pitas packed with thin sliced browned gyros meat, tomato, onion, tzatziki and fries"),
+    "feta_gyros": DISH.format(what="a gyros pita with feta on a white plate", look="a folded pita with thin sliced browned gyros meat, crumbled white feta cheese, tomato and olives"),
+    "spicy_gyros": DISH.format(what="a spicy gyros pita on a white plate", look="a folded pita with thin sliced browned gyros meat, red chili sauce, sliced red chili peppers and onion"),
+    "lamb_gyros": DISH.format(what="a lamb gyros plate", look="thin sliced dark browned lamb gyros meat, lemon potatoes, a lemon wedge and fresh oregano on a white plate"),
+    "gyros_tower": DISH.format(what="a tall stacked gyros platter on a round golden-rimmed plate", look="a tall pile of thin sliced browned gyros meat on layered pitas, crowned with tzatziki, tomato and fries around it"),
+    "arabi": DISH.format(what="an arabi shawarma platter", look="a shawarma wrap cut into small toasted bite-size pieces, with fries, white garlic sauce and pink pickled turnips on a white plate"),
+    "shawarma_plate": DISH.format(what="a shawarma plate", look="a big heap of thin sliced spiced golden-brown chicken shawarma meat as the main thing, a small scoop of rice, white garlic sauce and pink pickles on a white plate"),
+    "saj_shawarma": DISH.format(what="a saj shawarma wrap on a small white plate", look="a very thin large saj flatbread rolled tight around sliced spiced chicken shawarma and garlic sauce, toasted"),
+    "samoon": DISH.format(what="a samoon shawarma sandwich on a small white plate", look="a diamond-shaped crusty samoon bread stuffed with sliced spiced shawarma meat, tomato and pickles"),
+    "shawarma_fries": DISH.format(what="a tray of shawarma fries", look="golden fries topped with sliced spiced chicken shawarma, white garlic sauce and parsley"),
+    "beef_shawarma": DISH.format(what="a beef shawarma wrap on a small white plate", look="flatbread with thin sliced dark browned beef shawarma, tahini sauce, tomato and parsley"),
+    "toum_special": DISH.format(what="a shawarma wrap with extra garlic sauce on a small white plate", look="a toasted wrap of sliced chicken shawarma with a big bowl of fluffy white toum garlic sauce beside it"),
+    "shawarma_fatteh": DISH.format(what="a bowl of shawarma fatteh", look="crispy pita pieces under sliced chicken shawarma, warm white yogurt, pine nuts and parsley"),
+    "kaak_shawarma": DISH.format(what="a kaak shawarma sandwich on a small white plate", look="a round sesame kaak bread ring split open and filled with sliced shawarma meat and garlic sauce"),
+    "lamb_shawarma": DISH.format(what="a lamb shawarma plate", look="thin sliced dark browned lamb shawarma on rice with almonds, tahini and grilled tomato on a white plate"),
+    "royal_shawarma": DISH.format(what="a royal shawarma platter on a large round brass tray", look="mountains of sliced chicken and beef shawarma, rice, fries, garlic sauce, pickles and flatbread"),
+    "gringa": DISH.format(what="a gringa on a small white plate", look="a flour tortilla folded over red marinated sliced al pastor pork, melted cheese and pineapple pieces"),
+    "torta_pastor": DISH.format(what="a torta al pastor sandwich on a small white plate", look="a crusty Mexican bread roll stuffed with red marinated sliced al pastor pork, avocado slices and onion"),
+    "alambre": DISH.format(what="an alambre on a small cast iron plate", look="chopped red al pastor pork with green peppers, onion and melted cheese, tortillas on the side"),
+    "volcan": DISH.format(what="three volcanes al pastor on a white plate", look="crispy flat tostadas with melted cheese and red marinated al pastor pork on top"),
+    "pastor_quesadilla": DISH.format(what="a pastor quesadilla cut in wedges on a white plate", look="golden tortilla with melted cheese and red marinated sliced al pastor pork inside"),
+    "costra": DISH.format(what="two tacos de costra on a small white plate", look="tacos wrapped in a crispy golden fried cheese crust, filled with red marinated al pastor pork and cilantro, the plate only slightly larger than the tacos"),
+    "pastor_burrito": DISH.format(what="a burrito al pastor cut in half on a white plate", look="flour tortilla with red marinated sliced al pastor pork, rice, beans and pineapple"),
+    "huarache_pastor": DISH.format(what="a huarache al pastor on a white plate", look="a long oval masa flatbread topped with red al pastor pork, salsa, crumbled white cheese and cilantro"),
+    "pineapple_special": DISH.format(what="tacos al pastor with a grilled pineapple wedge on a white plate", look="three corn tortilla tacos with red al pastor pork and a big caramelized pineapple slice"),
     "golden_trompo": DISH.format(what="a small golden al pastor trompo platter", look="a spit of marinated pork topped with pineapple and tacos around it"),
-    "yakitori": DISH.format(what="yakitori skewers on a plate", look="grilled glazed chicken skewers with spring onion"),
-    "gyoza": DISH.format(what="a plate of gyoza dumplings", look="pan-fried golden dumplings with dipping sauce"),
-    "onigiri": DISH.format(what="two onigiri rice balls", look="white triangle rice balls with nori"),
-    "edamame": DISH.format(what="a bowl of edamame", look="green soybean pods with salt"),
-    "kimchi": DISH.format(what="a small dish of kimchi", look="red spicy fermented cabbage"),
-    "ramen": DISH.format(what="a bowl of ramen", look="noodles, pork slices, egg, nori and spring onion"),
-    "bulgogi": DISH.format(what="a sizzling plate of bulgogi", look="marinated beef with onions and sesame"),
-    "char_siu": DISH.format(what="char siu pork slices on rice", look="red-glazed barbecued pork"),
-    "peking_duck": DISH.format(what="a Peking duck platter", look="crispy glossy duck slices with pancakes and cucumber"),
-    "wagyu_skewer": DISH.format(what="wagyu beef skewers on a plate", look="marbled seared beef cubes on skewers"),
-    "katsu_curry": DISH.format(what="a plate of katsu curry", look="breaded pork cutlet with golden curry and rice"),
-    "imperial_banquet": DISH.format(what="an imperial banquet tray", look="duck, dumplings, noodles and skewers on a red lacquer tray"),
+    "tacos_arabes": DISH.format(what="tacos arabes on a white plate", look="thick soft pita-like flatbreads rolled around sliced spiced pork, with a small cup of chipotle sauce"),
+    "doner_brot": DISH.format(what="a Berlin doner kebab in toasted bread on a small white plate", look="a wedge of toasted Turkish flatbread stuffed with thin sliced browned doner meat, lettuce, red cabbage, tomato, onion and white herb sauce"),
+    "berlin_durum": DISH.format(what="a Berlin durum wrap cut in half on a small white plate", look="thin yufka flatbread rolled around sliced browned doner meat, red cabbage, lettuce and white sauce"),
+    "doner_teller": DISH.format(what="a doner plate", look="a big pile of thin sliced browned doner meat, fries and salad with red cabbage and white sauce on a white plate"),
+    "doner_box": DISH.format(what="an open cardboard doner box", look="golden fries topped with thin sliced browned doner meat, white garlic sauce and red chili sauce"),
+    "lahmacun_roll": DISH.format(what="a lahmacun doner roll cut in half on a small white plate", look="a thin round lahmacun rolled around sliced browned doner meat, lettuce, tomato and lemon"),
+    "doner_halloumi": DISH.format(what="a doner bread with grilled halloumi on a small white plate", look="toasted Turkish flatbread with sliced browned doner meat, grilled halloumi slices and salad"),
+    "gemuse_doner": DISH.format(what="a vegetable chicken doner in toasted bread on a small white plate", look="toasted flatbread stuffed with sliced chicken doner, roasted potato, carrot and zucchini pieces, feta crumbles and a lemon squeeze"),
+    "cheese_doner": DISH.format(what="a cheese doner in toasted bread on a small white plate", look="toasted flatbread with sliced browned doner meat under thick melted golden cheese"),
+    "mit_alles": DISH.format(what="an overstuffed doner with everything on a small white plate", look="toasted flatbread bursting with sliced doner meat, salad, red cabbage, tomato, onion, white sauce, red chili sauce and feta"),
+    "scharf_doner": DISH.format(what="an extra spicy doner in toasted bread on a small white plate", look="sliced doner meat with lots of red chili flakes, red hot sauce and green chili peppers"),
+    "midnight_teller": DISH.format(what="a huge late-night doner platter on an oval plate", look="a mountain of sliced browned doner meat, fries, rice, salad, white sauce and red chili sauce"),
+    "golden_doner": DISH.format(what="a luxury doner in toasted bread on a round golden plate", look="sliced browned doner meat, thin gold leaf flakes, rocket leaves and a glossy sauce"),
+    # Kebapçının yeni porsiyonları (dönerden: tombik, pideli, kaşarlı dürüm) ve saf döner Sultan tabağı.
+    "tombik": DISH.format(what="a tombik doner on a small white plate", look="a round puffy tombik bread split open and stuffed with thin sliced browned doner meat, tomato, onion and pickles"),
+    "pideli_doner": DISH.format(what="a pideli doner on a white plate", look="thin sliced browned doner meat over pide bread squares, melted golden butter, a scoop of white yogurt and a grilled green pepper"),
+    "kasarli_durum": DISH.format(what="a cheese durum wrap cut in half on a small white plate", look="thin lavash rolled around sliced browned doner meat with stringy melted cheese and tomato"),
     # Sıradan porsiyonlar (deftere girmez).
     "lavash_wrap": DISH.format(what="a doner kebab lavash wrap (durum) cut in half on a small white plate",
                                look="thin flatbread rolled around sliced brown grilled meat, tomato and lettuce peeking out"),
@@ -80,25 +83,25 @@ TARIFLER = {
                               "filled with sliced brown grilled meat, onions and tomato"),
     "rice_plate": DISH.format(what="a white plate of doner kebab over rice", look="sliced brown grilled meat on a "
                               "mound of white rice pilaf, a grilled green pepper and a tomato slice"),
-    "salad_plate": DISH.format(what="a white plate of doner kebab with salad", look="sliced brown grilled meat next "
+    "doner_portion": DISH.format(what="a white plate of doner kebab with salad", look="sliced brown grilled meat next "
                                "to shredded lettuce, red onion and tomato wedges"),
     "pita": DISH.format(what="a doner kebab in a round pita pocket", look="golden pita bread filled with sliced brown "
                         "grilled meat, lettuce and tomato"),
-    "skewer": DISH.format(what="cag kebab on a small metal skewer lying on lavash bread on a white plate", look="thin "
+    "cag_kebab": DISH.format(what="cag kebab on a small metal skewer lying on lavash bread on a white plate", look="thin "
                           "slices of brown grilled lamb on a flat skewer, a lemon wedge and red onion on the side"),
     # Kebapçının nadir porsiyonları (menü).
     "iskender": DISH.format(what="an Iskender kebab on a white plate", look="sliced doner meat over bread cubes, "
                             "red tomato sauce, melted golden butter and a scoop of white yogurt on the side"),
     "chicken_doner": DISH.format(what="a chicken doner wrap on a white plate", look="pale golden sliced chicken in "
                                  "a flatbread wrap with pickles and garlic sauce"),
-    "gyros": DISH.format(what="a Greek gyros pita on a white plate", look="pita folded around sliced pork gyros, "
+    "pita_gyros": DISH.format(what="a Greek gyros pita on a white plate", look="pita folded around sliced pork gyros, "
                          "tomato, onion, white tzatziki and a few fries"),
-    "shawarma": DISH.format(what="a shawarma wrap on a white plate", look="flatbread wrap with sliced spiced meat, "
+    "shawarma_wrap": DISH.format(what="a shawarma wrap on a white plate", look="flatbread wrap with sliced spiced meat, "
                             "white garlic sauce and pickled turnips"),
-    "al_pastor": DISH.format(what="three tacos al pastor on a white plate", look="small corn tortillas with red "
+    "tacos_pastor": DISH.format(what="three tacos al pastor on a white plate", look="small corn tortillas with red "
                              "marinated sliced pork, pineapple pieces, onion and cilantro"),
-    "sultans_platter": DISH.format(what="a grand round golden serving platter of mixed kebabs", look="sliced doner, "
-                                   "skewers, grilled peppers, tomatoes, rice and a golden rim"),
+    "sultans_platter": DISH.format(what="a grand round golden serving platter of doner", look="a mountain of thin sliced browned doner meat, iskender with tomato sauce and yogurt, pide pieces, "
+                                   "grilled peppers, tomatoes, rice and a golden rim, no skewers"),
     # Usta (tek karakter) ve Activities kartı.
     "chef": ("a doner kebab master standing, full body side view, facing LEFT, the near arm raised forward at "
              "chest height with the hand CLOSED in a fist as if gripping the handle of a long knife, but do NOT draw "
