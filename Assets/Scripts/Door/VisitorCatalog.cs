@@ -20,7 +20,6 @@ namespace ScrollRoad
     {
         public string Id;
         public string Name;
-        public int UnlockTotalVisitors;
         public VisitorType[] Guests;
         public float GuestChance;  // bir ziyaretçinin nadir çıkma olasılığı
         public int GuestMinIndex;  // ayın ilk ziyaretçileri hep sıradan (açılışta kalabalık ortalık)
@@ -58,7 +57,6 @@ namespace ScrollRoad
         {
             Id = "mall",
             Name = "The Mall",
-            UnlockTotalVisitors = 0,
             GuestChance = 0.012f,
             GuestMinIndex = 12,
             Guests = new[]
@@ -82,7 +80,6 @@ namespace ScrollRoad
         {
             Id = "hotel",
             Name = "The Hotel",
-            UnlockTotalVisitors = 2000,
             GuestChance = 0.012f,
             GuestMinIndex = 12,
             Guests = new[]
@@ -100,7 +97,6 @@ namespace ScrollRoad
         {
             Id = "airport",
             Name = "The Airport",
-            UnlockTotalVisitors = 5000,
             GuestChance = 0.012f,
             GuestMinIndex = 12,
             Guests = new[]
@@ -118,7 +114,6 @@ namespace ScrollRoad
         {
             Id = "museum",
             Name = "The Museum",
-            UnlockTotalVisitors = 10000,
             GuestChance = 0.012f,
             GuestMinIndex = 12,
             Guests = new[]
@@ -136,7 +131,6 @@ namespace ScrollRoad
         {
             Id = "skyscraper",
             Name = "The Skyscraper",
-            UnlockTotalVisitors = 18000,
             GuestChance = 0.012f,
             GuestMinIndex = 12,
             Guests = new[]

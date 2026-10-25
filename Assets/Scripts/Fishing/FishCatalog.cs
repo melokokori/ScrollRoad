@@ -21,7 +21,6 @@ namespace ScrollRoad
     {
         public string Id;
         public string Name;
-        public int UnlockTotalFish;
         public FishSpecies[] Species;
         // Gizli efsane (yalnız Göl: Altın Sazan): Species'te değil, "x / 6" sayımına girmez; defterde
         // tutulana kadar görünmez. Her atışta LegendaryChance olasılıkla, ömür boyu LegendaryMinFish balıktan sonra.
@@ -53,7 +52,6 @@ namespace ScrollRoad
         {
             Id = "lake",
             Name = "The Lake",
-            UnlockTotalFish = 0,
             Species = new[]
             {
                 new FishSpecies { Id = "perch", Name = "Perch", MinKg = 0.1f, MaxKg = 1.2f, Frequency = 30f, LengthUnits = 0.9f },
@@ -74,7 +72,6 @@ namespace ScrollRoad
         {
             Id = "river",
             Name = "The River",
-            UnlockTotalFish = 20,
             Species = new[]
             {
                 new FishSpecies { Id = "grayling", Name = "Grayling", MinKg = 0.2f, MaxKg = 1.5f, Frequency = 28f, LengthUnits = 1.0f },
@@ -91,7 +88,6 @@ namespace ScrollRoad
         {
             Id = "coast",
             Name = "The Coast",
-            UnlockTotalFish = 50,
             Species = new[]
             {
                 new FishSpecies { Id = "horse_mackerel", Name = "Horse Mackerel", MinKg = 0.05f, MaxKg = 0.5f, Frequency = 28f, LengthUnits = 0.8f },
@@ -108,7 +104,6 @@ namespace ScrollRoad
         {
             Id = "open_sea",
             Name = "The Open Sea",
-            UnlockTotalFish = 100,
             Species = new[]
             {
                 new FishSpecies { Id = "atlantic_mackerel", Name = "Atlantic Mackerel", MinKg = 0.2f, MaxKg = 1.5f, Frequency = 28f, LengthUnits = 0.9f },
@@ -125,7 +120,6 @@ namespace ScrollRoad
         {
             Id = "ice_hole",
             Name = "The Ice Hole",
-            UnlockTotalFish = 180,
             Species = new[]
             {
                 new FishSpecies { Id = "yellow_perch", Name = "Yellow Perch", MinKg = 0.1f, MaxKg = 1f, Frequency = 28f, LengthUnits = 0.8f },

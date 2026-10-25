@@ -16,12 +16,12 @@ namespace ScrollRoad
     // (bir sonraki atışa sayılır). Sayaç aylık: ay değişince balık sayısı ve süren atış sıfırlanır,
     // balık defteri kalıcıdır.
     //
-    // Mekânlar (2026-10-14): Göl → Nehir…; her biri ömür boyu tutulan balık sayısıyla açılır, açıldığında
-    // duyurulur ve olta oraya geçer. Oyuncu balık defterinden açık bir mekâna geri dönebilir. Mekân
+    // Mekânlar (2026-10-14): Göl → Nehir…; Ortam Standardı v2 (2026-10-25) ile Olta'da geçen seyir saatiyle
+    // açılır (UnlockLadder), duyuruyu ContentUnlockWatcher yapar. Oyuncu açık bir mekâna geçebilir. Mekân
     // değişince sarılan puan korunur, yalnız süren atışın türü yeni mekândan yeniden çekilir.
     //
     // Yalnız Olta seçiliyken ilerler. Görünüm FishingSceneView'da, HUD FishingHudController'da.
-    public class FishingController : MonoBehaviour
+    public class FishingController : MonoBehaviour, IEnvironmentContent
     {
         public enum Phase { Casting, Retrieving, Hooked, Landing, Resting }
 
@@ -75,7 +75,41 @@ namespace ScrollRoad
         public bool IsUnlocked(FishingSpot spot) => IsUnlocked(spot, state);
 
         public static bool IsUnlocked(FishingSpot spot, FishingProgress progress) =>
-            spot.UnlockTotalFish <= 0 || CarCatalog.ReviewUnlockAll || progress.totalFish >= spot.UnlockTotalFish;
+            UnlockLadder.IsVenueUnlocked(LifetimePointsOf(progress), Array.IndexOf(FishCatalog.Spots, spot));
+
+        // Olta'da ömür boyu tutulan balıkların puanı (merdiven bununla açılır).
+        public static double LifetimePointsOf(FishingProgress progress) =>
+            progress == null ? 0.0 : progress.totalFish * EnvironmentCatalog.FishIntervalPoints;
+
+        // ---- IEnvironmentContent (Ortam Standardı v2)
+        static VenueInfo[] venueInfos;
+        static SkinInfo[] skinInfos;
+
+        public EnvironmentDef Def => EnvironmentCatalog.Fishing;
+        public double LifetimePoints => LifetimePointsOf(state);
+        public string VenueNoun => "spot";
+        public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(FishCatalog.Spots, s => new VenueInfo { Id = s.Id, Name = s.Name });
+        public string VenueId => Spot.Id;
+        public void SetVenue(string id) => SelectSpot(FishCatalog.GetSpot(id));
+        public RareInfo[] RaresAt(string venueId) =>
+            Array.ConvertAll(FishCatalog.GetSpot(venueId).Species, f => new RareInfo { Id = f.Id, Name = f.Name, Frequency = f.Frequency });
+        public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public string SkinNoun => "tackle";
+        public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Dial = g.Dial });
+        public string SkinId => FishingGear.SelectedIn(state).Id;
+        public void SetSkin(string id)
+        {
+            SetGear(id);
+            FishingGear.RaiseChanged();
+        }
+        public System.Collections.Generic.IEnumerable<string> LegacyAnnounced
+        {
+            get
+            {
+                foreach (var id in state.announcedSpots) yield return "venue:" + id;
+                if (state.announcedGear != null) foreach (var id in state.announcedGear) yield return "skin:" + id;
+            }
+        }
 
         // Açık bir mekâna geç: sarılan puan korunur, süren atışın türü yeni mekândan çekilir.
         public bool SelectSpot(FishingSpot spot)
@@ -95,6 +129,7 @@ namespace ScrollRoad
             state = SaveService.LoadFishing();
             if (state.announcedSpots == null) state.announcedSpots = new System.Collections.Generic.List<string>();
             if (!IsUnlocked(Spot)) state.spot = FishCatalog.Lake.Id;
+            EnvironmentContent.Register(this);
             if (CheckMonth() || CastFish == null) NewCast(fromLoad: true);
             else CurrentPhase = state.castProgress / Math.Max(1e-6, RequiredPoints) >= state.strikeAt ? Phase.Hooked : Phase.Retrieving;
         }
@@ -102,6 +137,7 @@ namespace ScrollRoad
         void OnDestroy()
         {
             Save();
+            EnvironmentContent.Unregister(this);
             if (Instance == this) Instance = null;
         }
 
@@ -127,8 +163,6 @@ namespace ScrollRoad
                 carry = 0;
                 NewCast(fromLoad: true);
             }
-            CheckSpotUnlocks();
-            CheckGearUnlocks();
 
             double raw = engine.FrameRawPoints;
             ReelDirection = engine.Pace > 1f ? 1f : engine.Pace < -1f ? -1f : 0f;
@@ -180,40 +214,6 @@ namespace ScrollRoad
             state.month = month;
             state.monthFish = 0;
             return true;
-        }
-
-        // Yeni açılan mekânı bir kez duyur ve oltayı oraya geçir (eşiği bu sürümden önce geçmiş oyuncuya
-        // da ilk açılışta). Açılışın ilk saniyelerinde bekler: tabela pencere kurulurken görünmeden bitiyordu.
-        void CheckSpotUnlocks()
-        {
-            if (Time.realtimeSinceStartup < 4f || Time.frameCount % 30 != 0) return;
-            foreach (var spot in FishCatalog.Spots)
-            {
-                if (spot.UnlockTotalFish <= 0 || state.announcedSpots.Contains(spot.Id)) continue;
-                // İnceleme modu (her şey açık) duyuru harcamasın: gerçek eşik geçilmiş olmalı.
-                if (state.totalFish < spot.UnlockTotalFish) continue;
-                state.announcedSpots.Add(spot.Id);
-                SelectSpot(spot);
-                Save();
-                if (notice != null)
-                {
-                    notice.Announce($"New spot: {spot.Name}", $"{spot.Species.Length} new species to catch", $"{spot.Name} unlocked");
-                }
-            }
-        }
-
-        // Takım açılınca bir kez duyurulur (seçim kullanıcıda: takım kutusu, ≡ → Tackle box).
-        void CheckGearUnlocks()
-        {
-            if (Time.realtimeSinceStartup < 4f || Time.frameCount % 30 != 15) return;
-            foreach (var gear in FishingGear.All)
-            {
-                if (gear.UnlockTotalFish <= 0 || state.announcedGear.Contains(gear.Id)) continue;
-                if (state.totalFish < gear.UnlockTotalFish) continue;
-                state.announcedGear.Add(gear.Id);
-                Save();
-                if (notice != null) notice.Announce($"New tackle: {gear.Name}", gear.Blurb, $"{gear.Name} tackle unlocked");
-            }
         }
 
         public void SetGear(string id)

@@ -376,7 +376,7 @@ MonoBehaviour:
     kind: 4
     paintable: 1
     unlock: 1
-    unlockValue: 100
+    unlockValue: 60
     unlockLabel: 
     widthScale: 0.75
     bodyMinSat: 0.45

@@ -14,7 +14,7 @@ namespace ScrollRoad
     // Sayaç aylık; şebeke defteri kalıcı. Kapı ile birebir aynı model (DoorController).
     //
     // Yalnız Rüzgârgülü seçiliyken ilerler. Görünüm WindSceneView'da, HUD WindHudController'da.
-    public class WindController : MonoBehaviour
+    public class WindController : MonoBehaviour, IEnvironmentContent
     {
         [SerializeField] NoticeController notice;
         [SerializeField] float autosaveIntervalSeconds = 10f;
@@ -47,6 +47,30 @@ namespace ScrollRoad
             return n;
         }
 
+
+        // ---- IEnvironmentContent (Ortam Standardı v2)
+        static VenueInfo[] venueInfos;
+
+        public EnvironmentDef Def => EnvironmentCatalog.Wind;
+        public double LifetimePoints => state.totalKwh * Interval;
+        public string VenueNoun => "site";
+        public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(GridCatalog.Sites, v => new VenueInfo { Id = v.Id, Name = v.Name });
+        public string VenueId => Site.Id;
+        public void SetVenue(string id)
+        {
+            if (Array.FindIndex(GridCatalog.Sites, s => s.Id == id) < 0 || state.site == id) return;
+            state.site = id;
+            Save();
+        }
+        public RareInfo[] RaresAt(string venueId) =>
+            Array.ConvertAll(GridCatalog.GetSite(venueId).Specials, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
+        public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public string SkinNoun => "look";
+        public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
+        public string SkinId => "classic";
+        public void SetSkin(string id) { }
+        public System.Collections.Generic.IEnumerable<string> LegacyAnnounced => Array.Empty<string>();
+
         public event Action<BuildingType, bool> SpecialConnected; // yapı, yeni mi
         public event Action BuildingConnected;                     // her bağlanan yapı (ses/kıvılcım için)
 
@@ -56,11 +80,13 @@ namespace ScrollRoad
             state = SaveService.LoadWind();
             if (state.log == null) state.log = new System.Collections.Generic.List<GridRecord>();
             if (CheckMonth()) Save();
+            EnvironmentContent.Register(this);
         }
 
         void OnDestroy()
         {
             Save();
+            EnvironmentContent.Unregister(this);
             if (Instance == this) Instance = null;
         }
 

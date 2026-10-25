@@ -77,7 +77,7 @@ namespace ScrollRoad.EditorTools
             Def("hammerhx", "Hammer HX", CarCatalog.Kind.OffRoad, CarCatalog.Unlock.LifetimeKm, 29000, 1.15f),
             Def("toro", "Lamberti Toro", CarCatalog.Kind.Suv, CarCatalog.Unlock.LifetimeKm, 35000, 1.1f),
             // Two wheels and friends
-            Def("mobilo", "Mobilo Super", CarCatalog.Kind.Motorcycle, CarCatalog.Unlock.LifetimeKm, 100, 0.75f),
+            Def("mobilo", "Mobilo Super", CarCatalog.Kind.Motorcycle, CarCatalog.Unlock.LifetimeKm, 60, 0.75f), // ilk ödül ~1 seyir saatinde (Ortam Standardı v2)
             Def("pcx", "Hondo PX", CarCatalog.Kind.Motorcycle, CarCatalog.Unlock.LifetimeKm, 300, 0.75f),
             Def("vesper", "Vesper Primo", CarCatalog.Kind.Motorcycle, CarCatalog.Unlock.LifetimeKm, 750, 0.7f),
             Def("javo", "Javo 350", CarCatalog.Kind.Motorcycle, CarCatalog.Unlock.LifetimeKm, 850, 0.75f),
@@ -487,6 +487,9 @@ namespace ScrollRoad.EditorTools
             Bind(wind, "notice", notice);
             Bind(vinyl, "notice", notice);
             foreach (var setup in intervalSetups) Bind(setup.Env, "notice", notice);
+            // Ortam Standardı v2 (2026-10-25): mekân/skin merdiveninin açılma duyuruları.
+            var contentUnlocks = engineGo.AddComponent<ContentUnlockWatcher>();
+            Bind(contentUnlocks, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);

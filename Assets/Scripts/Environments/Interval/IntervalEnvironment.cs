@@ -25,7 +25,7 @@ namespace ScrollRoad
     // Alt sınıf yalnız verisini (EnvironmentDef, mekânlar, kayıt anahtarı) ve oyuncu metinlerini verir;
     // HUD (IntervalHudController), defter (IntervalLogController), şerit, tepsi ipucu ve ses
     // (IntervalSound) ortaktır.
-    public abstract class IntervalEnvironment : MonoBehaviour
+    public abstract class IntervalEnvironment : MonoBehaviour, IEnvironmentContent
     {
         [SerializeField] NoticeController notice;
         [SerializeField] float autosaveIntervalSeconds = 10f;
@@ -111,6 +111,31 @@ namespace ScrollRoad
             return n;
         }
 
+        // ---- IEnvironmentContent (Ortam Standardı v2)
+        VenueInfo[] venueInfos;
+
+        public double LifetimePoints => state.total * Interval;
+        public virtual string VenueNoun => "place";
+        public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(Sites, s => new VenueInfo { Id = s.Id, Name = s.Name });
+        public string VenueId => Site.Id;
+        public void SetVenue(string id)
+        {
+            if (Array.FindIndex(Sites, s => s.Id == id) < 0 || state.site == id) return;
+            state.site = id;
+            Save();
+        }
+        public RareInfo[] RaresAt(string venueId)
+        {
+            var site = Array.Find(Sites, s => s.Id == venueId) ?? Sites[0];
+            return Array.ConvertAll(site.Specials, t => new RareInfo { Id = t.Id, Name = t.Name, Frequency = t.Frequency });
+        }
+        public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public virtual string SkinNoun => "look";
+        public virtual SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
+        public virtual string SkinId => "classic";
+        public virtual void SetSkin(string id) { }
+        public IEnumerable<string> LegacyAnnounced => Array.Empty<string>();
+
         public event Action<long, EnvItem> ItemCompleted;
         public event Action<ItemType, bool> SpecialCompleted;
 
@@ -120,11 +145,13 @@ namespace ScrollRoad
             state = SaveService.LoadJson<IntervalProgress>(SaveKey);
             if (state.log == null) state.log = new List<ItemRecord>();
             if (CheckMonth()) Save();
+            EnvironmentContent.Register(this);
         }
 
         protected virtual void OnDestroy()
         {
             Save();
+            EnvironmentContent.Unregister(this);
             if (Registry.TryGetValue(Def.Id, out var env) && env == this) Registry.Remove(Def.Id);
         }
 

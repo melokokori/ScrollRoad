@@ -15,12 +15,12 @@ namespace ScrollRoad
     // aşan ziyaretçi ömür boyu sayıya ve deftere yazılır — geri çıkıp yeniden giren iki kez sayılmaz.
     // Sayaç aylık: ay değişince konum ve rekor sıfırlanır, misafir defteri kalıcıdır.
     //
-    // Mekânlar (FishingController'daki gibi): AVM → Otel → Havalimanı → Müze → Gökdelen; her biri ömür boyu
-    // ziyaretçi sayısıyla açılır, açıldığında duyurulur ve kapı oraya geçer; oyuncu defterden açık bir mekâna
-    // dönebilir. AVM'nin gizli efsanesi (Koca Ayak) gelince ayrıca duyurulur.
+    // Mekânlar (FishingController'daki gibi): AVM → Otel → Havalimanı → Müze → Gökdelen; Ortam Standardı v2
+    // (2026-10-25) ile Kapı'da geçen seyir saatiyle açılır (UnlockLadder), duyuruyu ContentUnlockWatcher yapar;
+    // oyuncu açık bir mekâna geçebilir. AVM'nin gizli efsanesi (Koca Ayak) gelince ayrıca duyurulur.
     //
     // Yalnız Döner kapı seçiliyken ilerler. Görünüm DoorSceneView'da, HUD DoorHudController'da.
-    public class DoorController : MonoBehaviour
+    public class DoorController : MonoBehaviour, IEnvironmentContent
     {
         [SerializeField] NoticeController notice;
         [SerializeField] float autosaveIntervalSeconds = 10f;
@@ -58,7 +58,31 @@ namespace ScrollRoad
         public bool IsUnlocked(DoorVenue venue) => IsUnlocked(venue, state);
 
         public static bool IsUnlocked(DoorVenue venue, DoorProgress progress) =>
-            venue.UnlockTotalVisitors <= 0 || CarCatalog.ReviewUnlockAll || progress.totalVisitors >= venue.UnlockTotalVisitors;
+            UnlockLadder.IsVenueUnlocked(LifetimePointsOf(progress), Array.IndexOf(VisitorCatalog.Venues, venue));
+
+        public static double LifetimePointsOf(DoorProgress progress) =>
+            progress == null ? 0.0 : progress.totalVisitors * EnvironmentCatalog.VisitorIntervalPoints;
+
+        // ---- IEnvironmentContent (Ortam Standardı v2)
+        static VenueInfo[] venueInfos;
+
+        public EnvironmentDef Def => EnvironmentCatalog.Door;
+        public double LifetimePoints => LifetimePointsOf(state);
+        public string VenueNoun => "venue";
+        public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(VisitorCatalog.Venues, v => new VenueInfo { Id = v.Id, Name = v.Name });
+        public string VenueId => Venue.Id;
+        public void SetVenue(string id) => SelectVenue(VisitorCatalog.GetVenue(id));
+        public RareInfo[] RaresAt(string venueId) =>
+            Array.ConvertAll(VisitorCatalog.GetVenue(venueId).Guests, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
+        public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public string SkinNoun => "look";
+        public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
+        public string SkinId => "classic";
+        public void SetSkin(string id) { }
+        public System.Collections.Generic.IEnumerable<string> LegacyAnnounced
+        {
+            get { foreach (var id in state.announcedVenues) yield return "venue:" + id; }
+        }
 
         public bool SelectVenue(DoorVenue venue)
         {
@@ -77,12 +101,14 @@ namespace ScrollRoad
             if (state.announcedVenues == null) state.announcedVenues = new System.Collections.Generic.List<string>();
             if (state.log == null) state.log = new System.Collections.Generic.List<GuestRecord>();
             if (!IsUnlocked(Venue)) state.venue = VisitorCatalog.Mall.Id;
+            EnvironmentContent.Register(this);
             if (CheckMonth()) Save();
         }
 
         void OnDestroy()
         {
             Save();
+            EnvironmentContent.Unregister(this);
             if (Instance == this) Instance = null;
         }
 
@@ -104,7 +130,6 @@ namespace ScrollRoad
             }
 
             if (CheckMonth()) Save();
-            CheckVenueUnlocks();
 
             TurnDirection = engine.Pace > 1f ? 1f : engine.Pace < -1f ? -1f : 0f;
             state.position = Math.Max(0.0, state.position + engine.FrameRawPoints);
@@ -132,23 +157,6 @@ namespace ScrollRoad
             state.position = 0;
             state.monthBest = 0;
             return true;
-        }
-
-        void CheckVenueUnlocks()
-        {
-            if (Time.realtimeSinceStartup < 4f || Time.frameCount % 30 != 0) return;
-            foreach (var venue in VisitorCatalog.Venues)
-            {
-                if (venue.UnlockTotalVisitors <= 0 || state.announcedVenues.Contains(venue.Id)) continue;
-                if (state.totalVisitors < venue.UnlockTotalVisitors) continue;
-                state.announcedVenues.Add(venue.Id);
-                SelectVenue(venue);
-                Save();
-                if (notice != null)
-                {
-                    notice.Announce($"New venue: {venue.Name}", $"{venue.Guests.Length} new guests to meet", $"{venue.Name} unlocked");
-                }
-            }
         }
 
         // Ayın index. ziyaretçisi ilk kez içeri girdi.

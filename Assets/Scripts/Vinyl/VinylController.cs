@@ -8,7 +8,7 @@ namespace ScrollRoad
     // parça biter; RecordCatalog.TracksPerRecord parçada plak biter ve sandığa girer. Aşağı scroll plağı
     // ters çevirir: iğne geri gider, parça sayacı düşer (ay rekoru aşılmadan iki kez sayılmaz). Rölantide plak
     // yavaş döner. Başarısızlık yok. Kapı/Rüzgârgülü ile aynı model: sahne bu ayın konumunun saf fonksiyonu.
-    public class VinylController : MonoBehaviour
+    public class VinylController : MonoBehaviour, IEnvironmentContent
     {
         [SerializeField] NoticeController notice;
         [SerializeField] float autosaveIntervalSeconds = 10f;
@@ -48,6 +48,30 @@ namespace ScrollRoad
             return n;
         }
 
+
+        // ---- IEnvironmentContent (Ortam Standardı v2)
+        static VenueInfo[] venueInfos;
+
+        public EnvironmentDef Def => EnvironmentCatalog.Vinyl;
+        public double LifetimePoints => state.totalTracks * Interval;
+        public string VenueNoun => "shop";
+        public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(RecordCatalog.Shops, v => new VenueInfo { Id = v.Id, Name = v.Name });
+        public string VenueId => Shop.Id;
+        public void SetVenue(string id)
+        {
+            if (Array.FindIndex(RecordCatalog.Shops, s => s.Id == id) < 0 || state.shop == id) return;
+            state.shop = id;
+            Save();
+        }
+        public RareInfo[] RaresAt(string venueId) =>
+            Array.ConvertAll(RecordCatalog.GetShop(venueId).Specials, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
+        public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public string SkinNoun => "look";
+        public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
+        public string SkinId => "classic";
+        public void SetSkin(string id) { }
+        public System.Collections.Generic.IEnumerable<string> LegacyAnnounced => Array.Empty<string>();
+
         public event Action<RecordType, bool> SpecialCrated; // plak, yeni mi
         public event Action TrackFinished;
 
@@ -57,11 +81,13 @@ namespace ScrollRoad
             state = SaveService.LoadVinyl();
             if (state.log == null) state.log = new System.Collections.Generic.List<CrateRecord>();
             if (CheckMonth()) Save();
+            EnvironmentContent.Register(this);
         }
 
         void OnDestroy()
         {
             Save();
+            EnvironmentContent.Unregister(this);
             if (Instance == this) Instance = null;
         }
 

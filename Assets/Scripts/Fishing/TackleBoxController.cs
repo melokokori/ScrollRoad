@@ -61,9 +61,9 @@ namespace ScrollRoad
                 if (dialImages[i].sprite == null) dialImages[i].sprite = Resources.Load<Sprite>($"Gauges/{gear.Dial}_face");
                 dialImages[i].color = unlocked ? Color.white : Locked;
                 nameTexts[i].text = gear.Name;
-                int left = gear.UnlockTotalFish - (p != null ? p.totalFish : 0);
+                double left = UnlockLadder.SkinPoints(i) - FishingController.LifetimePointsOf(p);
                 detailTexts[i].text = !unlocked
-                    ? $"<alpha=#88>Unlocks at {Fmt.Int(gear.UnlockTotalFish)} fish\n{Fmt.Int(left)} to go"
+                    ? $"<alpha=#88>Unlocks with more fishing\n{UnlockLadder.Remaining(left)} to go"
                     : current ? $"IN USE\n<alpha=#88>{gear.Blurb}" : $"<alpha=#88>{gear.Blurb}";
                 cardButtons[i].interactable = unlocked;
             }
