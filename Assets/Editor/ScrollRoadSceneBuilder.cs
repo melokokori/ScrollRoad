@@ -659,6 +659,7 @@ namespace ScrollRoad.EditorTools
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
+            CreateShowcase(canvas.transform, companion);
             return hud;
         }
 
@@ -1402,6 +1403,34 @@ namespace ScrollRoad.EditorTools
                 rareStatuses[i] = status;
             }
 
+            RareSpriteTable(out var keys, out var sprites);
+
+            panel.SetActive(false);
+            var controller = new GameObject("PlacesController").AddComponent<PlacesController>();
+            Bind(controller, "panel", panel);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            Bind(controller, "passport", passport);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "venueButtons", venueButtons);
+            BindArray(controller, "venueFrames", venueFrames);
+            BindArray(controller, "venueNames", venueNames);
+            BindArray(controller, "venueStatuses", venueStatuses);
+            Bind(controller, "focusHint", hint);
+            BindArray(controller, "rareButtons", rareButtons);
+            BindArray(controller, "rareFrames", rareFrames);
+            BindArray(controller, "rareImages", rareImages);
+            BindArray(controller, "rareNames", rareNames);
+            BindArray(controller, "rareStatuses", rareStatuses);
+            BindStrings(controller, "spriteKeys", keys);
+            BindArray(controller, "sprites", sprites);
+            return controller;
+        }
+
+        // Tüm ortamların nadir görselleri tek tabloda, "<ortam>:<nadir>" anahtarıyla (Places, Vitrin, dönüş özeti).
+        static void RareSpriteTable(out string[] keyArray, out Object[] spriteArray)
+        {
             var keys = new List<string>();
             var sprites = new List<Object>();
             void AddSprites(EnvironmentId env, string folder, IEnumerable<string> ids)
@@ -1427,28 +1456,45 @@ namespace ScrollRoad.EditorTools
                     }
                 }
             }
+            keyArray = keys.ToArray();
+            spriteArray = sprites.ToArray();
+        }
 
-            panel.SetActive(false);
-            var controller = new GameObject("PlacesController").AddComponent<PlacesController>();
-            Bind(controller, "panel", panel);
-            Bind(controller, "openButton", openButton);
-            Bind(controller, "closeButton", close);
-            Bind(controller, "passport", passport);
-            Bind(controller, "titleText", title);
-            Bind(controller, "countText", count);
-            BindArray(controller, "venueButtons", venueButtons);
-            BindArray(controller, "venueFrames", venueFrames);
-            BindArray(controller, "venueNames", venueNames);
-            BindArray(controller, "venueStatuses", venueStatuses);
-            Bind(controller, "focusHint", hint);
-            BindArray(controller, "rareButtons", rareButtons);
-            BindArray(controller, "rareFrames", rareFrames);
-            BindArray(controller, "rareImages", rareImages);
-            BindArray(controller, "rareNames", rareNames);
-            BindArray(controller, "rareStatuses", rareStatuses);
-            BindStrings(controller, "spriteKeys", keys.ToArray());
-            BindArray(controller, "sprites", sprites.ToArray());
-            return controller;
+        // Vitrin (Ortam Standardı v2 · Dayanak 2): sol altta, defter plakasının üstünde 6 yuvalı raf.
+        static void CreateShowcase(Transform canvas, CompanionWindowController companion)
+        {
+            var root = Plate(canvas, "Showcase", PlateDark, RoundSprite);
+            root.raycastTarget = false;
+            var rt = root.rectTransform;
+            const int slots = 6;
+            const float slot = 30f, gap = 4f, pad = 6f;
+            Anchor(rt, new Vector2(0, 0), new Vector2(16, 38), new Vector2(0, 0));
+            rt.sizeDelta = new Vector2(pad * 2 + slots * slot + (slots - 1) * gap, slot + pad * 2);
+            var images = new Object[slots];
+            for (int i = 0; i < slots; i++)
+            {
+                var cell = Plate(root.transform, $"Slot_{i}", new Color(1f, 1f, 1f, 0.06f), RoundSprite);
+                cell.raycastTarget = false;
+                cell.rectTransform.anchorMin = cell.rectTransform.anchorMax = new Vector2(0, 0.5f);
+                cell.rectTransform.pivot = new Vector2(0, 0.5f);
+                SetRect(cell.rectTransform, new Vector2(pad + i * (slot + gap), 0f), new Vector2(slot, slot));
+                var go = new GameObject("Item", typeof(RectTransform), typeof(Image));
+                go.transform.SetParent(cell.transform, false);
+                var image = go.GetComponent<Image>();
+                image.preserveAspect = true;
+                image.raycastTarget = false;
+                Stretch(image.rectTransform);
+                image.rectTransform.offsetMin = new Vector2(2f, 2f);
+                image.rectTransform.offsetMax = new Vector2(-2f, -2f);
+                images[i] = image;
+            }
+            RareSpriteTable(out var keys, out var sprites);
+            var view = new GameObject("ShowcaseView").AddComponent<ShowcaseView>();
+            Bind(view, "companionWindow", companion);
+            Bind(view, "root", root.gameObject);
+            BindArray(view, "slotImages", images);
+            BindStrings(view, "spriteKeys", keys);
+            BindArray(view, "sprites", sprites);
         }
 
         // Ortamların kart görselleri, EnvironmentCatalog.All sırasıyla (Activities ve Orders).
