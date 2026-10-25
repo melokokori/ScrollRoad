@@ -511,6 +511,10 @@ namespace ScrollRoad.EditorTools
             // Yan etkinlik yuvası (2026-10-25).
             var side = engineGo.AddComponent<SideActivity>();
             Bind(side, "notice", notice);
+            // Başarımlar (2026-10-25; API adları Docs/basarimlar.md).
+            var achievements = engineGo.AddComponent<Achievements>();
+            Bind(achievements, "notice", notice);
+            Bind(achievements, "carCatalog", LoadCarCatalog());
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);

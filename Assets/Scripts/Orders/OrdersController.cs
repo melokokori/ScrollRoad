@@ -43,6 +43,7 @@ namespace ScrollRoad
         public int DailyCount => state == null ? 0 : state.daily.Count;
         public int WeeklyValue => state?.weekly == null ? 0 : Math.Min(state.weekly.target, Progress(state.weekly));
         public int WeeklyTarget => state?.weekly == null ? 0 : state.weekly.target;
+        public int CompletedTotal => state?.completed ?? 0; // sipariş defteri: ömür boyu
 
         // Seri yalnız bugün/dün (bu hafta/geçen hafta) uzadıysa canlıdır.
         public int DayStreak => state == null ? 0
