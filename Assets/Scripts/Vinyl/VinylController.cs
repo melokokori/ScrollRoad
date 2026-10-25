@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Plak tablası döngüsü (2026-10-14 prototip; Docs/ortamlar.md "Plak tablası"): yukarı scroll plağı
+    // Plak tablası döngüsü (2026-10-14 prototip; Docs/ortamlar.md "Plak tablası"): aşağı scroll plağı
     // döndürür, müzik scroll hızında çalar (VinylMusic), her EnvironmentCatalog.TrackIntervalPoints'te bir
     // parça biter; RecordCatalog.TracksPerRecord parçada plak biter ve sandığa girer. Aşağı scroll plağı
     // ters çevirir: iğne geri gider, parça sayacı düşer (ay rekoru aşılmadan iki kez sayılmaz). Rölantide plak

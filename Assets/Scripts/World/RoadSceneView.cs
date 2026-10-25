@@ -86,7 +86,7 @@ namespace ScrollRoad
         [SerializeField] float dirtVibrationScale = 1.8f;
         [SerializeField] Vector2 dirtBumpSeconds = new Vector2(1.2f, 3.5f); // patikada tümsekler arası
         [SerializeField] float airCameraLift = 1.3f;       // hava aracında kart kamerası bu kadar yükselir (yer aşağıda kalır)
-        [SerializeField] float brakeHoldSeconds = 0.6f;    // aşağı scroll'dan sonra stop lambası açık kalır
+        [SerializeField] float brakeHoldSeconds = 0.6f;    // yukarı scroll'dan sonra stop lambası açık kalır
 
         [Header("Ortam")]
         [SerializeField] float cloudUnitsPerKm = 1.2f;
@@ -698,12 +698,12 @@ namespace ScrollRoad
             }
         }
 
-        // Stop lambası: aşağı scroll (fren) ya da geri vites. Yalnız stop lambası konumu bulunan
+        // Stop lambası: yukarı scroll (fren) ya da geri vites. Yalnız stop lambası konumu bulunan
         // kara araçlarında.
         void UpdateBrake(float dt)
         {
             var scroll = ScrollRoad.InputCapture.GlobalScrollSource.Instance;
-            if (scroll != null && scroll.FrameNotchesSigned < -0.0001f) brakeHold = brakeHoldSeconds;
+            if (scroll != null && scroll.FrameNotchesForward < -0.0001f) brakeHold = brakeHoldSeconds;
             brakeHold -= dt;
             bool on = brakeLightPoint.HasValue && (brakeHold > 0f || drive.CurrentSpeedKmh < -1f);
             brakeLevel = Mathf.MoveTowards(brakeLevel, on ? 1f : 0f, dt * (on ? 14f : 5f));

@@ -44,7 +44,7 @@ namespace ScrollRoad
         public bool IsUserActive => Time.realtimeSinceStartupAsDouble - lastScrollRealtime < activeWindowSeconds;
         public float TargetPace => IsUserActive ? cruisePace : idleCruisePace;
 
-        // Bu karenin scroll çentikleri (işaretli; enjekte olaylar GlobalScrollSource'ta zaten ayrılır).
+        // Bu karenin scroll çentikleri (oyun yönü, aşağı +; enjekte olaylar GlobalScrollSource'ta zaten ayrılır).
         public float FrameNotches { get; private set; }
         // Bu karede tempodan doğan işaretli puan (kırpılmamış). Ortamlar kendi konumlarını bununla sürer.
         public double FrameRawPoints { get; private set; }
@@ -93,7 +93,7 @@ namespace ScrollRoad
         {
             float dt = Time.deltaTime;
             var scrollSource = GlobalScrollSource.Instance;
-            float notches = scrollSource != null ? scrollSource.FrameNotchesSigned : 0f;
+            float notches = scrollSource != null ? scrollSource.FrameNotchesForward : 0f;
             FrameNotches = 0f;
             FrameRawPoints = 0;
             FrameGainPoints = 0;
@@ -101,7 +101,7 @@ namespace ScrollRoad
             if (dt <= 0f) return;
             FrameNotches = notches;
 
-            // Yön fark etmez: aşağı scroll da kullanıcının başında olduğunu gösterir.
+            // Yön fark etmez: yukarı scroll (fren) da kullanıcının başında olduğunu gösterir.
             if (Mathf.Abs(notches) > 0.0001f)
             {
                 lastScrollRealtime = Time.realtimeSinceStartupAsDouble;

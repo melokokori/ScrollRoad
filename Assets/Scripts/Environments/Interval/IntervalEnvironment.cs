@@ -16,8 +16,8 @@ namespace ScrollRoad
     }
 
     // Eşit aralıklı ortamların ortak döngüsü (2026-10-14; Rüzgârgülü'nün WindController'ının genellemesi):
-    // yukarı scroll konumu ilerletir, her EnvironmentDef aralığında bir öğe biter (yıl, hedef, çömlek, meyve,
-    // porsiyon); aşağı scroll konumu geri alır, son biten öğeler geri gider ve sayaç düşer (ay rekoru
+    // aşağı scroll konumu ilerletir, her EnvironmentDef aralığında bir öğe biter (yıl, hedef, çömlek, meyve,
+    // porsiyon); yukarı scroll konumu geri alır, son biten öğeler geri gider ve sayaç düşer (ay rekoru
     // aşılmadan aynı öğe iki kez sayılmaz). Rölantide ScoreEngine'in yavaş temposu. Başarısızlık yok.
     // Sahne konumun saf fonksiyonu (Units / Phase); ayın i. öğesinin kimliği sabit (IntervalCatalog.Identify).
     // Sayaç aylık, defter kalıcı. Yalnız kendi ortamı seçiliyken ilerler.

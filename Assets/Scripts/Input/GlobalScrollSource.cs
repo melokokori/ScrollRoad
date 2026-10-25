@@ -18,6 +18,9 @@ namespace ScrollRoad.InputCapture
         // Bu karedeki scroll (yukarı +).
         public float FrameNotchesSigned { get; private set; }
         public float FrameNotchesAbs { get; private set; }
+        // Oyun yönü (aşağı +): global scroll'un çoğu okurken yapılan aşağı scroll olduğu için aşağı =
+        // ileri/gaz, yukarı = fren/geri (2026-10-25 kararı). Oyun mantığı yalnız bunu kullanır.
+        public float FrameNotchesForward => -FrameNotchesSigned;
 
         // Oturum toplamları.
         public double SessionNotchesAbs { get; private set; }

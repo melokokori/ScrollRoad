@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace ScrollRoad
 {
     // İlk açılış rehberi: Game sahnesine ilk girişte oyunu DURDURMADAN ekranda küçük bir kart,
-    // 4 adım. "Scroll = gas" adımı oyuncu gerçekten yukarı scroll yapınca kendiliğinden ilerler
+    // 4 adım. "Scroll = gas" adımı oyuncu gerçekten aşağı scroll yapınca kendiliğinden ilerler
     // (araba tepki verirken görsün diye arka plan karartılmaz). Bitince ya da "Atla" ile bir daha
     // gösterilmez (cihaza özel, yerel). Şerit modunda, tepsideyken ve menü açıkken bekler.
     public class OnboardingController : MonoBehaviour
@@ -40,8 +40,8 @@ namespace ScrollRoad
             new Step
             {
                 Title = "Scroll = gas",
-                Body = "Scroll the mouse wheel up and the car speeds up. Scroll down to slow down; keep going and you'll reverse.",
-                Hint = "Try it: scroll up a little.",
+                Body = "Scroll down, anywhere on your PC, and the car speeds up. Scroll up to slow down; keep going and you'll reverse.",
+                Hint = "Try it: scroll down a little.",
                 WaitsForScroll = true,
             },
             new Step
@@ -57,7 +57,7 @@ namespace ScrollRoad
         };
 
         int stepIndex;
-        float scrolledUp;
+        float scrolledForward;
         float autoAdvanceTimer = -1f;
         bool active;
 
@@ -90,8 +90,8 @@ namespace ScrollRoad
             }
 
             var source = GlobalScrollSource.Instance;
-            if (source != null && source.FrameNotchesSigned > 0f) scrolledUp += source.FrameNotchesSigned;
-            if (scrolledUp >= scrollNotchesToAdvance)
+            if (source != null && source.FrameNotchesForward > 0f) scrolledForward += source.FrameNotchesForward;
+            if (scrolledForward >= scrollNotchesToAdvance)
             {
                 hintText.text = "That's it!";
                 autoAdvanceTimer = autoAdvanceDelay;
@@ -101,7 +101,7 @@ namespace ScrollRoad
         void ShowStep(int index)
         {
             stepIndex = index;
-            scrolledUp = 0f;
+            scrolledForward = 0f;
             autoAdvanceTimer = -1f;
 
             var step = Steps[index];

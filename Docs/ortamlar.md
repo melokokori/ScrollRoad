@@ -2,6 +2,12 @@
 
 > 11.10.2026 · Durum: TARTIŞMA — hiçbir şey karara bağlanmadı, kod yok.
 
+> **25.10.2026 — YÖN DEĞİŞTİ:** global scroll'un büyük çoğunluğu (okurken) aşağı yönlü olduğu için
+> artık **aşağı scroll = ileri/gaz, yukarı scroll = fren/geri** (`GlobalScrollSource.FrameNotchesForward`).
+> Bu belgede "yukarı scroll" geçen her yer artık "aşağı scroll", "aşağı scroll" geçen her yer
+> "yukarı scroll" olarak okunmalı; tüm ortamlar yönü ortak tempodan (ScoreEngine.Pace) aldığı için
+> hepsi birlikte döndü.
+
 ## Ana fikir
 Oyunun tek mekaniği scroll çevirmek. Araç + yol bu mekaniğin yalnızca bir görünümü.
 Aynı scroll başka "dönen / sarılan" şeyleri de sürebilir; her ortamın kendi skinleri olabilir.

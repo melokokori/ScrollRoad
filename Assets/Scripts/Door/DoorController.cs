@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Döner kapı döngüsü (2026-10-14 prototip; Docs/ortamlar.md "Döner kapı"): yukarı scroll kapıyı
-    // döndürür, kaldırımdaki insanlar sırayla bölmelere girip AVM'ye geçer; aşağı scroll kapıyı ters
+    // Döner kapı döngüsü (2026-10-14 prototip; Docs/ortamlar.md "Döner kapı"): aşağı scroll kapıyı
+    // döndürür, kaldırımdaki insanlar sırayla bölmelere girip AVM'ye geçer; yukarı scroll kapıyı ters
     // çevirir, son girenler geri çıkar (sayaç da düşer). Rölantide kapı kendiliğinden yavaş döner
     // (ScoreEngine temposu). Başarısızlık yok.
     //

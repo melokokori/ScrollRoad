@@ -120,7 +120,7 @@ namespace ScrollRoad
 
             if (IsActiveEnvironment)
             {
-                // Scroll = anlık hız boost'u (yukarı +, aşağı -; eksiye inerse geri gidilir); tempo ve
+                // Scroll = anlık hız boost'u (aşağı +, yukarı -; eksiye inerse geri gidilir); tempo ve
                 // seyre dönüş ScoreEngine'de. Kaynak sistem geneli (GlobalScrollSource).
                 if (Mathf.Abs(engine.FrameNotches) > 0.0001f) OnStep?.Invoke();
                 CurrentSpeedKmh = engine.Pace * KmhPerPace;

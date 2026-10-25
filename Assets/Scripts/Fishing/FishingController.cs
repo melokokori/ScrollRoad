@@ -4,9 +4,9 @@ using UnityEngine;
 namespace ScrollRoad
 {
     // Olta döngüsü (2026-10-13 prototip; Docs/ortamlar.md "Olta — içerik", spinning/LRF, şamandıra yok):
-    // balıkçı kendiliğinden atar → yem uzağa düşer → yukarı scroll makarayı sarar, yem kıyıya gelir →
+    // balıkçı kendiliğinden atar → yem uzağa düşer → aşağı scroll makarayı sarar, yem kıyıya gelir →
     // yolda bir balık yeme vurur → sarılarak getirilir, kıyıda tutulur ve deftere girer → yeni atış.
-    // Aşağı scroll makarayı geri çevirir (misina boşalır, yem/balık uzaklaşır); rölantide makara
+    // Yukarı scroll makarayı geri çevirir (misina boşalır, yem/balık uzaklaşır); rölantide makara
     // kendiliğinden yavaş sarar (ScoreEngine temposu). Başarısızlık yok: misina kopmaz, balık kaçmaz.
     //
     // Birim: balık sayısı (2026-10-14 kullanıcı kararı; Yol'da "durağa varış = damga" gibi). Her atış

@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Rüzgârgülü döngüsü (2026-10-14 prototip; Docs/ortamlar.md "Rüzgârgülü"): yukarı scroll pervaneyi
-    // hızlandırır, üretilen her kWh vadide bir yapıyı şebekeye bağlar; aşağı scroll pervaneyi yavaşlatır /
+    // Rüzgârgülü döngüsü (2026-10-14 prototip; Docs/ortamlar.md "Rüzgârgülü"): aşağı scroll pervaneyi
+    // hızlandırır, üretilen her kWh vadide bir yapıyı şebekeye bağlar; yukarı scroll pervaneyi yavaşlatır /
     // ters çevirir, son bağlananlar yeniden kararır (sayaç da düşer). Rölantide hafif esinti (ScoreEngine
     // temposu). Başarısızlık yok.
     //
