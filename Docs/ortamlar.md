@@ -381,3 +381,9 @@ Ortam başına ~60 sa, 9 ortam ~540 sa; Yol kendi araç merdiveninde.
 **Arayüz:** her ortamda aynı 4 köşe HUD + paneller: Defter · Dolap · Mekânlar (+Odak) · Siparişler.
 
 **Uygulama sırası:** (1) ortak altyapı: merdiven + Mekânlar/Odak + Dolap genellemesi → (2) Dönüş anı → (3) Siparişler → (4) Vitrin → (5) ortamları tek tek doldurma (Kapı, Olta, sonra 7 ince ortam: mekân 2–5 içeriği, skin takımları, kadranlar, sesler).
+
+## 25.10 — Uygulama 1. adım (ortak altyapı) TAMAM
+- **1a** (9d81a70): `IEnvironmentContent` (Assets/Scripts/Environments/Content/) — Olta, Kapı, Rüzgârgülü, Plak ve 5 eşit aralıklı ortam uygular; Yol hariç. `UnlockLadder` mekân 0/3/12/25/60, skin 0/1/8/40 seyir saati (o ortamın kendi puanı). Balık/ziyaretçi eşikleri kaldırıldı. `ContentUnlockWatcher` duyurur; **yeni mekâna kendiliğinden geçilmez** (Odak bozulmasın, Claude kararı). Yol: ilk araç 60 km.
+- **1b** (e510174): ≡ → Places paneli (mekânlar + Odak). Odak = seçilen nadirin nadirler arası göreli sıklığı ×3; nadir olasılığı ve puan aynı; mekân değişince Odak kalkar. Nadir adı bulunmadan da görünür (görsel silüet). Çekmece 8 satır.
+- **1c** (ec9f9ff): Dolap = `SkinBoxController` (Takım kutusunun genellemesi); satır adı ortamdan (Olta "Tackle box", diğerleri "Looks"), Yol'da Garaj.
+- **1d**: ilk nadir garantisi — ortamda hiç nadir yoksa ayın ~10. seyir dakikasındaki öğe nadir (Odak'a uyar), o ay boyunca sabit. Plak'ta birim plak (ilk plak ~16 dk), Olta'da garanti yok (her balık zaten deftere girer, ilk balık ~20 dk).

@@ -37,7 +37,8 @@ namespace ScrollRoad
         public RecordType LastSpecial => RecordCatalog.GetSpecial(state.lastSpecialId);
         public string Month => state.month;
 
-        public RecordCatalog.Record Identify(long recordIndex) => RecordCatalog.Identify(state.month, Shop, recordIndex, EnvironmentContent.FocusOf(EnvironmentId.Vinyl));
+        public RecordCatalog.Record Identify(long recordIndex) => RecordCatalog.Identify(state.month, Shop, recordIndex, EnvironmentContent.FocusOf(EnvironmentId.Vinyl),
+            EnvironmentContent.GuaranteeIndex(Interval * RecordCatalog.TracksPerRecord, state.log.Count == 0, state.guaranteeMonth, state.month));
         public RecordCatalog.Record Current => Identify(RecordIndex);
         public ulong CurrentTrackSeed => RecordCatalog.TrackSeed(state.month, Shop, TracksDone);
 
@@ -157,6 +158,7 @@ namespace ScrollRoad
             {
                 entry = new CrateRecord { id = type.Id, firstSeen = DateTime.Now.ToString("yyyy-MM-dd") };
                 state.log.Add(entry);
+                if (string.IsNullOrEmpty(state.guaranteeMonth)) state.guaranteeMonth = state.month;
             }
             entry.count++;
             state.lastSpecialId = type.Id;

@@ -43,7 +43,8 @@ namespace ScrollRoad
         public VisitorType LastGuest => VisitorCatalog.GetGuest(state.lastGuestId);
         public bool LastWasNew { get; private set; }
 
-        public VisitorCatalog.Visitor Identify(long index) => VisitorCatalog.Identify(state.month, Venue, index, EnvironmentContent.FocusOf(EnvironmentId.Door));
+        public VisitorCatalog.Visitor Identify(long index) => VisitorCatalog.Identify(state.month, Venue, index, EnvironmentContent.FocusOf(EnvironmentId.Door),
+            EnvironmentContent.GuaranteeIndex(Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
 
         public int GuestsLoggedAt(DoorVenue venue)
         {
@@ -174,6 +175,7 @@ namespace ScrollRoad
             {
                 record = new GuestRecord { id = guest.Id, firstSeen = DateTime.Now.ToString("yyyy-MM-dd") };
                 state.log.Add(record);
+                if (string.IsNullOrEmpty(state.guaranteeMonth)) state.guaranteeMonth = state.month;
             }
             record.count++;
             state.lastGuestId = guest.Id;

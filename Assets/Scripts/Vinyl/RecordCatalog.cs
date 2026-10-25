@@ -105,11 +105,11 @@ namespace ScrollRoad
 
         // Ayın r. plağı (1'den) ay + mekân + sıradan belirlenir (kapının Identify'ı gibi): geri sarılıp yeniden
         // çalınan aynı plaktır. Sıradan plakların tarzı çoğunlukla lo-fi, arada bossa/caz.
-        public static Record Identify(string month, RecordShop shop, long index, string focus = null)
+        public static Record Identify(string month, RecordShop shop, long index, string focus = null, long guaranteeIndex = -1)
         {
             ulong seed = Seed(month, shop);
             var r = new Record();
-            if (index >= shop.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < shop.SpecialChance)
+            if (index == guaranteeIndex || (index >= shop.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < shop.SpecialChance))
             {
                 float total = 0f;
                 foreach (var s in shop.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
@@ -161,6 +161,7 @@ namespace ScrollRoad
         public string month = "";
         public double position;  // bu ay çalınan puan (≥0); biten parça = konum / aralık
         public long monthBest;   // bu ay biten en yüksek parça sırası: yalnız onu aşan parça sayılır
+        public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
 
         public long totalTracks;
         public long totalRecords;

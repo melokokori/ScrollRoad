@@ -101,11 +101,11 @@ namespace ScrollRoad
 
         // Ayın i. yapısı ay + mekân + sıradan belirlenir (kapının VisitorCatalog.Identify'ı gibi): geri sarınca
         // kararıp yeniden bağlanan aynı yapıdır, tabelada "geliyor" denen nadir yapı bağlanınca da odur.
-        public static Building Identify(string month, WindSite site, long index, string focus = null)
+        public static Building Identify(string month, WindSite site, long index, string focus = null, long guaranteeIndex = -1)
         {
             ulong seed = VisitorCatalog.Fnv(month) ^ (VisitorCatalog.Fnv("wind_" + site.Id) * 31UL);
             var b = new Building { Jitter = (float)(VisitorCatalog.Hash01(seed, index, 4) * 2.0 - 1.0) };
-            if (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance)
+            if (index == guaranteeIndex || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance))
             {
                 float total = 0f;
                 foreach (var s in site.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
@@ -149,6 +149,7 @@ namespace ScrollRoad
         public string month = "";
         public double position;  // bu ay üretilen puan (≥0); bağlanan yapı = konum / aralık
         public long monthBest;   // bu ay bağlanan en yüksek sıra no: yalnız onu aşan yapı sayılır
+        public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
 
         public long totalKwh;
         public List<GridRecord> log = new List<GridRecord>();

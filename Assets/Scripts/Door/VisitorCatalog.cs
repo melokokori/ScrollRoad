@@ -191,7 +191,7 @@ namespace ScrollRoad
             public float Scale;  // 0,94..1,06 boy çeşitliliği
         }
 
-        public static Visitor Identify(string month, DoorVenue venue, long index, string focus = null)
+        public static Visitor Identify(string month, DoorVenue venue, long index, string focus = null, long guaranteeIndex = -1)
         {
             ulong seed = Fnv(month) ^ (Fnv(venue.Id) * 31UL);
             var v = new Visitor
@@ -199,13 +199,14 @@ namespace ScrollRoad
                 Jitter = (float)(Hash01(seed, index, 4) * 2.0 - 1.0),
                 Scale = (float)(0.94 + Hash01(seed, index, 5) * 0.12),
             };
-            if (venue.Legendary != null && index >= venue.LegendaryMinIndex && Hash01(seed, index, 6) < venue.LegendaryChance)
+            bool forced = index == guaranteeIndex;
+            if (!forced && venue.Legendary != null && index >= venue.LegendaryMinIndex && Hash01(seed, index, 6) < venue.LegendaryChance)
             {
                 v.Type = venue.Legendary;
                 v.IsGuest = v.IsLegendary = true;
                 return v;
             }
-            if (index >= venue.GuestMinIndex && Hash01(seed, index, 1) < venue.GuestChance)
+            if (forced || (index >= venue.GuestMinIndex && Hash01(seed, index, 1) < venue.GuestChance))
             {
                 float total = 0f;
                 foreach (var g in venue.Guests) total += EnvironmentContent.Weight(g.Id, g.Frequency, focus);
@@ -263,6 +264,7 @@ namespace ScrollRoad
         public string month = "";
         public double position;   // bu ay kapının döndüğü puan (≥0); içerideki ziyaretçi = konum / aralık
         public long monthBest;    // bu ay içeri giren en yüksek sıra no: yalnız onu aşan ziyaretçi sayılır
+        public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
 
         public long totalVisitors;
         public List<GuestRecord> log = new List<GuestRecord>();

@@ -63,7 +63,7 @@ namespace ScrollRoad
     {
         // Ayın index. öğesi (1'den başlar). Geri sarınca kaybolup yeniden gelen aynı öğedir; tabelada
         // "geliyor" denen nadir öğe gelince de odur. Hash VisitorCatalog'unki (Rüzgârgülü ile aynı kalıp).
-        public static EnvItem Identify(string month, string envKey, ItemSite site, long index, string focus = null)
+        public static EnvItem Identify(string month, string envKey, ItemSite site, long index, string focus = null, long guaranteeIndex = -1)
         {
             ulong seed = VisitorCatalog.Fnv(month) ^ (VisitorCatalog.Fnv(envKey + "_" + site.Id) * 31UL);
             var item = new EnvItem
@@ -71,7 +71,7 @@ namespace ScrollRoad
                 Jitter = (float)(VisitorCatalog.Hash01(seed, index, 4) * 2.0 - 1.0),
                 Roll = (float)VisitorCatalog.Hash01(seed, index, 6),
             };
-            if (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance)
+            if (index == guaranteeIndex || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance))
             {
                 float total = 0f;
                 foreach (var s in site.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
@@ -117,6 +117,7 @@ namespace ScrollRoad
         public string month = "";
         public double position;  // bu ayın puanı (≥0); biten öğe = konum / aralık
         public long monthBest;   // bu ay biten en yüksek sıra no: yalnız onu aşan öğe sayılır
+        public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
 
         public long total;       // ömür boyu biten öğe
         public List<ItemRecord> log = new List<ItemRecord>();

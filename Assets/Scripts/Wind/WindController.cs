@@ -38,7 +38,8 @@ namespace ScrollRoad
         public WindSite Site => GridCatalog.GetSite(state.site);
         public BuildingType LastSpecial => GridCatalog.GetSpecial(state.lastSpecialId);
 
-        public GridCatalog.Building Identify(long index) => GridCatalog.Identify(state.month, Site, index, EnvironmentContent.FocusOf(EnvironmentId.Wind));
+        public GridCatalog.Building Identify(long index) => GridCatalog.Identify(state.month, Site, index, EnvironmentContent.FocusOf(EnvironmentId.Wind),
+            EnvironmentContent.GuaranteeIndex(Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
 
         public int LoggedAt(WindSite site)
         {
@@ -153,6 +154,7 @@ namespace ScrollRoad
             {
                 record = new GridRecord { id = type.Id, firstSeen = DateTime.Now.ToString("yyyy-MM-dd") };
                 state.log.Add(record);
+                if (string.IsNullOrEmpty(state.guaranteeMonth)) state.guaranteeMonth = state.month;
             }
             record.count++;
             state.lastSpecialId = type.Id;

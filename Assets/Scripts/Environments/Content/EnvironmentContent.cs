@@ -161,5 +161,18 @@ namespace ScrollRoad
         }
 
         public static void Notify(EnvironmentId id) => Changed?.Invoke(id);
+
+        // ---- İlk nadir garantisi (Dayanak 5, ödül eğrisi): ortamda henüz hiç nadir yoksa ayın ~10. seyir
+        // dakikasındaki öğe nadirdir (hangi nadir olduğu yine ağırlıklı seçimle, Odak'a uyarak). Garanti bir kez
+        // verilince o ay boyunca geçerli kalır (geri sarıp yeniden gelen aynı öğedir), sonraki aylarda yoktur.
+        // Olta'da her balık zaten deftere girer (ilk balık ~20 dk), garanti yok.
+        public const double FirstRarePoints = UnlockLadder.PointsPerHour / 6.0;
+
+        // Garantili öğenin ayın kaçıncı öğesi olduğu; garanti yoksa -1.
+        public static long GuaranteeIndex(double interval, bool logEmpty, string guaranteeMonth, string month)
+        {
+            bool active = guaranteeMonth == month || (logEmpty && string.IsNullOrEmpty(guaranteeMonth));
+            return active ? Math.Max(1L, (long)Math.Ceiling(FirstRarePoints / interval - 1e-9)) : -1L;
+        }
     }
 }
