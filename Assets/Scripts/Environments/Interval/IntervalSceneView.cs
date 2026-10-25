@@ -11,6 +11,10 @@ namespace ScrollRoad
         [SerializeField] protected CompanionWindowController companionWindow;
         [SerializeField] protected Camera viewCamera;
         [SerializeField] protected Material spriteMaterial;
+        // Tüm mekânların öğe görselleri kimlikle (Ortam Standardı v2: çok mekân). Soyacakta soyulmuş hâli "<id>_flesh".
+        [SerializeField] string[] itemIds;
+        [SerializeField] Sprite[] itemSprites;
+        System.Collections.Generic.Dictionary<string, Sprite> itemLookup;
 
         protected Transform root;
         protected Sprite whiteSprite, circleSprite;
@@ -31,6 +35,29 @@ namespace ScrollRoad
         protected abstract void StripBand(out float bottom, out float top, out float anchorWorldX, out float anchorScreenX);
 
         protected bool IsCompanion => companionWindow != null && companionWindow.IsCompanionMode;
+
+        protected Sprite ItemSprite(string id)
+        {
+            if (itemLookup == null)
+            {
+                itemLookup = new System.Collections.Generic.Dictionary<string, Sprite>();
+                for (int i = 0; itemIds != null && i < itemIds.Length && i < itemSprites.Length; i++) itemLookup[itemIds[i]] = itemSprites[i];
+            }
+            return id != null && itemLookup.TryGetValue(id, out var s) ? s : null;
+        }
+
+        // Bulunulan mekânın sahne rengi (ItemSite.Palette) ve seçili skin takımının ana nesne rengi (SkinInfo.Palette).
+        protected Color Look(int index, Color fallback)
+        {
+            var p = Env != null ? Env.Site.Palette : null;
+            return p != null && index < p.Length ? p[index] : fallback;
+        }
+
+        protected Color Tint(int index, Color fallback)
+        {
+            var p = Env != null ? Env.Skin.Palette : null;
+            return p != null && index < p.Length ? p[index] : fallback;
+        }
 
         protected virtual void Awake()
         {

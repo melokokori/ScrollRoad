@@ -16,8 +16,6 @@ namespace ScrollRoad
     public class GlobeSceneView : IntervalSceneView
     {
         [SerializeField] GlobeEnvironment env;
-        [SerializeField] Sprite[] commonSprites;   // Ancient.Commons sırasıyla
-        [SerializeField] Sprite[] specialSprites;  // Ancient.Specials sırasıyla
         [SerializeField] Sprite handSprite;
         // Parmak ucunun sprite içindeki yeri (0..1, soldan / alttan). Tools/gen_globe.py ölçüp yazdı.
         [SerializeField] Vector2 handTip = new Vector2(0.0f, 0.645f);
@@ -238,17 +236,7 @@ namespace ScrollRoad
             hand.color = c;
         }
 
-        Sprite SpriteFor(EnvItem item)
-        {
-            var site = env.Site;
-            if (item.IsSpecial)
-            {
-                int si = site.SpecialIndex(item.Type.Id);
-                return specialSprites != null && si >= 0 && si < specialSprites.Length ? specialSprites[si] : null;
-            }
-            int ci = site.CommonIndex(item.Type);
-            return commonSprites != null && ci >= 0 && ci < commonSprites.Length ? commonSprites[ci] : null;
-        }
+        Sprite SpriteFor(EnvItem item) => ItemSprite(item.Type.Id);
 
         static float Hash(int i, int salt) => (float)VisitorCatalog.Hash01(0x5EEDUL, i, salt);
 

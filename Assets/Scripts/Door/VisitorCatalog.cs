@@ -266,6 +266,7 @@ namespace ScrollRoad
         public double position;   // bu ay kapının döndüğü puan (≥0); içerideki ziyaretçi = konum / aralık
         public long monthBest;    // bu ay içeri giren en yüksek sıra no: yalnız onu aşan ziyaretçi sayılır
         public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
+        public string skin = "";           // seçili skin takımı (boş = Klasik)
 
         public long totalVisitors;
         public List<GuestRecord> log = new List<GuestRecord>();

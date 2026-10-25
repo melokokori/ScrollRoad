@@ -17,10 +17,6 @@ namespace ScrollRoad
     public class PeelerSceneView : IntervalSceneView
     {
         [SerializeField] PeelerEnvironment env;
-        [SerializeField] Sprite[] commonSprites;   // Stall.Commons sırasıyla (bütün meyve)
-        [SerializeField] Sprite[] specialSprites;
-        [SerializeField] Sprite[] commonFlesh;     // aynı sırayla soyulmuş hâli
-        [SerializeField] Sprite[] specialFlesh;
 
         protected override IntervalEnvironment Env => env;
         protected override string RootName => "FruitStall";
@@ -291,19 +287,7 @@ namespace ScrollRoad
             for (int k = used; k < RibbonMax; k++) ribbon[k].enabled = false;
         }
 
-        Sprite SpriteFor(EnvItem item, bool peeled)
-        {
-            var site = env.Site;
-            if (item.IsSpecial)
-            {
-                int si = site.SpecialIndex(item.Type.Id);
-                var arr = peeled ? specialFlesh : specialSprites;
-                return arr != null && si >= 0 && si < arr.Length ? arr[si] : null;
-            }
-            int ci = site.CommonIndex(item.Type);
-            var carr = peeled ? commonFlesh : commonSprites;
-            return carr != null && ci >= 0 && ci < carr.Length ? carr[ci] : null;
-        }
+        Sprite SpriteFor(EnvItem item, bool peeled) => ItemSprite(peeled ? item.Type.Id + "_flesh" : item.Type.Id);
 
         // Kâsenin ön yüzü: dairenin alt yarısı (pivot üst kenarın ortası değil, merkez — yerleşim ona göre).
         static Sprite CreateHalfDisc(int size)

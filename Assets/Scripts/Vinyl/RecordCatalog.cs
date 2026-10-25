@@ -163,6 +163,7 @@ namespace ScrollRoad
         public double position;  // bu ay çalınan puan (≥0); biten parça = konum / aralık
         public long monthBest;   // bu ay biten en yüksek parça sırası: yalnız onu aşan parça sayılır
         public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
+        public string skin = "";           // seçili skin takımı (boş = Klasik)
 
         public long totalTracks;
         public long totalRecords;

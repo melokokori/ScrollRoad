@@ -14,8 +14,6 @@ namespace ScrollRoad
     {
         [SerializeField] BoomerangEnvironment env;
         [SerializeField] Sprite throwerSprite;
-        [SerializeField] Sprite[] commonSprites;
-        [SerializeField] Sprite[] specialSprites;
         // Atıcının elinin sprite içindeki yeri (0..1, soldan / alttan): bumerang burada döner.
         [SerializeField] Vector2 handPoint = new Vector2(0.07f, 0.89f);
 
@@ -224,17 +222,7 @@ namespace ScrollRoad
             PlaceSprite(sr, sprite, x, l.GroundY, h, c, angle);
         }
 
-        Sprite SpriteFor(EnvItem item)
-        {
-            var site = env.Site;
-            if (item.IsSpecial)
-            {
-                int si = site.SpecialIndex(item.Type.Id);
-                return specialSprites != null && si >= 0 && si < specialSprites.Length ? specialSprites[si] : null;
-            }
-            int ci = site.CommonIndex(item.Type);
-            return commonSprites != null && ci >= 0 && ci < commonSprites.Length ? commonSprites[ci] : null;
-        }
+        Sprite SpriteFor(EnvItem item) => ItemSprite(item.Type.Id);
 
         static Vector2 Bezier(Vector2 a, Vector2 b, Vector2 c, float t)
         {

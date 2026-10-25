@@ -305,6 +305,7 @@ namespace ScrollRoad.EditorTools
             public IntervalEnvironment Env;
             public Object[] LogSprites; // Site.Specials sırasıyla
             public Sprite Card;
+            public string Folder;       // öğe görsellerinin klasörü (tüm mekânlar)
         }
 
         static readonly List<IntervalSetup> intervalSetups = new List<IntervalSetup>();
@@ -314,6 +315,23 @@ namespace ScrollRoad.EditorTools
             var sprites = new Object[types.Length];
             for (int i = 0; i < sprites.Length; i++) sprites[i] = LoadArtSprite(folder + types[i].Id + ".png");
             return sprites;
+        }
+
+        // Eşit aralıklı ortamın tüm mekânlarının öğe görselleri kimlikle (IntervalSceneView.ItemSprite).
+        static void BindItemSprites(IntervalSceneView view, string folder, ItemSite[] sites, bool flesh = false)
+        {
+            var ids = new List<string>();
+            var sprites = new List<Object>();
+            foreach (var site in sites)
+            {
+                foreach (var t in site.Commons) { ids.Add(t.Id); sprites.Add(LoadArtSprite(folder + t.Id + ".png")); }
+                foreach (var t in site.Specials) { ids.Add(t.Id); sprites.Add(LoadArtSprite(folder + t.Id + ".png")); }
+                if (!flesh) continue;
+                foreach (var t in site.Commons) { ids.Add(t.Id + "_flesh"); sprites.Add(LoadArtSprite(folder + t.Id + "_flesh.png")); }
+                foreach (var t in site.Specials) { ids.Add(t.Id + "_flesh"); sprites.Add(LoadArtSprite(folder + t.Id + "_flesh.png")); }
+            }
+            BindStrings(view, "itemIds", ids.ToArray());
+            BindArray(view, "itemSprites", sprites.ToArray());
         }
 
         static void BindIntervalView(IntervalSceneView view, CompanionWindowController companion, Camera cam)
@@ -415,10 +433,9 @@ namespace ScrollRoad.EditorTools
             var globeView = globeGo.AddComponent<GlobeSceneView>();
             Bind(globeView, "env", globe);
             BindIntervalView(globeView, companion, cam);
-            BindArray(globeView, "commonSprites", ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Commons));
-            BindArray(globeView, "specialSprites", ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Specials));
             Bind(globeView, "handSprite", LoadArtSprite(GlobeArt + "hand.png"));
-            intervalSetups.Add(new IntervalSetup { Env = globe, LogSprites = ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Specials), Card = LoadArtSprite(GlobeArt + "globe_card.png") });
+            BindItemSprites(globeView, GlobeArt, globe.Sites);
+            intervalSetups.Add(new IntervalSetup { Env = globe, LogSprites = ItemSprites(GlobeArt, GlobeEnvironment.Ancient.Specials), Folder = GlobeArt, Card = LoadArtSprite(GlobeArt + "globe_card.png") });
 
             // Bumerang (2026-10-14).
             var boomerangGo = new GameObject("Boomerang");
@@ -427,9 +444,8 @@ namespace ScrollRoad.EditorTools
             Bind(boomerangView, "env", boomerang);
             BindIntervalView(boomerangView, companion, cam);
             Bind(boomerangView, "throwerSprite", LoadArtSprite(BoomerangArt + "thrower.png"));
-            BindArray(boomerangView, "commonSprites", ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Commons));
-            BindArray(boomerangView, "specialSprites", ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials));
-            intervalSetups.Add(new IntervalSetup { Env = boomerang, LogSprites = ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials), Card = LoadArtSprite(BoomerangArt + "boomerang_card.png") });
+            BindItemSprites(boomerangView, BoomerangArt, boomerang.Sites);
+            intervalSetups.Add(new IntervalSetup { Env = boomerang, LogSprites = ItemSprites(BoomerangArt, BoomerangEnvironment.Outback.Specials), Folder = BoomerangArt, Card = LoadArtSprite(BoomerangArt + "boomerang_card.png") });
 
             // Çömlekçi çarkı (2026-10-14).
             var potteryGo = new GameObject("PotteryWheel");
@@ -438,9 +454,8 @@ namespace ScrollRoad.EditorTools
             Bind(potteryView, "env", pottery);
             BindIntervalView(potteryView, companion, cam);
             Bind(potteryView, "potterSprite", LoadArtSprite(PotteryArt + "potter.png"));
-            BindArray(potteryView, "commonSprites", ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Commons));
-            BindArray(potteryView, "specialSprites", ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials));
-            intervalSetups.Add(new IntervalSetup { Env = pottery, LogSprites = ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials), Card = LoadArtSprite(PotteryArt + "pottery_card.png") });
+            BindItemSprites(potteryView, PotteryArt, pottery.Sites);
+            intervalSetups.Add(new IntervalSetup { Env = pottery, LogSprites = ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials), Folder = PotteryArt, Card = LoadArtSprite(PotteryArt + "pottery_card.png") });
 
             // Meyve soyacağı (2026-10-14): bütün meyve + aynı görselden türetilmiş soyulmuş hâli (<id>_flesh.png).
             var peelerGo = new GameObject("FruitPeeler");
@@ -448,11 +463,8 @@ namespace ScrollRoad.EditorTools
             var peelerView = peelerGo.AddComponent<PeelerSceneView>();
             Bind(peelerView, "env", peeler);
             BindIntervalView(peelerView, companion, cam);
-            BindArray(peelerView, "commonSprites", ItemSprites(PeelerArt, PeelerEnvironment.Stall.Commons));
-            BindArray(peelerView, "specialSprites", ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials));
-            BindArray(peelerView, "commonFlesh", FleshSprites(PeelerEnvironment.Stall.Commons));
-            BindArray(peelerView, "specialFlesh", FleshSprites(PeelerEnvironment.Stall.Specials));
-            intervalSetups.Add(new IntervalSetup { Env = peeler, LogSprites = ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials), Card = LoadArtSprite(PeelerArt + "peeler_card.png") });
+            BindItemSprites(peelerView, PeelerArt, peeler.Sites, flesh: true);
+            intervalSetups.Add(new IntervalSetup { Env = peeler, LogSprites = ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials), Folder = PeelerArt, Card = LoadArtSprite(PeelerArt + "peeler_card.png") });
 
             // Çağ kebabı (2026-10-14).
             var kebabGo = new GameObject("KebabSpit");
@@ -461,9 +473,8 @@ namespace ScrollRoad.EditorTools
             Bind(kebabView, "env", kebab);
             BindIntervalView(kebabView, companion, cam);
             Bind(kebabView, "chefSprite", LoadArtSprite(KebabArt + "chef.png"));
-            BindArray(kebabView, "commonSprites", ItemSprites(KebabArt, KebabEnvironment.House.Commons));
-            BindArray(kebabView, "specialSprites", ItemSprites(KebabArt, KebabEnvironment.House.Specials));
-            intervalSetups.Add(new IntervalSetup { Env = kebab, LogSprites = ItemSprites(KebabArt, KebabEnvironment.House.Specials), Card = LoadArtSprite(KebabArt + "kebab_card.png") });
+            BindItemSprites(kebabView, KebabArt, kebab.Sites);
+            intervalSetups.Add(new IntervalSetup { Env = kebab, LogSprites = ItemSprites(KebabArt, KebabEnvironment.House.Specials), Folder = KebabArt, Card = LoadArtSprite(KebabArt + "kebab_card.png") });
 
             var sound = roadGo.AddComponent<SoundController>();
             Bind(sound, "drive", drive);
@@ -862,22 +873,16 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
-            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
-            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
-            var label = Tmp(totalPlate.transform, "Label", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            label.characterSpacing = 16;
-            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
-            label.rectTransform.sizeDelta = new Vector2(150, 12);
-            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
-            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
-            total.rectTransform.sizeDelta = new Vector2(160, 26);
-            FitToWidth(total, 13f);
-            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            status.characterSpacing = 10;
-            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
-            status.rectTransform.sizeDelta = new Vector2(160, 12);
-            FitToWidth(status, 7f);
+            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi), altında durum plakası.
+            var envGauge = CreateEnvGauge(root.transform, env.Def.Id, 128f);
+            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
+            var statusPlate = Plate(root.transform, "StatusPlate", PlateDark, RoundSprite);
+            Anchor(statusPlate.rectTransform, new Vector2(0, 1), new Vector2(16, -138), new Vector2(0, 1));
+            statusPlate.rectTransform.sizeDelta = new Vector2(120, 20);
+            var status = Tmp(statusPlate.transform, "Status", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.Center);
+            status.characterSpacing = 8;
+            Stretch(status.rectTransform);
+            FitToWidth(status, 6f);
 
             var sign = CreateSign(root.transform, "SiteSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -896,8 +901,6 @@ namespace ScrollRoad.EditorTools
             var controller = new GameObject(env.Def.Id + "HudController").AddComponent<IntervalHudController>();
             Bind(controller, "env", env);
             Bind(controller, "root", root);
-            Bind(controller, "labelText", label);
-            Bind(controller, "totalText", total);
             Bind(controller, "statusText", status);
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);
@@ -1084,7 +1087,7 @@ namespace ScrollRoad.EditorTools
             var intervalPanels = new List<Object>();
             for (int i = 0; i < intervalSetups.Count; i++)
             {
-                var log = CreateIntervalLogPanel(canvas.transform, intervalSetups[i].Env, intervalSetups[i].LogSprites);
+                var log = CreateIntervalLogPanel(canvas.transform, intervalSetups[i].Env, intervalSetups[i].LogSprites, intervalSetups[i].Folder);
                 intervalLogs[i] = log;
                 intervalPanels.Add(log.Panel);
             }
@@ -1446,16 +1449,8 @@ namespace ScrollRoad.EditorTools
             AddSprites(EnvironmentId.Wind, WindArt, System.Array.ConvertAll(GridCatalog.AllSpecials, b => b.Id));
             AddSprites(EnvironmentId.Vinyl, VinylArt, System.Array.ConvertAll(RecordCatalog.AllSpecials, r => r.Id));
             foreach (var setup in intervalSetups)
-            {
                 foreach (var site in setup.Env.Sites)
-                {
-                    for (int i = 0; i < site.Specials.Length && i < setup.LogSprites.Length; i++)
-                    {
-                        keys.Add(setup.Env.Def.Id + ":" + site.Specials[i].Id);
-                        sprites.Add(setup.LogSprites[i]);
-                    }
-                }
-            }
+                    AddSprites(setup.Env.Def.Id, setup.Folder, System.Array.ConvertAll(site.Specials, t => t.Id));
             keyArray = keys.ToArray();
             spriteArray = sprites.ToArray();
         }
@@ -1915,7 +1910,7 @@ namespace ScrollRoad.EditorTools
         }
 
         // Eşit aralıklı ortamların defteri: plak sandığının ızgarası (sekmesiz, tek mekân, 6 nadir öğe).
-        static IntervalLogController CreateIntervalLogPanel(Transform parent, IntervalEnvironment env, Object[] sprites)
+        static IntervalLogController CreateIntervalLogPanel(Transform parent, IntervalEnvironment env, Object[] sprites, string folder)
         {
             var site = env.Sites[0];
             var panel = CreatePanel(parent, env.Def.Id + "LogPanel", env.Def.CollectionName + " · " + site.Name, out var close, out var title);
@@ -1975,6 +1970,12 @@ namespace ScrollRoad.EditorTools
             BindArray(controller, "nameTexts", names);
             BindArray(controller, "detailTexts", details);
             Bind(controller, "closeButton", close);
+            var logIds = new List<string>();
+            var logSprites = new List<Object>();
+            foreach (var st in env.Sites)
+                foreach (var t in st.Specials) { logIds.Add(t.Id); logSprites.Add(LoadArtSprite(folder + t.Id + ".png")); }
+            BindStrings(controller, "spriteIds", logIds.ToArray());
+            BindArray(controller, "sprites", logSprites.ToArray());
             return controller;
         }
 
@@ -2666,6 +2667,33 @@ namespace ScrollRoad.EditorTools
 
             var view = go.AddComponent<ReelGaugeView>();
             Bind(view, "fishing", fishing);
+            Bind(view, "face", face);
+            Bind(view, "needle", needle);
+            Bind(view, "idleLabel", idle);
+            Bind(view, "odometer", odometer);
+            return view;
+        }
+
+        // Ortam kadranı (EnvGaugeView): makara kadranının yapısı, ortamın skin takımına göre yüz ve ibre.
+        static EnvGaugeView CreateEnvGauge(Transform parent, EnvironmentId environment, float size)
+        {
+            var go = new GameObject("EnvGauge", typeof(RectTransform));
+            go.transform.SetParent(parent, false);
+            ((RectTransform)go.transform).sizeDelta = new Vector2(size, size);
+            var face = GaugeImage(go.transform, "Face");
+            var odometer = CreateOdometer(go.transform, "Odometer", size * 13f / 200f, out _);
+            Stretch((RectTransform)odometer.transform);
+            var idle = Tmp(go.transform, "Idle", "IDLE", size * 9f / 200f, UiFonts.ExtraBold, Amber);
+            idle.characterSpacing = 10;
+            var ir = idle.rectTransform;
+            ir.anchorMin = new Vector2(0.25f, 1f - 125f / 200f);
+            ir.anchorMax = new Vector2(0.75f, 1f - 111f / 200f);
+            ir.offsetMin = ir.offsetMax = Vector2.zero;
+            var needle = GaugeImage(go.transform, "Needle");
+            var view = go.AddComponent<EnvGaugeView>();
+            var so = new SerializedObject(view);
+            so.FindProperty("environment").enumValueIndex = System.Array.IndexOf(System.Enum.GetValues(typeof(EnvironmentId)), environment);
+            so.ApplyModifiedPropertiesWithoutUndo();
             Bind(view, "face", face);
             Bind(view, "needle", needle);
             Bind(view, "idleLabel", idle);

@@ -17,8 +17,6 @@ namespace ScrollRoad
     {
         [SerializeField] KebabEnvironment env;
         [SerializeField] Sprite chefSprite;
-        [SerializeField] Sprite[] commonSprites;
-        [SerializeField] Sprite[] specialSprites;
 
         protected override IntervalEnvironment Env => env;
         protected override string RootName => "KebabHouse";
@@ -256,16 +254,6 @@ namespace ScrollRoad
             meatTex.Apply(false);
         }
 
-        Sprite SpriteFor(EnvItem item)
-        {
-            var site = env.Site;
-            if (item.IsSpecial)
-            {
-                int si = site.SpecialIndex(item.Type.Id);
-                return specialSprites != null && si >= 0 && si < specialSprites.Length ? specialSprites[si] : null;
-            }
-            int ci = site.CommonIndex(item.Type);
-            return commonSprites != null && ci >= 0 && ci < commonSprites.Length ? commonSprites[ci] : null;
-        }
+        Sprite SpriteFor(EnvItem item) => ItemSprite(item.Type.Id);
     }
 }

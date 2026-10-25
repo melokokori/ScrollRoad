@@ -18,6 +18,8 @@ namespace ScrollRoad
         [SerializeField] TMP_Text[] nameTexts;
         [SerializeField] TMP_Text[] detailTexts;
         [SerializeField] Button closeButton;
+        [SerializeField] string[] spriteIds;    // tüm mekânların nadirleri (kimlikle)
+        [SerializeField] Sprite[] sprites;
 
         static readonly Color Silhouette = new Color(0.02f, 0.03f, 0.05f, 0.55f);
 
@@ -50,6 +52,8 @@ namespace ScrollRoad
                 var type = site.Specials[i];
                 var r = p.Find(type.Id);
                 bool met = r != null;
+                int si = System.Array.IndexOf(spriteIds, type.Id);
+                if (si >= 0 && si < sprites.Length) images[i].sprite = sprites[si];
                 images[i].color = met ? Color.white : Silhouette;
                 nameTexts[i].text = met ? type.Name : "???";
                 detailTexts[i].text = met ? env.MetDetail(r) : env.UnmetDetail;

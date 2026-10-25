@@ -29,6 +29,8 @@ namespace ScrollRoad
         public ItemType[] Specials;
         public float SpecialChance;
         public int SpecialMinIndex = 12;
+        // Mekânın sahne renkleri (sırası ortamın sahnesine özel; IntervalSceneView.Look). Boşsa sahnenin varsayılanı.
+        public Color[] Palette = Array.Empty<Color>();
 
         public bool Contains(string id)
         {
@@ -124,6 +126,7 @@ namespace ScrollRoad
         public List<ItemRecord> log = new List<ItemRecord>();
         public string lastSpecialId = "";
         public string site = "";
+        public string skin = "";  // seçili skin takımı (boş = Klasik)
         public float best;       // ortama özel ömür boyu rekor (en uzun atış, en uzun kabuk); yoksa 0
         public string bestId = "";
 

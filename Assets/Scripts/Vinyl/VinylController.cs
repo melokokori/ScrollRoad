@@ -69,11 +69,24 @@ namespace ScrollRoad
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.monthBest / RecordCatalog.TracksPerRecord + 2;
+        public double MonthUnits => Tracks;
         public string SkinNoun => "look";
         public string SkinBoxName => "Looks";
-        public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
-        public string SkinId => "classic";
-        public void SetSkin(string id) { }
+        public SkinInfo[] Skins => SkinCatalog.Vinyl;
+        public string SkinId
+        {
+            get
+            {
+                int i = EnvironmentContent.SkinIndex(this, state.skin);
+                return i > 0 && EnvironmentContent.IsSkinUnlocked(this, i) ? state.skin : Skins[0].Id;
+            }
+        }
+        public SkinInfo Skin => Skins[Math.Max(0, EnvironmentContent.SkinIndex(this, SkinId))];
+        public void SetSkin(string id)
+        {
+            state.skin = id;
+            Save();
+        }
         public System.Collections.Generic.IEnumerable<string> LegacyAnnounced => Array.Empty<string>();
 
         public event Action<RecordType, bool> SpecialCrated; // plak, yeni mi

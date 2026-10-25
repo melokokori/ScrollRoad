@@ -151,6 +151,7 @@ namespace ScrollRoad
         public double position;  // bu ay üretilen puan (≥0); bağlanan yapı = konum / aralık
         public long monthBest;   // bu ay bağlanan en yüksek sıra no: yalnız onu aşan yapı sayılır
         public string guaranteeMonth = ""; // ilk nadir garantisinin verildiği ay (EnvironmentContent.GuaranteeIndex)
+        public string skin = "";           // seçili skin takımı (boş = Klasik)
 
         public long totalKwh;
         public List<GridRecord> log = new List<GridRecord>();

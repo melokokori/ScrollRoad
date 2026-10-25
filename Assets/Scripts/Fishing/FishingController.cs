@@ -96,6 +96,7 @@ namespace ScrollRoad
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.totalFish + 1;
+        public double MonthUnits => state.monthFish + Math.Min(Reeled, 0.999f);
         public string SkinNoun => "tackle";
         public string SkinBoxName => "Tackle box";
         public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Dial = g.Dial });

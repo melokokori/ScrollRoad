@@ -69,6 +69,27 @@ SKINS = {
 }
 
 
+# Ortam kadranları (Ortam Standardı v2, 2026-10-25; SkinCatalog.Dial): makara kadranının geometrisi, geri bölge
+# "BACK", sayacın altında ortamın birimi. env(...) ortak alanları doldurur.
+def env(face, bezel, ink, needle, odo, unit, rev, odo_bg, odo_cell, odo_last, **extra):
+    d = dict(rpm=True, card_only=True, face=face, bezel=bezel, tick=ink, num=ink, needle=needle, hub=bezel,
+             unit=unit, rev=rev, odoBg=odo_bg, odoCell=odo_cell, odoLastBg=odo_last, rev_label="BACK", odo_label=odo)
+    d.update(extra)
+    return d
+
+
+SKINS.update({
+    "door_classic": env("#ECEFF1", "#2F3640", "#2F3640", "#D9534F", "VISITORS", "#6B7480", "#AEB6BF", "#2F3640", "#3C4552", "#E8EDF1"),
+    "wind_classic": env("#F4F6F2", "#4C6B3C", "#2E4A22", "#F2B33D", "KWH", "#6F7F66", "#B7C2AE", "#2E4A22", "#3B5A2E", "#EEF3EA"),
+    "vinyl_classic": env("#1E1A17", "#8A6A45", "#EADFC8", "#E8644A", "TRACKS", "#A89878", "#4A4038", "#120F0D", "#2A2420", "#EADFC8"),
+    "globe_classic": env("#1C2547", "#C9A24A", "#F2E6C2", "#F2B33D", "YEARS", "#B9AE8E", "#45507A", "#111833", "#26305A", "#F2E6C2"),
+    "boomerang_classic": env("#F3E2C7", "#8A4B2A", "#4A2A18", "#C8323C", "TARGETS", "#8A6A52", "#C9B394", "#4A2A18", "#5E3A24", "#F3E2C7"),
+    "pottery_classic": env("#EFE3CF", "#7A5236", "#3D2A1C", "#B5562F", "POTS", "#8A735C", "#C7B49A", "#3D2A1C", "#503826", "#EFE3CF"),
+    "peeler_classic": env("#F4EEDF", "#3E434B", "#2A2D33", "#C2412F", "FRUIT", "#7A7C80", "#C3C0B6", "#2A2D33", "#3A3E46", "#F4EEDF"),
+    "kebab_classic": env("#F2E8D8", "#6E3A24", "#3A2015", "#E07A1F", "PORTIONS", "#8A6A55", "#C9B39C", "#3A2015", "#4E2C1E", "#F2E8D8"),
+})
+
+
 def rgba(c):
     if isinstance(c, tuple):
         return c if len(c) == 4 else c + (255,)
@@ -318,9 +339,9 @@ def draw_dial(c, s, mini):
     if not mini:
         a = math.radians(angle_for(-40))
         if s.get("rpm"):
-            c.text(cx + 66 * math.cos(a), cy - 66 * math.sin(a), "OUT", FONT_BOLD, 7.5, s["rev"], spacing=0.5)
-            c.text(cx, 67, "RPM", FONT_MONO, 8.5, s["unit"], spacing=1.5)
-            c.text(cx, 160, "FISH", FONT_MONO, 7.5, s["unit"], spacing=1.5)
+            c.text(cx + 66 * math.cos(a), cy - 66 * math.sin(a), s.get("rev_label", "OUT"), FONT_BOLD, 7.5, s["rev"], spacing=0.5)
+            c.text(cx, 67, s.get("unit_label", "RPM"), FONT_MONO, 8.5, s["unit"], spacing=1.5)
+            c.text(cx, 160, s.get("odo_label", "FISH"), FONT_MONO, 7.5, s["unit"], spacing=1.5)
         else:
             c.text(cx + 68 * math.cos(a), cy - 68 * math.sin(a), "R", FONT_BOLD, 10, s["rev"])
             c.text(cx, 67, "KNOTS" if s.get("knots") else "KM/H", FONT_MONO, 8.5, s["unit"], spacing=1.5)

@@ -17,8 +17,6 @@ namespace ScrollRoad
     {
         [SerializeField] PotteryEnvironment env;
         [SerializeField] Sprite potterSprite;
-        [SerializeField] Sprite[] commonSprites;
-        [SerializeField] Sprite[] specialSprites;
         // Çömlekçinin alt ortasının çarka göre x'i (kart, dünya birimi) ve boyu.
         [SerializeField] float potterOffset = -1.25f;
         [SerializeField] float potterHeight = 2.7f;
@@ -275,16 +273,6 @@ namespace ScrollRoad
             clayTex.Apply(false);
         }
 
-        Sprite SpriteFor(EnvItem item)
-        {
-            var site = env.Site;
-            if (item.IsSpecial)
-            {
-                int si = site.SpecialIndex(item.Type.Id);
-                return specialSprites != null && si >= 0 && si < specialSprites.Length ? specialSprites[si] : null;
-            }
-            int ci = site.CommonIndex(item.Type);
-            return commonSprites != null && ci >= 0 && ci < commonSprites.Length ? commonSprites[ci] : null;
-        }
+        Sprite SpriteFor(EnvItem item) => ItemSprite(item.Type.Id);
     }
 }

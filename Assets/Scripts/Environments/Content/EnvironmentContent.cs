@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ScrollRoad
 {
@@ -26,7 +27,12 @@ namespace ScrollRoad
         public string Id;
         public string Name;
         public string Blurb;
-        public string Dial; // Resources/Gauges/<Dial>_face önizlemesi; boşsa yok
+        public string Dial; // Resources/Gauges/<Dial>_face|needle (kadran + Dolap önizlemesi); boşsa yok
+        public Color DialInk = new Color(0.91f, 0.93f, 0.95f);      // kadran sayacının rakamları
+        public Color DialInkLast = new Color(0.12f, 0.16f, 0.27f);  // son (ondalık) hane
+        // Sahnenin ana nesnesinin renkleri (sırası ortamın sahnesine özel; eksik olan varsayılan rengini kullanır).
+        public Color[] Palette = Array.Empty<Color>();
+        public string Sound; // ortamın döngü sesinin bu takımdaki karşılığı (Resources/EnvSounds); boşsa varsayılan
     }
 
     public interface IEnvironmentContent
@@ -34,6 +40,8 @@ namespace ScrollRoad
         EnvironmentDef Def { get; }
         // Bu ortamda ömür boyu biten öğelerin puanı (yalnız seçiliyken ilerler). Merdiven bununla açılır.
         double LifetimePoints { get; }
+        // Bu ayın birimi, sıradaki öğenin kesriyle (kadran sayacı).
+        double MonthUnits { get; }
 
         string VenueNoun { get; }        // duyurularda: "spot", "venue", "place"
         VenueInfo[] Venues { get; }      // merdiven sırasıyla
@@ -95,7 +103,7 @@ namespace ScrollRoad
 
         public static event Action<EnvironmentId> Changed; // mekân, Odak ya da skin değişti
 
-        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void ResetStatics()
         {
             Registry.Clear();
@@ -222,7 +230,7 @@ namespace ScrollRoad
 
         // Sipariş ödülü: mekânın henüz bulunmamış nadirlerinden biri birkaç öğe sonra gelir (Olta'da bir sonraki
         // atışta). Mekânda eksik yoksa false (yalnız sipariş defterine damga).
-        public static bool GrantReward(IEnvironmentContent c, string venueId, Random rng, out string rareName)
+        public static bool GrantReward(IEnvironmentContent c, string venueId, System.Random rng, out string rareName)
         {
             rareName = null;
             var missing = Array.FindAll(c.RaresAt(venueId), r => !c.IsLogged(r.Id));

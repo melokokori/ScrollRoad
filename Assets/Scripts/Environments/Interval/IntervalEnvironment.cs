@@ -133,11 +133,25 @@ namespace ScrollRoad
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.monthBest + 1;
+        public double MonthUnits => Units;
         public virtual string SkinNoun => "look";
         public virtual string SkinBoxName => "Looks";
-        public virtual SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
-        public virtual string SkinId => "classic";
-        public virtual void SetSkin(string id) { }
+        public virtual SkinInfo[] Skins => SkinCatalog.For(Def.Id);
+        // Seçili takım (kilitliyse ya da yoksa ilki).
+        public string SkinId
+        {
+            get
+            {
+                int i = EnvironmentContent.SkinIndex(this, state.skin);
+                return i > 0 && EnvironmentContent.IsSkinUnlocked(this, i) ? state.skin : Skins[0].Id;
+            }
+        }
+        public SkinInfo Skin => Skins[Math.Max(0, EnvironmentContent.SkinIndex(this, SkinId))];
+        public void SetSkin(string id)
+        {
+            state.skin = id;
+            Save();
+        }
         public IEnumerable<string> LegacyAnnounced => Array.Empty<string>();
 
         public event Action<long, EnvItem> ItemCompleted;
