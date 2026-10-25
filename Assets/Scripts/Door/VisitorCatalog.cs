@@ -191,7 +191,7 @@ namespace ScrollRoad
             public float Scale;  // 0,94..1,06 boy çeşitliliği
         }
 
-        public static Visitor Identify(string month, DoorVenue venue, long index)
+        public static Visitor Identify(string month, DoorVenue venue, long index, string focus = null)
         {
             ulong seed = Fnv(month) ^ (Fnv(venue.Id) * 31UL);
             var v = new Visitor
@@ -208,12 +208,12 @@ namespace ScrollRoad
             if (index >= venue.GuestMinIndex && Hash01(seed, index, 1) < venue.GuestChance)
             {
                 float total = 0f;
-                foreach (var g in venue.Guests) total += g.Frequency;
+                foreach (var g in venue.Guests) total += EnvironmentContent.Weight(g.Id, g.Frequency, focus);
                 double pick = Hash01(seed, index, 2) * total;
                 var chosen = venue.Guests[venue.Guests.Length - 1];
                 foreach (var g in venue.Guests)
                 {
-                    pick -= g.Frequency;
+                    pick -= EnvironmentContent.Weight(g.Id, g.Frequency, focus);
                     if (pick <= 0) { chosen = g; break; }
                 }
                 v.Type = chosen;

@@ -43,7 +43,7 @@ namespace ScrollRoad
         public VisitorType LastGuest => VisitorCatalog.GetGuest(state.lastGuestId);
         public bool LastWasNew { get; private set; }
 
-        public VisitorCatalog.Visitor Identify(long index) => VisitorCatalog.Identify(state.month, Venue, index);
+        public VisitorCatalog.Visitor Identify(long index) => VisitorCatalog.Identify(state.month, Venue, index, EnvironmentContent.FocusOf(EnvironmentId.Door));
 
         public int GuestsLoggedAt(DoorVenue venue)
         {

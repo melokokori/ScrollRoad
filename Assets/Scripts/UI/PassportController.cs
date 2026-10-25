@@ -39,7 +39,7 @@ namespace ScrollRoad
             passportPanel.SetActive(false);
         }
 
-        void Open()
+        public void Open()
         {
             if (fishLog != null && EnvironmentManager.Current.Id == EnvironmentId.Fishing)
             {

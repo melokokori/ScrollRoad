@@ -105,19 +105,19 @@ namespace ScrollRoad
 
         // Ayın r. plağı (1'den) ay + mekân + sıradan belirlenir (kapının Identify'ı gibi): geri sarılıp yeniden
         // çalınan aynı plaktır. Sıradan plakların tarzı çoğunlukla lo-fi, arada bossa/caz.
-        public static Record Identify(string month, RecordShop shop, long index)
+        public static Record Identify(string month, RecordShop shop, long index, string focus = null)
         {
             ulong seed = Seed(month, shop);
             var r = new Record();
             if (index >= shop.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < shop.SpecialChance)
             {
                 float total = 0f;
-                foreach (var s in shop.Specials) total += s.Frequency;
+                foreach (var s in shop.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
                 double pick = VisitorCatalog.Hash01(seed, index, 2) * total;
                 var chosen = shop.Specials[shop.Specials.Length - 1];
                 foreach (var s in shop.Specials)
                 {
-                    pick -= s.Frequency;
+                    pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
                     if (pick <= 0) { chosen = s; break; }
                 }
                 r.Type = chosen;

@@ -244,7 +244,7 @@ namespace ScrollRoad
 
         void RollFish()
         {
-            var species = FishCatalog.Roll(Spot, rng, state.totalFish, out float kg);
+            var species = FishCatalog.Roll(Spot, rng, state.totalFish, out float kg, EnvironmentContent.FocusOf(EnvironmentId.Fishing));
             state.castFishId = species.Id;
             state.castKg = kg;
         }

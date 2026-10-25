@@ -37,7 +37,7 @@ namespace ScrollRoad
         public RecordType LastSpecial => RecordCatalog.GetSpecial(state.lastSpecialId);
         public string Month => state.month;
 
-        public RecordCatalog.Record Identify(long recordIndex) => RecordCatalog.Identify(state.month, Shop, recordIndex);
+        public RecordCatalog.Record Identify(long recordIndex) => RecordCatalog.Identify(state.month, Shop, recordIndex, EnvironmentContent.FocusOf(EnvironmentId.Vinyl));
         public RecordCatalog.Record Current => Identify(RecordIndex);
         public ulong CurrentTrackSeed => RecordCatalog.TrackSeed(state.month, Shop, TracksDone);
 

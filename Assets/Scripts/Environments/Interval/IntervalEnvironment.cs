@@ -102,7 +102,7 @@ namespace ScrollRoad
 
         public ItemType LastSpecial => state == null ? null : Site.GetSpecial(state.lastSpecialId);
 
-        public EnvItem Identify(long index) => IntervalCatalog.Identify(state.month, HashKey, Site, index);
+        public EnvItem Identify(long index) => IntervalCatalog.Identify(state.month, HashKey, Site, index, EnvironmentContent.FocusOf(Def.Id));
 
         public int LoggedAt(ItemSite site)
         {

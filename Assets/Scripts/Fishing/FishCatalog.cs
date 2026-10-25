@@ -168,7 +168,7 @@ namespace ScrollRoad
         }
 
         // Sıklığa göre tür, aralığında küçüğe eğilimli ağırlık (r² → çoğu balık küçük, iri olan nadir).
-        public static FishSpecies Roll(FishingSpot spot, Random rng, int totalFish, out float kg)
+        public static FishSpecies Roll(FishingSpot spot, Random rng, int totalFish, out float kg, string focus = null)
         {
             if (spot.Legendary != null && totalFish >= spot.LegendaryMinFish && rng.NextDouble() < spot.LegendaryChance)
             {
@@ -179,12 +179,12 @@ namespace ScrollRoad
             }
             var species = spot.Species;
             float total = 0f;
-            foreach (var s in species) total += s.Frequency;
+            foreach (var s in species) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
             double pick = rng.NextDouble() * total;
             var chosen = species[species.Length - 1];
             foreach (var s in species)
             {
-                pick -= s.Frequency;
+                pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
                 if (pick <= 0) { chosen = s; break; }
             }
             double r = rng.NextDouble();

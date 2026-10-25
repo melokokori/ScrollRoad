@@ -38,7 +38,7 @@ namespace ScrollRoad
         public WindSite Site => GridCatalog.GetSite(state.site);
         public BuildingType LastSpecial => GridCatalog.GetSpecial(state.lastSpecialId);
 
-        public GridCatalog.Building Identify(long index) => GridCatalog.Identify(state.month, Site, index);
+        public GridCatalog.Building Identify(long index) => GridCatalog.Identify(state.month, Site, index, EnvironmentContent.FocusOf(EnvironmentId.Wind));
 
         public int LoggedAt(WindSite site)
         {

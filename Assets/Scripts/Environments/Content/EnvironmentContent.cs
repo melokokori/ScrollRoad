@@ -121,8 +121,32 @@ namespace ScrollRoad
             if (index < 0 || !IsVenueUnlocked(c, index)) return false;
             if (c.VenueId == venueId) return true;
             c.SetVenue(venueId);
+            var state = State(c.Def.Id);
+            if (state.focus != "")
+            {
+                state.focus = ""; // Odak mekânın nadirlerinden biridir; yeni mekânda geçersiz
+                Save(c.Def.Id);
+            }
             Notify(c.Def.Id);
             return true;
+        }
+
+        // ---- Odak (Dayanak 3): seçili mekânın bir nadiri seçilir, nadirler arasındaki göreli sıklığı ×3 olur.
+        // Nadir çıkma olasılığını ve puanı değiştirmez; yalnız hangi nadirin geleceğini.
+        public const float FocusMultiplier = 3f;
+
+        public static string FocusOf(EnvironmentId id) => State(id).focus;
+
+        public static float Weight(string rareId, float frequency, string focus) =>
+            !string.IsNullOrEmpty(focus) && rareId == focus ? frequency * FocusMultiplier : frequency;
+
+        // Aynı nadire yeniden basınca Odak kalkar.
+        public static void ToggleFocus(IEnvironmentContent c, string rareId)
+        {
+            var state = State(c.Def.Id);
+            state.focus = state.focus == rareId ? "" : rareId ?? "";
+            Save(c.Def.Id);
+            Notify(c.Def.Id);
         }
 
         public static bool SelectSkin(IEnvironmentContent c, string skinId)

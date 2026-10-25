@@ -1047,12 +1047,13 @@ namespace ScrollRoad.EditorTools
             sub.rectTransform.sizeDelta = new Vector2(208, 30);
             sub.lineSpacing = 6;
 
-            // Activities = ortam seçici (2026-10-13). "Passport" satırı Olta'da "Fish log" olur.
-            string[] labels = { "Activities", "Passport", "Leaderboard", "Garage", "Stats", "Settings", "Taskbar mode" };
+            // Activities = ortam seçici (2026-10-13). "Passport" satırı Olta'da "Fish log" olur. Places = mekânlar + Odak
+            // (Ortam Standardı v2, 2026-10-25); 8 satır sığsın diye satır aralığı 26.
+            string[] labels = { "Activities", "Places", "Passport", "Leaderboard", "Garage", "Stats", "Settings", "Taskbar mode" };
             var buttons = new Button[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
-                buttons[i] = CreateDrawerRow(drawer, labels[i], new Vector2(20, -96 - i * 29));
+                buttons[i] = CreateDrawerRow(drawer, labels[i], new Vector2(20, -96 - i * 26));
             }
 
             var quit = CreateTextButton(drawer, "QuitButton", "QUIT", 10.5f, Color.white, new Vector2(20, 15), new Vector2(46, 18));
@@ -1062,7 +1063,8 @@ namespace ScrollRoad.EditorTools
             steam.rectTransform.sizeDelta = new Vector2(156, 14);
 
             var activities = CreateActivitiesPanel(canvas.transform, buttons[0]);
-            var passport = CreatePassportPanel(canvas.transform, buttons[1], drive);
+            var passport = CreatePassportPanel(canvas.transform, buttons[2], drive);
+            var places = CreatePlacesPanel(canvas.transform, buttons[1], passport);
             var fishLog = CreateFishLogPanel(canvas.transform, fishing);
             Bind(passport, "fishLog", fishLog);
             var guestBook = CreateGuestBookPanel(canvas.transform, door);
@@ -1080,11 +1082,11 @@ namespace ScrollRoad.EditorTools
                 intervalPanels.Add(log.Panel);
             }
             BindArray(passport, "intervalLogs", intervalLogs);
-            var garage = CreateGaragePanel(canvas.transform, buttons[3]);
+            var garage = CreateGaragePanel(canvas.transform, buttons[4]);
             var tackleBox = CreateTackleBoxPanel(canvas.transform, fishing);
             Bind(garage, "tackleBox", tackleBox);
-            var statsCtrl = CreateStatsPanel(canvas.transform, buttons[4], drive, stats);
-            var settings = CreateSettingsPanel(canvas.transform, buttons[5], companion);
+            var statsCtrl = CreateStatsPanel(canvas.transform, buttons[5], drive, stats);
+            var settings = CreateSettingsPanel(canvas.transform, buttons[6], companion);
 
             var lbPanel = CreatePanel(canvas.transform, "LeaderboardPanel", "Leaderboard", out var lbClose, out _);
             var thisMonth = CreateButton(lbPanel.transform, "ThisMonthTab", "This month", Vector2.zero, new Vector2(104, 24), ButtonIdle, 11.5f, UiFonts.SemiBold);
@@ -1109,24 +1111,164 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "monthBestText", best);
             Bind(menu, "headerSubText", sub);
             Bind(menu, "steamText", steam);
-            BindArray(menu, "panelButtons", new Object[] { buttons[0], buttons[1], buttons[3], buttons[4], buttons[5] });
-            Bind(menu, "leaderboardButton", buttons[2]);
-            Bind(menu, "taskbarButton", buttons[6]);
-            Bind(menu, "collectionLabel", buttons[1].GetComponentInChildren<TMP_Text>());
-            Bind(menu, "garageLabel", buttons[3].GetComponentInChildren<TMP_Text>());
+            BindArray(menu, "panelButtons", new Object[] { buttons[0], buttons[1], buttons[2], buttons[4], buttons[5], buttons[6] });
+            Bind(menu, "leaderboardButton", buttons[3]);
+            Bind(menu, "taskbarButton", buttons[7]);
+            Bind(menu, "collectionLabel", buttons[2].GetComponentInChildren<TMP_Text>());
+            Bind(menu, "garageLabel", buttons[4].GetComponentInChildren<TMP_Text>());
             Bind(menu, "quitButton", quit);
             Bind(menu, "leaderboardPanel", lbPanel);
             Bind(menu, "leaderboardText", lbText);
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, tackleBox.Panel };
+            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, tackleBox.Panel };
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
             return menu;
+        }
+
+        // Mekânlar + Odak (Ortam Standardı v2, 2026-10-25): üstte 5 mekân kartı (ad + durum), altında Odak satırı,
+        // en altta bulunulan mekânın 6 nadiri (görsel, ad, durum). Nadir görselleri tüm ortamlardan
+        // "<ortam>:<nadir>" anahtarıyla tek tabloda (PlacesController seçili ortama göre bakar).
+        static PlacesController CreatePlacesPanel(Transform parent, Button openButton, PassportController passport)
+        {
+            var panel = CreatePanel(parent, "PlacesPanel", "Places", out var close, out var title);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(360, 16);
+            count.characterSpacing = 2;
+
+            const int venueSlots = 5, rareSlots = 6;
+            const float venueGap = 10f, venueH = 56f, venueY = 88f;
+            float venueW = (748f - (venueSlots - 1) * venueGap) / venueSlots;
+            var venueButtons = new Object[venueSlots];
+            var venueFrames = new Object[venueSlots];
+            var venueNames = new Object[venueSlots];
+            var venueStatuses = new Object[venueSlots];
+            for (int i = 0; i < venueSlots; i++)
+            {
+                float x = (i - (venueSlots - 1) / 2f) * (venueW + venueGap);
+                var button = CreateButton(panel.transform, $"Venue_{i}", "", new Vector2(x, venueY), new Vector2(venueW, venueH), ButtonIdle, 10f);
+                var colors = button.colors;
+                colors.disabledColor = Color.white; // bulunulan mekânın rengini Image.color belirler
+                button.colors = colors;
+                var cell = Plate(button.transform, "Cell", Cell, RoundSprite);
+                Stretch(cell.rectTransform);
+                cell.rectTransform.offsetMin = new Vector2(3f, 3f);
+                cell.rectTransform.offsetMax = new Vector2(-3f, -3f);
+                var name = Tmp(button.transform, "Name", "", 13, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                SetRect(name.rectTransform, new Vector2(0f, 8f), new Vector2(venueW - 14f, 18f));
+                FitToWidth(name, 9f);
+                var status = Tmp(button.transform, "Status", "", 8.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                status.characterSpacing = 4;
+                status.rectTransform.anchorMin = status.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                SetRect(status.rectTransform, new Vector2(0f, -12f), new Vector2(venueW - 10f, 14f));
+                FitToWidth(status, 6f);
+                venueButtons[i] = button;
+                venueFrames[i] = button.GetComponent<Image>();
+                venueNames[i] = name;
+                venueStatuses[i] = status;
+            }
+
+            var hint = Tmp(panel.transform, "FocusHint", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Left);
+            Anchor(hint.rectTransform, new Vector2(0, 1), new Vector2(26, -124), new Vector2(0, 1));
+            hint.rectTransform.sizeDelta = new Vector2(748, 16);
+            FitToWidth(hint, 8f);
+
+            const float rareGap = 10f, rareH = 172f, rareY = -68f;
+            float rareW = (748f - (rareSlots - 1) * rareGap) / rareSlots;
+            var rareButtons = new Object[rareSlots];
+            var rareFrames = new Object[rareSlots];
+            var rareImages = new Object[rareSlots];
+            var rareNames = new Object[rareSlots];
+            var rareStatuses = new Object[rareSlots];
+            for (int i = 0; i < rareSlots; i++)
+            {
+                float x = (i - (rareSlots - 1) / 2f) * (rareW + rareGap);
+                var button = CreateButton(panel.transform, $"Rare_{i}", "", new Vector2(x, rareY), new Vector2(rareW, rareH), ButtonIdle, 10f);
+                var cell = Plate(button.transform, "Cell", Cell, RoundSprite);
+                Stretch(cell.rectTransform);
+                cell.rectTransform.offsetMin = new Vector2(3f, 3f);
+                cell.rectTransform.offsetMax = new Vector2(-3f, -3f);
+
+                var imageGo = new GameObject("Image", typeof(RectTransform), typeof(Image));
+                imageGo.transform.SetParent(button.transform, false);
+                var image = imageGo.GetComponent<Image>();
+                image.preserveAspect = true;
+                image.raycastTarget = false;
+                var ir = (RectTransform)imageGo.transform;
+                ir.anchorMin = ir.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(ir, new Vector2(0f, -60f), new Vector2(rareW - 20f, 96f));
+
+                var name = Tmp(button.transform, "Name", "", 11.5f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                name.rectTransform.anchorMin = name.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                SetRect(name.rectTransform, new Vector2(0f, 38f), new Vector2(rareW - 12f, 18f));
+                FitToWidth(name, 8f);
+                var status = Tmp(button.transform, "Status", "", 8f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                status.characterSpacing = 4;
+                status.rectTransform.anchorMin = status.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+                SetRect(status.rectTransform, new Vector2(0f, 18f), new Vector2(rareW - 10f, 14f));
+                FitToWidth(status, 6f);
+
+                rareButtons[i] = button;
+                rareFrames[i] = button.GetComponent<Image>();
+                rareImages[i] = image;
+                rareNames[i] = name;
+                rareStatuses[i] = status;
+            }
+
+            var keys = new List<string>();
+            var sprites = new List<Object>();
+            void AddSprites(EnvironmentId env, string folder, IEnumerable<string> ids)
+            {
+                foreach (var id in ids)
+                {
+                    keys.Add(env + ":" + id);
+                    sprites.Add(LoadArtSprite(folder + id + ".png"));
+                }
+            }
+            AddSprites(EnvironmentId.Fishing, FishingArt, System.Array.ConvertAll(FishCatalog.All, f => f.Id));
+            AddSprites(EnvironmentId.Door, DoorArt, System.Array.ConvertAll(VisitorCatalog.AllGuests, g => g.Id));
+            AddSprites(EnvironmentId.Wind, WindArt, System.Array.ConvertAll(GridCatalog.AllSpecials, b => b.Id));
+            AddSprites(EnvironmentId.Vinyl, VinylArt, System.Array.ConvertAll(RecordCatalog.AllSpecials, r => r.Id));
+            foreach (var setup in intervalSetups)
+            {
+                foreach (var site in setup.Env.Sites)
+                {
+                    for (int i = 0; i < site.Specials.Length && i < setup.LogSprites.Length; i++)
+                    {
+                        keys.Add(setup.Env.Def.Id + ":" + site.Specials[i].Id);
+                        sprites.Add(setup.LogSprites[i]);
+                    }
+                }
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("PlacesController").AddComponent<PlacesController>();
+            Bind(controller, "panel", panel);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            Bind(controller, "passport", passport);
+            Bind(controller, "titleText", title);
+            Bind(controller, "countText", count);
+            BindArray(controller, "venueButtons", venueButtons);
+            BindArray(controller, "venueFrames", venueFrames);
+            BindArray(controller, "venueNames", venueNames);
+            BindArray(controller, "venueStatuses", venueStatuses);
+            Bind(controller, "focusHint", hint);
+            BindArray(controller, "rareButtons", rareButtons);
+            BindArray(controller, "rareFrames", rareFrames);
+            BindArray(controller, "rareImages", rareImages);
+            BindArray(controller, "rareNames", rareNames);
+            BindArray(controller, "rareStatuses", rareStatuses);
+            BindStrings(controller, "spriteKeys", keys.ToArray());
+            BindArray(controller, "sprites", sprites.ToArray());
+            return controller;
         }
 
         // Ortam seçici: her ortam bir kart (küçük görsel, ad, tarif, birim; durum satırı). Hepsi baştan
@@ -1720,7 +1862,7 @@ namespace ScrollRoad.EditorTools
             var go = new GameObject(label.Split(' ')[0] + "Button", typeof(RectTransform), typeof(Image), typeof(Button));
             go.transform.SetParent(drawer, false);
             var rect = (RectTransform)go.transform;
-            rect.sizeDelta = new Vector2(208, 29);
+            rect.sizeDelta = new Vector2(208, 26);
             Anchor(rect, new Vector2(0, 1), topLeft, new Vector2(0, 1));
             go.GetComponent<Image>().color = Color.white;
             var button = go.GetComponent<Button>();
@@ -2681,6 +2823,20 @@ namespace ScrollRoad.EditorTools
                 return;
             }
             prop.objectReferenceValue = value;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        static void BindStrings(Object target, string field, string[] values)
+        {
+            var so = new SerializedObject(target);
+            var prop = so.FindProperty(field);
+            if (prop == null)
+            {
+                Debug.LogError($"Alan bulunamadı: {target.GetType().Name}.{field}");
+                return;
+            }
+            prop.arraySize = values.Length;
+            for (int i = 0; i < values.Length; i++) prop.GetArrayElementAtIndex(i).stringValue = values[i];
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 

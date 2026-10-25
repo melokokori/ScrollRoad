@@ -101,19 +101,19 @@ namespace ScrollRoad
 
         // Ayın i. yapısı ay + mekân + sıradan belirlenir (kapının VisitorCatalog.Identify'ı gibi): geri sarınca
         // kararıp yeniden bağlanan aynı yapıdır, tabelada "geliyor" denen nadir yapı bağlanınca da odur.
-        public static Building Identify(string month, WindSite site, long index)
+        public static Building Identify(string month, WindSite site, long index, string focus = null)
         {
             ulong seed = VisitorCatalog.Fnv(month) ^ (VisitorCatalog.Fnv("wind_" + site.Id) * 31UL);
             var b = new Building { Jitter = (float)(VisitorCatalog.Hash01(seed, index, 4) * 2.0 - 1.0) };
             if (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance)
             {
                 float total = 0f;
-                foreach (var s in site.Specials) total += s.Frequency;
+                foreach (var s in site.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
                 double pick = VisitorCatalog.Hash01(seed, index, 2) * total;
                 var chosen = site.Specials[site.Specials.Length - 1];
                 foreach (var s in site.Specials)
                 {
-                    pick -= s.Frequency;
+                    pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
                     if (pick <= 0) { chosen = s; break; }
                 }
                 b.Type = chosen;
