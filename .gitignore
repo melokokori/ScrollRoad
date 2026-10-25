@@ -115,3 +115,6 @@ InitTestScene*.unity*
 
 # Ses aracının ham indirmeleri (Tools/gen_sound.py)
 Tools/sound_source/
+
+# Python
+__pycache__/

@@ -322,3 +322,62 @@ Dünya, bumerang, çömlek, soyacak ve kebap Rüzgârgülü/Plak'ın kalıbıyla
   görüldü (`Desktop\IDLE\ekran_goruntuleri_olta_takim\`). Kulakla dinlenmedi; build'de ve gerçek scroll'la denenmedi
   (kullanıcının oyunu Builds/Windows'tan açıktı, LoL maçı sürüyordu).
 - **Sonraya:** sahte yem skinleri (kaşık, rapala, silikon), su ambiyansı, şeritte makara kadranı.
+
+## 15.10 KARAR (kullanıcı) — Tüm aktiviteler baştan açık
+
+"Aktivitelerin hepsi açık olmalı, sadece skinler oynadıkça açılmalı." Ortam açılma eşikleri (ömür boyu puan merdiveni 250.000 → 4.000.000) tamamen kaldırıldı: `EnvironmentDef.UnlockLifetimePoints`, `EnvironmentManager.IsUnlocked/PointsToUnlock/UnlockProgress`, "New activity" duyurusu ve kayıttaki duyuru bit maskesi, Activities kartlarındaki kilit/ilerleme çubuğu. Seçicide her kart "CLICK TO SWITCH". Oynayarak açılan şeyler yalnız skinler (araçlar, ibre skinleri, olta takımı). Mekânlar (Olta: Nehir/Kıyı…, Kapı mekânları) şimdilik hâlâ balık/ziyaretçi sayısıyla açılıyor — kullanıcıya soruldu.
+
+## 25.10 KARARLAR (kullanıcı)
+- Sorun: oynanış sığ, arayüz zayıf, genel bitmemişlik hissi.
+- Sanat: pixel art ileride kullanıcının kendisi tarafından çizilecek; şimdi oyun AI içerikle tamamlanacak.
+- Çıkışta 10 ortamın hepsi var ve hepsi baştan açık. Her ortamın skinleri ve içeriği ortak bir standarda uyacak; oynadıkça açılan şeyler olacak.
+
+## 25.10 — Ortam Standardı v1 (TASLAK, onay bekliyor)
+Tempo birimi "seyir saati": seyirde ~1.000 puan/dk = 60.000 puan/sa. Eşikler o ortamın KENDİ puanıyla (yalnız seçili ortam ilerler).
+1. **Mekânlar:** 5 mekân (gizli efsaneler 25.10 kararıyla çıkışa ertelendi). İlki açık; 2–5 ≈ 7 / 17 / 33 / 60 seyir saati (Kapı'nın 400k / 1M / 2M / 3,6M puan eşikleri standart).
+2. **Defter:** mekân başına 6 sıradan (deftere girmez, mekânın kimliği) + 6 nadir (30/24/18/14/9/5) → ortam başına 30 nadir.
+3. **Skin takımı:** 4 takım (Klasik açık + 3 açılan ≈ 3 / 25 / 80 seyir saati, mekân eşiklerinin arasına). Takım = ana nesne + kadran + ses birlikte (Olta takımı modeli).
+4. **Kadran:** her ortamın kart sol üstünde kendi kadranı, takımla değişir.
+5. **Ses paketi:** ortam ambiyansı (döngü) + 2–3 eylem sesi + nadir çanı.
+6. **Arayüz:** her ortamda aynı 4 köşe HUD + aynı 3 panel: Defter, Dolap (Garaj/Takım kutusu genellemesi), Mekânlar (açılanlar arasında geçiş).
+7. **Görsel slot manifesti:** her ortamın sprite listesi (ad, boyut, pivot) tek dosyada → ileride pixel art aynı yuvalara düşer.
+Yol bayrak ortam olarak istisna: bölgeler = mekân, 67 araç = skin, ibre skinleri = kadran.
+
+## 25.10 KARAR (kullanıcı) — Easter egg'ler çıkışa ertelendi
+Gizli efsaneler (Altın Sazan, Bigfoot vb.) ve benzeri easter egg işleri tamamen bırakıldı; çıkış zamanına saklanacak. Standart onaylanmadan önce oynanış tartışılacak (kullanıcı oynanışta problem hissediyor).
+
+## 25.10 KARAR (kullanıcı) — Oyun kimliği: B
+"Sakin, arkada akan dünya": oyun kendi akar, scroll baharat. Derinlik scroll dışından: kararlar, koleksiyon hedefleri, dönüş anları. (A = her scroll doğrudan sayılan Bongo Cat modeli seçilmedi.)
+
+## 25.10 KARAR (kullanıcı) — 5 dayanağın hepsi; skinler süreyle; leaderboard Claude'un önerisi
+Damga/para ekonomisi YOK — skinler yalnız süreyle (o ortamda geçen seyir saatiyle) açılır.
+
+## 25.10 — Ortam Standardı v2 (v1'in yerine geçer)
+Süreler o ortamın KENDİ seyir saatiyle (60.000 puan/sa; yalnız seçili ortam ilerler). Easter egg / gizli efsane yok (çıkışa ertelendi).
+
+**İçerik (her ortam):** 5 mekân · mekân başına 6 sıradan + 6 nadir (30/24/18/14/9/5) · 4 skin takımı (nesne + kadran + ses) · kendi kadranı · ses paketi (ambiyans + 2–3 eylem + nadir çanı) · görsel yuva manifesti.
+
+**Açılma merdiveni (ortam başına, tek liste):**
+| Seyir saati | Açılan |
+|---|---|
+| ≤ 0:10 | ilk nadir (garanti) |
+| 1 | skin 2 |
+| 3 | mekân 2 |
+| 8 | skin 3 |
+| 12 | mekân 3 |
+| 25 | mekân 4 |
+| 40 | skin 4 |
+| 60 | mekân 5 |
+Ortam başına ~60 sa, 9 ortam ~540 sa; Yol kendi araç merdiveninde.
+
+**Dayanak 1 — Dönüş anı:** kart ≥15 dk görünmedikten sonra açılınca (ve oyun açılışında, önceki oturumun özeti olarak değil — oyun kapalıyken ilerleme yok) "While you were away" özeti: geçen süre, kazanılan birim, gelen nadirler, defter ilerlemesi, sıradaki açılmaya kalan süre. Şeritte nadir geldiğinde hafif işaret.
+**Dayanak 2 — Görünür birikim:** her sahnede bir vitrin alanı (iskele panosu, fotoğraf duvarı, raf, vadi ışıkları…) — o mekânın 6 nadirinin yuvası; defterdeki damgalar sahnede görünür.
+**Dayanak 3 — Odak:** mekânın 6 nadirinden biri seçilir → o nadirin göreli sıklığı ×3. Puanı değiştirmez. Ortamın dilinde adı var (Olta: Yem, Kapı: Etkinlik, Plak: Plak kutusu…). Mekân seçimi serbest (açılanlar arasında).
+**Dayanak 4 — Siparişler:** günde 3 + haftada 1, ortamın dilinde ("Nehir'de 3 Zander tut"). En az 1 günlük sipariş son seçili ortamdan. Ödül (para yok): o mekânın EKSİK bir nadiri sonraki 10 öğe içinde garanti; tamamlanmış mekânda yalnız sipariş defterine damga. Haftalık siparişin ödülü bir sonraki skin'e ilerleme göstermez (skinler yalnız süreyle).
+**Dayanak 5 — Ödül eğrisi:** yukarıdaki merdiven.
+
+**Leaderboard (Claude'un önerisi):** mevcut aylık gizli puan leaderboard'u KALIR (Steam KeepBest, birim = bakanın aktif ortamı); varsayılan görünüm ARKADAŞLAR, sonra Ülke ve Global sekmeleri; başlığı dürüst: "This month's longest runs". Rölanti temposu (aktifken 1/6) 7/24 açık bırakılan PC'leri zaten frenliyor; enjekte scroll sayılmıyor.
+
+**Arayüz:** her ortamda aynı 4 köşe HUD + paneller: Defter · Dolap · Mekânlar (+Odak) · Siparişler.
+
+**Uygulama sırası:** (1) ortak altyapı: merdiven + Mekânlar/Odak + Dolap genellemesi → (2) Dönüş anı → (3) Siparişler → (4) Vitrin → (5) ortamları tek tek doldurma (Kapı, Olta, sonra 7 ince ortam: mekân 2–5 içeriği, skin takımları, kadranlar, sesler).

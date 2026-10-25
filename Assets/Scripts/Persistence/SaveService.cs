@@ -151,17 +151,6 @@ namespace ScrollRoad
             Debug.Log($"Puan katmanına taşındı: ömür boyu {lifetime:0} puan, bu ay en iyi {max:0} puan ({raceMonth}).");
         }
 
-        // Açıldığı duyurulmuş ortamlar (bit maskesi, yerel): her ortam bir kez duyurulur.
-        const string EnvironmentsAnnouncedKey = "ScrollRoad_EnvironmentsAnnounced";
-
-        public static bool IsEnvironmentAnnounced(int id) => (PlayerPrefs.GetInt(EnvironmentsAnnouncedKey, 0) & (1 << id)) != 0;
-
-        public static void MarkEnvironmentAnnounced(int id)
-        {
-            PlayerPrefs.SetInt(EnvironmentsAnnouncedKey, PlayerPrefs.GetInt(EnvironmentsAnnouncedKey, 0) | (1 << id));
-            PlayerPrefs.Save();
-        }
-
         public static int LoadEnvironment() => PlayerPrefs.GetInt(EnvironmentKey, 0);
 
         public static void SaveEnvironment(int id)

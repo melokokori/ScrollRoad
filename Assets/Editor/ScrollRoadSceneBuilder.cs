@@ -332,7 +332,7 @@ namespace ScrollRoad.EditorTools
             // Gizli ortak puan motoru + seçili ortam (2026-10-13): RoadDrive ve ortamlar bundan ilerler.
             var engineGo = new GameObject("ScoreEngine");
             engineGo.AddComponent<ScoreEngine>();
-            var environments = engineGo.AddComponent<EnvironmentManager>();
+            engineGo.AddComponent<EnvironmentManager>();
 
             var roadGo = new GameObject("RoadDrive");
             var drive = roadGo.AddComponent<RoadDrive>();
@@ -487,7 +487,6 @@ namespace ScrollRoad.EditorTools
             Bind(wind, "notice", notice);
             Bind(vinyl, "notice", notice);
             foreach (var setup in intervalSetups) Bind(setup.Env, "notice", notice);
-            Bind(environments, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);
@@ -1127,8 +1126,8 @@ namespace ScrollRoad.EditorTools
             return menu;
         }
 
-        // Ortam seçici: her ortam bir kart (küçük görsel, ad, tarif, birim; durum satırı; kilitliyse
-        // ilerleme çubuğu). Kartlar EnvironmentCatalog.All sırasıyla.
+        // Ortam seçici: her ortam bir kart (küçük görsel, ad, tarif, birim; durum satırı). Hepsi baştan
+        // açık. Kartlar EnvironmentCatalog.All sırasıyla.
         static ActivitiesController CreateActivitiesPanel(Transform parent, Button openButton)
         {
             var panel = CreatePanel(parent, "ActivitiesPanel", "Activities", out var close, out _);
@@ -1147,8 +1146,6 @@ namespace ScrollRoad.EditorTools
             var frames = new Object[n];
             var thumbs = new Object[n];
             var statuses = new Object[n];
-            var tracks = new Object[n];
-            var fills = new Object[n];
             // 5 ortama kadar tek sıra; daha fazlasında (2026-10-14: 10 ortam) iki sıra küçük kart.
             bool compact = n > 5;
             int perRow = compact ? (n + 1) / 2 : n;
@@ -1168,7 +1165,7 @@ namespace ScrollRoad.EditorTools
                 var button = frame.gameObject.AddComponent<Button>();
                 button.targetGraphic = frame;
                 var colors = button.colors;
-                colors.disabledColor = Color.white; // kilitli/aktif kartın rengini Image.color belirler
+                colors.disabledColor = Color.white; // aktif kartın rengini Image.color belirler
                 colors.highlightedColor = new Color(1.15f, 1.15f, 1.15f);
                 button.colors = colors;
 
@@ -1203,28 +1200,10 @@ namespace ScrollRoad.EditorTools
                 SetRect(status.rectTransform, new Vector2(0f, compact ? 22f : 38f), new Vector2(cardW - (compact ? 8f : 20f), 16f));
                 FitToWidth(status, 6f);
 
-                var track = new GameObject("ProgressTrack", typeof(RectTransform), typeof(Image));
-                track.transform.SetParent(frame.transform, false);
-                track.GetComponent<Image>().color = new Color(PlateText.r, PlateText.g, PlateText.b, 0.2f);
-                track.GetComponent<Image>().raycastTarget = false;
-                var trackRect = (RectTransform)track.transform;
-                trackRect.anchorMin = trackRect.anchorMax = new Vector2(0.5f, 0f);
-                SetRect(trackRect, new Vector2(0f, compact ? 10f : 20f), new Vector2(cardW - (compact ? 30f : 80f), compact ? 4f : 5f));
-                var fill = new GameObject("Fill", typeof(RectTransform), typeof(Image));
-                fill.transform.SetParent(track.transform, false);
-                fill.GetComponent<Image>().color = Amber;
-                fill.GetComponent<Image>().raycastTarget = false;
-                var fillRect = (RectTransform)fill.transform;
-                fillRect.anchorMin = Vector2.zero;
-                fillRect.anchorMax = new Vector2(0f, 1f);
-                fillRect.offsetMin = fillRect.offsetMax = Vector2.zero;
-
                 buttons[i] = button;
                 frames[i] = frame;
                 thumbs[i] = thumbImage;
                 statuses[i] = status;
-                tracks[i] = track;
-                fills[i] = fillRect;
             }
 
             panel.SetActive(false);
@@ -1236,8 +1215,6 @@ namespace ScrollRoad.EditorTools
             BindArray(controller, "cardFrames", frames);
             BindArray(controller, "thumbs", thumbs);
             BindArray(controller, "statusTexts", statuses);
-            BindArray(controller, "progressTracks", tracks);
-            BindArray(controller, "progressFills", fills);
             return controller;
         }
 
