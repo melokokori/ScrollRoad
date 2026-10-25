@@ -140,7 +140,7 @@ namespace ScrollRoad
 
             // Fayans (yalnız kart): tezgâhtan duvarın ortasına ince derz çizgileri.
             bool card = !strip;
-            var grout = Opaque(WorldTheme.Surface(Wall * 0.9f) * dim);
+            var grout = Opaque(WorldTheme.Sky(Wall) * 0.9f); // duvarın (gök rengiyle aynı) tonu: Gece'de parlamasın
             float tileTop = l.CounterY + 1.9f, tileGap = (tileTop - l.CounterY) / TileRows;
             for (int i = 0; i < TileRows; i++)
             {
