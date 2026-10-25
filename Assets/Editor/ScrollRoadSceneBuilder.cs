@@ -352,6 +352,11 @@ namespace ScrollRoad.EditorTools
             engineGo.AddComponent<ScoreEngine>();
             engineGo.AddComponent<EnvironmentManager>();
 
+            // Sabit setli arayüz fontlarının bellekteki dinamik yedeği (oyuncu adları; 2026-10-25).
+            var fontFallback = engineGo.AddComponent<UiFontFallback>();
+            BindArray(fontFallback, "fonts", new Object[] { UiFonts.SemiBold, UiFonts.ExtraBold, UiFonts.Mono });
+            BindArray(fontFallback, "sources", System.Array.ConvertAll(UiFonts.Names, n => (Object)UiFonts.Ttf(n)));
+
             var roadGo = new GameObject("RoadDrive");
             var drive = roadGo.AddComponent<RoadDrive>();
 

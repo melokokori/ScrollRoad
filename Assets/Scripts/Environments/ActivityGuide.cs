@@ -110,8 +110,8 @@ namespace ScrollRoad
             s.hinted = true;
             Save();
             int others = EnvironmentCatalog.All.Length - 1;
-            notice.Announce("Try something new", $"≡ → Activities has {others} more things that move while you scroll.",
-                $"≡ Activities: {others} more to try");
+            notice.Announce("Try something new", $"Menu → Activities has {others} more things that move while you scroll.",
+                $"Menu › Activities: {others} more");
         }
 
         static void Save() => SaveService.SaveJson(SaveKey, State);

@@ -45,7 +45,7 @@ namespace ScrollRoad
                 if (notice != null)
                 {
                     notice.Announce($"{where}New {c.VenueNoun}: {venues[i].Name}",
-                        side ? "Unlocked by your side activity" : "Go there from Places in the ≡ menu", $"{venues[i].Name} unlocked");
+                        side ? "Unlocked by your side activity" : "Go there from Places in the menu", $"{venues[i].Name} unlocked");
                 }
             }
 

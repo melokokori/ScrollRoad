@@ -65,7 +65,7 @@ namespace ScrollRoad
             {
                 PlayerPrefs.SetInt(AnnouncedKey, 1);
                 PlayerPrefs.Save();
-                notice.Announce("Side activity unlocked", $"≡ → Activities: pick a second one. It moves toward its unlocks at {Rate * 100:0}% speed while you're elsewhere.",
+                notice.Announce("Side activity unlocked", $"Menu → Activities: pick a second one. It moves toward its unlocks at {Rate * 100:0}% speed while you're elsewhere.",
                     "Side activity unlocked");
             }
 
