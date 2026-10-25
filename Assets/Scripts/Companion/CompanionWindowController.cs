@@ -11,7 +11,9 @@ namespace ScrollRoad
     //    (taban 800x340, monitör ölçeği ve Ayarlar'daki boyut ön ayarıyla büyür). Sürüklenir,
     //    konumu hatırlanır, istenirse her zaman üstte. Tam ekran ya da büyük pencere yok.
     //  - GÖREV ÇUBUĞU ŞERİDİ (F9): görev çubuğunun boş kısmına oturan saydam, her zaman üstte şerit
-    //    (yükseklik = görev çubuğu). Saydamlık doğrudan Win32/DWM ile (NativeWindow.SetStripTransparent);
+    //    (yükseklik = görev çubuğu). 2026-10-25'ten beri oyuncu şeridi sürükleyip yerini kendisi seçer:
+    //    görev çubuğunun üstüne bırakılırsa ona yapışır (bırakılan x'te), başka yere bırakılırsa ekranda
+    //    serbest durur (çalışma alanı kenarlarına mıknatıslanır). Hiç taşınmadıysa otomatik yuvada. Saydamlık doğrudan Win32/DWM ile (NativeWindow.SetStripTransparent);
     //    2026-10-15'e kadar UniWindowController yapıyordu, Smart App Control imzasız LibUniWinC.dll'i
     //    engelleyince şerit başlıklı siyah pencere kalıyordu. Görev çubuğu da topmost olduğundan şerit
     //    periyodik olarak öne alınır; ön planda tam ekran bir uygulama varken gizlenir.
@@ -35,6 +37,7 @@ namespace ScrollRoad
         [SerializeField] float keepOnTopInterval = 0.25f;
         [SerializeField] int cardScreenMargin = 24;
         [SerializeField] float opacityThreshold = 0.1f; // şeritte bu alfanın altındaki pikseller tıklamayı arkaya geçirir
+        [SerializeField] int stripMagnetDistance = 16; // serbest şerit ekran kenarına bu kadar (%100 ölçekte px) yakınsa yapışır
 #pragma warning restore CS0414
 
         static bool companionArgConsumed;
@@ -71,7 +74,7 @@ namespace ScrollRoad
 #pragma warning restore CS0414
 #if !UNITY_EDITOR
         IntPtr hwnd;
-        int dragOffsetX, dragOffsetY;
+        int dragOffsetX, dragOffsetY, dragStartLeft, dragStartTop;
         bool stripTransparent, clickThrough;
         Coroutine hitTestRoutine;
         Texture2D hitTestPixel;
@@ -87,6 +90,9 @@ namespace ScrollRoad
         public const float PeekOverflow = 44f;
         public float StripOverflowUnits { get; private set; }
         public float StripOverflowFraction { get; private set; }
+#pragma warning disable CS0414
+        int stripOverflowPx; // taşan kadranda pencerenin bandın üstüne uzadığı fiziksel piksel
+#pragma warning restore CS0414
 
         // "-companion" komut satırı argümanı: doğrudan görev çubuğu şeridi modunda aç
         // (Steam başlatma seçeneği ya da Windows başlangıç kısayolu için).
@@ -122,17 +128,13 @@ namespace ScrollRoad
             }
 
             if (BackgroundLifecycle.IsHiddenToTray) return;
-            if (!IsCompanionMode)
+            if (dragging)
             {
-                if (dragging)
-                {
-                    DragStep();
-                    var mouse = Mouse.current;
-                    if (mouse != null && !mouse.leftButton.isPressed) EndCardDrag(); // bırakma olayı kaçtıysa
-                }
-                return;
+                DragStep();
+                var mouse = Mouse.current;
+                if (mouse != null && !mouse.leftButton.isPressed) EndDrag(); // bırakma olayı kaçtıysa
             }
-            if (!stripPlaced) return;
+            if (!IsCompanionMode || !stripPlaced) return;
             keepOnTopTimer -= Time.unscaledDeltaTime;
             if (keepOnTopTimer > 0f) return;
             keepOnTopTimer = keepOnTopInterval;
@@ -183,10 +185,13 @@ namespace ScrollRoad
                 // Taşan kadran: pencere yukarı uzar (Editor'de pencereye dokunulmadığı için yalnız build'de).
                 StripOverflowUnits = 0f;
                 StripOverflowFraction = 0f;
+                stripOverflowPx = 0;
 #if !UNITY_EDITOR
-                if (GaugeSkins.Strip == GaugeSkins.StripStyle.Peek)
+                if (GaugeSkins.Strip == GaugeSkins.StripStyle.Peek) stripOverflowPx = Mathf.RoundToInt(PeekOverflow * StripScale);
+                stripRect = SavedStripBand(stripRect);
+                if (stripOverflowPx > 0)
                 {
-                    int over = Mathf.RoundToInt(PeekOverflow * StripScale);
+                    int over = stripOverflowPx;
                     stripRect.Top -= over;
                     stripRect.Height += over;
                     companionSize = new Vector2Int(stripRect.Width, stripRect.Height);
@@ -229,32 +234,43 @@ namespace ScrollRoad
 #endif
         }
 
-        // Kart, kartın boş bir yerinden (yazı/düğme dışı) sürüklenir: CardDragHandle çağırır.
+        // Kart da şerit de boş bir yerinden (düğme dışı) sürüklenir: CardDragHandle çağırır. Şeritte
+        // saydam pikseller tıklamayı arkaya geçirdiği için tutulan yer araç/sayaç/yazı olur.
         bool dragging;
 
-        public void BeginCardDrag()
+        public void BeginDrag()
         {
-            if (IsCompanionMode) return;
+            if (IsCompanionMode && !stripPlaced) return;
 #if !UNITY_EDITOR
             if (!NativeWindow.TryGetBounds(hwnd, out var b) || !NativeWindow.TryGetCursor(out int cx, out int cy)) return;
             dragOffsetX = cx - b.Left;
             dragOffsetY = cy - b.Top;
+            dragStartLeft = b.Left;
+            dragStartTop = b.Top;
             dragging = true;
 #endif
         }
 
-        public void EndCardDrag()
+        public void EndDrag()
         {
             if (!dragging) return;
             dragging = false;
 #if !UNITY_EDITOR
             DragStep();
-            if (NativeWindow.TryGetBounds(hwnd, out var b))
+            if (!NativeWindow.TryGetBounds(hwnd, out var b)) return;
+            if (IsCompanionMode)
             {
-                var clamped = ClampToWorkArea(b);
-                if (clamped.Left != b.Left || clamped.Top != b.Top) NativeWindow.MoveTo(hwnd, clamped.Left, clamped.Top);
-                SaveService.SaveCardPosition(clamped.Left, clamped.Top);
+                // Yalnız tıklandıysa (taşınmadıysa) otomatik yuva tercihi bozulmasın.
+                if (b.Left == dragStartLeft && b.Top == dragStartTop) return;
+                var band = new NativeWindow.ScreenRect { Left = b.Left, Top = b.Top + stripOverflowPx, Width = b.Width, Height = b.Height - stripOverflowPx };
+                var placement = PlaceStrip(ref band, true);
+                NativeWindow.MoveTo(hwnd, band.Left, band.Top - stripOverflowPx);
+                SaveService.SaveStripPlacement(placement, band.Left, band.Top);
+                return;
             }
+            var clamped = ClampToWorkArea(b);
+            if (clamped.Left != b.Left || clamped.Top != b.Top) NativeWindow.MoveTo(hwnd, clamped.Left, clamped.Top);
+            SaveService.SaveCardPosition(clamped.Left, clamped.Top);
 #endif
         }
 
@@ -303,6 +319,51 @@ namespace ScrollRoad
             r.Left = Mathf.Clamp(r.Left, work.Left, Mathf.Max(work.Left, work.Left + work.Width - r.Width));
             r.Top = Mathf.Clamp(r.Top, work.Top, Mathf.Max(work.Top, work.Top + work.Height - r.Height));
             return r;
+        }
+
+        // Şerit bandının (taşan kadran hariç) son yeri: oyuncu taşımadıysa ya da kayıtlı yer artık
+        // geçersizse (görev çubuğu yok) otomatik yuva. Monitör değişmiş olabilir: yine görünür alana çekilir.
+        NativeWindow.ScreenRect SavedStripBand(NativeWindow.ScreenRect auto)
+        {
+            var placement = SaveService.LoadStripPlacement(out int left, out int top);
+            if (placement == SaveService.StripPlacement.Auto) return auto;
+            var band = new NativeWindow.ScreenRect { Left = left, Top = top, Width = auto.Width, Height = auto.Height };
+            if (placement == SaveService.StripPlacement.Taskbar)
+            {
+                if (!NativeWindow.TryGetTaskbarBar(out var bar)) return auto;
+                band.Top = bar.Top;
+            }
+            PlaceStrip(ref band, placement == SaveService.StripPlacement.Taskbar);
+            return band;
+        }
+
+        // Bırakılan band görev çubuğunun üstündeyse ona yapışır (x korunur, görev çubuğuna sığdırılır);
+        // değilse bulunduğu monitörün çalışma alanına sığdırılır ve kenarlara yakınsa kenara mıknatıslanır.
+        SaveService.StripPlacement PlaceStrip(ref NativeWindow.ScreenRect band, bool allowTaskbar)
+        {
+            if (allowTaskbar && NativeWindow.TryGetTaskbarBar(out var bar))
+            {
+                int cx = band.Left + band.Width / 2, cy = band.Top + band.Height / 2;
+                bool overBar = cx >= bar.Left && cx < bar.Left + bar.Width && cy >= bar.Top;
+                if (overBar)
+                {
+                    band.Top = bar.Top;
+                    band.Left = Mathf.Clamp(band.Left, bar.Left, Mathf.Max(bar.Left, bar.Left + bar.Width - band.Width));
+                    return SaveService.StripPlacement.Taskbar;
+                }
+            }
+
+            var work = NativeWindow.WorkAreaAt(band.Left + band.Width / 2, band.Top + band.Height / 2);
+            int magnet = Mathf.RoundToInt(stripMagnetDistance * StripScale);
+            int right = work.Left + work.Width - band.Width, bottom = work.Top + work.Height - band.Height;
+            int minTop = work.Top + stripOverflowPx; // taşan kadran da ekranda kalsın
+            if (Mathf.Abs(band.Left - work.Left) <= magnet) band.Left = work.Left;
+            if (Mathf.Abs(band.Left - right) <= magnet) band.Left = right;
+            if (Mathf.Abs(band.Top - minTop) <= magnet) band.Top = minTop;
+            if (Mathf.Abs(band.Top - bottom) <= magnet) band.Top = bottom;
+            band.Left = Mathf.Clamp(band.Left, work.Left, Mathf.Max(work.Left, right));
+            band.Top = Mathf.Clamp(band.Top, minTop, Mathf.Max(minTop, bottom));
+            return SaveService.StripPlacement.Free;
         }
 #endif
 

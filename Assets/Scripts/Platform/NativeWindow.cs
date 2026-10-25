@@ -27,17 +27,28 @@ namespace ScrollRoad.Platform
         // Görev çubuğunun boş kısmında (Windows 11'de simgeler ortalıysa solda, sola dayalıysa
         // bildirim alanının solunda) taskbar yüksekliğinde bir şerit. Taban genişlik 48 px'lik
         // (%100 ölçek) görev çubuğu içindir, ölçekle büyür. scale = taskbar yüksekliği / 48.
+        // Alt kenardaki görev çubuğunun dikdörtgeni. Windows 11 görev çubuğu yalnız altta; dikey/üst kenar
+        // (Windows 10) desteklenmiyor — o durumda şerit yalnız serbest konumda durur.
+        public static bool TryGetTaskbarBar(out ScreenRect bar)
+        {
+            bar = default;
+            var data = new APPBARDATA { cbSize = Marshal.SizeOf<APPBARDATA>() };
+            if (SHAppBarMessage(ABM_GETTASKBARPOS, ref data) == UIntPtr.Zero) return false;
+            var r = data.rc;
+            int height = r.Bottom - r.Top;
+            if (data.uEdge != ABE_BOTTOM || height <= 0 || height > 200) return false;
+            bar = new ScreenRect { Left = r.Left, Top = r.Top, Width = r.Right - r.Left, Height = height };
+            return true;
+        }
+
         public static bool TryGetTaskbarStrip(int baseWidth, out ScreenRect strip, out float scale)
         {
             strip = default;
             scale = 1f;
 
-            var data = new APPBARDATA { cbSize = Marshal.SizeOf<APPBARDATA>() };
-            if (SHAppBarMessage(ABM_GETTASKBARPOS, ref data) == UIntPtr.Zero) return false;
-            var bar = data.rc;
-            int barHeight = bar.Bottom - bar.Top;
-            // Windows 11 görev çubuğu yalnız altta; dikey/üst kenar (Windows 10) desteklenmiyor.
-            if (data.uEdge != ABE_BOTTOM || barHeight <= 0 || barHeight > 200) return false;
+            if (!TryGetTaskbarBar(out var b)) return false;
+            var bar = new RECT { Left = b.Left, Top = b.Top, Right = b.Left + b.Width, Bottom = b.Top + b.Height };
+            int barHeight = b.Height;
 
             scale = barHeight / 48f;
             int width = (int)(baseWidth * scale);

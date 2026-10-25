@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 namespace ScrollRoad
 {
-    // Kartın arkasındaki görünmez yüzey: boş bir yerden basılı tutup sürükleyince pencere taşınır.
+    // Kartın/şeridin arkasındaki görünmez yüzey: boş bir yerden basılı tutup sürükleyince pencere taşınır.
     // Yazılar tıklamayı geçirir (raycastTarget kapalı), düğmeler kendi tıklamalarını alır.
     public class CardDragHandle : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
@@ -11,12 +11,12 @@ namespace ScrollRoad
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left) window.BeginCardDrag();
+            if (eventData.button == PointerEventData.InputButton.Left) window.BeginDrag();
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (eventData.button == PointerEventData.InputButton.Left) window.EndCardDrag();
+            if (eventData.button == PointerEventData.InputButton.Left) window.EndDrag();
         }
     }
 }

@@ -51,6 +51,9 @@ namespace ScrollRoad
         const string CardOnTopKey = "ScrollRoad_CardOnTop";
         const string CardLeftKey = "ScrollRoad_CardLeft";
         const string CardTopKey = "ScrollRoad_CardTop";
+        const string StripPlacementKey = "ScrollRoad_StripPlacement"; // 0 = otomatik yuva, 1 = görev çubuğunda x, 2 = serbest
+        const string StripLeftKey = "ScrollRoad_StripLeft";
+        const string StripTopKey = "ScrollRoad_StripTop";
         const string GoalsKey = "ScrollRoad_Goals"; // günlük/haftalık hedefler (JSON) — şimdilik yalnız yerel
         const string EnvironmentKey = "ScrollRoad_Environment"; // seçili ortam (yerel)
         const string FishingKey = "ScrollRoad_Fishing";         // Olta ilerlemesi + balık defteri (JSON, şimdilik yerel)
@@ -398,6 +401,26 @@ namespace ScrollRoad
         {
             PlayerPrefs.SetInt(CardLeftKey, left);
             PlayerPrefs.SetInt(CardTopKey, top);
+            PlayerPrefs.Save();
+        }
+
+        // Şeridin yeri: oyuncu sürükleyip görev çubuğuna (kendi seçtiği x'e) ya da ekranda serbest bir yere
+        // bırakabilir. Konum şerit bandının (taşan kadran hariç) sol-üstü, fiziksel piksel.
+        public enum StripPlacement { Auto = 0, Taskbar = 1, Free = 2 }
+
+        public static StripPlacement LoadStripPlacement(out int left, out int top)
+        {
+            left = PlayerPrefs.GetInt(StripLeftKey, 0);
+            top = PlayerPrefs.GetInt(StripTopKey, 0);
+            int mode = PlayerPrefs.GetInt(StripPlacementKey, 0);
+            return mode == 1 || mode == 2 ? (StripPlacement)mode : StripPlacement.Auto;
+        }
+
+        public static void SaveStripPlacement(StripPlacement placement, int left, int top)
+        {
+            PlayerPrefs.SetInt(StripPlacementKey, (int)placement);
+            PlayerPrefs.SetInt(StripLeftKey, left);
+            PlayerPrefs.SetInt(StripTopKey, top);
             PlayerPrefs.Save();
         }
 

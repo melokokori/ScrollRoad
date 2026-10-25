@@ -2467,9 +2467,13 @@ namespace ScrollRoad.EditorTools
             canvas.sortingOrder = 20;
             canvasGo.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
-            var root = new GameObject("CompanionRoot", typeof(RectTransform));
+            // Kök aynı zamanda sürükleme yüzeyi (görünmez): düğme dışındaki her yerden (araç, sayaç, yazı —
+            // olaylar köke kabarır) basılı tutunca şerit taşınır. Saydam pikseller tıklamayı zaten geçirir.
+            var root = new GameObject("CompanionRoot", typeof(RectTransform), typeof(Image), typeof(CardDragHandle));
             root.transform.SetParent(canvasGo.transform, false);
             Stretch(root.GetComponent<RectTransform>());
+            root.GetComponent<Image>().color = new Color(0f, 0f, 0f, 0f);
+            Bind(root.GetComponent<CardDragHandle>(), "window", companion);
 
             // Şerit 48 px yüksek (%100 ölçek); CompanionHudController görev çubuğu ölçeğini uygular.
             var km = CreateText(root.transform, "Km", "", 17, Vector2.zero, new Vector2(170, 22), TextLight);
