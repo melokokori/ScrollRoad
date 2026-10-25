@@ -3,10 +3,11 @@
 Üretim ve temizleme gen_fishing.py ile aynı (vesper.png stil referansı, düz mavi zemin saydamlaştırılır,
 kırpılır, en uzun kenar 512 px, alt kenara yaslanır). Porsiyonlar yandan hafif yukarıdan, tabağıyla birlikte,
 zeminsiz; şiş, et, ocak ve bıçak oyunda kodla çizilir. Usta WALK kalıbındaki gibi referanstaki yüzsüz figür,
-SOLA bakar, eli boş (bıçak kodla). Mavi anahtar renk yüzünden tariflerde mavi yok.
+SOLA bakar, eli yumruk (bıçak kodla, 2026-10-25 dikey döner). Mavi anahtar renk yüzünden tariflerde mavi yok.
 
 Çıktı: Assets/Art/Kebab/<ad>.png (ArtImportSettings: Sprite). Ham: Tools/art_source/raw/kebab_<ad>.png
 Kullanım (proje kökünden): python Tools/gen_kebab.py <ad> ["<tarif>"]   |   python Tools/gen_kebab.py --all
+          ustadan sonra: python Tools/gen_kebab.py --split
 Gereken: GOOGLE_API_KEY.
 """
 import sys
@@ -99,13 +100,14 @@ TARIFLER = {
     "sultans_platter": DISH.format(what="a grand round golden serving platter of mixed kebabs", look="sliced doner, "
                                    "skewers, grilled peppers, tomatoes, rice and a golden rim"),
     # Usta (tek karakter) ve Activities kartı.
-    "chef": ("a kebab master standing, full body side view, facing LEFT, one arm stretched forward at chest height "
-             "with the hand EMPTY (holding nothing). The person is the SAME faceless simple figure as the rider in the "
-             "reference (no facial features). White chef jacket, a small white cap, a dark red apron, dark trousers, "
-             "a thick moustache is NOT needed. No ground, no shadow, no knife"),
-    "kebab_card": ("a horizontal cag kebab: a long cone of browned grilled meat on a horizontal steel skewer turning "
-                   "over a small brick firebox with glowing embers and small flames, a plate with sliced kebab in front. "
-                   + ONLY + ". No sky, no text"),
+    "chef": ("a doner kebab master standing, full body side view, facing LEFT, the near arm raised forward at "
+             "chest height with the hand CLOSED in a fist as if gripping the handle of a long knife, but do NOT draw "
+             "the knife. The other arm relaxed at the side. The person is the SAME faceless simple figure as the "
+             "rider in the reference (no facial features). White chef jacket with rolled sleeves, a small white cap, "
+             "a dark red apron, dark trousers. No ground, no shadow, no knife"),
+    "kebab_card": ("a vertical doner kebab stand: a tall cone of browned grilled meat on a vertical steel spit "
+                   "turning in front of a glowing orange vertical grill panel, a steel drip tray below, a plate "
+                   "with a doner wrap beside it. " + ONLY + ". No sky, no text"),
 }
 
 OUT = Path("Assets/Art/Kebab")
@@ -122,8 +124,38 @@ def make(name, desc=None):
     print("tamam", name, flush=True)
 
 
+# Ustanın ön kolu (2026-10-25, dikey döner): chef.png aynı tuvalde ikiye ayrılır — chef_arm (yumruk + bıçak sapı + ön
+# kol) ve chef_body (geri kalan). Kol oyunda dirsekten (ARM_PIVOT, piksel, sol üstten) döner ve gövdenin ARKASINDA
+# çizilir: dirseği kolluk örter. Kolluğun altına giren ucu ten rengi bir şeritle uzatılır ki dönünce boşluk açılmasın.
+# Sayılar chef.png'ye özel: usta yeniden üretilirse yeniden ölçülmeli (KebabSceneView.ArmPivotPx aynı değer).
+ARM_CUT_X, ARM_MAX_Y, ARM_PIVOT = 76, 232, (84, 188)
+
+
+def split_chef():
+    from PIL import ImageDraw
+
+    img = Image.open(OUT / "chef.png").convert("RGBA")
+    w, h = img.size
+    px = img.load()
+    arm = Image.new("RGBA", (w, h))
+    body = img.copy()
+    ap, bp = arm.load(), body.load()
+    for y in range(min(h, ARM_MAX_Y)):
+        for x in range(min(w, ARM_CUT_X)):
+            if px[x, y][3] > 0:
+                ap[x, y] = px[x, y]
+                bp[x, y] = (0, 0, 0, 0)
+    ImageDraw.Draw(arm).line([(64, 183), (104, 196)], fill=(239, 174, 142, 255), width=26)
+    arm.save(OUT / "chef_arm.png")
+    body.save(OUT / "chef_body.png")
+    print("tamam chef_arm, chef_body")
+
+
 def main():
     arg = sys.argv[1]
+    if arg == "--split":
+        split_chef()
+        return
     if arg == "--all":
         from concurrent.futures import ThreadPoolExecutor
 

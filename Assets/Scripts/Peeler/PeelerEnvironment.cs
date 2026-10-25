@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Meyve soyacağı (2026-10-14 prototip; Docs/ortamlar.md "Meyve soyacağı"): kollu bir soyma makinesi meyveyi
-    // döndürür, bıçak yukarıdan aşağı iner, kabuk tek parça spiral hâlinde uzayıp masaya sarkar; soyulan meyve
+    // Meyve soyacağı (2026-10-14 prototip; Docs/ortamlar.md "Meyve soyacağı"; 2026-10-25 makine yerine elle soyan
+    // manav): manav meyveyi avucunda döndürür, bıçak yukarıdan aşağı iner, kabuk tek parça spiral hâlinde uzayıp masaya sarkar; soyulan meyve
     // kâseye düşer. Birim SOYULAN MEYVE (her EnvironmentCatalog.FruitIntervalPoints'te bir). Kabuğun uzunluğu
     // meyvenin özelliği: "kopmayan kabuk" rekoru (en uzun tek parça kabuk). Aşağı scroll: kabuk geri sarılır —
-    // meyve kâseden makineye döner, kabuk yeniden meyveye sarılır, sayaç düşer. Başarısızlık yok: kabuk kopmaz.
+    // meyve kâseden avuca döner, kabuk yeniden meyveye sarılır, sayaç düşer. Başarısızlık yok: kabuk kopmaz.
     //
-    // Bir meyvenin evreleri (f = Phase): 0–0,10 meyve makineye takılır; 0,10–0,85 soyulur; 0,85–1 kâseye düşer
+    // Bir meyvenin evreleri (f = Phase): 0–0,10 meyve kasadan avuca gelir; 0,10–0,85 soyulur; 0,85–1 kâseye düşer
     // (f = 1'de sayılır).
     public class PeelerEnvironment : IntervalEnvironment
     {
@@ -133,7 +133,7 @@ namespace ScrollRoad
 
         public override string TotalLabel => "PEELED";
         public override string StatusActive => "PEELING";
-        public override string StatusIdle => "IDLE · SLOW CRANK";
+        public override string StatusIdle => "IDLE · SLOW PEEL";
         public override string StatusBack => "WINDING BACK";
         public override string RarePhrase => "Peeling";
         public override string NextLine(long index, EnvItem item) => $"Peeling: {item.Type.Name.ToLowerInvariant()} · {FormatValue(PeelLength(item))}";

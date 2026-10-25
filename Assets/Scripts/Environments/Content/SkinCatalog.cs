@@ -90,25 +90,25 @@ namespace ScrollRoad
                 "#3A2F1C", "#E6C46E", "#9C7A2E", "#B9733E"),
         };
 
-        // Soyacak — palet: [0] demir gövde, [1] kol tutamağı, [2] bıçak.
+        // Soyacak — palet: [0] bıçak bileziği, [1] sap, [2] ağız (2026-10-25: elle soyma, makine yok).
         public static readonly SkinInfo[] Peeler =
         {
-            Skin("classic", "Classic", "Cast iron with a red handle", "peeler_classic", "#F4EEDF", "#2A2D33"),
-            Skin("brass", "Brass", "Polished brass with a walnut handle", "peeler_brass", "#F6E7C4", "#3A2A1A",
+            Skin("classic", "Classic", "A paring knife with a red handle", "peeler_classic", "#F4EEDF", "#2A2D33"),
+            Skin("brass", "Brass", "Brass bolster, walnut handle", "peeler_brass", "#F6E7C4", "#3A2A1A",
                 "#A07A34", "#5A3A1F", "#E6C46E"),
             Skin("chrome", "Chrome", "Mirror chrome, black grip", "peeler_chrome", "#F2F4F6", "#1A1C20",
                 "#B8BEC6", "#1A1C20", "#F2F4F6"),
-            Skin("mint", "Mint", "A retro mint kitchen gadget", "peeler_mint", "#E8F6F0", "#1E4A3E",
+            Skin("mint", "Mint", "A retro mint kitchen knife", "peeler_mint", "#E8F6F0", "#1E4A3E",
                 "#6FBFA6", "#F2EDE0", "#DDE2E6"),
         };
 
-        // Kebap — palet: [0] şiş çeliği, [1] alev 1, [2] alev 2, [3] kor.
+        // Kebap — palet: [0] şiş çeliği, [1] ızgara ışığı 1, [2] ızgara ışığı 2, [3] rezistans (2026-10-25: dikey döner).
         public static readonly SkinInfo[] Kebab =
         {
-            Skin("classic", "Classic", "Steel spit over a wood fire", "kebab_classic", "#F2E8D8", "#3A2015"),
+            Skin("classic", "Classic", "Steel spit, a classic doner grill", "kebab_classic", "#F2E8D8", "#3A2015"),
             Skin("copper", "Copper", "A hammered copper spit", "kebab_copper", "#F6E2D2", "#4A2414",
                 "#C77B4A", "#FF9E26", "#FFD866", "#FF7A28"),
-            Skin("blue_flame", "Blue Flame", "A roaring gas burner", "kebab_blue", "#E2F1FA", "#123A5A",
+            Skin("blue_flame", "Blue Flame", "A roaring blue gas grill", "kebab_blue", "#E2F1FA", "#123A5A",
                 "#DDE2E6", "#3E8FD1", "#BFE8FF", "#2E6FA8"),
             Skin("golden", "Golden", "A golden spit for the sultan's kitchen", "kebab_gold", "#FFF0C0", "#3A2A08",
                 "#E6C46E", "#FFC24A", "#FFF0B0", "#FF8A2A"),

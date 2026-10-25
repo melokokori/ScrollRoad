@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace ScrollRoad
 {
-    // Tavuk/et döner, çağ kebabı (2026-10-14 prototip; Docs/ortamlar.md "Kebap"): yatay şiş (çağ kebabı) odun
-    // ateşinin üstünde döner, et pişip kızarır; usta bıçağı şiş boyunca gezdirip kızarmış katmanı keser, porsiyon
+    // Tavuk/et döner (2026-10-14 prototip yatay çağ kebabıydı; 2026-10-25 dikey döner; Docs/ortamlar.md "Kebap"):
+    // dikey şiş ızgaranın önünde döner, et pişip kızarır; usta yukarıdan aşağı bıçak çekip kızarmış katmanı keser, porsiyon
     // tabağa konup tezgâha (pass) sürülür. Birim PORSİYON (her EnvironmentCatalog.PortionIntervalPoints'te bir).
     // Aşağı scroll: şiş ters döner, et soğur (kızarıklık geri gider), son porsiyon tezgâhtan geri gelir, sayaç
     // düşer. Başarısızlık yok: et yanmaz.

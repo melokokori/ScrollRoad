@@ -97,10 +97,17 @@ TARIFLER = {
                            "slightly pointed top"),
     "watermelon": FRUIT.format(what="small round watermelon", look="dark green skin with lighter green zigzag "
                                "stripes, a tiny stem on top"),
-    # Activities kartı (makine oyunda kodla).
-    "peeler_card": ("a cast iron apple peeler machine clamped on a wooden table: a red crank handle on the left, a "
-                    "red apple turning on its fork, a long curly unbroken red apple peel hanging down. " + ONLY +
-                    ". No sky, no text"),
+    # Manav (tek karakter, 2026-10-25: elle soyma) ve Activities kartı; meyve ve bıçak oyunda ayrı/kodla.
+    "grocer": ("a grocer sitting on a low wooden stool, full body side view, facing right, leaning slightly forward, "
+               "both forearms raised in front of the chest: the far hand cupped open as if holding a round fruit, "
+               "the near hand pinched as if holding a small paring knife, but do NOT draw any fruit or knife. The "
+               "person is the SAME faceless simple figure as the rider in the reference (no facial features). Short "
+               "hair, a mustard yellow shirt with rolled sleeves, a green canvas apron, brown trousers. No ground, "
+               "no shadow"),
+    "peeler_card": ("a grocer sitting on a small stool peeling a red apple by hand with a small knife, one long "
+                    "curly unbroken red peel hanging down into a small bucket, wooden crates of fruit beside. Same "
+                    "flat vector style as the reference, faceless figure like the rider, but no scooter. No sky, "
+                    "no text"),
 }
 
 # Soyulmuş hâlin eti (PeelerEnvironment.Color2) ve görselin üstünde özgün kalan kısım (sap/yaprak/taç).
@@ -160,8 +167,30 @@ def flesh(name):
     print("et", name, flush=True)
 
 
+# Manavın bıçak tutan eli (2026-10-25): grocer.png aynı tuvalde ikiye ayrılır — grocer_hand (HAND_BOX içi: çimdikleyen
+# el ve ön kolu) meyvenin ÖNÜNDE, grocer_body (geri kalan, meyveyi tutan avuç dahil) ARKASINDA çizilir. Hareket yok,
+# yalnız katman. Kutu grocer.png'ye özel (sol üstten piksel): manav yeniden üretilirse yeniden ölçülmeli.
+HAND_BOX = (215, 0, 336, 190)
+
+
+def split_grocer():
+    img = Image.open(OUT / "grocer.png").convert("RGBA")
+    hand = Image.new("RGBA", img.size)
+    body = img.copy()
+    x0, y0, x1, y1 = HAND_BOX
+    region = img.crop(HAND_BOX)
+    hand.paste(region, (x0, y0))
+    body.paste(Image.new("RGBA", region.size), (x0, y0))
+    hand.save(OUT / "grocer_hand.png")
+    body.save(OUT / "grocer_body.png")
+    print("tamam grocer_hand, grocer_body")
+
+
 def main():
     arg = sys.argv[1]
+    if arg == "--split":
+        split_grocer()
+        return
     if arg == "--flesh":
         for name in FLESH:
             flesh(name)

@@ -170,7 +170,7 @@ namespace ScrollRoad
         {
             Id = EnvironmentId.Peeler,
             Name = "Fruit peeler",
-            Tagline = "Turn the crank, keep the peel in one piece.",
+            Tagline = "Peel by hand, keep the peel in one piece.",
             Unit = "fruit",
             Decimals = 0,
             UnitsPerPoint = 1.0 / FruitIntervalPoints,

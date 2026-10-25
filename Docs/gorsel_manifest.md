@@ -2,7 +2,7 @@
 
 > `python Tools/art_manifest.py` ile üretilir (elle düzenleme). Ortam Standardı v2 · görsel yuvaları.
 
-Toplam **592** görsel yuvası.
+Toplam **597** görsel yuvası.
 
 Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken aynı adla aynı klasöre koy; sahne kurucuyu (ScrollRoad → Sahneleri Kur) yeniden çalıştır. Oyundaki boy kataloglardan gelir (Size/Height), görselin pikselinden bağımsızdır; en-boy oranını korumak yeterli. `_flesh` görselleri `Tools/gen_peeler.py --flesh` ile bütün meyveden türetilir.
 
@@ -243,7 +243,7 @@ Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken ayn�
 |---|---|---|---|
 | `app_car` | diğer | 512×228 | 512×228 |
 
-## Assets/Art/Kebab  (62)
+## Assets/Art/Kebab  (64)
 
 | Yuva | Tür | Boyut (px) | Dolu alan (px) |
 |---|---|---|---|
@@ -252,7 +252,9 @@ Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken ayn�
 | `bulgogi` | nadir | 512×396 | 512×395 |
 | `burrito` | sıradan | 512×344 | 512×342 |
 | `char_siu` | nadir | 512×428 | 512×428 |
-| `chef` | diğer | 248×512 | 246×512 |
+| `chef` | diğer | 264×512 | 262×512 |
+| `chef_arm` | diğer | 264×512 | 108×96 |
+| `chef_body` | diğer | 264×512 | 187×512 |
 | `chicken_doner` | nadir | 512×340 | 512×339 |
 | `churros` | nadir | 452×512 | 451×512 |
 | `edamame` | sıradan | 512×420 | 512×420 |
@@ -271,7 +273,7 @@ Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken ayn�
 | `imperial_banquet` | nadir | 512×348 | 512×348 |
 | `iskender` | nadir | 512×332 | 512×330 |
 | `katsu_curry` | nadir | 512×312 | 512×311 |
-| `kebab_card` | diğer | 512×280 | 512×278 |
+| `kebab_card` | diğer | 404×512 | 403×512 |
 | `kibbeh` | nadir | 512×380 | 512×380 |
 | `kimchi` | sıradan | 512×360 | 512×360 |
 | `kleftiko` | nadir | 512×388 | 512×388 |
@@ -310,7 +312,7 @@ Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken ayn�
 | `wagyu_skewer` | nadir | 512×360 | 512×360 |
 | `yakitori` | sıradan | 512×376 | 512×374 |
 
-## Assets/Art/Peeler  (121)
+## Assets/Art/Peeler  (124)
 
 | Yuva | Tür | Boyut (px) | Dolu alan (px) |
 |---|---|---|---|
@@ -348,6 +350,9 @@ Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken ayn�
 | `golden_apple_flesh` | nadir (soyulmuş) | 408×512 | 405×512 |
 | `green_apple` | sıradan | 468×512 | 467×512 |
 | `green_apple_flesh` | sıradan (soyulmuş) | 468×512 | 467×512 |
+| `grocer` | diğer | 336×512 | 335×512 |
+| `grocer_body` | diğer | 336×512 | 335×512 |
+| `grocer_hand` | diğer | 336×512 | 63×54 |
 | `guava` | sıradan | 400×512 | 400×512 |
 | `guava_flesh` | sıradan (soyulmuş) | 400×512 | 400×512 |
 | `hami_melon` | nadir | 512×500 | 512×500 |
@@ -392,7 +397,7 @@ Her satır bir yuva: dosya adı yuvanın kimliğidir. Pixel art'a geçerken ayn�
 | `peach_flesh` | sıradan (soyulmuş) | 512×500 | 512×500 |
 | `pear` | sıradan | 328×512 | 325×512 |
 | `pear_flesh` | sıradan (soyulmuş) | 328×512 | 325×512 |
-| `peeler_card` | diğer | 512×492 | 512×489 |
+| `peeler_card` | diğer | 512×460 | 512×459 |
 | `persimmon` | nadir | 484×512 | 483×512 |
 | `persimmon_flesh` | nadir (soyulmuş) | 484×512 | 483×512 |
 | `pineapple` | nadir | 236×512 | 235×512 |

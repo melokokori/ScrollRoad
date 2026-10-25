@@ -457,22 +457,26 @@ namespace ScrollRoad.EditorTools
             BindItemSprites(potteryView, PotteryArt, pottery.Sites);
             intervalSetups.Add(new IntervalSetup { Env = pottery, LogSprites = ItemSprites(PotteryArt, PotteryEnvironment.Workshop.Specials), Folder = PotteryArt, Card = LoadArtSprite(PotteryArt + "pottery_card.png") });
 
-            // Meyve soyacağı (2026-10-14): bütün meyve + aynı görselden türetilmiş soyulmuş hâli (<id>_flesh.png).
+            // Meyve soyacağı (2026-10-14; 2026-10-25 elle soyan manav): bütün meyve + aynı görselden türetilmiş
+            // soyulmuş hâli (<id>_flesh.png).
             var peelerGo = new GameObject("FruitPeeler");
             var peeler = peelerGo.AddComponent<PeelerEnvironment>();
             var peelerView = peelerGo.AddComponent<PeelerSceneView>();
             Bind(peelerView, "env", peeler);
             BindIntervalView(peelerView, companion, cam);
+            Bind(peelerView, "grocerBodySprite", LoadArtSprite(PeelerArt + "grocer_body.png"));
+            Bind(peelerView, "grocerHandSprite", LoadArtSprite(PeelerArt + "grocer_hand.png"));
             BindItemSprites(peelerView, PeelerArt, peeler.Sites, flesh: true);
             intervalSetups.Add(new IntervalSetup { Env = peeler, LogSprites = ItemSprites(PeelerArt, PeelerEnvironment.Stall.Specials), Folder = PeelerArt, Card = LoadArtSprite(PeelerArt + "peeler_card.png") });
 
-            // Çağ kebabı (2026-10-14).
+            // Kebap (2026-10-14 çağ kebabı; 2026-10-25 dikey döner): ustanın gövdesi ve dönen ön kolu ayrı görsel.
             var kebabGo = new GameObject("KebabSpit");
             var kebab = kebabGo.AddComponent<KebabEnvironment>();
             var kebabView = kebabGo.AddComponent<KebabSceneView>();
             Bind(kebabView, "env", kebab);
             BindIntervalView(kebabView, companion, cam);
-            Bind(kebabView, "chefSprite", LoadArtSprite(KebabArt + "chef.png"));
+            Bind(kebabView, "chefBodySprite", LoadArtSprite(KebabArt + "chef_body.png"));
+            Bind(kebabView, "chefArmSprite", LoadArtSprite(KebabArt + "chef_arm.png"));
             BindItemSprites(kebabView, KebabArt, kebab.Sites);
             intervalSetups.Add(new IntervalSetup { Env = kebab, LogSprites = ItemSprites(KebabArt, KebabEnvironment.House.Specials), Folder = KebabArt, Card = LoadArtSprite(KebabArt + "kebab_card.png") });
 
