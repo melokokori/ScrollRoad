@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Durak damgası ve hedef tamamlama duyuruları: üst ortada küçük, sade kart (konfeti yok —
+    // Durak damgası ve diğer sistemlerin (sipariş, açılma, nadir) duyuruları: üst ortada küçük, sade kart (konfeti yok —
     // o şehre özel; durak duyurusunda köşeye pasaport damgası basılır). Sırayla gösterilir; birikirse en eskiler atılır. Masaüstü modunda kart yerine
     // şeridin alt satırında kısa metin (CompanionText) görünür. Şehir kutlaması sürerken bekler.
     public class NoticeController : MonoBehaviour
     {
         [SerializeField] RouteProgress route;
-        [SerializeField] GoalTracker goals;
         [SerializeField] CompanionWindowController companionWindow;
         [SerializeField] CelebrationController celebration;
         [SerializeField] CanvasGroup cardGroup;
@@ -54,13 +53,11 @@ namespace ScrollRoad
             cardGroup.alpha = 0f;
             cardGroup.gameObject.SetActive(false);
             route.StopReached += HandleStop;
-            goals.GoalCompleted += HandleGoal;
         }
 
         void OnDestroy()
         {
             if (route != null) route.StopReached -= HandleStop;
-            if (goals != null) goals.GoalCompleted -= HandleGoal;
         }
 
         void HandleStop(RouteMap.Stop stop)
@@ -78,41 +75,6 @@ namespace ScrollRoad
                 // Pasaporttaki damgayla aynı eğik açı ailesi, köşede biraz daha belirgin.
                 StampAngle = -6f + ((index * 37) % 9 - 4) * 0.8f,
             });
-        }
-
-        void HandleGoal(GoalTracker.Goal goal, bool periodDone)
-        {
-            string title, subtitle, shortText;
-            string noun = EnvironmentManager.Current.AmountNoun; // "distance" (Yol) / "catch" (Olta)
-            string Noun(string s) => char.ToUpperInvariant(s[0]) + s.Substring(1);
-            switch (goal)
-            {
-                case GoalTracker.Goal.DailyDistance:
-                    title = $"Daily {noun} goal complete";
-                    shortText = $"Daily {noun} done";
-                    subtitle = periodDone ? $"Both goals done today · streak: {Fmt.Count(goals.DayStreak, "day")}"
-                        : $"Time goal: {goals.DayMinutes:0} / {goals.DailyMinutesGoal:0} min";
-                    break;
-                case GoalTracker.Goal.DailyTime:
-                    title = "Daily time goal complete";
-                    shortText = "Daily time done";
-                    subtitle = periodDone ? $"Both goals done today · streak: {Fmt.Count(goals.DayStreak, "day")}"
-                        : $"{Noun(noun)} goal: {goals.AmountLine(weekly: false)}";
-                    break;
-                case GoalTracker.Goal.WeeklyDistance:
-                    title = $"Weekly {noun} goal complete";
-                    shortText = $"Weekly {noun} done";
-                    subtitle = periodDone ? $"Both goals done this week · streak: {Fmt.Count(goals.WeekStreak, "week")}"
-                        : $"Time goal: {goals.WeekHours:0.0} / {goals.WeeklyHoursGoal:0} h";
-                    break;
-                default:
-                    title = "Weekly time goal complete";
-                    shortText = "Weekly time done";
-                    subtitle = periodDone ? $"Both goals done this week · streak: {Fmt.Count(goals.WeekStreak, "week")}"
-                        : $"{Noun(noun)} goal: {goals.AmountLine(weekly: true)}";
-                    break;
-            }
-            Enqueue(new Notice { Title = title, Subtitle = subtitle, Short = shortText });
         }
 
         // Diğer sistemlerin duyuruları (ör. yeni araç açıldı). shortText: şerit modundaki kısa satır.

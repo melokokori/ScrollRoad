@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 namespace ScrollRoad
 {
-    // Vitrin (Ortam Standardı v2 · Dayanak 2, görünür birikim; 2026-10-25): kartın sol altında, defter plakasının
-    // üstünde bulunulan mekânın 6 nadirinin rafı. Bulunmamış nadir koyu silüet, bulunan renkli; yeni bulunan
+    // Vitrin (Ortam Standardı v2 · Dayanak 2, görünür birikim; 2026-10-25): kartın alt ortasında, defter ve sipariş
+    // plakalarının arasında bulunulan mekânın 6 nadirinin rafı. Bulunmamış nadir koyu silüet, bulunan renkli; yeni bulunan
     // bir an büyüyüp yerine oturur. Oyuncu karta döndüğünde rafın dolduğunu görür. Yalnız kart modunda ve
     // içerikli ortamlarda (Yol'da pasaport var). Nadir görselleri sahne kurucudan "<ortam>:<nadir>" anahtarıyla.
     public class ShowcaseView : MonoBehaviour

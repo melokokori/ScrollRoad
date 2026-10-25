@@ -34,6 +34,23 @@ namespace ScrollRoad
         public List<Order> daily = new List<Order>();
         public Order weekly;
         public int completed; // sipariş defteri: ömür boyu tamamlanan
+
+        // Seri (2026-10-25, GoalTracker'ın yerine): günün 3 siparişinin hepsi / haftalık sipariş tamamlanınca uzar.
+        public bool streakMigrated;
+        public int dayStreak;
+        public string lastStreakDay = "";
+        public int weekStreak;
+        public string lastStreakWeek = "";
+    }
+
+    // Kaldırılan günlük/haftalık hedeflerin (GoalTracker) kaydı: yalnız serisi bir kez siparişlere taşınır.
+    [Serializable]
+    public class GoalProgress
+    {
+        public int dayStreak;
+        public string lastDoneDay = "";
+        public int weekStreak;
+        public string lastDoneWeek = "";
     }
 
     public static class OrderCatalog

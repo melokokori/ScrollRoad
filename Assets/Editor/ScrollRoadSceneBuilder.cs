@@ -375,7 +375,6 @@ namespace ScrollRoad.EditorTools
             roadGo.AddComponent<LeaderboardSync>();
             var route = roadGo.AddComponent<RouteProgress>();
             Bind(route, "drive", drive);
-            var goals = engineGo.AddComponent<GoalTracker>();
 
             // Olta ortamı: mantık + sahne (yalnız seçiliyken çizer ve kamerayı yönetir).
             var fishingGo = new GameObject("Fishing");
@@ -497,7 +496,7 @@ namespace ScrollRoad.EditorTools
             Bind(envSound, "door", door);
             Bind(envSound, "wind", wind);
             new GameObject("IntervalSound").AddComponent<IntervalSound>();
-            CreateHud(drive, view, secret, companion, route, goals, fishing, door, wind, vinyl, out var notice, out var windowButtons);
+            CreateHud(drive, view, secret, companion, route, fishing, door, wind, vinyl, out var notice, out var windowButtons);
             Bind(fishing, "notice", notice);
             Bind(door, "notice", notice);
             Bind(wind, "notice", notice);
@@ -511,7 +510,7 @@ namespace ScrollRoad.EditorTools
             Bind(unlocks, "drive", drive);
             Bind(unlocks, "catalog", LoadCarCatalog());
             Bind(unlocks, "notice", notice);
-            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing, door, wind, vinyl, notice);
+            var menu = CreateMenu(drive, stats, companion, windowButtons, fishing, door, wind, vinyl, notice);
             CreateOnboarding(companion, menu);
             CreateCompanionHud(drive, secret, companion, notice);
 
@@ -574,7 +573,7 @@ namespace ScrollRoad.EditorTools
         }
 
         static HudController CreateHud(RoadDrive drive, RoadSceneView view, SecretZoneView secret,
-            CompanionWindowController companion, RouteProgress route, GoalTracker goals, FishingController fishing,
+            CompanionWindowController companion, RouteProgress route, FishingController fishing,
             DoorController door, WindController wind, VinylController vinyl, out NoticeController notice, out WindowButtons windowButtons)
         {
             var canvas = CreateCanvas("HudCanvas", 0);
@@ -660,7 +659,6 @@ namespace ScrollRoad.EditorTools
             Bind(hud, "townText", town);
             Bind(hud, "stopDistanceText", stopDistance);
             Bind(hud, "cityText", city);
-            Bind(hud, "goals", goals);
             Bind(hud, "goalsText", goalsText);
             Bind(hud, "whisperText", whisper);
             Bind(hud, "progressFill", fillRect);
@@ -674,7 +672,7 @@ namespace ScrollRoad.EditorTools
             foreach (var setup in intervalSetups) CreateIntervalHud(root.transform, setup.Env);
 
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
-            notice = CreateNotice(canvas.transform, route, goals, companion, celebration);
+            notice = CreateNotice(canvas.transform, route, companion, celebration);
             CreateShowcase(canvas.transform, companion);
             return hud;
         }
@@ -880,7 +878,7 @@ namespace ScrollRoad.EditorTools
         }
 
         // Durak/hedef duyurusu: üst ortada küçük yeşil tabela.
-        static NoticeController CreateNotice(Transform canvas, RouteProgress route, GoalTracker goals,
+        static NoticeController CreateNotice(Transform canvas, RouteProgress route,
             CompanionWindowController companion, CelebrationController celebration)
         {
             var sign = CreateSign(canvas, "NoticeCard", out var inner, out _);
@@ -908,7 +906,6 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "stamp", stamp);
             Bind(controller, "stampText", stampText);
             Bind(controller, "route", route);
-            Bind(controller, "goals", goals);
             Bind(controller, "companionWindow", companion);
             Bind(controller, "celebration", celebration);
             Bind(controller, "cardGroup", sign.GetComponent<CanvasGroup>());
@@ -980,7 +977,7 @@ namespace ScrollRoad.EditorTools
         }
 
         // ≡ çekmecesi (yeşil çıkış tabelası) + kartı kaplayan paneller (Passport, Leaderboard, Garage, Stats, Settings).
-        static CardMenuController CreateMenu(RoadDrive drive, StatsTracker stats, GoalTracker goals,
+        static CardMenuController CreateMenu(RoadDrive drive, StatsTracker stats,
             CompanionWindowController companion, WindowButtons windowButtons, FishingController fishing, DoorController door,
             WindController wind, VinylController vinyl, NoticeController notice)
         {
@@ -1081,7 +1078,6 @@ namespace ScrollRoad.EditorTools
 
             var menu = new GameObject("CardMenuController").AddComponent<CardMenuController>();
             Bind(menu, "drive", drive);
-            Bind(menu, "goals", goals);
             Bind(menu, "companionWindow", companion);
             Bind(menu, "menuButton", windowButtons.Menu);
             Bind(menu, "minimizeButton", windowButtons.Minimize);
@@ -1425,15 +1421,17 @@ namespace ScrollRoad.EditorTools
             spriteArray = sprites.ToArray();
         }
 
-        // Vitrin (Ortam Standardı v2 · Dayanak 2): sol altta, defter plakasının üstünde 6 yuvalı raf.
+        // Vitrin (Ortam Standardı v2 · Dayanak 2): alt ortada, defter ve sipariş plakalarının arasında 6 yuvalı raf.
+        // 2026-10-25: sol alttaki eski yeri (defter plakasının üstü) Rüzgârgülü'nde evlerin önüne geçiyordu; alt
+        // şerit her sahnede yol/zemin, sahnenin nesnelerini örtmez.
         static void CreateShowcase(Transform canvas, CompanionWindowController companion)
         {
             var root = Plate(canvas, "Showcase", PlateDark, RoundSprite);
             root.raycastTarget = false;
             var rt = root.rectTransform;
             const int slots = 6;
-            const float slot = 30f, gap = 4f, pad = 6f;
-            Anchor(rt, new Vector2(0, 0), new Vector2(16, 38), new Vector2(0, 0));
+            const float slot = 20f, gap = 3f, pad = 2f;
+            Anchor(rt, new Vector2(0.5f, 0), new Vector2(0, 9), new Vector2(0.5f, 0));
             rt.sizeDelta = new Vector2(pad * 2 + slots * slot + (slots - 1) * gap, slot + pad * 2);
             var images = new Object[slots];
             for (int i = 0; i < slots; i++)
@@ -1449,8 +1447,8 @@ namespace ScrollRoad.EditorTools
                 image.preserveAspect = true;
                 image.raycastTarget = false;
                 Stretch(image.rectTransform);
-                image.rectTransform.offsetMin = new Vector2(2f, 2f);
-                image.rectTransform.offsetMax = new Vector2(-2f, -2f);
+                image.rectTransform.offsetMin = new Vector2(1f, 1f);
+                image.rectTransform.offsetMax = new Vector2(-1f, -1f);
                 images[i] = image;
             }
             RareSpriteTable(out var keys, out var sprites);

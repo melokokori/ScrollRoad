@@ -54,7 +54,7 @@ namespace ScrollRoad
         const string StripPlacementKey = "ScrollRoad_StripPlacement"; // 0 = otomatik yuva, 1 = görev çubuğunda x, 2 = serbest
         const string StripLeftKey = "ScrollRoad_StripLeft";
         const string StripTopKey = "ScrollRoad_StripTop";
-        const string GoalsKey = "ScrollRoad_Goals"; // günlük/haftalık hedefler (JSON) — şimdilik yalnız yerel
+        const string GoalsKey = "ScrollRoad_Goals"; // kaldırılan günlük/haftalık hedefler (JSON): yalnız seri taşıması için okunur
         const string EnvironmentKey = "ScrollRoad_Environment"; // seçili ortam (yerel)
         const string FishingKey = "ScrollRoad_Fishing";         // Olta ilerlemesi + balık defteri (JSON, şimdilik yerel)
         const string DoorKey = "ScrollRoad_Door";               // Döner kapı ilerlemesi + misafir defteri (JSON, şimdilik yerel)
@@ -332,11 +332,6 @@ namespace ScrollRoad
             }
         }
 
-        public static void SaveGoals(GoalProgress goals)
-        {
-            PlayerPrefs.SetString(GoalsKey, JsonUtility.ToJson(goals));
-            PlayerPrefs.Save();
-        }
 
         public static float LoadMasterVolume() => PlayerPrefs.GetFloat(MasterVolumeKey, 0.8f);
 

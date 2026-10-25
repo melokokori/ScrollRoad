@@ -7,8 +7,9 @@ namespace ScrollRoad
 {
     // Siparişler (Ortam Standardı v2 · Dayanak 4): günlük 3 + haftalık 1 siparişin üretimi, ilerlemesi, ödülü ve
     // paneli (≡ çekmecesinin başlığındaki "Orders" satırı açar). Gün yerel gece yarısı, hafta pazartesi yenilenir
-    // (GoalTracker'ın anahtarlarıyla aynı). İlerleme sipariş üretildiği andaki tabana göre sayılır; bir ortam yalnız
-    // seçiliyken ilerlediği için başka ortamın siparişi oraya geçmeyi gerektirir. Kayıt yerel PlayerPrefs JSON.
+    // İlerleme sipariş üretildiği andaki tabana göre sayılır; bir ortam yalnız seçiliyken ilerlediği için başka
+    // ortamın siparişi oraya geçmeyi gerektirir. Seri (2026-10-25, kaldırılan GoalTracker'ın yerine): günün 3
+    // siparişinin hepsi biterse günlük, haftalık sipariş biterse haftalık seri uzar. Kayıt yerel PlayerPrefs JSON.
     public class OrdersController : MonoBehaviour
     {
         [SerializeField] NoticeController notice;
@@ -43,11 +44,28 @@ namespace ScrollRoad
         public int WeeklyValue => state?.weekly == null ? 0 : Math.Min(state.weekly.target, Progress(state.weekly));
         public int WeeklyTarget => state?.weekly == null ? 0 : state.weekly.target;
 
+        // Seri yalnız bugün/dün (bu hafta/geçen hafta) uzadıysa canlıdır.
+        public int DayStreak => state == null ? 0
+            : state.lastStreakDay == DayKey(DateTime.Today) || state.lastStreakDay == DayKey(DateTime.Today.AddDays(-1)) ? state.dayStreak : 0;
+        public int WeekStreak => state == null ? 0
+            : state.lastStreakWeek == WeekKey(DateTime.Today) || state.lastStreakWeek == WeekKey(DateTime.Today.AddDays(-7)) ? state.weekStreak : 0;
+
         void Awake()
         {
             Instance = this;
             state = SaveService.LoadJson<OrdersState>(SaveKey);
             if (state.daily == null) state.daily = new System.Collections.Generic.List<Order>();
+            if (!state.streakMigrated)
+            {
+                // Kaldırılan günlük/haftalık hedeflerin serisi bir kez taşınır.
+                var goals = SaveService.LoadGoals();
+                state.dayStreak = goals.dayStreak;
+                state.lastStreakDay = goals.lastDoneDay ?? "";
+                state.weekStreak = goals.weekStreak;
+                state.lastStreakWeek = goals.lastDoneWeek ?? "";
+                state.streakMigrated = true;
+                Save();
+            }
             openButton.onClick.AddListener(Open);
             closeButton.onClick.AddListener(() => panel.SetActive(false));
             panel.SetActive(false);
@@ -169,8 +187,29 @@ namespace ScrollRoad
             {
                 o.result = "Stamped in your order book";
             }
+
+            string streak = o == state.weekly ? ExtendWeekStreak() : ExtendDayStreak();
             Save();
-            if (notice != null) notice.Announce($"Order done: {OrderCatalog.Title(o)}", o.result, "Order done");
+            if (notice != null) notice.Announce($"Order done: {OrderCatalog.Title(o)}", streak ?? o.result, "Order done");
+        }
+
+        // Günün son siparişi bittiyse seri uzar; duyurunun alt satırı (yoksa null).
+        string ExtendDayStreak()
+        {
+            string today = DayKey(DateTime.Today);
+            if (state.lastStreakDay == today || state.daily.Exists(d => !d.done)) return null;
+            state.dayStreak = state.lastStreakDay == DayKey(DateTime.Today.AddDays(-1)) ? state.dayStreak + 1 : 1;
+            state.lastStreakDay = today;
+            return $"All of today's orders done · streak: {Fmt.Count(state.dayStreak, "day")}";
+        }
+
+        string ExtendWeekStreak()
+        {
+            string week = WeekKey(DateTime.Today);
+            if (state.lastStreakWeek == week) return null;
+            state.weekStreak = state.lastStreakWeek == WeekKey(DateTime.Today.AddDays(-7)) ? state.weekStreak + 1 : 1;
+            state.lastStreakWeek = week;
+            return $"{state.weekly.result} · streak: {Fmt.Count(state.weekStreak, "week")}";
         }
 
         public void Open()

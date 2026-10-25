@@ -6,8 +6,8 @@ namespace ScrollRoad
 {
     // Kartın bilgi katmanı ("tabela" stili): sol üstteki hız göstergesi ve kilometre sayacı ayrı
     // (GaugeView, skinli kadran); burada sağ üstte yeşil karayolu tabelası (bölge + sonraki
-    // durak + kalan mesafe); altta koyu plakalarda şehre ilerleme ve bugünkü hedefler; gizli bölge
-    // fısıltısı. Haftalık hedef, seri ve ay rekoru ≡ çekmecesinde. Görev çubuğu şeridi modunda gizli.
+    // durak + kalan mesafe); altta koyu plakalarda şehre ilerleme ve bugünkü siparişler + seri; gizli bölge
+    // fısıltısı. Haftalık sipariş ve ay rekoru ≡ çekmecesinde. Görev çubuğu şeridi modunda gizli.
     public class HudController : MonoBehaviour
     {
         [SerializeField] RoadDrive drive;
@@ -19,7 +19,6 @@ namespace ScrollRoad
         [SerializeField] TMP_Text townText;
         [SerializeField] TMP_Text stopDistanceText;
         [SerializeField] TMP_Text cityText;
-        [SerializeField] GoalTracker goals;
         [SerializeField] TMP_Text goalsText;
         [SerializeField] TMP_Text whisperText;
         [SerializeField] RectTransform progressFill;
@@ -32,7 +31,7 @@ namespace ScrollRoad
             if (hudRoot.activeSelf == companion) hudRoot.SetActive(!companion);
             if (companion) return;
 
-            // Bugünkü hedef plakası ortak (birim aktif ortamdan); geri kalanı Yol'a özel.
+            // Bugünkü sipariş plakası ortak; geri kalanı Yol'a özel.
             goalsText.text = TodayLine();
             bool road = RoadDrive.IsActiveEnvironment;
             foreach (var go in roadOnly)
@@ -90,14 +89,16 @@ namespace ScrollRoad
             }
         }
 
-        // "TODAY  4 / 80 km  ·  3 / 60 min" (tamamlananlar "done").
-        string TodayLine()
+        // "TODAY  ORDERS 1 / 3  ·  STREAK 4 DAYS" (seri yoksa yalnız siparişler).
+        static string TodayLine()
         {
-            if (goals == null) return "";
-            string dayKm = goals.AmountLine(weekly: false);
-            string dayTime = goals.IsDone(GoalTracker.Goal.DailyTime)
-                ? $"{goals.DailyMinutesGoal:0} min done" : $"{goals.DayMinutes:0} / {goals.DailyMinutesGoal:0} min";
-            return $"<alpha=#99>TODAY<alpha=#FF>  {dayKm}  ·  {dayTime}";
+            var orders = OrdersController.Instance;
+            if (orders == null || orders.DailyCount == 0) return "";
+            string line = orders.DailyDone >= orders.DailyCount
+                ? "<alpha=#99>TODAY<alpha=#FF>  ALL ORDERS DONE"
+                : $"<alpha=#99>TODAY<alpha=#FF>  ORDERS {orders.DailyDone} / {orders.DailyCount}";
+            int streak = orders.DayStreak;
+            return streak > 0 ? $"{line}  ·  STREAK {Fmt.Count(streak, "day").ToUpperInvariant()}" : line;
         }
     }
 }
