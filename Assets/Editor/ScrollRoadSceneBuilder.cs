@@ -1046,12 +1046,13 @@ namespace ScrollRoad.EditorTools
             ordersButton.colors = subColors;
 
             // Activities = ortam seçici (2026-10-13). "Passport" satırı Olta'da "Fish log" olur. Places = mekânlar + Odak
-            // (Ortam Standardı v2, 2026-10-25); 8 satır sığsın diye satır aralığı 26.
-            string[] labels = { "Activities", "Places", "Passport", "Leaderboard", "Garage", "Stats", "Settings", "Taskbar mode" };
+            // (Ortam Standardı v2, 2026-10-25); Album = tüm ortamların koleksiyonu (2026-10-25). 9 satır sığsın diye
+            // satır yüksekliği 23.
+            string[] labels = { "Activities", "Places", "Album", "Passport", "Leaderboard", "Garage", "Stats", "Settings", "Taskbar mode" };
             var buttons = new Button[labels.Length];
             for (int i = 0; i < labels.Length; i++)
             {
-                buttons[i] = CreateDrawerRow(drawer, labels[i], new Vector2(20, -96 - i * 26));
+                buttons[i] = CreateDrawerRow(drawer, labels[i], new Vector2(20, -94 - i * 23), 23f);
             }
 
             var quit = CreateTextButton(drawer, "QuitButton", "QUIT", 10.5f, Color.white, new Vector2(20, 15), new Vector2(46, 18));
@@ -1061,8 +1062,9 @@ namespace ScrollRoad.EditorTools
             steam.rectTransform.sizeDelta = new Vector2(156, 14);
 
             var activities = CreateActivitiesPanel(canvas.transform, buttons[0]);
-            var passport = CreatePassportPanel(canvas.transform, buttons[2], drive);
+            var passport = CreatePassportPanel(canvas.transform, buttons[3], drive);
             var places = CreatePlacesPanel(canvas.transform, buttons[1], passport);
+            var album = CreateAlbumPanel(canvas.transform, buttons[2]);
             var fishLog = CreateFishLogPanel(canvas.transform, fishing);
             Bind(passport, "fishLog", fishLog);
             var guestBook = CreateGuestBookPanel(canvas.transform, door);
@@ -1080,11 +1082,11 @@ namespace ScrollRoad.EditorTools
                 intervalPanels.Add(log.Panel);
             }
             BindArray(passport, "intervalLogs", intervalLogs);
-            var garage = CreateGaragePanel(canvas.transform, buttons[4]);
+            var garage = CreateGaragePanel(canvas.transform, buttons[5]);
             var skinBox = CreateSkinBoxPanel(canvas.transform);
             Bind(garage, "skinBox", skinBox);
-            var statsCtrl = CreateStatsPanel(canvas.transform, buttons[5], drive, stats);
-            var settings = CreateSettingsPanel(canvas.transform, buttons[6], companion);
+            var statsCtrl = CreateStatsPanel(canvas.transform, buttons[6], drive, stats);
+            var settings = CreateSettingsPanel(canvas.transform, buttons[7], companion);
 
             var lbPanel = CreatePanel(canvas.transform, "LeaderboardPanel", "Leaderboard", out var lbClose, out _);
             var thisMonth = CreateButton(lbPanel.transform, "ThisMonthTab", "This month", Vector2.zero, new Vector2(104, 24), ButtonIdle, 11.5f, UiFonts.SemiBold);
@@ -1108,11 +1110,11 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "monthBestText", best);
             Bind(menu, "headerSubText", sub);
             Bind(menu, "steamText", steam);
-            BindArray(menu, "panelButtons", new Object[] { buttons[0], buttons[1], buttons[2], buttons[4], buttons[5], buttons[6] });
-            Bind(menu, "leaderboardButton", buttons[3]);
-            Bind(menu, "taskbarButton", buttons[7]);
-            Bind(menu, "collectionLabel", buttons[2].GetComponentInChildren<TMP_Text>());
-            Bind(menu, "garageLabel", buttons[4].GetComponentInChildren<TMP_Text>());
+            BindArray(menu, "panelButtons", new Object[] { buttons[0], buttons[1], buttons[2], buttons[3], buttons[5], buttons[6], buttons[7] });
+            Bind(menu, "leaderboardButton", buttons[4]);
+            Bind(menu, "taskbarButton", buttons[8]);
+            Bind(menu, "collectionLabel", buttons[3].GetComponentInChildren<TMP_Text>());
+            Bind(menu, "garageLabel", buttons[5].GetComponentInChildren<TMP_Text>());
             Bind(menu, "activitiesLabel", buttons[0].GetComponentInChildren<TMP_Text>());
             Bind(menu, "quitButton", quit);
             Bind(menu, "leaderboardPanel", lbPanel);
@@ -1122,7 +1124,7 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "leaderboardCloseButton", lbClose);
             var returnSummary = CreateReturnSummaryPanel(canvas.transform, companion, places);
             var orders = CreateOrdersPanel(canvas.transform, ordersButton, notice);
-            var subPanels = new List<Object> { returnSummary.Panel, orders.Panel, passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
+            var subPanels = new List<Object> { returnSummary.Panel, orders.Panel, passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, album.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
@@ -1441,6 +1443,93 @@ namespace ScrollRoad.EditorTools
             BindArray(controller, "rareStatuses", rareStatuses);
             BindStrings(controller, "spriteKeys", keys);
             BindArray(controller, "sprites", sprites);
+            return controller;
+        }
+
+        // Albüm (2026-10-25): satır başına bir ortam (ad, 5 mekân hücresi, toplam). Hücre = koyu plaka + doluluk
+        // çubuğu + "n / 6"; denetleyici renk ve metni yazar, üzerine gelince ipucu.
+        static AlbumController CreateAlbumPanel(Transform parent, Button openButton)
+        {
+            var panel = CreatePanel(parent, "AlbumPanel", "Album", out var close, out _);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(420, 16);
+            count.characterSpacing = 2;
+
+            var rows = AlbumController.Rows;
+            int venues = AlbumController.Venues;
+            const float top = -50f, rowH = 30f, nameX = 26f, nameW = 150f, cellW = 104f, cellGap = 6f, cellH = 22f;
+            float cellsX = nameX + nameW + 6f;
+            float totalX = cellsX + venues * (cellW + cellGap);
+            var rowNames = new Object[rows.Length];
+            var rowTotals = new Object[rows.Length];
+            var buttons = new Object[rows.Length * venues];
+            var frames = new Object[buttons.Length];
+            var fills = new Object[buttons.Length];
+            var fillImages = new Object[buttons.Length];
+            var texts = new Object[buttons.Length];
+            for (int r = 0; r < rows.Length; r++)
+            {
+                float y = top - r * rowH;
+                var name = Tmp(panel.transform, $"Row_{rows[r].Id}", rows[r].Name, 12, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+                Anchor(name.rectTransform, new Vector2(0, 1), new Vector2(nameX, y), new Vector2(0, 1));
+                name.rectTransform.sizeDelta = new Vector2(nameW, cellH);
+                FitToWidth(name, 9f);
+                rowNames[r] = name;
+                for (int v = 0; v < venues; v++)
+                {
+                    int i = r * venues + v;
+                    var frame = Plate(panel.transform, $"Cell_{rows[r].Id}_{v}", Cell, RoundSprite);
+                    frame.raycastTarget = true;
+                    Anchor(frame.rectTransform, new Vector2(0, 1), new Vector2(cellsX + v * (cellW + cellGap), y), new Vector2(0, 1));
+                    frame.rectTransform.sizeDelta = new Vector2(cellW, cellH);
+                    var button = frame.gameObject.AddComponent<Button>();
+                    button.targetGraphic = frame;
+                    var colors = button.colors;
+                    colors.disabledColor = Color.white; // kilitli/bulunulan hücrenin rengini Image.color belirler
+                    colors.highlightedColor = new Color(1.25f, 1.25f, 1.25f);
+                    button.colors = colors;
+
+                    var fill = new GameObject("Fill", typeof(RectTransform), typeof(Image));
+                    fill.transform.SetParent(frame.transform, false);
+                    var fillImage = fill.GetComponent<Image>();
+                    fillImage.color = Amber;
+                    fillImage.raycastTarget = false;
+                    var fr = (RectTransform)fill.transform;
+                    fr.anchorMin = Vector2.zero;
+                    fr.anchorMax = new Vector2(0f, 1f);
+                    fr.offsetMin = new Vector2(2f, 2f);
+                    fr.offsetMax = new Vector2(-2f, -2f);
+
+                    var text = Tmp(frame.transform, "Text", "", 9f, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Center);
+                    text.characterSpacing = 4;
+                    Stretch(text.rectTransform);
+
+                    buttons[i] = button;
+                    frames[i] = frame;
+                    fills[i] = fr;
+                    fillImages[i] = fillImage;
+                    texts[i] = text;
+                }
+                var total = Tmp(panel.transform, $"Total_{rows[r].Id}", "", 11, UiFonts.Mono, PlateText, TextAlignmentOptions.Right);
+                Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(totalX, y), new Vector2(0, 1));
+                total.rectTransform.sizeDelta = new Vector2(774f - totalX, cellH);
+                rowTotals[r] = total;
+            }
+
+            panel.SetActive(false);
+            var controller = new GameObject("AlbumController").AddComponent<AlbumController>();
+            Bind(controller, "panel", panel);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            Bind(controller, "countText", count);
+            BindArray(controller, "rowNames", rowNames);
+            BindArray(controller, "rowTotals", rowTotals);
+            BindArray(controller, "cellButtons", buttons);
+            BindArray(controller, "cellFrames", frames);
+            BindArray(controller, "cellFills", fills);
+            BindArray(controller, "cellFillImages", fillImages);
+            BindArray(controller, "cellTexts", texts);
             return controller;
         }
 
@@ -2106,12 +2195,12 @@ namespace ScrollRoad.EditorTools
         }
 
         // Çekmece satırı: üstte ince ayraç, solda ad, sağda ok (çıkış tabelası listesi gibi).
-        static Button CreateDrawerRow(Transform drawer, string label, Vector2 topLeft)
+        static Button CreateDrawerRow(Transform drawer, string label, Vector2 topLeft, float height = 26f)
         {
             var go = new GameObject(label.Split(' ')[0] + "Button", typeof(RectTransform), typeof(Image), typeof(Button));
             go.transform.SetParent(drawer, false);
             var rect = (RectTransform)go.transform;
-            rect.sizeDelta = new Vector2(208, 26);
+            rect.sizeDelta = new Vector2(208, height);
             Anchor(rect, new Vector2(0, 1), topLeft, new Vector2(0, 1));
             go.GetComponent<Image>().color = Color.white;
             var button = go.GetComponent<Button>();
