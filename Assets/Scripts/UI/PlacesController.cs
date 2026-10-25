@@ -94,7 +94,7 @@ namespace ScrollRoad
             Refresh();
         }
 
-        Sprite SpriteFor(EnvironmentId env, string rareId)
+        public Sprite SpriteFor(EnvironmentId env, string rareId)
         {
             string key = env + ":" + rareId;
             for (int i = 0; i < spriteKeys.Length && i < sprites.Length; i++) if (spriteKeys[i] == key) return sprites[i];

@@ -1122,13 +1122,69 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "thisMonthTab", thisMonth);
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
-            var subPanels = new List<Object> { passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
+            var returnSummary = CreateReturnSummaryPanel(canvas.transform, companion, places);
+            var subPanels = new List<Object> { returnSummary.Panel, passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
             return menu;
+        }
+
+        // Dönüş anı (Ortam Standardı v2 · Dayanak 1): kartı kaplayan özet — başlıkta geçen süre, büyük kazanılan
+        // miktar, altında nadirler ve sıradaki açılma, sağ altta yeni nadirlerin görselleri. Panelin tamamı tıklanınca kapanır.
+        static ReturnSummaryController CreateReturnSummaryPanel(Transform parent, CompanionWindowController companion, PlacesController places)
+        {
+            var panel = CreatePanel(parent, "ReturnSummaryPanel", "While you were away", out var close, out var title);
+            var root = panel.GetComponent<Image>();
+            var dismiss = panel.AddComponent<Button>();
+            dismiss.targetGraphic = root;
+            dismiss.transition = Selectable.Transition.None;
+
+            var amount = Tmp(panel.transform, "Amount", "", 34, UiFonts.Mono, Color.white, TextAlignmentOptions.TopLeft);
+            Anchor(amount.rectTransform, new Vector2(0, 1), new Vector2(26, -62), new Vector2(0, 1));
+            amount.rectTransform.sizeDelta = new Vector2(748, 44);
+            var body = Tmp(panel.transform, "Body", "", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.TopLeft);
+            body.lineSpacing = 12;
+            body.textWrappingMode = TextWrappingModes.Normal;
+            Anchor(body.rectTransform, new Vector2(0, 1), new Vector2(26, -120), new Vector2(0, 1));
+            body.rectTransform.sizeDelta = new Vector2(400, 180);
+
+            const int slots = 4;
+            var images = new Object[slots];
+            for (int i = 0; i < slots; i++)
+            {
+                var go = new GameObject($"Rare_{i}", typeof(RectTransform), typeof(Image));
+                go.transform.SetParent(panel.transform, false);
+                var image = go.GetComponent<Image>();
+                image.preserveAspect = true;
+                image.raycastTarget = false;
+                var r = (RectTransform)go.transform;
+                r.anchorMin = r.anchorMax = new Vector2(1, 0);
+                r.pivot = new Vector2(1, 0);
+                SetRect(r, new Vector2(-26 - (slots - 1 - i) * 92f, 40f), new Vector2(84f, 120f));
+                images[i] = image;
+            }
+
+            var hint = Tmp(panel.transform, "Hint", "CLICK TO CONTINUE", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.Bottom);
+            hint.characterSpacing = 10;
+            Anchor(hint.rectTransform, new Vector2(0.5f, 0), new Vector2(0, 14), new Vector2(0.5f, 0));
+            hint.rectTransform.sizeDelta = new Vector2(300, 14);
+
+            panel.SetActive(false);
+            var controller = new GameObject("ReturnSummaryController").AddComponent<ReturnSummaryController>();
+            Bind(controller, "companionWindow", companion);
+            Bind(controller, "carCatalog", LoadCarCatalog());
+            Bind(controller, "places", places);
+            Bind(controller, "panel", panel);
+            Bind(controller, "dismissButton", dismiss);
+            Bind(controller, "closeButton", close);
+            Bind(controller, "titleText", title);
+            Bind(controller, "amountText", amount);
+            Bind(controller, "bodyText", body);
+            BindArray(controller, "rareImages", images);
+            return controller;
         }
 
         // Mekânlar + Odak (Ortam Standardı v2, 2026-10-25): üstte 5 mekân kartı (ad + durum), altında Odak satırı,

@@ -131,6 +131,7 @@ namespace ScrollRoad
             return Array.ConvertAll(site.Specials, t => new RareInfo { Id = t.Id, Name = t.Name, Frequency = t.Frequency });
         }
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public virtual string SkinNoun => "look";
         public virtual string SkinBoxName => "Looks";
         public virtual SkinInfo[] Skins => EnvironmentContent.ClassicOnly;

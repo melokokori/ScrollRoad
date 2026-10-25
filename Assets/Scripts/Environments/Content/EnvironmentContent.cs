@@ -41,6 +41,7 @@ namespace ScrollRoad
         void SetVenue(string id);        // açık olduğunu çağıran denetler (UnlockLadder)
         RareInfo[] RaresAt(string venueId);
         bool IsLogged(string rareId);
+        int TimesFound(string rareId);   // kaç kez geldi (dönüş özeti farkı)
 
         string SkinNoun { get; }         // duyurularda: "tackle", "look"
         string SkinBoxName { get; }      // Dolap'ın adı (çekmece satırı ve panel başlığı): "Tackle box"
@@ -161,6 +162,25 @@ namespace ScrollRoad
         }
 
         public static void Notify(EnvironmentId id) => Changed?.Invoke(id);
+
+        // Merdivende sıradaki açılma (mekân ya da skin, hangisi önce): ad ve kalan puan. Hepsi açıksa false.
+        public static bool NextUnlock(IEnvironmentContent c, out string name, out double remaining)
+        {
+            name = null;
+            remaining = double.MaxValue;
+            double points = c.LifetimePoints;
+            for (int i = 1; i < c.Venues.Length; i++)
+            {
+                double left = UnlockLadder.VenuePoints(i) - points;
+                if (left > 0 && left < remaining) { remaining = left; name = c.Venues[i].Name; }
+            }
+            for (int i = 1; i < c.Skins.Length; i++)
+            {
+                double left = UnlockLadder.SkinPoints(i) - points;
+                if (left > 0 && left < remaining) { remaining = left; name = $"{c.Skins[i].Name} {c.SkinNoun}"; }
+            }
+            return name != null;
+        }
 
         // ---- İlk nadir garantisi (Dayanak 5, ödül eğrisi): ortamda henüz hiç nadir yoksa ayın ~10. seyir
         // dakikasındaki öğe nadirdir (hangi nadir olduğu yine ağırlıklı seçimle, Odak'a uyarak). Garanti bir kez

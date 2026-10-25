@@ -76,6 +76,7 @@ namespace ScrollRoad
         public RareInfo[] RaresAt(string venueId) =>
             Array.ConvertAll(VisitorCatalog.GetVenue(venueId).Guests, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
+        public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public string SkinNoun => "look";
         public string SkinBoxName => "Looks";
         public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
