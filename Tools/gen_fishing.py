@@ -9,6 +9,7 @@ karışımı alfaya çevrilir, kırpılır, en uzun kenar 512 px yapılır, kena
 Kullanım (proje kökünden): python Tools/gen_fishing.py <ad> ["<tarif>"]   (tarif yoksa TARIFLER'den)
 Gereken: GOOGLE_API_KEY.
 """
+import time
 import base64
 import io
 import os
@@ -161,8 +162,15 @@ def generate(desc):
         "generationConfig": {"responseModalities": ["IMAGE"]},
     }
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
-    r = requests.post(url, params={"key": os.environ["GOOGLE_API_KEY"]}, json=body, timeout=240)
-    r.raise_for_status()
+    # Paralel üretimde kota (429) ve geçici sunucu hataları: artan beklemeyle yeniden dene. Hata metninde
+    # URL (anahtar) yazılmasın diye yalnız durum kodu.
+    for attempt in range(6):
+        r = requests.post(url, params={"key": os.environ["GOOGLE_API_KEY"]}, json=body, timeout=240)
+        if r.status_code != 429 and r.status_code < 500:
+            break
+        time.sleep(15 * (attempt + 1))
+    if not r.ok:
+        raise RuntimeError(f"HTTP {r.status_code}")
     for cand in r.json().get("candidates", []):
         for part in cand.get("content", {}).get("parts", []):
             data = part.get("inlineData") or part.get("inline_data")

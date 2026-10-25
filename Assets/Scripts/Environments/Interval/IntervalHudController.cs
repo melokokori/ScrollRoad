@@ -32,25 +32,21 @@ namespace ScrollRoad
             if (labelText != null) labelText.SetText(env.TotalLabel);
             if (totalText != null) totalText.SetText(env.Def.Format(env.Done * env.Interval));
 
+            // Durum tabelanın üst satırında, mekânın yanında (Ortam Standardı v2: sol üstte kadran var).
             var engine = ScoreEngine.Instance;
             bool active = engine != null && engine.IsUserActive;
-            if (env.Direction < 0f)
+            string status = env.Direction < 0f ? env.StatusBack : !active ? env.StatusIdle : env.StatusActive;
+            if (statusText != null)
             {
-                statusText.text = env.StatusBack;
-                statusText.color = Normal;
-            }
-            else if (!active)
-            {
-                statusText.text = env.StatusIdle;
-                statusText.color = Idle;
+                statusText.text = status;
+                statusText.color = !active && env.Direction >= 0f ? Idle : Normal;
+                placeText.SetText(env.Site.Name.ToUpperInvariant());
             }
             else
             {
-                statusText.text = env.StatusActive;
-                statusText.color = Normal;
+                string hex = ColorUtility.ToHtmlStringRGB(!active && env.Direction >= 0f ? Idle : Color.white);
+                placeText.text = $"{env.Site.Name.ToUpperInvariant()}  ·  <color=#{hex}>{status}</color>";
             }
-
-            placeText.SetText(env.Site.Name.ToUpperInvariant());
             long next = env.Done + 1;
             var item = env.Identify(next);
             string comingName = null, phrase = null;

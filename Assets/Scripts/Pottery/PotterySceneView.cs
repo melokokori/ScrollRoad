@@ -31,13 +31,22 @@ namespace ScrollRoad
         const int Marks = 4;
         const int CardSlots = 5, StripSlots = 9;
 
-        static readonly Color Wall = new Color(0.93f, 0.86f, 0.74f);
-        static readonly Color Floor = new Color(0.60f, 0.44f, 0.31f);
-        static readonly Color Clay = new Color(0.72f, 0.47f, 0.35f);
-        static readonly Color WheelDark = new Color(0.30f, 0.30f, 0.32f);
-        static readonly Color WheelHead = new Color(0.55f, 0.56f, 0.58f);
-        static readonly Color Pan = new Color(0.42f, 0.43f, 0.46f);
-        static readonly Color ShelfWood = new Color(0.56f, 0.38f, 0.24f);
+        // Ortam Standardı v2: mekân duvar/zemin/rafı (ItemSite.Palette 0-2), skin takımı çarkı ve çamuru boyar
+        // (SkinInfo.Palette 0-3). Varsayılanlar Köy Atölyesi ve Klasik.
+        static readonly Color WallDefault = new Color(0.93f, 0.86f, 0.74f);
+        static readonly Color FloorDefault = new Color(0.60f, 0.44f, 0.31f);
+        static readonly Color ShelfWoodDefault = new Color(0.56f, 0.38f, 0.24f);
+        static readonly Color WheelDarkDefault = new Color(0.30f, 0.30f, 0.32f);
+        static readonly Color WheelHeadDefault = new Color(0.55f, 0.56f, 0.58f);
+        static readonly Color PanDefault = new Color(0.42f, 0.43f, 0.46f);
+        static readonly Color ClayDefault = new Color(0.72f, 0.47f, 0.35f);
+        Color Wall => Look(0, WallDefault);
+        Color Floor => Look(1, FloorDefault);
+        Color ShelfWood => Look(2, ShelfWoodDefault);
+        Color WheelDark => Tint(0, WheelDarkDefault);
+        Color WheelHead => Tint(1, WheelHeadDefault);
+        Color Pan => Tint(2, PanDefault);
+        Color Clay => Tint(3, ClayDefault);
 
         Texture2D clayTex;
         Sprite claySprite;

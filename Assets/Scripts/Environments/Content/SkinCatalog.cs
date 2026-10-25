@@ -40,18 +40,36 @@ namespace ScrollRoad
         public static readonly SkinInfo[] Globe =
         {
             Skin("classic", "Classic", "Blue oceans, green lands", "globe_classic", "#F2E6C2", "#1C2547"),
+            Skin("red_planet", "Red Planet", "Rust plains and dusty highlands", "globe_red", "#F6D9C4", "#5A1F12",
+                "#A9502E", "#D9824E", "#E8B07A", "#FFB38A38"),
+            Skin("ice_world", "Ice World", "Frozen seas, snow-white lands", "globe_ice", "#E4F6FC", "#123A4A",
+                "#7FC4DD", "#F4FAFC", "#CFE6EE", "#DFF6FF40"),
+            Skin("golden", "Golden", "A world cast in gold", "globe_gold", "#FFF0C0", "#3A2A08",
+                "#B8892A", "#F2D06B", "#FFF0B8", "#FFE7A040"),
         };
 
         // Bumerang — palet: [0] bumerang ahşabı, [1] bumerang şeridi.
         public static readonly SkinInfo[] Boomerang =
         {
             Skin("classic", "Classic", "Hand-carved hardwood", "boomerang_classic", "#F3E2C7", "#4A2A18"),
+            Skin("sky_blue", "Sky Blue", "Painted bright blue, quick in the air", "boomerang_blue", "#E2F1FA", "#123A5A",
+                "#3E8FD1", "#BFE8FF"),
+            Skin("carbon", "Carbon", "Black carbon fibre, sharp red edges", "boomerang_carbon", "#E6E8EA", "#16181B",
+                "#2A2D33", "#FF5A48"),
+            Skin("golden", "Golden", "A gleaming golden boomerang", "boomerang_gold", "#FFF0C0", "#3A2A08",
+                "#E2B647", "#FFF4C2"),
         };
 
         // Çömlek — palet: [0] çark gövdesi, [1] çark başlığı, [2] tava, [3] çamur.
         public static readonly SkinInfo[] Pottery =
         {
             Skin("classic", "Classic", "Grey steel wheel, red clay", "pottery_classic", "#EFE3CF", "#3D2A1C"),
+            Skin("kick_wheel", "Kick Wheel", "An old wooden kick wheel, stoneware clay", "pottery_wood", "#F3E7CF", "#3B2A1A",
+                "#6E4B2A", "#B98A55", "#8A5A32", "#8C7A66"),
+            Skin("porcelain", "Porcelain", "White studio wheel, porcelain clay", "pottery_porcelain", "#F2F4F6", "#2A3A4A",
+                "#D5DADF", "#FFFFFF", "#B8C0C8", "#EEE8DC"),
+            Skin("golden", "Golden", "A gilded wheel for a master potter", "pottery_gold", "#FFF0C0", "#3A2A08",
+                "#3A2F1C", "#E6C46E", "#9C7A2E", "#B9733E"),
         };
 
         // Soyacak — palet: [0] demir gövde, [1] kol tutamağı, [2] bıçak.

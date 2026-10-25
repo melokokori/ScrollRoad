@@ -7,7 +7,9 @@ namespace ScrollRoad
     // bir yıl). Her yıl gezegenin kenarında bir yapı yükselir (kulübe, çadır, ağaç...); nadir yıllarda o çağın
     // bir harikası (Stonehenge, Piramitler...) — ilk yükselişinde kroniğe damgalanır. Aşağı scroll: zaman geri
     // akar, gezegen ters döner, son yıllarda yükselenler yeniden toprağa iner, sayaç düşer.
-    // Mekân = çağ: prototipte yalnız İlk Çağ ("The Ancient World"); sonraki çağlar sonraki aşama.
+    // Mekân = çağ (Ortam Standardı v2, 2026-10-25): İlk Çağ → Orta Çağ → Rönesans → Sanayi Çağı → Uzay Çağı,
+    // Dünya'da geçen seyir saatiyle açılır (UnlockLadder). Mekân uzayın ve güneşin rengini verir (Palette:
+    // [0] uzay, [1] güneş); gezegenin renkleri skin takımından (SkinCatalog.Globe).
     public class GlobeEnvironment : IntervalEnvironment
     {
         public static readonly ItemSite Ancient = new ItemSite
@@ -38,7 +40,55 @@ namespace ScrollRoad
             },
         };
 
-        static readonly ItemSite[] AllSites = { Ancient };
+        static Color Hex(string hex) => ColorUtility.TryParseHtmlString(hex, out var c) ? c : Color.magenta;
+
+        static ItemSite Era(string id, string name, ItemType[] commons, ItemType[] specials, string space, string sun) => new ItemSite
+        {
+            Id = id,
+            Name = name,
+            SpecialChance = 0.06f,
+            SpecialMinIndex = 12,
+            Commons = commons,
+            Specials = specials,
+            Palette = new[] { Hex(space), Hex(sun) },
+        };
+
+        static ItemType C(string id, string name, float size) => new ItemType { Id = id, Name = name, Size = size };
+        static ItemType R(string id, string name, float freq, float size) => new ItemType { Id = id, Name = name, Frequency = freq, Size = size };
+
+        public static readonly ItemSite MiddleAges = Era("middle_ages", "The Middle Ages",
+            new[] { C("cottage", "Cottage", 0.6f), C("windmill", "Windmill", 0.85f), C("chapel", "Chapel", 0.75f),
+                    C("market_stall", "Market stall", 0.5f), C("stone_well", "Stone well", 0.45f), C("oak_tree", "Oak tree", 0.8f) },
+            new[] { R("tower_of_pisa", "The Leaning Tower", 30f, 1.05f), R("notre_dame", "Notre-Dame", 24f, 0.95f),
+                    R("hagia_sophia", "Hagia Sophia", 18f, 0.9f), R("alhambra", "The Alhambra", 14f, 0.8f),
+                    R("angkor_wat", "Angkor Wat", 9f, 0.9f), R("machu_picchu", "Machu Picchu", 5f, 0.85f) },
+            "#1E1B36", "#FFD27A");
+
+        public static readonly ItemSite Renaissance = Era("renaissance", "The Renaissance",
+            new[] { C("townhouse", "Townhouse", 0.65f), C("cypress", "Cypress tree", 0.85f), C("fountain", "Fountain", 0.5f),
+                    C("bell_tower", "Bell tower", 0.95f), C("stone_bridge", "Stone bridge", 0.5f), C("workshop", "Workshop", 0.6f) },
+            new[] { R("florence_dome", "The Florence Dome", 30f, 0.95f), R("st_peters", "St Peter's Basilica", 24f, 0.95f),
+                    R("taj_mahal", "The Taj Mahal", 18f, 0.95f), R("forbidden_city", "The Forbidden City", 14f, 0.8f),
+                    R("st_basils", "St Basil's Cathedral", 9f, 1.0f), R("versailles", "Versailles", 5f, 0.75f) },
+            "#2A1F3D", "#FFC870");
+
+        public static readonly ItemSite Industrial = Era("industrial", "The Industrial Age",
+            new[] { C("factory", "Factory", 0.8f), C("brick_house", "Brick house", 0.6f), C("water_tower", "Water tower", 0.9f),
+                    C("locomotive", "Locomotive", 0.5f), C("gas_lamp", "Gas lamp", 0.7f), C("terrace", "Terraced houses", 0.6f) },
+            new[] { R("big_ben", "Big Ben", 30f, 1.15f), R("eiffel_tower", "The Eiffel Tower", 24f, 1.25f),
+                    R("statue_of_liberty", "The Statue of Liberty", 18f, 1.1f), R("tower_bridge", "Tower Bridge", 14f, 0.85f),
+                    R("crystal_palace", "The Crystal Palace", 9f, 0.75f), R("brooklyn_bridge", "Brooklyn Bridge", 5f, 0.8f) },
+            "#2B2933", "#FFA552");
+
+        public static readonly ItemSite SpaceAge = Era("space_age", "The Space Age",
+            new[] { C("apartments", "Apartment block", 0.8f), C("radio_mast", "Radio mast", 0.95f), C("satellite_dish", "Satellite dish", 0.6f),
+                    C("modern_house", "Modern house", 0.55f), C("petrol_station", "Petrol station", 0.55f), C("wind_turbine", "Wind turbine", 0.95f) },
+            new[] { R("sydney_opera", "The Sydney Opera House", 30f, 0.8f), R("cn_tower", "The CN Tower", 24f, 1.3f),
+                    R("atomium", "The Atomium", 18f, 1.0f), R("burj_khalifa", "Burj Khalifa", 14f, 1.35f),
+                    R("observatory_dome", "The Great Telescope", 9f, 0.85f), R("launch_pad", "The Moon Rocket", 5f, 1.3f) },
+            "#0B1026", "#F5F1E0");
+
+        static readonly ItemSite[] AllSites = { Ancient, MiddleAges, Renaissance, Industrial, SpaceAge };
 
         public override EnvironmentDef Def => EnvironmentCatalog.Globe;
         protected override string SaveKey => "ScrollRoad_Globe";

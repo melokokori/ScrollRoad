@@ -873,16 +873,9 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi), altında durum plakası.
+            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
             var envGauge = CreateEnvGauge(root.transform, env.Def.Id, 128f);
             Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
-            var statusPlate = Plate(root.transform, "StatusPlate", PlateDark, RoundSprite);
-            Anchor(statusPlate.rectTransform, new Vector2(0, 1), new Vector2(16, -138), new Vector2(0, 1));
-            statusPlate.rectTransform.sizeDelta = new Vector2(120, 20);
-            var status = Tmp(statusPlate.transform, "Status", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.Center);
-            status.characterSpacing = 8;
-            Stretch(status.rectTransform);
-            FitToWidth(status, 6f);
 
             var sign = CreateSign(root.transform, "SiteSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
@@ -901,7 +894,6 @@ namespace ScrollRoad.EditorTools
             var controller = new GameObject(env.Def.Id + "HudController").AddComponent<IntervalHudController>();
             Bind(controller, "env", env);
             Bind(controller, "root", root);
-            Bind(controller, "statusText", status);
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);
             Bind(controller, "nextText", next);

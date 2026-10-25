@@ -44,7 +44,51 @@ namespace ScrollRoad
             },
         };
 
-        static readonly ItemSite[] AllSites = { Outback };
+        static Color Hex(string hex) => ColorUtility.TryParseHtmlString(hex, out var c) ? c : Color.magenta;
+        static ItemType T(string id, string name, float size, float value) => new ItemType { Id = id, Name = name, Size = size, Value = value };
+        static ItemType R(string id, string name, float freq, float size, float value) => new ItemType { Id = id, Name = name, Frequency = freq, Size = size, Value = value };
+
+        // Ortam Standardı v2 (2026-10-25): dört yeni atış alanı. Palette: [0] gök, [1] toprak, [2] toprak kenarı,
+        // [3] uzak tepe, [4] çalı.
+        static ItemSite Field(string id, string name, ItemType[] commons, ItemType[] specials, params string[] palette) => new ItemSite
+        {
+            Id = id, Name = name, SpecialChance = 0.015f, SpecialMinIndex = 12,
+            Commons = commons, Specials = specials, Palette = System.Array.ConvertAll(palette, Hex),
+        };
+
+        public static readonly ItemSite Beach = Field("beach", "The Beach",
+            new[] { T("sandcastle", "Sandcastle", 1.0f, 22f), T("coconut_post", "Coconut on a post", 1.2f, 24f), T("beach_ball", "Beach ball", 1.15f, 22f),
+                    T("sand_bucket", "Sand bucket", 1.0f, 24f), T("driftwood", "Driftwood target", 1.2f, 26f), T("buoy_post", "Buoy", 1.2f, 28f) },
+            new[] { R("ship_bell", "The Ship's Bell", 30f, 1.45f, 45f), R("message_bottle", "The Message in a Bottle", 24f, 1.4f, 50f),
+                    R("giant_conch", "The Giant Conch", 18f, 1.4f, 52f), R("surf_trophy", "The Surf Trophy", 14f, 1.6f, 55f),
+                    R("pirate_flag", "The Pirate Flag", 9f, 1.9f, 58f), R("golden_pearl", "The Golden Pearl", 5f, 1.4f, 60f) },
+            "#BFE6F2", "#E8D3A2", "#D2B57E", "#9CC9C9", "#8FB36A");
+
+        public static readonly ItemSite Prairie = Field("prairie", "The Prairie",
+            new[] { T("hay_bale", "Hay bale", 1.0f, 22f), T("scarecrow", "Scarecrow", 1.3f, 24f), T("milk_churn", "Milk churn", 1.0f, 22f),
+                    T("watering_can", "Watering can", 1.1f, 24f), T("horseshoe_post", "Horseshoe post", 1.15f, 26f), T("birdhouse", "Birdhouse", 1.25f, 28f) },
+            new[] { R("rooster_vane", "The Rooster Vane", 30f, 1.8f, 45f), R("cow_bell", "The Cow Bell", 24f, 1.45f, 50f),
+                    R("blue_ribbon", "The Blue Ribbon", 18f, 1.5f, 52f), R("windpump", "The Windpump", 14f, 1.9f, 55f),
+                    R("barn_lantern", "The Barn Lantern", 9f, 1.5f, 58f), R("golden_horseshoe", "The Golden Horseshoe", 5f, 1.4f, 60f) },
+            "#CFE3F0", "#9BB760", "#7E9A4A", "#8FA86A", "#6E8A3E");
+
+        public static readonly ItemSite Snowfield = Field("snowfield", "The Snowfield",
+            new[] { T("snowman", "Snowman", 1.2f, 22f), T("ice_block", "Ice block", 1.0f, 22f), T("sled", "Wooden sled", 1.0f, 24f),
+                    T("ski_post", "Skis on a post", 1.25f, 26f), T("pine_cone", "Giant pine cone", 1.1f, 24f), T("snowball_stack", "Snowball stack", 1.0f, 28f) },
+            new[] { R("sleigh_bell", "The Sleigh Bell", 30f, 1.45f, 45f), R("ice_crystal", "The Ice Crystal", 24f, 1.6f, 50f),
+                    R("aurora_kite", "The Aurora Kite", 18f, 1.9f, 52f), R("igloo_lantern", "The Igloo Lantern", 14f, 1.4f, 55f),
+                    R("ice_trophy", "The Ice Trophy", 9f, 1.5f, 58f), R("snow_globe", "The Snow Globe", 5f, 1.4f, 60f) },
+            "#DDE9F2", "#F4F7FA", "#D3DEE8", "#B8C8D8", "#5E7F6E");
+
+        public static readonly ItemSite Ruins = Field("ruins", "The Old Ruins",
+            new[] { T("stone_urn", "Stone urn", 1.1f, 22f), T("clay_mask", "Clay mask", 1.15f, 24f), T("totem_post", "Totem post", 1.3f, 26f),
+                    T("carved_tablet", "Carved tablet", 1.15f, 24f), T("torch_post", "Torch post", 1.3f, 26f), T("monkey_statue", "Monkey statue", 1.1f, 28f) },
+            new[] { R("jade_idol", "The Jade Idol", 30f, 1.4f, 45f), R("sun_disc", "The Sun Disc", 24f, 1.6f, 50f),
+                    R("temple_bell", "The Temple Bell", 18f, 1.5f, 52f), R("feather_crown", "The Feather Crown", 14f, 1.5f, 55f),
+                    R("ruby_eye", "The Ruby Eye", 9f, 1.4f, 58f), R("golden_mask", "The Golden Mask", 5f, 1.45f, 60f) },
+            "#CFE8DD", "#8A7A55", "#6E6044", "#5E8A5A", "#3E7A4A");
+
+        static readonly ItemSite[] AllSites = { Outback, Beach, Prairie, Snowfield, Ruins };
 
         public override EnvironmentDef Def => EnvironmentCatalog.Boomerang;
         protected override string SaveKey => "ScrollRoad_Boomerang";

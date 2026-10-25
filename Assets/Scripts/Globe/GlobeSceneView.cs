@@ -44,6 +44,7 @@ namespace ScrollRoad
         static readonly Color StripGround = new Color(0.50f, 0.68f, 0.40f);
 
         Sprite planetSprite, shadowSprite;
+        string planetSkin; // gezegen dokusu bu takımın renkleriyle üretildi
         SpriteRenderer sunGlow, sun, atmosphere, planet, shade, hand;
         SpriteRenderer[] stars, items, ground;
 
@@ -81,7 +82,8 @@ namespace ScrollRoad
 
         protected override void Draw(bool strip, bool night, float left, float right, float top, float bottom)
         {
-            Background(strip, Space);
+            // Ortam Standardı v2: mekân (çağ) uzayın ve güneşin rengini, skin takımı gezegeni boyar.
+            Background(strip, Look(0, Space));
             double position = env.Position;
             float globeAngle = (float)(position * GlobeEnvironment.DegreesPerPoint % 360.0);
 
@@ -92,9 +94,10 @@ namespace ScrollRoad
 
             if (!strip)
             {
-                if (planetSprite == null)
+                if (planetSprite == null || planetSkin != env.SkinId)
                 {
-                    planetSprite = CreatePlanetSprite(256);
+                    planetSkin = env.SkinId;
+                    planetSprite = CreatePlanetSprite(256, Tint(0, Ocean), Tint(1, LandGreen), Tint(2, LandTan));
                     planet.sprite = planetSprite;
                 }
                 for (int i = 0; i < StarCount; i++)
@@ -105,10 +108,10 @@ namespace ScrollRoad
                     float d = 0.03f + hs * 0.04f;
                     PlaceRect(stars[i], x, y, d, d, WithAlpha(Color.white, night ? 0.75f : 0.55f + hs * 0.3f));
                 }
-                var sunC = WorldTheme.Surface(SunColor);
+                var sunC = WorldTheme.Surface(Look(1, SunColor));
                 PlaceRect(sunGlow, SunPos.x, SunPos.y, 1.5f, 1.5f, WithAlpha(sunC, 0.07f));
                 PlaceRect(sun, SunPos.x, SunPos.y, 1.0f, 1.0f, Opaque(sunC));
-                PlaceRect(atmosphere, Center.x, Center.y, Radius * 2.16f, Radius * 2.16f, WorldTheme.Surface(Atmosphere));
+                PlaceRect(atmosphere, Center.x, Center.y, Radius * 2.16f, Radius * 2.16f, WorldTheme.Surface(Tint(3, Atmosphere)));
                 PlaceRect(planet, Center.x, Center.y, Radius * 2f, Radius * 2f, Opaque(WorldTheme.Surface(Color.white) * (night ? 0.85f : 1f)), globeAngle);
                 PlaceRect(shade, Center.x, Center.y, Radius * 2.01f, Radius * 2.01f, Opaque(Shadow));
             }
@@ -121,7 +124,8 @@ namespace ScrollRoad
                 {
                     float x = x0 + (k + 0.5f) * segW;
                     float theta = StripTheta(x);
-                    var c = Color.Lerp(StripGround * 0.45f, StripGround, Light(theta));
+                    var groundColor = Tint(1, StripGround);
+                    var c = Color.Lerp(groundColor * 0.45f, groundColor, Light(theta));
                     c = WorldTheme.Surface(c);
                     c.a = 0.95f;
                     PlaceRect(ground[k], x, -0.08f, segW + 0.02f, 0.16f, c);
@@ -241,7 +245,7 @@ namespace ScrollRoad
         static float Hash(int i, int salt) => (float)VisitorCatalog.Hash01(0x5EEDUL, i, salt);
 
         // Okyanus + değer gürültüsüyle kıtalar (yeşil, yer yer kum rengi). Gezegenle birlikte döner.
-        static Sprite CreatePlanetSprite(int size)
+        static Sprite CreatePlanetSprite(int size, Color ocean, Color landGreen, Color landTan)
         {
             var tex = new Texture2D(size, size, TextureFormat.RGBA32, false) { filterMode = FilterMode.Bilinear, wrapMode = TextureWrapMode.Clamp };
             var px = new Color32[size * size];
@@ -261,10 +265,10 @@ namespace ScrollRoad
                 float u = x / (float)size, v = y / (float)size;
                 float n = Fbm(u * 5f, v * 5f, 11);
                 float edge = d / r; // kıyıya yakın kıtalar biraz küçülsün (kenarda okyanus)
-                Color col = Ocean;
+                Color col = ocean;
                 if (n - edge * 0.12f > 0.56f)
                 {
-                    col = Fbm(u * 9f, v * 9f, 37) > 0.62f ? LandTan : LandGreen;
+                    col = Fbm(u * 9f, v * 9f, 37) > 0.62f ? landTan : landGreen;
                 }
                 px[y * size + x] = new Color(col.r, col.g, col.b, a);
             }

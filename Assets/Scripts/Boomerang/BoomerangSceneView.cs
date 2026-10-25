@@ -25,13 +25,22 @@ namespace ScrollRoad
         // Bir atışta bumerangın toplam tur sayısı ölçeği (dönüş hızı evrelere göre değişir).
         const float TurnsPerThrow = 30f;
 
-        static readonly Color Sky = new Color(0.80f, 0.89f, 0.95f);
-        static readonly Color Earth = new Color(0.80f, 0.46f, 0.28f);
-        static readonly Color EarthDark = new Color(0.66f, 0.35f, 0.22f);
-        static readonly Color Mesa = new Color(0.78f, 0.48f, 0.36f);
-        static readonly Color Bush = new Color(0.55f, 0.60f, 0.36f);
-        static readonly Color Wood = new Color(0.74f, 0.47f, 0.24f);
-        static readonly Color Spark = new Color(1f, 0.85f, 0.35f);
+        // Ortam Standardı v2: mekân gök/toprak/uzak tepe/çalıyı (ItemSite.Palette 0-4), skin takımı bumerangı ve
+        // vuruş kıvılcımını boyar (SkinInfo.Palette 0-1). Varsayılanlar Outback ve Klasik.
+        static readonly Color SkyDefault = new Color(0.80f, 0.89f, 0.95f);
+        static readonly Color EarthDefault = new Color(0.80f, 0.46f, 0.28f);
+        static readonly Color EarthDarkDefault = new Color(0.66f, 0.35f, 0.22f);
+        static readonly Color MesaDefault = new Color(0.78f, 0.48f, 0.36f);
+        static readonly Color BushDefault = new Color(0.55f, 0.60f, 0.36f);
+        static readonly Color WoodDefault = new Color(0.74f, 0.47f, 0.24f);
+        static readonly Color SparkDefault = new Color(1f, 0.85f, 0.35f);
+        Color Sky => Look(0, SkyDefault);
+        Color Earth => Look(1, EarthDefault);
+        Color EarthDark => Look(2, EarthDarkDefault);
+        Color Mesa => Look(3, MesaDefault);
+        Color Bush => Look(4, BushDefault);
+        Color Wood => Tint(0, WoodDefault);
+        Color Spark => Tint(1, SparkDefault);
 
         Sprite boomerangSprite;
         SpriteRenderer mesa, mesaTop, ground, groundEdge, thrower, boomerang, nextTarget, lastTarget;
