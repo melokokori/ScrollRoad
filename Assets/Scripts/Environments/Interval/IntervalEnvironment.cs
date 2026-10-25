@@ -103,7 +103,7 @@ namespace ScrollRoad
         public ItemType LastSpecial => state == null ? null : Site.GetSpecial(state.lastSpecialId);
 
         public EnvItem Identify(long index) => IntervalCatalog.Identify(state.month, HashKey, Site, index, EnvironmentContent.FocusOf(Def.Id),
-            EnvironmentContent.GuaranteeIndex(Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
+            EnvironmentContent.GuaranteeFor(Def.Id, Site.Id, Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
 
         public int LoggedAt(ItemSite site)
         {
@@ -132,6 +132,7 @@ namespace ScrollRoad
         }
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
+        public long NextItemIndex => state.monthBest + 1;
         public virtual string SkinNoun => "look";
         public virtual string SkinBoxName => "Looks";
         public virtual SkinInfo[] Skins => EnvironmentContent.ClassicOnly;

@@ -39,7 +39,7 @@ namespace ScrollRoad
         public BuildingType LastSpecial => GridCatalog.GetSpecial(state.lastSpecialId);
 
         public GridCatalog.Building Identify(long index) => GridCatalog.Identify(state.month, Site, index, EnvironmentContent.FocusOf(EnvironmentId.Wind),
-            EnvironmentContent.GuaranteeIndex(Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
+            EnvironmentContent.GuaranteeFor(EnvironmentId.Wind, Site.Id, Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
 
         public int LoggedAt(WindSite site)
         {
@@ -67,6 +67,7 @@ namespace ScrollRoad
             Array.ConvertAll(GridCatalog.GetSite(venueId).Specials, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
+        public long NextItemIndex => state.monthBest + 1;
         public string SkinNoun => "look";
         public string SkinBoxName => "Looks";
         public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;

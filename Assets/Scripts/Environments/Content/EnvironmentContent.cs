@@ -43,6 +43,9 @@ namespace ScrollRoad
         bool IsLogged(string rareId);
         int TimesFound(string rareId);   // kaç kez geldi (dönüş özeti farkı)
 
+        // Sıradaki tamamlanacak öğenin ayın kaçıncısı olduğu (sipariş ödülü bunun birkaç öğe ilerisine konur).
+        long NextItemIndex { get; }
+
         string SkinNoun { get; }         // duyurularda: "tackle", "look"
         string SkinBoxName { get; }      // Dolap'ın adı (çekmece satırı ve panel başlığı): "Tackle box"
         SkinInfo[] Skins { get; }        // merdiven sırasıyla; ilki hep açık
@@ -53,13 +56,33 @@ namespace ScrollRoad
         IEnumerable<string> LegacyAnnounced { get; }
     }
 
-    // Ortamdan bağımsız, ortak içerik kaydı (yerel PlayerPrefs JSON): Odak seçimi ve duyurulmuş açılmalar.
+    // Ortamdan bağımsız, ortak içerik kaydı (yerel PlayerPrefs JSON): Odak seçimi, duyurulmuş açılmalar ve
+    // sipariş ödülü (Dayanak 4: o mekânın eksik bir nadiri ayın rewardIndex. öğesinde gelir).
     [Serializable]
     public class ContentState
     {
         public bool migrated;
         public string focus = "";   // seçili mekânın Odak'taki nadiri (RareInfo.Id); boş = yok
         public List<string> announced = new List<string>(); // "venue:<id>" / "skin:<id>"
+        public string rewardMonth = "";
+        public string rewardVenue = "";
+        public string rewardRare = "";
+        public long rewardIndex;
+    }
+
+    // Kimlik fonksiyonlarına (Identify) geçen garanti: ayın Index. öğesi nadirdir; Rare doluysa tam o nadir.
+    // Varsayılan (Index 0) hiçbir öğeye denk gelmez (sıra 1'den başlar).
+    public struct RareGuarantee
+    {
+        public long Index;
+        public string Rare;
+
+        public T Pick<T>(long index, T chosen, T[] specials, Func<T, string> id) where T : class
+        {
+            if (index != Index || string.IsNullOrEmpty(Rare)) return chosen;
+            string rare = Rare;
+            return Array.Find(specials, s => id(s) == rare) ?? chosen;
+        }
     }
 
     public static class EnvironmentContent
@@ -187,6 +210,34 @@ namespace ScrollRoad
         // verilince o ay boyunca geçerli kalır (geri sarıp yeniden gelen aynı öğedir), sonraki aylarda yoktur.
         // Olta'da her balık zaten deftere girer (ilk balık ~20 dk), garanti yok.
         public const double FirstRarePoints = UnlockLadder.PointsPerHour / 6.0;
+
+        // Bu ayın garantisi: önce bekleyen sipariş ödülü (bu mekân için), yoksa ilk nadir garantisi.
+        public static RareGuarantee GuaranteeFor(EnvironmentId env, string venueId, double interval, bool logEmpty, string firstMonth, string month)
+        {
+            var st = State(env);
+            if (st.rewardMonth == month && st.rewardVenue == venueId && !string.IsNullOrEmpty(st.rewardRare))
+                return new RareGuarantee { Index = st.rewardIndex, Rare = st.rewardRare };
+            return new RareGuarantee { Index = GuaranteeIndex(interval, logEmpty, firstMonth, month) };
+        }
+
+        // Sipariş ödülü: mekânın henüz bulunmamış nadirlerinden biri birkaç öğe sonra gelir (Olta'da bir sonraki
+        // atışta). Mekânda eksik yoksa false (yalnız sipariş defterine damga).
+        public static bool GrantReward(IEnvironmentContent c, string venueId, Random rng, out string rareName)
+        {
+            rareName = null;
+            var missing = Array.FindAll(c.RaresAt(venueId), r => !c.IsLogged(r.Id));
+            if (missing.Length == 0) return false;
+            var rare = missing[rng.Next(missing.Length)];
+            var st = State(c.Def.Id);
+            st.rewardMonth = DateTimeOffset.UtcNow.ToString("yyyy-MM");
+            st.rewardVenue = venueId;
+            st.rewardRare = rare.Id;
+            st.rewardIndex = c.NextItemIndex + rng.Next(2, 9);
+            Save(c.Def.Id);
+            Notify(c.Def.Id);
+            rareName = rare.Name;
+            return true;
+        }
 
         // Garantili öğenin ayın kaçıncı öğesi olduğu; garanti yoksa -1.
         public static long GuaranteeIndex(double interval, bool logEmpty, string guaranteeMonth, string month)

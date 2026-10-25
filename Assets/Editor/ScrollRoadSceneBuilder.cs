@@ -495,7 +495,7 @@ namespace ScrollRoad.EditorTools
             Bind(unlocks, "drive", drive);
             Bind(unlocks, "catalog", LoadCarCatalog());
             Bind(unlocks, "notice", notice);
-            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing, door, wind, vinyl);
+            var menu = CreateMenu(drive, stats, goals, companion, windowButtons, fishing, door, wind, vinyl, notice);
             CreateOnboarding(companion, menu);
             CreateCompanionHud(drive, secret, companion, notice);
 
@@ -1008,7 +1008,7 @@ namespace ScrollRoad.EditorTools
         // ≡ çekmecesi (yeşil çıkış tabelası) + kartı kaplayan paneller (Passport, Leaderboard, Garage, Stats, Settings).
         static CardMenuController CreateMenu(RoadDrive drive, StatsTracker stats, GoalTracker goals,
             CompanionWindowController companion, WindowButtons windowButtons, FishingController fishing, DoorController door,
-            WindController wind, VinylController vinyl)
+            WindController wind, VinylController vinyl, NoticeController notice)
         {
             var canvas = CreateCanvas("MenuCanvas", 10);
 
@@ -1046,6 +1046,12 @@ namespace ScrollRoad.EditorTools
             Anchor(sub.rectTransform, new Vector2(0, 1), new Vector2(20, -58), new Vector2(0, 1));
             sub.rectTransform.sizeDelta = new Vector2(208, 30);
             sub.lineSpacing = 6;
+            sub.raycastTarget = true; // üst satır siparişleri açar
+            var ordersButton = sub.gameObject.AddComponent<Button>();
+            ordersButton.targetGraphic = sub;
+            var subColors = ordersButton.colors;
+            subColors.highlightedColor = new Color(1f, 0.92f, 0.7f);
+            ordersButton.colors = subColors;
 
             // Activities = ortam seçici (2026-10-13). "Passport" satırı Olta'da "Fish log" olur. Places = mekânlar + Odak
             // (Ortam Standardı v2, 2026-10-25); 8 satır sığsın diye satır aralığı 26.
@@ -1123,13 +1129,131 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "lastMonthTab", lastMonth);
             Bind(menu, "leaderboardCloseButton", lbClose);
             var returnSummary = CreateReturnSummaryPanel(canvas.transform, companion, places);
-            var subPanels = new List<Object> { returnSummary.Panel, passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
+            var orders = CreateOrdersPanel(canvas.transform, ordersButton, notice);
+            var subPanels = new List<Object> { returnSummary.Panel, orders.Panel, passport.Panel, garage.Panel, settings.Panel, statsCtrl.Panel, activities.Panel, places.Panel, fishLog.Panel, guestBook.Panel, gridLog.Panel, crateLog.Panel, skinBox.Panel };
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
             return menu;
+        }
+
+        // Siparişler (Ortam Standardı v2 · Dayanak 4): üstte 3 günlük sipariş kartı (ortam görseli, iş, ortam / sonuç,
+        // ilerleme çubuğu), altta haftalık sipariş şeridi. Çekmece başlığının alt satırı açar.
+        static OrdersController CreateOrdersPanel(Transform parent, Button openButton, NoticeController notice)
+        {
+            var panel = CreatePanel(parent, "OrdersPanel", "Orders", out var close, out _);
+            var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
+            Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
+            count.rectTransform.sizeDelta = new Vector2(420, 16);
+            count.characterSpacing = 2;
+
+            RectTransform Bar(Transform p, Vector2 pos, Vector2 size, Vector2 anchor)
+            {
+                var track = Plate(p, "Track", new Color(1f, 1f, 1f, 0.10f), RoundSprite);
+                track.rectTransform.anchorMin = track.rectTransform.anchorMax = anchor;
+                SetRect(track.rectTransform, pos, size);
+                var fill = Plate(track.transform, "Fill", new Color(0.949f, 0.702f, 0.239f), RoundSprite);
+                fill.rectTransform.anchorMin = Vector2.zero;
+                fill.rectTransform.anchorMax = new Vector2(0f, 1f);
+                fill.rectTransform.offsetMin = fill.rectTransform.offsetMax = Vector2.zero;
+                return fill.rectTransform;
+            }
+
+            const int n = 3;
+            const float gap = 20f, cardH = 176f, cardY = 18f;
+            float cardW = (748f - (n - 1) * gap) / n;
+            var frames = new Object[n];
+            var thumbs = new Object[n];
+            var titles = new Object[n];
+            var subtitles = new Object[n];
+            var fills = new Object[n];
+            var progress = new Object[n];
+            for (int i = 0; i < n; i++)
+            {
+                float x = (i - (n - 1) / 2f) * (cardW + gap);
+                var frame = Plate(panel.transform, $"Order_{i}", Color.white, RoundSprite);
+                frame.rectTransform.anchorMin = frame.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                SetRect(frame.rectTransform, new Vector2(x, cardY), new Vector2(cardW, cardH));
+                var cell = Plate(frame.transform, "Cell", Cell, RoundSprite);
+                Stretch(cell.rectTransform);
+                cell.rectTransform.offsetMin = new Vector2(3f, 3f);
+                cell.rectTransform.offsetMax = new Vector2(-3f, -3f);
+
+                var thumbGo = new GameObject("Thumb", typeof(RectTransform), typeof(Image));
+                thumbGo.transform.SetParent(frame.transform, false);
+                var thumb = thumbGo.GetComponent<Image>();
+                thumb.preserveAspect = true;
+                thumb.raycastTarget = false;
+                var tr = (RectTransform)thumbGo.transform;
+                tr.anchorMin = tr.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(tr, new Vector2(0f, -34f), new Vector2(cardW - 30f, 48f));
+
+                var title = Tmp(frame.transform, "Title", "", 13, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Top);
+                title.textWrappingMode = TextWrappingModes.Normal;
+                title.rectTransform.anchorMin = title.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(title.rectTransform, new Vector2(0f, -86f), new Vector2(cardW - 20f, 36f));
+                FitToWidth(title, 10f);
+                var subtitle = Tmp(frame.transform, "Subtitle", "", 9.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Top);
+                subtitle.textWrappingMode = TextWrappingModes.Normal;
+                subtitle.rectTransform.anchorMin = subtitle.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+                SetRect(subtitle.rectTransform, new Vector2(0f, -122f), new Vector2(cardW - 20f, 26f));
+
+                var fill = Bar(frame.transform, new Vector2(-34f, 18f), new Vector2(cardW - 92f, 7f), new Vector2(0.5f, 0f));
+                var value = Tmp(frame.transform, "Progress", "", 10f, UiFonts.Mono, Color.white, TextAlignmentOptions.Right);
+                value.rectTransform.anchorMin = value.rectTransform.anchorMax = new Vector2(1f, 0f);
+                value.rectTransform.pivot = new Vector2(1f, 0.5f);
+                SetRect(value.rectTransform, new Vector2(-12f, 18f), new Vector2(70f, 14f));
+                value.rectTransform.anchoredPosition = new Vector2(-12f, 18f);
+
+                frames[i] = frame;
+                thumbs[i] = thumb;
+                titles[i] = title;
+                subtitles[i] = subtitle;
+                fills[i] = fill;
+                progress[i] = value;
+            }
+
+            var weekly = Plate(panel.transform, "Weekly", Color.white, RoundSprite);
+            weekly.rectTransform.anchorMin = weekly.rectTransform.anchorMax = new Vector2(0.5f, 0f);
+            SetRect(weekly.rectTransform, new Vector2(0f, 42f), new Vector2(748f, 48f));
+            var weeklyCell = Plate(weekly.transform, "Cell", Cell, RoundSprite);
+            Stretch(weeklyCell.rectTransform);
+            weeklyCell.rectTransform.offsetMin = new Vector2(3f, 3f);
+            weeklyCell.rectTransform.offsetMax = new Vector2(-3f, -3f);
+            var weeklyTitle = Tmp(weekly.transform, "Title", "", 12, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
+            weeklyTitle.rectTransform.anchorMin = weeklyTitle.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+            weeklyTitle.rectTransform.pivot = new Vector2(0f, 0.5f);
+            SetRect(weeklyTitle.rectTransform, new Vector2(16f, 0f), new Vector2(470f, 18f));
+            weeklyTitle.rectTransform.anchoredPosition = new Vector2(16f, 0f);
+            FitToWidth(weeklyTitle, 9f);
+            var weeklyFill = Bar(weekly.transform, new Vector2(-150f, 0f), new Vector2(160f, 7f), new Vector2(1f, 0.5f));
+            var weeklyValue = Tmp(weekly.transform, "Progress", "", 10f, UiFonts.Mono, Color.white, TextAlignmentOptions.Right);
+            weeklyValue.rectTransform.anchorMin = weeklyValue.rectTransform.anchorMax = new Vector2(1f, 0.5f);
+            weeklyValue.rectTransform.pivot = new Vector2(1f, 0.5f);
+            SetRect(weeklyValue.rectTransform, new Vector2(-14f, 0f), new Vector2(60f, 14f));
+            weeklyValue.rectTransform.anchoredPosition = new Vector2(-14f, 0f);
+
+            panel.SetActive(false);
+            var controller = new GameObject("OrdersController").AddComponent<OrdersController>();
+            Bind(controller, "notice", notice);
+            Bind(controller, "panel", panel);
+            Bind(controller, "openButton", openButton);
+            Bind(controller, "closeButton", close);
+            Bind(controller, "countText", count);
+            BindArray(controller, "cardFrames", frames);
+            BindArray(controller, "cardThumbs", thumbs);
+            BindArray(controller, "cardTitles", titles);
+            BindArray(controller, "cardSubtitles", subtitles);
+            BindArray(controller, "cardFills", fills);
+            BindArray(controller, "cardProgress", progress);
+            Bind(controller, "weeklyFrame", weekly);
+            Bind(controller, "weeklyTitle", weeklyTitle);
+            Bind(controller, "weeklyFill", weeklyFill);
+            Bind(controller, "weeklyProgress", weeklyValue);
+            BindArray(controller, "activityPictures", ActivityPictures());
+            return controller;
         }
 
         // Dönüş anı (Ortam Standardı v2 · Dayanak 1): kartı kaplayan özet — başlıkta geçen süre, büyük kazanılan
@@ -1327,6 +1451,15 @@ namespace ScrollRoad.EditorTools
             return controller;
         }
 
+        // Ortamların kart görselleri, EnvironmentCatalog.All sırasıyla (Activities ve Orders).
+        static Sprite[] ActivityPictures()
+        {
+            var pictureList = new List<Sprite> { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(DoorArt + "walker_coat.png"),
+                LoadArtSprite(WindArt + "turbine_card.png"), LoadArtSprite(VinylArt + "turntable_card.png") };
+            foreach (var setup in intervalSetups) pictureList.Add(setup.Card);
+            return pictureList.ToArray();
+        }
+
         // Ortam seçici: her ortam bir kart (küçük görsel, ad, tarif, birim; durum satırı). Hepsi baştan
         // açık. Kartlar EnvironmentCatalog.All sırasıyla.
         static ActivitiesController CreateActivitiesPanel(Transform parent, Button openButton)
@@ -1338,10 +1471,7 @@ namespace ScrollRoad.EditorTools
             hint.rectTransform.sizeDelta = new Vector2(700, 16);
 
             var all = EnvironmentCatalog.All;
-            var pictureList = new List<Sprite> { LoadArtSprite(AppIconPath), LoadArtSprite(FishingArt + "fisherman.png"), LoadArtSprite(DoorArt + "walker_coat.png"),
-                LoadArtSprite(WindArt + "turbine_card.png"), LoadArtSprite(VinylArt + "turntable_card.png") };
-            foreach (var setup in intervalSetups) pictureList.Add(setup.Card);
-            var pictures = pictureList.ToArray();
+            var pictures = ActivityPictures();
             int n = all.Length;
             var buttons = new Object[n];
             var frames = new Object[n];

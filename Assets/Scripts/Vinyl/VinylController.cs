@@ -38,7 +38,7 @@ namespace ScrollRoad
         public string Month => state.month;
 
         public RecordCatalog.Record Identify(long recordIndex) => RecordCatalog.Identify(state.month, Shop, recordIndex, EnvironmentContent.FocusOf(EnvironmentId.Vinyl),
-            EnvironmentContent.GuaranteeIndex(Interval * RecordCatalog.TracksPerRecord, state.log.Count == 0, state.guaranteeMonth, state.month));
+            EnvironmentContent.GuaranteeFor(EnvironmentId.Vinyl, Shop.Id, Interval * RecordCatalog.TracksPerRecord, state.log.Count == 0, state.guaranteeMonth, state.month));
         public RecordCatalog.Record Current => Identify(RecordIndex);
         public ulong CurrentTrackSeed => RecordCatalog.TrackSeed(state.month, Shop, TracksDone);
 
@@ -68,6 +68,7 @@ namespace ScrollRoad
             Array.ConvertAll(RecordCatalog.GetShop(venueId).Specials, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
+        public long NextItemIndex => state.monthBest / RecordCatalog.TracksPerRecord + 2;
         public string SkinNoun => "look";
         public string SkinBoxName => "Looks";
         public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;

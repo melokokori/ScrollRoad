@@ -191,7 +191,7 @@ namespace ScrollRoad
             public float Scale;  // 0,94..1,06 boy çeşitliliği
         }
 
-        public static Visitor Identify(string month, DoorVenue venue, long index, string focus = null, long guaranteeIndex = -1)
+        public static Visitor Identify(string month, DoorVenue venue, long index, string focus = null, RareGuarantee guarantee = default)
         {
             ulong seed = Fnv(month) ^ (Fnv(venue.Id) * 31UL);
             var v = new Visitor
@@ -199,7 +199,7 @@ namespace ScrollRoad
                 Jitter = (float)(Hash01(seed, index, 4) * 2.0 - 1.0),
                 Scale = (float)(0.94 + Hash01(seed, index, 5) * 0.12),
             };
-            bool forced = index == guaranteeIndex;
+            bool forced = index == guarantee.Index;
             if (!forced && venue.Legendary != null && index >= venue.LegendaryMinIndex && Hash01(seed, index, 6) < venue.LegendaryChance)
             {
                 v.Type = venue.Legendary;
@@ -217,6 +217,7 @@ namespace ScrollRoad
                     pick -= EnvironmentContent.Weight(g.Id, g.Frequency, focus);
                     if (pick <= 0) { chosen = g; break; }
                 }
+                chosen = guarantee.Pick(index, chosen, venue.Guests, g => g.Id);
                 v.Type = chosen;
                 v.IsGuest = true;
                 return v;

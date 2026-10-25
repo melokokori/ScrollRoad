@@ -148,10 +148,12 @@ namespace ScrollRoad
             if (garageLabel != null) garageLabel.text = content != null ? content.SkinBoxName : "Garage";
             if (goals != null)
             {
-                string weekKm = goals.AmountLine(weekly: true);
-                string weekTime = goals.IsDone(GoalTracker.Goal.WeeklyTime)
-                    ? $"{goals.WeeklyHoursGoal:0} h done" : $"{goals.WeekHours:0.0} / {goals.WeeklyHoursGoal:0} h";
-                headerSubText.text = $"Week  {weekKm}  ·  {weekTime}\nStreak  {Fmt.Count(goals.DayStreak, "day")}  ·  {Fmt.Count(goals.WeekStreak, "week")}";
+                // Üst satır siparişler (Ortam Standardı v2 · Dayanak 4; tıklanınca Orders paneli açılır).
+                var orders = OrdersController.Instance;
+                string top = orders != null
+                    ? $"Orders  {orders.DailyDone} / {orders.DailyCount} today  ·  week {orders.WeeklyValue} / {orders.WeeklyTarget}  ›"
+                    : $"Week  {goals.AmountLine(weekly: true)}";
+                headerSubText.text = $"{top}\nStreak  {Fmt.Count(goals.DayStreak, "day")}  ·  {Fmt.Count(goals.WeekStreak, "week")}";
             }
             if (steamText != null) steamText.text = SteamManager.StatusText.ToUpperInvariant();
         }

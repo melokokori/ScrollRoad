@@ -63,7 +63,7 @@ namespace ScrollRoad
     {
         // Ayın index. öğesi (1'den başlar). Geri sarınca kaybolup yeniden gelen aynı öğedir; tabelada
         // "geliyor" denen nadir öğe gelince de odur. Hash VisitorCatalog'unki (Rüzgârgülü ile aynı kalıp).
-        public static EnvItem Identify(string month, string envKey, ItemSite site, long index, string focus = null, long guaranteeIndex = -1)
+        public static EnvItem Identify(string month, string envKey, ItemSite site, long index, string focus = null, RareGuarantee guarantee = default)
         {
             ulong seed = VisitorCatalog.Fnv(month) ^ (VisitorCatalog.Fnv(envKey + "_" + site.Id) * 31UL);
             var item = new EnvItem
@@ -71,7 +71,7 @@ namespace ScrollRoad
                 Jitter = (float)(VisitorCatalog.Hash01(seed, index, 4) * 2.0 - 1.0),
                 Roll = (float)VisitorCatalog.Hash01(seed, index, 6),
             };
-            if (index == guaranteeIndex || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance))
+            if (index == guarantee.Index || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance))
             {
                 float total = 0f;
                 foreach (var s in site.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
@@ -82,6 +82,7 @@ namespace ScrollRoad
                     pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
                     if (pick <= 0) { chosen = s; break; }
                 }
+                chosen = guarantee.Pick(index, chosen, site.Specials, s => s.Id);
                 item.Type = chosen;
                 item.IsSpecial = true;
                 return item;

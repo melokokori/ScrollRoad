@@ -95,6 +95,7 @@ namespace ScrollRoad
             Array.ConvertAll(FishCatalog.GetSpot(venueId).Species, f => new RareInfo { Id = f.Id, Name = f.Name, Frequency = f.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
+        public long NextItemIndex => state.totalFish + 1;
         public string SkinNoun => "tackle";
         public string SkinBoxName => "Tackle box";
         public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Dial = g.Dial });
@@ -247,6 +248,17 @@ namespace ScrollRoad
         void RollFish()
         {
             var species = FishCatalog.Roll(Spot, rng, state.totalFish, out float kg, EnvironmentContent.FocusOf(EnvironmentId.Fishing));
+            // Sipariş ödülü (Ortam Standardı v2 · Dayanak 4): bu mekânın eksik türü bir sonraki atışta.
+            var content = EnvironmentContent.State(EnvironmentId.Fishing);
+            var reward = content.rewardVenue == Spot.Id ? FishCatalog.Get(content.rewardRare) : null;
+            if (reward != null && Spot.Contains(reward.Id))
+            {
+                species = reward;
+                double r = rng.NextDouble();
+                kg = (float)Math.Round(reward.MinKg + (reward.MaxKg - reward.MinKg) * r * r, 2);
+                content.rewardRare = "";
+                EnvironmentContent.Save(EnvironmentId.Fishing);
+            }
             state.castFishId = species.Id;
             state.castKg = kg;
         }

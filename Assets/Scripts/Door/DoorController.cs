@@ -44,7 +44,7 @@ namespace ScrollRoad
         public bool LastWasNew { get; private set; }
 
         public VisitorCatalog.Visitor Identify(long index) => VisitorCatalog.Identify(state.month, Venue, index, EnvironmentContent.FocusOf(EnvironmentId.Door),
-            EnvironmentContent.GuaranteeIndex(Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
+            EnvironmentContent.GuaranteeFor(EnvironmentId.Door, Venue.Id, Interval, state.log.Count == 0, state.guaranteeMonth, state.month));
 
         public int GuestsLoggedAt(DoorVenue venue)
         {
@@ -77,6 +77,7 @@ namespace ScrollRoad
             Array.ConvertAll(VisitorCatalog.GetVenue(venueId).Guests, r => new RareInfo { Id = r.Id, Name = r.Name, Frequency = r.Frequency });
         public bool IsLogged(string rareId) => state.Find(rareId) != null;
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
+        public long NextItemIndex => state.monthBest + 1;
         public string SkinNoun => "look";
         public string SkinBoxName => "Looks";
         public SkinInfo[] Skins => EnvironmentContent.ClassicOnly;
