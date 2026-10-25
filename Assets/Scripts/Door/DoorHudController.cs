@@ -30,7 +30,7 @@ namespace ScrollRoad
             if (root.activeSelf != show) root.SetActive(show);
             if (!show) return;
 
-            totalText.SetText(EnvironmentCatalog.Door.Format(door.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints));
+            if (totalText != null) totalText.SetText(EnvironmentCatalog.Door.Format(door.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints));
 
             var engine = ScoreEngine.Instance;
             bool active = engine != null && engine.IsUserActive;

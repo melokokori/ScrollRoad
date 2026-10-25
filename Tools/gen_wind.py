@@ -22,7 +22,37 @@ BUILDING = ("{what}, seen exactly from the side like a flat stage set (straight 
             "countryside village style, simple shapes. No ground, no grass, no trees, no people, no fence, no "
             "shadow, no text, no sky")
 
+# Ortam Standardı v2: diğer vadilerin yapıları (BUILDING'in aynısı, stil vadinin).
+VALLEY = ("{what}, seen exactly from the side like a flat stage set (straight side view, no perspective, no "
+          "roof seen from above), standing upright on nothing. {look}. The windows are dark and unlit. {style} style, "
+          "simple shapes. No ground, no grass, no trees, no people, no fence, no shadow, no text, no sky")
+
 TARIFLER = {
+    # ---- Ortam Standardı v2 (2026-10-25): Kıyı, Çöl, Karlı Geçit, Şehir
+    "fish_market": VALLEY.format(what="a seaside fish market hall", look="Pale blue painted wooden walls, a striped blue and white awning, crates of fish under it", style="Seaside town"),
+    "lighthouse": VALLEY.format(what="a tall red and white striped lighthouse with a small keeper's cottage", look="Red and white bands, a black lantern room on top", style="Seaside town"),
+    "boathouse": VALLEY.format(what="a wooden boathouse", look="Weathered teal planks, a wide arched door at the front with a small rowing boat inside", style="Seaside town"),
+    "seaside_pier": VALLEY.format(what="a Victorian seaside pier pavilion on stilts", look="White pavilion with a domed roof and bunting on wooden stilts", style="Seaside town"),
+    "aquarium": VALLEY.format(what="a modern aquarium building", look="Curved white walls, big blue-tinted glass windows with fish shapes painted on", style="Seaside town"),
+    "lifeboat_station": VALLEY.format(what="a lifeboat station with a slipway", look="Red roof, white walls, big doors with an orange lifeboat inside", style="Seaside town"),
+    "oasis_inn": VALLEY.format(what="a desert oasis inn", look="Sandy adobe walls, rounded corners, a palm-leaf shade over the door", style="Desert village"),
+    "caravanserai": VALLEY.format(what="a caravanserai trading post", look="Sand-colored walls with a big arched gateway and small towers at each end", style="Desert village"),
+    "date_farm": VALLEY.format(what="a date farm house with tall date palms beside it", look="Low adobe house with a flat roof and two date palms with orange fruit", style="Desert village"),
+    "solar_farm": VALLEY.format(what="a small solar farm building", look="A low white control hut with rows of tilted blue solar panels beside it", style="Desert village"),
+    "sand_fort": VALLEY.format(what="an old desert fort", look="Tall sandy mud-brick walls with crenellations and a round corner tower", style="Desert village"),
+    "mirage_palace": VALLEY.format(what="a shimmering desert palace", look="White domes and slender towers with turquoise tiles and golden tips", style="Desert village"),
+    "ski_lodge": VALLEY.format(what="an alpine ski lodge", look="Dark wooden chalet with a steep snowy roof, a balcony and a pair of skis by the door", style="Alpine village"),
+    "mountain_hut": VALLEY.format(what="a small stone mountain hut", look="Grey stone walls, a wooden door, a snowy roof and a small chimney", style="Alpine village"),
+    "cable_car": VALLEY.format(what="a cable car station", look="A concrete station with a big wheel on top and a red cable car cabin hanging out", style="Alpine village"),
+    "ice_rink": VALLEY.format(what="an outdoor ice rink pavilion", look="A wooden pavilion with a striped red roof over a small pale blue ice rink", style="Alpine village"),
+    "research_station": VALLEY.format(what="a polar research station", look="Orange boxy modules on stilts with a radio mast and a satellite dish", style="Alpine village"),
+    "ice_hotel": VALLEY.format(what="an ice hotel", look="Walls made of translucent pale blue ice blocks, an arched entrance and an ice sculpture", style="Alpine village"),
+    "diner": VALLEY.format(what="an American retro diner", look="Shiny chrome and red stripes, big windows, a round neon-style sign without letters", style="City"),
+    "train_station": VALLEY.format(what="a classic city train station", look="Red brick building with a big arched glass window and a clock tower", style="City"),
+    "theatre": VALLEY.format(what="an old city theatre", look="Cream stone facade with columns, red curtains in the windows and a marquee with bulbs and no letters", style="City"),
+    "stadium": VALLEY.format(what="a small football stadium", look="Curved grey stands with floodlight towers at both ends", style="City"),
+    "art_museum": VALLEY.format(what="a modern art museum", look="A swirling white curved building with tall glass panels", style="City"),
+    "skyscraper": VALLEY.format(what="a tall glass skyscraper", look="Blue-green glass tower with a spire on top", style="City"),
     # Sıradan evler (deftere girmez).
     "home_cottage": BUILDING.format(what="a small one-storey stone cottage", look="Cream stone walls, a steep "
                                     "dark red tiled roof, a small brick chimney, one green front door and two small "
@@ -94,7 +124,7 @@ def main():
             except Exception as e:  # biri düşerse kalanlar sürsün
                 print("HATA", name, e, flush=True)
 
-        with ThreadPoolExecutor(4) as pool:
+        with ThreadPoolExecutor(6) as pool:
             list(pool.map(one, todo))
     elif arg == "--reprocess":
         name = sys.argv[2]

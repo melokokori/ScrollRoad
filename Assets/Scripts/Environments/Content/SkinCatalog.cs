@@ -18,22 +18,40 @@ namespace ScrollRoad
                 Palette = System.Array.ConvertAll(palette, Hex),
             };
 
-        // Döner kapı — palet: [0] kapı çerçevesi, [1] cam, [2] kanat kenarı, [3] saçak.
+        // Döner kapı — palet: [0] kapı metali, [1] cam.
         public static readonly SkinInfo[] Door =
         {
             Skin("classic", "Classic", "Brushed steel frame, clear glass", "door_classic", "#E8EDF1", "#2F3640"),
+            Skin("brass", "Brass", "Polished brass, warm amber glass", "door_brass", "#F6E7C4", "#3A2A1A",
+                "#B08A3E", "#F2E2B0"),
+            Skin("black_steel", "Black Steel", "Matte black frame, smoked glass", "door_black", "#E6E8EA", "#16181B",
+                "#1E2024", "#9FBBCB"),
+            Skin("rose_gold", "Rose Gold", "Rose gold frame, blush glass", "door_rose", "#FBE9E4", "#4A2420",
+                "#C98A7A", "#F6DCD8"),
         };
 
-        // Rüzgârgülü — palet: [0] kule/gövde, [1] pervane, [2] pervane ucu, [3] gövde ayrıntısı.
+        // Rüzgârgülü — palet: [0] türbin, [1] türbin gölgesi, [2] enerji darbeleri.
         public static readonly SkinInfo[] Wind =
         {
             Skin("classic", "Classic", "White three-blade turbine", "wind_classic", "#EEF3EA", "#2E4A22"),
+            Skin("timber", "Timber", "A wooden turbine, old-mill style", "wind_timber", "#F3E7CF", "#3B2A1A",
+                "#C9A06A", "#A07A4A", "#FFD866"),
+            Skin("midnight", "Midnight", "Matte black blades, cyan current", "wind_midnight", "#E6E8EA", "#16181B",
+                "#3A3E46", "#2A2D33", "#7FE0FF"),
+            Skin("golden", "Golden", "A gilded turbine for a bright valley", "wind_gold", "#FFF0C0", "#3A2A08",
+                "#E6C46E", "#C9A24A", "#FFF0B0"),
         };
 
-        // Plak — palet: [0] pikap gövdesi, [1] tabla, [2] kol, [3] ayrıntı.
+        // Plak — palet: [0] gövde, [1] gövde kenarı, [2] tabla, [3] kol, [4] koyu metal.
         public static readonly SkinInfo[] Vinyl =
         {
             Skin("classic", "Classic", "Walnut deck, chrome tonearm", "vinyl_classic", "#EADFC8", "#1E1A17"),
+            Skin("white", "Studio White", "A clean white studio deck", "vinyl_white", "#F2F4F6", "#2A3A4A",
+                "#F2F2F0", "#C9CED4", "#9AA0A8", "#E6E8EA", "#5E646C"),
+            Skin("dj", "DJ Black", "Black club deck with a red tonearm", "vinyl_dj", "#E6E8EA", "#16181B",
+                "#2A2D33", "#16181B", "#3A3E46", "#E23B3B", "#1A1C20"),
+            Skin("golden", "Golden", "A gold-plated collector's deck", "vinyl_gold", "#FFF0C0", "#3A2A08",
+                "#E6C46E", "#9C7A2E", "#C9A24A", "#FFF0B0", "#7A5E22"),
         };
 
         // Dünya — palet: [0] okyanus, [1] yeşil kara, [2] kum kara, [3] atmosfer.
@@ -76,12 +94,24 @@ namespace ScrollRoad
         public static readonly SkinInfo[] Peeler =
         {
             Skin("classic", "Classic", "Cast iron with a red handle", "peeler_classic", "#F4EEDF", "#2A2D33"),
+            Skin("brass", "Brass", "Polished brass with a walnut handle", "peeler_brass", "#F6E7C4", "#3A2A1A",
+                "#A07A34", "#5A3A1F", "#E6C46E"),
+            Skin("chrome", "Chrome", "Mirror chrome, black grip", "peeler_chrome", "#F2F4F6", "#1A1C20",
+                "#B8BEC6", "#1A1C20", "#F2F4F6"),
+            Skin("mint", "Mint", "A retro mint kitchen gadget", "peeler_mint", "#E8F6F0", "#1E4A3E",
+                "#6FBFA6", "#F2EDE0", "#DDE2E6"),
         };
 
-        // Kebap — palet: [0] şiş çeliği, [1] ocak tuğlası, [2] tezgâh.
+        // Kebap — palet: [0] şiş çeliği, [1] alev 1, [2] alev 2, [3] kor.
         public static readonly SkinInfo[] Kebab =
         {
-            Skin("classic", "Classic", "Steel spit over a brick grill", "kebab_classic", "#F2E8D8", "#3A2015"),
+            Skin("classic", "Classic", "Steel spit over a wood fire", "kebab_classic", "#F2E8D8", "#3A2015"),
+            Skin("copper", "Copper", "A hammered copper spit", "kebab_copper", "#F6E2D2", "#4A2414",
+                "#C77B4A", "#FF9E26", "#FFD866", "#FF7A28"),
+            Skin("blue_flame", "Blue Flame", "A roaring gas burner", "kebab_blue", "#E2F1FA", "#123A5A",
+                "#DDE2E6", "#3E8FD1", "#BFE8FF", "#2E6FA8"),
+            Skin("golden", "Golden", "A golden spit for the sultan's kitchen", "kebab_gold", "#FFF0C0", "#3A2A08",
+                "#E6C46E", "#FFC24A", "#FFF0B0", "#FF8A2A"),
         };
 
         public static SkinInfo[] For(EnvironmentId id) => id switch

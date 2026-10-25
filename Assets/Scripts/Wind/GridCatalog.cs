@@ -23,6 +23,8 @@ namespace ScrollRoad
         public BuildingType[] Specials;
         public float SpecialChance;
         public int SpecialMinIndex;
+        // Mekânın sahne renkleri (Ortam Standardı v2): [0] gök, [1] uzak sırt, [2] tepe, [3] çimen, [4] toprak.
+        public UnityEngine.Color[] Palette = System.Array.Empty<UnityEngine.Color>();
 
         public bool Contains(string id)
         {
@@ -63,7 +65,41 @@ namespace ScrollRoad
             },
         };
 
-        public static readonly WindSite[] Sites = { Hills };
+        static UnityEngine.Color Hex(string hex) => UnityEngine.ColorUtility.TryParseHtmlString(hex, out var c) ? c : UnityEngine.Color.magenta;
+        static BuildingType B(string id, string name, float freq, float height) => new BuildingType { Id = id, Name = name, Frequency = freq, Height = height };
+
+        // Ortam Standardı v2 (2026-10-25): dört yeni vadi; Rüzgârgülü'nde geçen seyir saatiyle açılır (UnlockLadder).
+        static WindSite Valley(string id, string name, BuildingType[] specials, params string[] palette) => new WindSite
+        {
+            Id = id, Name = name, SpecialChance = 0.03f, SpecialMinIndex = 12, Specials = specials,
+            Palette = System.Array.ConvertAll(palette, Hex),
+        };
+
+        public static readonly WindSite Coast = Valley("coast", "The Coast", new[]
+        {
+            B("fish_market", "The Fish Market", 30f, 1.9f), B("lighthouse", "The Lighthouse", 24f, 3.0f), B("boathouse", "The Boathouse", 18f, 1.8f),
+            B("seaside_pier", "The Seaside Pier", 14f, 2.0f), B("aquarium", "The Aquarium", 9f, 2.2f), B("lifeboat_station", "The Lifeboat Station", 5f, 2.3f),
+        }, "#BFE3F2", "#9CC9C9", "#A8C98A", "#B8D48A", "#C9B48A");
+
+        public static readonly WindSite Desert = Valley("desert", "The Desert", new[]
+        {
+            B("oasis_inn", "The Oasis Inn", 30f, 1.9f), B("caravanserai", "The Caravanserai", 24f, 2.1f), B("date_farm", "The Date Farm", 18f, 2.3f),
+            B("solar_farm", "The Solar Farm", 14f, 1.4f), B("sand_fort", "The Sand Fort", 9f, 2.4f), B("mirage_palace", "The Mirage Palace", 5f, 2.8f),
+        }, "#F2E3C4", "#E0B98A", "#D9A86A", "#E2BE84", "#B5874E");
+
+        public static readonly WindSite SnowyPass = Valley("snowy_pass", "The Snowy Pass", new[]
+        {
+            B("ski_lodge", "The Ski Lodge", 30f, 2.2f), B("mountain_hut", "The Mountain Hut", 24f, 1.7f), B("cable_car", "The Cable Car Station", 18f, 2.4f),
+            B("ice_rink", "The Ice Rink", 14f, 1.6f), B("research_station", "The Research Station", 9f, 2.0f), B("ice_hotel", "The Ice Hotel", 5f, 2.2f),
+        }, "#DDE9F2", "#B8C8D8", "#EEF3F7", "#F4F7FA", "#9AA8B4");
+
+        public static readonly WindSite City = Valley("city", "The City", new[]
+        {
+            B("diner", "The Diner", 30f, 1.6f), B("train_station", "The Train Station", 24f, 2.2f), B("theatre", "The Theatre", 18f, 2.5f),
+            B("stadium", "The Stadium", 14f, 2.0f), B("art_museum", "The Art Museum", 9f, 2.3f), B("skyscraper", "The Skyscraper", 5f, 3.4f),
+        }, "#C9D8E6", "#9AA6B2", "#8FA08A", "#A0B090", "#6A6E72");
+
+        public static readonly WindSite[] Sites = { Hills, Coast, Desert, SnowyPass, City };
 
         public static readonly BuildingType[] AllSpecials = Flatten();
 

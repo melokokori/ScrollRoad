@@ -26,7 +26,7 @@ namespace ScrollRoad
             if (root.activeSelf != show) root.SetActive(show);
             if (!show) return;
 
-            totalText.SetText(EnvironmentCatalog.Vinyl.Format(vinyl.TracksDone * EnvironmentCatalog.TrackIntervalPoints));
+            if (totalText != null) totalText.SetText(EnvironmentCatalog.Vinyl.Format(vinyl.TracksDone * EnvironmentCatalog.TrackIntervalPoints));
 
             var engine = ScoreEngine.Instance;
             bool active = engine != null && engine.IsUserActive;

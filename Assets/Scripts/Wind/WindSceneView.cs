@@ -43,16 +43,39 @@ namespace ScrollRoad
         const int SparkCount = 5;
         const int StreakCount = 6;
 
-        static readonly Color SkyDay = new Color(0.80f, 0.90f, 0.96f);
-        static readonly Color FarRidge = new Color(0.62f, 0.75f, 0.66f);
-        static readonly Color HillGreen = new Color(0.55f, 0.72f, 0.45f);
-        static readonly Color Grass = new Color(0.60f, 0.76f, 0.45f);
-        static readonly Color Soil = new Color(0.50f, 0.40f, 0.30f);
-        static readonly Color Turbine = new Color(0.96f, 0.96f, 0.95f);
-        static readonly Color TurbineShade = new Color(0.84f, 0.86f, 0.88f);
+        // Ortam Standardı v2: mekân gök/sırt/tepe/çimen/toprağı (WindSite.Palette 0-4), skin takımı türbini ve enerji
+        // darbelerini boyar (SkinInfo.Palette 0-2). Varsayılanlar Tepeler ve Klasik.
+        static readonly Color SkyDayDefault = new Color(0.80f, 0.90f, 0.96f);
+        static readonly Color FarRidgeDefault = new Color(0.62f, 0.75f, 0.66f);
+        static readonly Color HillGreenDefault = new Color(0.55f, 0.72f, 0.45f);
+        static readonly Color GrassDefault = new Color(0.60f, 0.76f, 0.45f);
+        static readonly Color SoilDefault = new Color(0.50f, 0.40f, 0.30f);
+        static readonly Color TurbineDefault = new Color(0.96f, 0.96f, 0.95f);
+        static readonly Color TurbineShadeDefault = new Color(0.84f, 0.86f, 0.88f);
+        static readonly Color EnergyDefault = new Color(1.0f, 0.86f, 0.30f);
+
+        Color Look(int i, Color fallback)
+        {
+            var p = wind != null ? wind.Site.Palette : null;
+            return p != null && i < p.Length ? p[i] : fallback;
+        }
+
+        Color Tint(int i, Color fallback)
+        {
+            var p = wind != null ? wind.Skin.Palette : null;
+            return p != null && i < p.Length ? p[i] : fallback;
+        }
+
+        Color SkyDay => Look(0, SkyDayDefault);
+        Color FarRidge => Look(1, FarRidgeDefault);
+        Color HillGreen => Look(2, HillGreenDefault);
+        Color Grass => Look(3, GrassDefault);
+        Color Soil => Look(4, SoilDefault);
+        Color Turbine => Tint(0, TurbineDefault);
+        Color TurbineShade => Tint(1, TurbineShadeDefault);
+        Color Energy => Tint(2, EnergyDefault);
         static readonly Color PoleWood = new Color(0.45f, 0.34f, 0.25f);
         static readonly Color Wire = new Color(0.22f, 0.23f, 0.26f);
-        static readonly Color Energy = new Color(1.0f, 0.86f, 0.30f);
         static readonly Color UnlitDay = new Color(0.24f, 0.26f, 0.33f);
         static readonly Color UnlitNight = new Color(0.10f, 0.11f, 0.16f);
         static readonly Color Glow = new Color(1.0f, 0.82f, 0.45f);

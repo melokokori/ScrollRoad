@@ -27,6 +27,8 @@ namespace ScrollRoad
         public RecordType[] Specials;
         public float SpecialChance;
         public int SpecialMinIndex;
+        // Mekânın masa renkleri (Ortam Standardı v2): [0] masa, [1] masa damarı.
+        public Color[] Palette = System.Array.Empty<Color>();
 
         public bool Contains(string id)
         {
@@ -65,7 +67,46 @@ namespace ScrollRoad
             },
         };
 
-        public static readonly RecordShop[] Shops = { Shop };
+        static Color Hex(string hex) => ColorUtility.TryParseHtmlString(hex, out var c) ? c : Color.magenta;
+        static RecordType Rec(string id, string name, float freq, MusicStyle style, string label) =>
+            new RecordType { Id = id, Name = name, Frequency = freq, Style = style, Label = Hex(label) };
+
+        // Ortam Standardı v2 (2026-10-25): dört yeni mekân; Plak'ta geçen seyir saatiyle açılır (UnlockLadder).
+        static RecordShop Venue(string id, string name, RecordType[] specials, params string[] palette) => new RecordShop
+        {
+            Id = id, Name = name, SpecialChance = 0.30f, SpecialMinIndex = 2, Specials = specials,
+            Palette = System.Array.ConvertAll(palette, Hex),
+        };
+
+        public static readonly RecordShop JazzClub = Venue("jazz_club", "The Jazz Club", new[]
+        {
+            Rec("cover_midnight_sax", "Midnight Sax", 30f, MusicStyle.Jazz, "#2E3A6E"), Rec("cover_smoke_rings", "Smoke Rings", 24f, MusicStyle.Jazz, "#6E4A8A"),
+            Rec("cover_rain_city", "Rain City", 18f, MusicStyle.LoFi, "#3E6E7E"), Rec("cover_velvet", "Velvet Room", 14f, MusicStyle.Bossa, "#8A2E3E"),
+            Rec("cover_blue_note", "Blue Hour", 9f, MusicStyle.Jazz, "#1E5A9E"), Rec("cover_gold_trumpet", "Gold Trumpet", 5f, MusicStyle.Funk, "#C9A24A"),
+        }, "#3A2A22", "#2E2018");
+
+        public static readonly RecordShop Disco = Venue("disco", "The Disco", new[]
+        {
+            Rec("cover_glitter", "Glitter Night", 30f, MusicStyle.Disco, "#C94A9E"), Rec("cover_roller", "Roller Rink", 24f, MusicStyle.Funk, "#E8644A"),
+            Rec("cover_neon_heart", "Neon Heart", 18f, MusicStyle.Synthwave, "#E23B8A"), Rec("cover_dancefloor", "Light-Up Floor", 14f, MusicStyle.Disco, "#4AB8C9"),
+            Rec("cover_platform", "Platform Shoes", 9f, MusicStyle.Funk, "#F2B33D"), Rec("cover_starlight", "Starlight Express", 5f, MusicStyle.Disco, "#B8A0F0"),
+        }, "#3A2450", "#2E1C40");
+
+        public static readonly RecordShop BeachBar = Venue("beach_bar", "The Beach Bar", new[]
+        {
+            Rec("cover_sunset_bay", "Sunset Bay", 30f, MusicStyle.Bossa, "#F28A4A"), Rec("cover_hammock", "Hammock", 24f, MusicStyle.LoFi, "#7EB8A0"),
+            Rec("cover_surf_wave", "Surf Wave", 18f, MusicStyle.Synthwave, "#3EA8C9"), Rec("cover_coconut", "Coconut Grove", 14f, MusicStyle.Bossa, "#A8C96A"),
+            Rec("cover_tiki", "Tiki Torch", 9f, MusicStyle.Funk, "#C9643E"), Rec("cover_pearl_shore", "Pearl Shore", 5f, MusicStyle.Bossa, "#F2E6D0"),
+        }, "#C9A87A", "#B8956A");
+
+        public static readonly RecordShop ConcertHall = Venue("concert_hall", "The Concert Hall", new[]
+        {
+            Rec("cover_grand_piano", "Grand Piano", 30f, MusicStyle.Jazz, "#1E1A17"), Rec("cover_strings", "Strings at Dawn", 24f, MusicStyle.LoFi, "#C99A6A"),
+            Rec("cover_opera", "Night at the Opera", 18f, MusicStyle.Bossa, "#8A1E2E"), Rec("cover_chandelier", "Chandelier", 14f, MusicStyle.Disco, "#E6C46E"),
+            Rec("cover_orchestra", "Full Orchestra", 9f, MusicStyle.Funk, "#2E4A3E"), Rec("cover_golden_baton", "The Golden Baton", 5f, MusicStyle.Jazz, "#D9B455"),
+        }, "#5E1E22", "#4E181C");
+
+        public static readonly RecordShop[] Shops = { Shop, JazzClub, Disco, BeachBar, ConcertHall };
 
         public static readonly RecordType[] AllSpecials = Flatten();
 

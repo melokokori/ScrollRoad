@@ -33,14 +33,36 @@ namespace ScrollRoad
         const int PileSize = 4;
         const int NoteCount = 5;
 
-        static readonly Color Table = new Color(0.62f, 0.45f, 0.32f);
-        static readonly Color TableGrain = new Color(0.56f, 0.40f, 0.28f);
-        static readonly Color Plinth = new Color(0.80f, 0.62f, 0.42f);
-        static readonly Color PlinthEdge = new Color(0.52f, 0.37f, 0.25f);
-        static readonly Color Platter = new Color(0.62f, 0.64f, 0.66f);
+        // Ortam Standardı v2: mekân masayı (RecordShop.Palette 0-1), skin takımı pikabı boyar (SkinInfo.Palette 0-4:
+        // gövde, gövde kenarı, tabla, kol, koyu metal). Varsayılanlar Plak Dükkânı ve Klasik.
+        static readonly Color TableDefault = new Color(0.62f, 0.45f, 0.32f);
+        static readonly Color TableGrainDefault = new Color(0.56f, 0.40f, 0.28f);
+        static readonly Color PlinthDefault = new Color(0.80f, 0.62f, 0.42f);
+        static readonly Color PlinthEdgeDefault = new Color(0.52f, 0.37f, 0.25f);
+        static readonly Color PlatterDefault = new Color(0.62f, 0.64f, 0.66f);
+        static readonly Color MetalDefault = new Color(0.82f, 0.83f, 0.85f);
+        static readonly Color MetalDarkDefault = new Color(0.45f, 0.47f, 0.50f);
+
+        Color Look(int i, Color fallback)
+        {
+            var p = vinyl != null ? vinyl.Shop.Palette : null;
+            return p != null && i < p.Length ? p[i] : fallback;
+        }
+
+        Color Tint(int i, Color fallback)
+        {
+            var p = vinyl != null ? vinyl.Skin.Palette : null;
+            return p != null && i < p.Length ? p[i] : fallback;
+        }
+
+        Color Table => Look(0, TableDefault);
+        Color TableGrain => Look(1, TableGrainDefault);
+        Color Plinth => Tint(0, PlinthDefault);
+        Color PlinthEdge => Tint(1, PlinthEdgeDefault);
+        Color Platter => Tint(2, PlatterDefault);
+        Color Metal => Tint(3, MetalDefault);
+        Color MetalDark => Tint(4, MetalDarkDefault);
         static readonly Color Vinyl = new Color(0.09f, 0.09f, 0.10f);
-        static readonly Color Metal = new Color(0.82f, 0.83f, 0.85f);
-        static readonly Color MetalDark = new Color(0.45f, 0.47f, 0.50f);
         static readonly Color NoteColor = new Color(1f, 0.95f, 0.85f);
 
         Transform root;

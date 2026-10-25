@@ -27,13 +27,22 @@ namespace ScrollRoad
         const int SpeckCount = 3;
         const int BowlSlots = 3;
 
-        static readonly Color Wall = new Color(0.95f, 0.92f, 0.84f);
-        static readonly Color TableTop = new Color(0.66f, 0.46f, 0.30f);
-        static readonly Color TableFront = new Color(0.52f, 0.35f, 0.22f);
-        static readonly Color Iron = new Color(0.27f, 0.29f, 0.33f);
-        static readonly Color Handle = new Color(0.72f, 0.26f, 0.20f);
-        static readonly Color Steel = new Color(0.80f, 0.82f, 0.85f);
-        static readonly Color BowlWood = new Color(0.60f, 0.40f, 0.25f);
+        // Ortam Standardı v2: mekân duvar/masa/kâseyi (ItemSite.Palette 0-3), skin takımı makineyi boyar
+        // (SkinInfo.Palette 0-2: demir gövde, kol tutamağı, bıçak/çelik). Varsayılanlar Meyve Tezgâhı ve Klasik.
+        static readonly Color WallDefault = new Color(0.95f, 0.92f, 0.84f);
+        static readonly Color TableTopDefault = new Color(0.66f, 0.46f, 0.30f);
+        static readonly Color TableFrontDefault = new Color(0.52f, 0.35f, 0.22f);
+        static readonly Color BowlWoodDefault = new Color(0.60f, 0.40f, 0.25f);
+        static readonly Color IronDefault = new Color(0.27f, 0.29f, 0.33f);
+        static readonly Color HandleDefault = new Color(0.72f, 0.26f, 0.20f);
+        static readonly Color SteelDefault = new Color(0.80f, 0.82f, 0.85f);
+        Color Wall => Look(0, WallDefault);
+        Color TableTop => Look(1, TableTopDefault);
+        Color TableFront => Look(2, TableFrontDefault);
+        Color BowlWood => Look(3, BowlWoodDefault);
+        Color Iron => Tint(0, IronDefault);
+        Color Handle => Tint(1, HandleDefault);
+        Color Steel => Tint(2, SteelDefault);
 
         readonly Dictionary<long, Sprite> cropCache = new Dictionary<long, Sprite>();
         Sprite halfDiscSprite;

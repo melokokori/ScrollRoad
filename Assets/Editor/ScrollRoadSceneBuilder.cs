@@ -491,6 +491,7 @@ namespace ScrollRoad.EditorTools
             var envSound = new GameObject("EnvironmentSound").AddComponent<EnvironmentSound>();
             Bind(envSound, "fishing", fishing);
             Bind(envSound, "door", door);
+            Bind(envSound, "wind", wind);
             new GameObject("IntervalSound").AddComponent<IntervalSound>();
             CreateHud(drive, view, secret, companion, route, goals, fishing, door, wind, vinyl, out var notice, out var windowButtons);
             Bind(fishing, "notice", notice);
@@ -720,26 +721,18 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
-            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
-            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
-            var label = Tmp(totalPlate.transform, "Label", "VISITORS", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            label.characterSpacing = 16;
-            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
-            label.rectTransform.sizeDelta = new Vector2(150, 12);
-            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
-            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
-            total.rectTransform.sizeDelta = new Vector2(160, 26);
-            FitToWidth(total, 13f); // 4+ haneli sayı ("7,546 visitors") plakadan taşmasın
-            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            status.characterSpacing = 10;
-            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
-            status.rectTransform.sizeDelta = new Vector2(160, 12);
+            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
+            var envGauge = CreateEnvGauge(root.transform, EnvironmentId.Door, 128f);
+            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "VenueSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
-            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            var placeRow = Row(signInner, "PlaceRow", 10, TextAnchor.LowerLeft);
+            var place = Tmp(placeRow.transform, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
             place.characterSpacing = 16;
+            var status = Tmp(placeRow.transform, "Status", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.Left);
+            status.characterSpacing = 10;
+            Object.DestroyImmediate(placeRow.GetComponent<ContentSizeFitter>());
             var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
             var phase = Tmp(phaseRow.transform, "Phase", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
             var guest = Tmp(phaseRow.transform, "Guest", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
@@ -753,7 +746,6 @@ namespace ScrollRoad.EditorTools
             var controller = new GameObject("DoorHudController").AddComponent<DoorHudController>();
             Bind(controller, "door", door);
             Bind(controller, "root", root);
-            Bind(controller, "totalText", total);
             Bind(controller, "statusText", status);
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);
@@ -771,26 +763,18 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
-            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
-            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
-            var label = Tmp(totalPlate.transform, "Label", "GENERATED", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            label.characterSpacing = 16;
-            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
-            label.rectTransform.sizeDelta = new Vector2(150, 12);
-            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
-            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
-            total.rectTransform.sizeDelta = new Vector2(160, 26);
-            FitToWidth(total, 13f);
-            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            status.characterSpacing = 10;
-            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
-            status.rectTransform.sizeDelta = new Vector2(160, 12);
+            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
+            var envGauge = CreateEnvGauge(root.transform, EnvironmentId.Wind, 128f);
+            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "SiteSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
-            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            var placeRow = Row(signInner, "PlaceRow", 10, TextAnchor.LowerLeft);
+            var place = Tmp(placeRow.transform, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
             place.characterSpacing = 16;
+            var status = Tmp(placeRow.transform, "Status", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.Left);
+            status.characterSpacing = 10;
+            Object.DestroyImmediate(placeRow.GetComponent<ContentSizeFitter>());
             var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
             var phase = Tmp(phaseRow.transform, "Phase", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
             var next = Tmp(phaseRow.transform, "Next", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
@@ -804,7 +788,6 @@ namespace ScrollRoad.EditorTools
             var controller = new GameObject("WindHudController").AddComponent<WindHudController>();
             Bind(controller, "wind", wind);
             Bind(controller, "root", root);
-            Bind(controller, "totalText", total);
             Bind(controller, "statusText", status);
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);
@@ -822,26 +805,18 @@ namespace ScrollRoad.EditorTools
             Stretch((RectTransform)root.transform);
             root.transform.SetSiblingIndex(1);
 
-            var totalPlate = Plate(root.transform, "TotalPlate", PlateDark, RoundSprite);
-            Anchor(totalPlate.rectTransform, new Vector2(0, 1), new Vector2(12, -10), new Vector2(0, 1));
-            totalPlate.rectTransform.sizeDelta = new Vector2(176, 66);
-            var label = Tmp(totalPlate.transform, "Label", "PLAYED", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            label.characterSpacing = 16;
-            Anchor(label.rectTransform, new Vector2(0, 1), new Vector2(11, -8), new Vector2(0, 1));
-            label.rectTransform.sizeDelta = new Vector2(150, 12);
-            var total = Tmp(totalPlate.transform, "Total", "", 22, UiFonts.Mono, PlateText, TextAlignmentOptions.TopLeft);
-            Anchor(total.rectTransform, new Vector2(0, 1), new Vector2(11, -20), new Vector2(0, 1));
-            total.rectTransform.sizeDelta = new Vector2(160, 26);
-            FitToWidth(total, 13f);
-            var status = Tmp(totalPlate.transform, "Status", "", 9.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.TopLeft);
-            status.characterSpacing = 10;
-            Anchor(status.rectTransform, new Vector2(0, 1), new Vector2(11, -48), new Vector2(0, 1));
-            status.rectTransform.sizeDelta = new Vector2(160, 12);
+            // Sol üst: ortam kadranı (Ortam Standardı v2; sayaç bu ayın birimi). Durum tabelanın üst satırında.
+            var envGauge = CreateEnvGauge(root.transform, EnvironmentId.Vinyl, 128f);
+            Anchor((RectTransform)envGauge.transform, new Vector2(0, 1), new Vector2(12, -8), new Vector2(0, 1));
 
             var sign = CreateSign(root.transform, "ShopSign", out var signInner, out _);
             Anchor((RectTransform)sign.transform, new Vector2(1, 1), new Vector2(-116, -10), new Vector2(1, 1));
-            var place = Tmp(signInner, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
+            var placeRow = Row(signInner, "PlaceRow", 10, TextAnchor.LowerLeft);
+            var place = Tmp(placeRow.transform, "Place", "", 8.5f, UiFonts.ExtraBold, new Color(1f, 1f, 1f, 0.82f), TextAlignmentOptions.Left);
             place.characterSpacing = 16;
+            var status = Tmp(placeRow.transform, "Status", "", 8.5f, UiFonts.ExtraBold, TextMuted, TextAlignmentOptions.Left);
+            status.characterSpacing = 10;
+            Object.DestroyImmediate(placeRow.GetComponent<ContentSizeFitter>());
             var phaseRow = Row(signInner, "PhaseRow", 14, TextAnchor.LowerLeft);
             var phase = Tmp(phaseRow.transform, "Phase", "", 12, UiFonts.SemiBold, Color.white, TextAlignmentOptions.Left);
             var now = Tmp(phaseRow.transform, "Now", "", 17, UiFonts.ExtraBold, Color.white, TextAlignmentOptions.Left);
@@ -855,7 +830,6 @@ namespace ScrollRoad.EditorTools
             var controller = new GameObject("VinylHudController").AddComponent<VinylHudController>();
             Bind(controller, "vinyl", vinyl);
             Bind(controller, "root", root);
-            Bind(controller, "totalText", total);
             Bind(controller, "statusText", status);
             Bind(controller, "placeText", place);
             Bind(controller, "phaseText", phase);

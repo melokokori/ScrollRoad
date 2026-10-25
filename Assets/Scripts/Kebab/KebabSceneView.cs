@@ -27,17 +27,27 @@ namespace ScrollRoad
         const int SliceCount = 8;
         const int PassSlots = 3;
 
-        static readonly Color Wall = new Color(0.95f, 0.91f, 0.84f);
-        static readonly Color Brick = new Color(0.66f, 0.34f, 0.24f);
-        static readonly Color Ember = new Color(1f, 0.48f, 0.16f);
-        static readonly Color FlameA = new Color(1f, 0.62f, 0.15f);
-        static readonly Color FlameB = new Color(1f, 0.86f, 0.35f);
+        // Ortam Standardı v2: mekân duvar/ocak/tezgâhı (ItemSite.Palette 0-3), skin takımı şişi ve ateşi boyar
+        // (SkinInfo.Palette 0-3: şiş çeliği, alev 1, alev 2, kor). Varsayılanlar Kebap Evi ve Klasik.
+        static readonly Color WallDefault = new Color(0.95f, 0.91f, 0.84f);
+        static readonly Color BrickDefault = new Color(0.66f, 0.34f, 0.24f);
+        Color Wall => Look(0, WallDefault);
+        Color Brick => Look(1, BrickDefault);
+        static readonly Color EmberDefault = new Color(1f, 0.48f, 0.16f);
+        static readonly Color FlameADefault = new Color(1f, 0.62f, 0.15f);
+        static readonly Color FlameBDefault = new Color(1f, 0.86f, 0.35f);
+        Color Ember => Tint(3, EmberDefault);
+        Color FlameA => Tint(1, FlameADefault);
+        Color FlameB => Tint(2, FlameBDefault);
         static readonly Color Raw = new Color(0.84f, 0.50f, 0.46f);
         static readonly Color Cooked = new Color(0.55f, 0.30f, 0.16f);
         static readonly Color Fresh = new Color(0.76f, 0.52f, 0.36f);
-        static readonly Color Steel = new Color(0.78f, 0.80f, 0.83f);
-        static readonly Color Counter = new Color(0.45f, 0.47f, 0.50f);
-        static readonly Color CounterTop = new Color(0.72f, 0.74f, 0.76f);
+        static readonly Color SteelDefault = new Color(0.78f, 0.80f, 0.83f);
+        static readonly Color CounterDefault = new Color(0.45f, 0.47f, 0.50f);
+        static readonly Color CounterTopDefault = new Color(0.72f, 0.74f, 0.76f);
+        Color Steel => Tint(0, SteelDefault);
+        Color Counter => Look(2, CounterDefault);
+        Color CounterTop => Look(3, CounterTopDefault);
 
         Texture2D meatTex;
         Sprite meatSprite;

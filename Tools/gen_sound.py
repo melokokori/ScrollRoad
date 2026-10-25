@@ -204,6 +204,11 @@ for _id, _loop, _start in _ROSTER:
 # Ortam sesleri (Döner kapı, Olta, sonraki ortamlar): ad -> (döngü mü, tarif, süre sn).
 ENV_OUT = os.path.join(ROOT, "Assets", "Resources", "EnvSounds")
 ENV_SOUNDS = {
+    # Rüzgârgülü (Ortam Standardı v2, 2026-10-25): uğultu döngüsü (perde hıza göre) ve bağlanma kliği.
+    "wind_loop": (True, "Steady breeze on an open grassy hill with the slow rhythmic whoosh of large wind turbine blades "
+                        "turning, soft and calm, distant, no birds, no music" + LOOP_TAIL, 8.0),
+    "grid_click": (False, "One tiny soft electrical relay click with a faint warm hum as a light switches on, close up, "
+                          "very quiet, no music, no voices", 0.8),
     # Döner kapı: her kanat geçişinde bir süpürme (oyunda kanat sıklığı = dönüş hızı; şiddet/perde hıza göre).
     "door_sweep": (False, "One single soft whoosh of a glass revolving door wing sweeping past, rubber seal gently brushing "
                           "the floor and curved glass, airy and calm, close up, quiet, no music, no voices", 1.5),
@@ -277,7 +282,51 @@ def _chime(notes, gap, tau, length, path):
                     "-c:a", "pcm_s16le", path], input=stereo.tobytes(), check=True)
 
 
+def _write_wav(x, path, sr=44100):
+    import numpy as np
+    x = (x / np.abs(x).max() * 0.5).astype(np.float32)
+    stereo = np.stack([x, x], axis=1)
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "f32le", "-ac", "2", "-ar", str(sr), "-i", "-",
+                    "-c:a", "pcm_s16le", path], input=stereo.tobytes(), check=True)
+
+
+def _wind_loop(path, length=8.0, blade_hz=0.75):
+    """Rüzgâr + pervane uğultusu (2026-10-25; fal.ai kapalı, ElevenLabs anahtarı yok): frekans uzayında
+    şekillendirilmiş gürültü (dairesel → dikişsiz döngü), üstüne pervane geçişi kadar (tam sayı döngü) yavaş bir
+    'vuuş' genliği ve onunla gelen hafif bant gürültüsü."""
+    import numpy as np
+    sr = 44100
+    n = int(length * sr)
+    rng = np.random.default_rng(7)
+    f = np.fft.rfftfreq(n, 1 / sr)
+    def shaped(lo, hi, slope):
+        spec = np.fft.rfft(rng.standard_normal(n))
+        gain = np.where(f > 0, (np.maximum(f, 1.0) / 100.0) ** (-slope), 0.0)
+        gain *= 1 / (1 + (f / hi) ** 4) * (1 - 1 / (1 + (f / lo) ** 4))
+        return np.fft.irfft(spec * gain, n)
+    base = shaped(20, 900, 0.9)        # derin rüzgâr
+    swish = shaped(250, 2500, 0.4)     # kanat sürtünmesi
+    t = np.arange(n) / sr
+    whoosh = np.sin(np.pi * blade_hz * t) ** 2   # 8 sn'de tam sayı geçiş: dikişsiz
+    gust = 0.85 + 0.15 * np.sin(2 * np.pi * t / length)
+    x = base / np.abs(base).max() * gust + 0.55 * swish / np.abs(swish).max() * (0.25 + 0.75 * whoosh)
+    _write_wav(x, path, sr)
+
+
+def _relay_click(path):
+    """Çok kısa, yumuşak röle kliği + sönen sıcak uğultu (yapı şebekeye bağlanınca)."""
+    import numpy as np
+    sr = 44100
+    t = np.arange(int(0.6 * sr)) / sr
+    rng = np.random.default_rng(3)
+    click = rng.standard_normal(t.size) * np.exp(-t / 0.0025)
+    hum = (np.sin(2 * np.pi * 110 * t) + 0.4 * np.sin(2 * np.pi * 220 * t)) * np.minimum(1, t / 0.01) * np.exp(-t / 0.18)
+    _write_wav(0.6 * click + 0.25 * hum, path, sr)
+
+
 PROCEDURAL = {
+    "wind_loop": _wind_loop,
+    "grid_click": _relay_click,
     # Kapı zili gibi iki nota (E6 → C6), kısa ve yumuşak.
     "guest_chime": lambda path: _chime([(1318.5, 1.0), (1046.5, 0.9)], 0.17, 0.55, 1.8, path),
     # Efsane: yükselen dört nota (C6 E6 G6 C7), biraz daha uzun sönüm.

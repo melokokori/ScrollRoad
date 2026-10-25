@@ -79,7 +79,16 @@ def env(face, bezel, ink, needle, odo, unit, rev, odo_bg, odo_cell, odo_last, **
 
 
 SKINS.update({
+    "door_brass": env("#F6E7C4", "#B08A3E", "#3A2A1A", "#8A3A1A", "VISITORS", "#8A7450", "#CDB88A", "#3A2A1A", "#503A26", "#F6E7C4"),
+    "door_black": env("#14161B", "#2C2F37", "#E9E6DC", "#F2B33D", "VISITORS", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#F2B33D"),
+    "door_rose": env("#FBE9E4", "#C98A7A", "#4A2420", "#C2412F", "VISITORS", "#9A7068", "#E0BDB4", "#4A2420", "#5E302A", "#FBE9E4"),
     "door_classic": env("#ECEFF1", "#2F3640", "#2F3640", "#D9534F", "VISITORS", "#6B7480", "#AEB6BF", "#2F3640", "#3C4552", "#E8EDF1"),
+    "wind_timber": env("#EFE2BF", "#8A5A32", "#3B2A1A", "#C8323C", "KWH", "#8A6A4A", "#C9B48A", "#3B2A1A", "#503826", "#EFE2BF", face2="#D9C08A"),
+    "wind_midnight": env("#14161B", "#2C2F37", "#E9E6DC", "#7FE0FF", "KWH", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#7FE0FF"),
+    "wind_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "KWH", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
+    "vinyl_white": env("#F6F7F8", "#9AA6B2", "#2A3A4A", "#E8644A", "TRACKS", "#7A8794", "#C3CCD4", "#2A3A4A", "#3A4C5E", "#F2F4F6"),
+    "vinyl_dj": env("#14161B", "#2C2F37", "#E9E6DC", "#E23B3B", "TRACKS", "#8D8A82", "#4A4C52", "#0B0C0F", "#1E2026", "#E23B3B"),
+    "vinyl_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "TRACKS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
     "wind_classic": env("#F4F6F2", "#4C6B3C", "#2E4A22", "#F2B33D", "KWH", "#6F7F66", "#B7C2AE", "#2E4A22", "#3B5A2E", "#EEF3EA"),
     "vinyl_classic": env("#1E1A17", "#8A6A45", "#EADFC8", "#E8644A", "TRACKS", "#A89878", "#4A4038", "#120F0D", "#2A2420", "#EADFC8"),
     "globe_red": env("#3A1A12", "#C2643A", "#F6D9C4", "#FFB38A", "YEARS", "#C79A82", "#6A3A2A", "#2A120C", "#4A2418", "#F6D9C4"),
@@ -94,6 +103,12 @@ SKINS.update({
     "pottery_porcelain": env("#FFFFFF", "#9AA6B2", "#2A3A4A", "#3E7EB8", "POTS", "#7A8794", "#C3CCD4", "#2A3A4A", "#3A4C5E", "#F2F4F6"),
     "pottery_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "POTS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
     "pottery_classic": env("#EFE3CF", "#7A5236", "#3D2A1C", "#B5562F", "POTS", "#8A735C", "#C7B49A", "#3D2A1C", "#503826", "#EFE3CF"),
+    "peeler_brass": env("#F6E7C4", "#A07A34", "#3A2A1A", "#8A3A1A", "FRUIT", "#8A7450", "#CDB88A", "#3A2A1A", "#503A26", "#F6E7C4"),
+    "peeler_chrome": env("#F2F4F6", "#8A9098", "#1A1C20", "#E23B3B", "FRUIT", "#6A7078", "#C3C8CE", "#1A1C20", "#2A2D33", "#F2F4F6", bezel2="chrome"),
+    "peeler_mint": env("#E8F6F0", "#6FBFA6", "#1E4A3E", "#E8644A", "FRUIT", "#5E8A7E", "#B8DCCF", "#1E4A3E", "#2A5E50", "#E8F6F0"),
+    "kebab_copper": env("#F6E2D2", "#C77B4A", "#4A2414", "#E8644A", "PORTIONS", "#8A6A55", "#D8B8A0", "#4A2414", "#5E3220", "#F6E2D2"),
+    "kebab_blue": env("#E6F2FA", "#2E6FA8", "#123A5A", "#3E8FD1", "PORTIONS", "#5E7F96", "#A9C4D8", "#123A5A", "#1E5076", "#E2F1FA"),
+    "kebab_gold": env("#1B1813", "gold", "#E9C873", "#E9C873", "PORTIONS", "#9C8A5C", "#4A3E22", "#0E0C08", "#2A2418", "#FFF0C0", hub="#2A2418"),
     "peeler_classic": env("#F4EEDF", "#3E434B", "#2A2D33", "#C2412F", "FRUIT", "#7A7C80", "#C3C0B6", "#2A2D33", "#3A3E46", "#F4EEDF"),
     "kebab_classic": env("#F2E8D8", "#6E3A24", "#3A2015", "#E07A1F", "PORTIONS", "#8A6A55", "#C9B39C", "#3A2015", "#4E2C1E", "#F2E8D8"),
 })

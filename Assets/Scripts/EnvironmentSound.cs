@@ -13,12 +13,15 @@ namespace ScrollRoad
     //    atış, balık vurma ve tutma tek seferlik (rölantide de). Makara döngüsü seçili takımın sesi
     //    (FishingGear.ReelSound, 2026-10-15): Klasik spinning, Bambu ahşap merkez makara cırcırı, Karbon
     //    ipeksi rulman, Altın ince metalik tıkırtı.
+    //  - Rüzgârgülü (Ortam Standardı v2, 2026-10-25): rüzgâr + pervane uğultusu döngüsü yalnız kullanıcı aktifken
+    //    (perde/şiddet hıza göre), her bağlanan yapıda çok kısık bir klik, nadir yapıda ince çan.
     //  - İşaret: kapıdan nadir misafir girince ince çan; efsane (Koca Ayak, Altın Sazan) gelince dört notalı çan.
     // Ses dosyası yoksa o ses sessizce atlanır.
     public class EnvironmentSound : MonoBehaviour
     {
         [SerializeField] FishingController fishing;
         [SerializeField] DoorController door;
+        [SerializeField] WindController wind;
 
         [Header("Seviyeler")]
         [SerializeField, Range(0f, 1f)] float sweepVolume = 0.32f;
@@ -28,10 +31,15 @@ namespace ScrollRoad
         [SerializeField, Range(0f, 1f)] float catchVolume = 0.4f;
         [SerializeField, Range(0f, 1f)] float chimeVolume = 0.3f;
         [SerializeField, Range(0f, 1f)] float legendVolume = 0.4f;
+        [SerializeField, Range(0f, 1f)] float windVolume = 0.24f;
+        [SerializeField, Range(0f, 1f)] float clickVolume = 0.12f;
 
         AudioSource reel;
         AudioSource effects;
         AudioSource sweep;
+        AudioSource windLoop;
+        float windLevel;
+        AudioClip clickClip;
         AudioClip sweepClip, castClip, strikeClip, catchClip, chimeClip, legendClip;
 
         string reelSound;
@@ -63,18 +71,60 @@ namespace ScrollRoad
             catchClip = Load("fish_catch");
             chimeClip = Load("guest_chime");
             legendClip = Load("legend_chime");
+            clickClip = Load("grid_click");
+            windLoop = gameObject.AddComponent<AudioSource>();
+            windLoop.playOnAwake = false;
+            windLoop.loop = true;
+            windLoop.volume = 0f;
+            windLoop.clip = Load("wind_loop");
         }
 
         void OnEnable()
         {
             if (door != null) door.GuestArrived += HandleGuest;
             if (fishing != null) fishing.Caught += HandleCaught;
+            if (wind != null)
+            {
+                wind.BuildingConnected += HandleConnected;
+                wind.SpecialConnected += HandleLandmark;
+            }
         }
 
         void OnDisable()
         {
             if (door != null) door.GuestArrived -= HandleGuest;
             if (fishing != null) fishing.Caught -= HandleCaught;
+            if (wind != null)
+            {
+                wind.BuildingConnected -= HandleConnected;
+                wind.SpecialConnected -= HandleLandmark;
+            }
+        }
+
+        void HandleConnected()
+        {
+            if (clickClip != null && EnvironmentManager.Current.Id == EnvironmentId.Wind)
+                effects.PlayOneShot(clickClip, clickVolume);
+        }
+
+        void HandleLandmark(BuildingType type, bool isNew)
+        {
+            if (chimeClip != null && EnvironmentManager.Current.Id == EnvironmentId.Wind)
+                effects.PlayOneShot(chimeClip, chimeVolume);
+        }
+
+        void UpdateWind(bool on, bool userActive, float t, float active, float dt)
+        {
+            float target = on && userActive && wind != null && wind.SpinDirection != 0f ? windVolume * Mathf.Lerp(0.4f, 1f, active) : 0f;
+            windLoop.pitch = Mathf.Lerp(0.85f, 1.3f, t);
+            windLevel = Mathf.MoveTowards(windLevel, target, dt / 0.6f * windVolume);
+            windLoop.volume = windLevel;
+            if (windLevel > 0f && !windLoop.isPlaying && windLoop.clip != null)
+            {
+                windLoop.time = Random.Range(0f, windLoop.clip.length);
+                windLoop.Play();
+            }
+            else if (windLevel <= 0f && windLoop.isPlaying) windLoop.Stop();
         }
 
         void Update()
@@ -89,6 +139,7 @@ namespace ScrollRoad
             var env = EnvironmentManager.Current.Id;
             UpdateDoor(env == EnvironmentId.Door, t, active);
             UpdateFishing(env == EnvironmentId.Fishing, engine != null && engine.IsUserActive, t, active, dt);
+            UpdateWind(env == EnvironmentId.Wind, engine != null && engine.IsUserActive, t, active, dt);
         }
 
         void UpdateDoor(bool on, float t, float active)

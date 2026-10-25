@@ -68,6 +68,15 @@ namespace ScrollRoad
         static readonly Color Slab = new Color(0.80f, 0.77f, 0.72f);
         static readonly Color Metal = new Color(0.36f, 0.39f, 0.43f);
         static readonly Color Glass = new Color(0.72f, 0.88f, 0.94f);
+        // Ortam Standardı v2: döner kapının metali ve camı skin takımından (SkinInfo.Palette 0-1); diğer metaller sabit.
+        Color DoorMetal => SkinColor(0, Metal);
+        Color DoorGlass => SkinColor(1, Glass);
+
+        Color SkinColor(int i, Color fallback)
+        {
+            var p = door != null ? door.Skin.Palette : null;
+            return p != null && i < p.Length ? p[i] : fallback;
+        }
         static readonly Color ShopFrame = new Color(0.30f, 0.32f, 0.36f);
         static readonly Color LampLight = new Color(1.0f, 0.86f, 0.55f);
         static readonly Color[] ShopColors =
@@ -473,16 +482,16 @@ namespace ScrollRoad
         void UpdateDoor(bool strip, float gY)
         {
             float h = DoorHeight;
-            var metal = Opaque(WorldTheme.Surface(Metal));
+            var metal = Opaque(WorldTheme.Surface(DoorMetal));
             PlaceSpan(drumBase, doorX - DoorRadius - 0.06f, doorX + DoorRadius + 0.06f, gY - 0.04f, gY + 0.03f, metal);
             PlaceSpan(drumCap, doorX - DoorRadius - 0.06f, doorX + DoorRadius + 0.06f, gY + h, gY + h + 0.18f, metal);
             PlaceSpan(centerPost, doorX - 0.035f, doorX + 0.035f, gY, gY + h, metal);
 
             // Kapının yan camları (kesitte kameraya yakın ve uzak kavisli duvar): ince saydam yüzey.
-            var back = WorldTheme.Surface(Glass);
+            var back = WorldTheme.Surface(DoorGlass);
             back.a = strip ? 0.3f : 0.22f;
             PlaceSpan(backGlass, doorX - DoorRadius * 0.87f, doorX + DoorRadius * 0.87f, gY, gY + h, back);
-            var front = WorldTheme.Surface(Glass);
+            var front = WorldTheme.Surface(DoorGlass);
             front.a = 0.12f;
             PlaceSpan(frontGlass, doorX - DoorRadius * 0.87f, doorX + DoorRadius * 0.87f, gY, gY + h, front);
             PlaceSpan(frontEdgeL, doorX - DoorRadius * 0.87f - 0.025f, doorX - DoorRadius * 0.87f + 0.025f, gY, gY + h, metal);
@@ -503,7 +512,7 @@ namespace ScrollRoad
                 wingEdge[k].sortingOrder = wingBar[k].sortingOrder = frontSide ? 55 : 23;
                 float w = Mathf.Abs(DoorRadius * s);
                 wingGlass[k].enabled = wingBar[k].enabled = w > 0.03f;
-                var g = WorldTheme.Surface(Glass);
+                var g = WorldTheme.Surface(DoorGlass);
                 g.a = (strip ? 0.32f : 0.24f) * (0.55f + 0.45f * Mathf.Abs(s));
                 if (wingGlass[k].enabled)
                 {
