@@ -387,3 +387,13 @@ Ortam başına ~60 sa, 9 ortam ~540 sa; Yol kendi araç merdiveninde.
 - **1b** (e510174): ≡ → Places paneli (mekânlar + Odak). Odak = seçilen nadirin nadirler arası göreli sıklığı ×3; nadir olasılığı ve puan aynı; mekân değişince Odak kalkar. Nadir adı bulunmadan da görünür (görsel silüet). Çekmece 8 satır.
 - **1c** (ec9f9ff): Dolap = `SkinBoxController` (Takım kutusunun genellemesi); satır adı ortamdan (Olta "Tackle box", diğerleri "Looks"), Yol'da Garaj.
 - **1d**: ilk nadir garantisi — ortamda hiç nadir yoksa ayın ~10. seyir dakikasındaki öğe nadir (Odak'a uyar), o ay boyunca sabit. Plak'ta birim plak (ilk plak ~16 dk), Olta'da garanti yok (her balık zaten deftere girer, ilk balık ~20 dk).
+
+## 25.10 — Uygulama 2–5. adımlar TAMAM (push yok)
+- **2 Dönüş anı** (778782d): kart ≥15 dk görülmeden (kart modu + odak + tepside değil) sonra görülünce "While you were away" özeti.
+- **3 Siparişler** (48f2a2e): günde 3 + haftada 1; ödül `RareGuarantee` (eksik nadir 2–8 öğe içinde, Olta'da sonraki atış). Çekmece başlığının üst satırı siparişleri gösterir/açar. GoalTracker hedefleri ve seriler duruyor (HUD sağ alt).
+- **4 Vitrin** (a74eec1): sol altta bulunulan mekânın 6 nadirinin rafı (Rüzgârgülü'nde soldaki evlerin altını örtüyor — sonra bakılabilir).
+- **5a altyapı** (20954dc): `EnvGaugeView` (Yol/Olta dışı tüm ortamlar sol üstte kadran; durum tabelada), `SkinCatalog`, mekân/skin paletleri, öğe görselleri kimlikle.
+- **5b–5i içerik** (dfebf85, 0dcb8e7): 7 ortama 4'er yeni mekân (6 sıradan + 6 nadir; Plak/Rüzgârgülü'nde yalnız 6 nadir) ve 8 ortama 3'er skin takımı + kadran. Gemini ile ~340 görsel, temas sayfasıyla elden geçti (sigaralı plak kapağı yeniden üretildi).
+- **Ses** (0dcb8e7, 9c0b1d5): Rüzgârgülü (döngü + klik + çan), Dünya ve Bumerang ambiyansı — fal.ai 403 / ElevenLabs anahtarı yok olduğu için kodla sentez; kulakla DİNLENMEDİ.
+- **Manifest** (d17881c): Docs/gorsel_manifest.md (592 yuva).
+- Doğrulama: editörde her ortam bir yeni mekân + skinle ekran görüntüsünde; release build Builds/Verify'a başarılı. Gerçek scroll ile ve build'de elle oynanmadı.
