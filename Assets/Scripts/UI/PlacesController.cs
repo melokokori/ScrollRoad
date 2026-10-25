@@ -133,8 +133,9 @@ namespace ScrollRoad
             rares = c.RaresAt(c.VenueId);
             string focus = EnvironmentContent.FocusOf(env);
             var focused = System.Array.Find(rares, r => r.Id == focus);
+            bool focusAtNight = focused != null && EnvironmentContent.IsNightRare(c, c.VenueId, focused.Id);
             focusHint.text = focused != null
-                ? $"FOCUS  ·  <color=#FFFFFF>{focused.Name}</color> turns up {EnvironmentContent.FocusMultiplier:0}× as often. Click it again to clear."
+                ? $"FOCUS  ·  <color=#FFFFFF>{focused.Name}</color> turns up {EnvironmentContent.FocusMultiplier:0}× as often{(focusAtNight ? " after dark" : "")}. Click it again to clear."
                 : $"FOCUS  ·  Pick one to look out for: it turns up {EnvironmentContent.FocusMultiplier:0}× as often. Your score stays the same.";
 
             for (int i = 0; i < rareButtons.Length; i++)
@@ -152,7 +153,13 @@ namespace ScrollRoad
                 rareImages[i].color = logged ? Color.white : Silhouette;
                 rareNames[i].text = rare.Name; // Odak seçimi için adı hep görünür; görsel bulunana kadar silüet
                 RareNoteTarget.Attach(rareButtons[i].gameObject, env, rare.Id, known: true); // adı zaten görünür
-                rareStatuses[i].text = isFocus ? "IN FOCUS" : logged ? "<alpha=#88>IN YOUR LOG" : "<alpha=#88>NOT FOUND YET";
+                // Gece nadiri (EnvironmentContent.NightRareIndex): yalnız 20:00-06:00 arası gelir.
+                bool night = EnvironmentContent.IsNightRare(env, i);
+                string amber = ColorUtility.ToHtmlStringRGB(Amber);
+                rareStatuses[i].text = isFocus ? (night ? "IN FOCUS · AFTER DARK" : "IN FOCUS")
+                    : logged ? "<alpha=#88>IN YOUR LOG"
+                    : night ? $"<color=#{amber}>AFTER DARK ONLY</color>"
+                    : "<alpha=#88>NOT FOUND YET";
             }
         }
     }

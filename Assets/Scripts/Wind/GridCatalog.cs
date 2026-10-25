@@ -141,16 +141,17 @@ namespace ScrollRoad
         {
             ulong seed = VisitorCatalog.Fnv(month) ^ (VisitorCatalog.Fnv("wind_" + site.Id) * 31UL);
             var b = new Building { Jitter = (float)(VisitorCatalog.Hash01(seed, index, 4) * 2.0 - 1.0) };
-            if (index == guarantee.Index || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance))
+            if (index == guarantee.Index || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance * EnvironmentContent.ChanceBoost(EnvironmentId.Wind)))
             {
+                var specials = site.Specials;
                 float total = 0f;
-                foreach (var s in site.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
+                for (int i = 0; i < specials.Length; i++) total += EnvironmentContent.Weight(EnvironmentId.Wind, i, specials[i].Id, specials[i].Frequency, focus);
                 double pick = VisitorCatalog.Hash01(seed, index, 2) * total;
-                var chosen = site.Specials[site.Specials.Length - 1];
-                foreach (var s in site.Specials)
+                var chosen = specials[specials.Length - 1];
+                for (int i = 0; i < specials.Length; i++)
                 {
-                    pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
-                    if (pick <= 0) { chosen = s; break; }
+                    pick -= EnvironmentContent.Weight(EnvironmentId.Wind, i, specials[i].Id, specials[i].Frequency, focus);
+                    if (pick <= 0) { chosen = specials[i]; break; }
                 }
                 chosen = guarantee.Pick(index, chosen, site.Specials, s => s.Id);
                 b.Type = chosen;

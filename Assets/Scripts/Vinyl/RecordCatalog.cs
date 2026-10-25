@@ -150,16 +150,17 @@ namespace ScrollRoad
         {
             ulong seed = Seed(month, shop);
             var r = new Record();
-            if (index == guarantee.Index || (index >= shop.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < shop.SpecialChance))
+            if (index == guarantee.Index || (index >= shop.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < System.Math.Min(0.9f, shop.SpecialChance * EnvironmentContent.ChanceBoost(EnvironmentId.Vinyl))))
             {
+                var specials = shop.Specials;
                 float total = 0f;
-                foreach (var s in shop.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
+                for (int i = 0; i < specials.Length; i++) total += EnvironmentContent.Weight(EnvironmentId.Vinyl, i, specials[i].Id, specials[i].Frequency, focus);
                 double pick = VisitorCatalog.Hash01(seed, index, 2) * total;
-                var chosen = shop.Specials[shop.Specials.Length - 1];
-                foreach (var s in shop.Specials)
+                var chosen = specials[specials.Length - 1];
+                for (int i = 0; i < specials.Length; i++)
                 {
-                    pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
-                    if (pick <= 0) { chosen = s; break; }
+                    pick -= EnvironmentContent.Weight(EnvironmentId.Vinyl, i, specials[i].Id, specials[i].Frequency, focus);
+                    if (pick <= 0) { chosen = specials[i]; break; }
                 }
                 chosen = guarantee.Pick(index, chosen, shop.Specials, s => s.Id);
                 r.Type = chosen;

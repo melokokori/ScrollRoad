@@ -65,7 +65,7 @@ namespace ScrollRoad
     {
         // Ayın index. öğesi (1'den başlar). Geri sarınca kaybolup yeniden gelen aynı öğedir; tabelada
         // "geliyor" denen nadir öğe gelince de odur. Hash VisitorCatalog'unki (Rüzgârgülü ile aynı kalıp).
-        public static EnvItem Identify(string month, string envKey, ItemSite site, long index, string focus = null, RareGuarantee guarantee = default)
+        public static EnvItem Identify(EnvironmentId env, string month, string envKey, ItemSite site, long index, string focus = null, RareGuarantee guarantee = default)
         {
             ulong seed = VisitorCatalog.Fnv(month) ^ (VisitorCatalog.Fnv(envKey + "_" + site.Id) * 31UL);
             var item = new EnvItem
@@ -73,16 +73,17 @@ namespace ScrollRoad
                 Jitter = (float)(VisitorCatalog.Hash01(seed, index, 4) * 2.0 - 1.0),
                 Roll = (float)VisitorCatalog.Hash01(seed, index, 6),
             };
-            if (index == guarantee.Index || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance))
+            if (index == guarantee.Index || (index >= site.SpecialMinIndex && VisitorCatalog.Hash01(seed, index, 1) < site.SpecialChance * EnvironmentContent.ChanceBoost(env)))
             {
+                var specials = site.Specials;
                 float total = 0f;
-                foreach (var s in site.Specials) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
+                for (int i = 0; i < specials.Length; i++) total += EnvironmentContent.Weight(env, i, specials[i].Id, specials[i].Frequency, focus);
                 double pick = VisitorCatalog.Hash01(seed, index, 2) * total;
-                var chosen = site.Specials[site.Specials.Length - 1];
-                foreach (var s in site.Specials)
+                var chosen = specials[specials.Length - 1];
+                for (int i = 0; i < specials.Length; i++)
                 {
-                    pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
-                    if (pick <= 0) { chosen = s; break; }
+                    pick -= EnvironmentContent.Weight(env, i, specials[i].Id, specials[i].Frequency, focus);
+                    if (pick <= 0) { chosen = specials[i]; break; }
                 }
                 chosen = guarantee.Pick(index, chosen, site.Specials, s => s.Id);
                 item.Type = chosen;

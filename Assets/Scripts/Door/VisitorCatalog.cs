@@ -206,16 +206,17 @@ namespace ScrollRoad
                 v.IsGuest = v.IsLegendary = true;
                 return v;
             }
-            if (forced || (index >= venue.GuestMinIndex && Hash01(seed, index, 1) < venue.GuestChance))
+            if (forced || (index >= venue.GuestMinIndex && Hash01(seed, index, 1) < venue.GuestChance * EnvironmentContent.ChanceBoost(EnvironmentId.Door)))
             {
+                var guests = venue.Guests;
                 float total = 0f;
-                foreach (var g in venue.Guests) total += EnvironmentContent.Weight(g.Id, g.Frequency, focus);
+                for (int i = 0; i < guests.Length; i++) total += EnvironmentContent.Weight(EnvironmentId.Door, i, guests[i].Id, guests[i].Frequency, focus);
                 double pick = Hash01(seed, index, 2) * total;
-                var chosen = venue.Guests[venue.Guests.Length - 1];
-                foreach (var g in venue.Guests)
+                var chosen = guests[guests.Length - 1];
+                for (int i = 0; i < guests.Length; i++)
                 {
-                    pick -= EnvironmentContent.Weight(g.Id, g.Frequency, focus);
-                    if (pick <= 0) { chosen = g; break; }
+                    pick -= EnvironmentContent.Weight(EnvironmentId.Door, i, guests[i].Id, guests[i].Frequency, focus);
+                    if (pick <= 0) { chosen = guests[i]; break; }
                 }
                 chosen = guarantee.Pick(index, chosen, venue.Guests, g => g.Id);
                 v.Type = chosen;

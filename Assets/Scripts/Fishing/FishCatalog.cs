@@ -167,6 +167,13 @@ namespace ScrollRoad
             return -1;
         }
 
+        // Türün seçim ağırlığı: Odak + gece kuralı; etkinlikte (Happenings) iri türler (sıra ≥ 3) çarpanla daha sık.
+        static float Weight(FishSpecies[] species, int i, string focus)
+        {
+            float w = EnvironmentContent.Weight(EnvironmentId.Fishing, i, species[i].Id, species[i].Frequency, focus);
+            return i >= 3 ? w * EnvironmentContent.ChanceBoost(EnvironmentId.Fishing) : w;
+        }
+
         // Sıklığa göre tür, aralığında küçüğe eğilimli ağırlık (r² → çoğu balık küçük, iri olan nadir).
         public static FishSpecies Roll(FishingSpot spot, Random rng, int totalFish, out float kg, string focus = null)
         {
@@ -179,13 +186,13 @@ namespace ScrollRoad
             }
             var species = spot.Species;
             float total = 0f;
-            foreach (var s in species) total += EnvironmentContent.Weight(s.Id, s.Frequency, focus);
+            for (int i = 0; i < species.Length; i++) total += Weight(species, i, focus);
             double pick = rng.NextDouble() * total;
             var chosen = species[species.Length - 1];
-            foreach (var s in species)
+            for (int i = 0; i < species.Length; i++)
             {
-                pick -= EnvironmentContent.Weight(s.Id, s.Frequency, focus);
-                if (pick <= 0) { chosen = s; break; }
+                pick -= Weight(species, i, focus);
+                if (pick <= 0) { chosen = species[i]; break; }
             }
             double r = rng.NextDouble();
             kg = (float)Math.Round(chosen.MinKg + (chosen.MaxKg - chosen.MinKg) * r * r, 2);

@@ -205,7 +205,7 @@ namespace ScrollRoad
                 "mit_alles", "Everything, with everything. Mit alles.",
                 "scharf_doner", "Scharf! The chilli flakes go on twice.",
                 "midnight_teller", "Doner, chips and salad for the last train home.",
-                "golden_doner", "The Night Grill's legend. Only served after midnight.");
+                "golden_doner", "The Night Grill's legend. Carved once in a blue moon.");
 
             Add(EnvironmentId.Pottery,
                 // The Village Workshop

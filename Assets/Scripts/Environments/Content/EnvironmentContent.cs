@@ -173,6 +173,45 @@ namespace ScrollRoad
         public static float Weight(string rareId, float frequency, string focus) =>
             !string.IsNullOrEmpty(focus) && rareId == focus ? frequency * FocusMultiplier : frequency;
 
+        // Nadirin seçim ağırlığı: Odak + gece kuralı (2026-10-25). index = nadirin mekân listesindeki sırası.
+        public static float Weight(EnvironmentId env, int index, string rareId, float frequency, string focus)
+        {
+            float w = Weight(rareId, frequency, focus);
+            if (IsNightRare(env, index)) w = IsNight ? w * NightMultiplier : 0f;
+            return w;
+        }
+
+        // ---- Gece nadirleri (2026-10-25): her mekânın 5. nadiri (sıklığı 9-11, sondan bir önceki) yalnız yerel
+        // saatle 20:00-06:00 arası gelir, gece 1,5 kat sık. Olta'da her tür deftere girdiği için orada da 5. tür.
+        // Gündüz seçilmiş Odak'ı geçersiz kılmaz; o nadir yalnız akşamı bekler.
+        public const int NightRareIndex = 4;
+        public const float NightMultiplier = 1.5f;
+        public const int NightStartHour = 20, NightEndHour = 6;
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public static bool? DebugNight; // YALNIZ test: gece/gündüzü zorla (null = saat)
+#endif
+
+        public static bool IsNight
+        {
+            get
+            {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if (DebugNight.HasValue) return DebugNight.Value;
+#endif
+                int h = DateTime.Now.Hour;
+                return h >= NightStartHour || h < NightEndHour;
+            }
+        }
+
+        public static bool IsNightRare(EnvironmentId env, int index) => env != EnvironmentId.Road && index == NightRareIndex;
+
+        public static bool IsNightRare(IEnvironmentContent c, string venueId, string rareId) =>
+            Array.FindIndex(c.RaresAt(venueId), r => r.Id == rareId) == NightRareIndex;
+
+        // Kısa etkinlik (Happenings) sürerken o ortamda nadir çıkma olasılığının çarpanı; yoksa 1.
+        public static float ChanceBoost(EnvironmentId env) => Happenings.BoostFor(env);
+
         // Aynı nadire yeniden basınca Odak kalkar.
         public static void ToggleFocus(IEnvironmentContent c, string rareId)
         {
@@ -233,8 +272,15 @@ namespace ScrollRoad
         public static bool GrantReward(IEnvironmentContent c, string venueId, System.Random rng, out string rareName)
         {
             rareName = null;
-            var missing = Array.FindAll(c.RaresAt(venueId), r => !c.IsLogged(r.Id));
+            var rares = c.RaresAt(venueId);
+            var missing = Array.FindAll(rares, r => !c.IsLogged(r.Id));
             if (missing.Length == 0) return false;
+            // Gündüz gece nadirini ödül olarak getirme (başka eksik varsa): akşamı beklesin.
+            if (!IsNight)
+            {
+                var day = Array.FindAll(missing, r => Array.IndexOf(rares, r) != NightRareIndex);
+                if (day.Length > 0) missing = day;
+            }
             var rare = missing[rng.Next(missing.Length)];
             var st = State(c.Def.Id);
             st.rewardMonth = DateTimeOffset.UtcNow.ToString("yyyy-MM");

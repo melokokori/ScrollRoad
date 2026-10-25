@@ -677,7 +677,25 @@ namespace ScrollRoad.EditorTools
             var celebration = CreateCelebrationBanner(canvas.transform, drive, companion);
             notice = CreateNotice(canvas.transform, route, companion, celebration);
             CreateShowcase(canvas.transform, companion);
+            CreateHappenings(canvas.transform, companion, notice);
             return hud;
+        }
+
+        // Kısa etkinlikler (2026-10-25): denetleyici + vitrinin üstünde kehribar rozet (olay adı + kalan süre).
+        static void CreateHappenings(Transform canvas, CompanionWindowController companion, NoticeController notice)
+        {
+            var badge = Plate(canvas, "HappeningBadge", Amber, RoundSprite);
+            badge.raycastTarget = false;
+            Anchor(badge.rectTransform, new Vector2(0.5f, 0), new Vector2(0, 37), new Vector2(0.5f, 0));
+            badge.rectTransform.sizeDelta = new Vector2(150f, 18f);
+            var text = Tmp(badge.transform, "Text", "", 9f, UiFonts.ExtraBold, new Color(0.12f, 0.1f, 0.06f), TextAlignmentOptions.Center);
+            text.characterSpacing = 6;
+            Stretch(text.rectTransform);
+            var happenings = new GameObject("Happenings").AddComponent<Happenings>();
+            Bind(happenings, "notice", notice);
+            Bind(happenings, "companionWindow", companion);
+            Bind(happenings, "badgeRoot", badge.gameObject);
+            Bind(happenings, "badgeText", text);
         }
 
         // Olta'nın kart HUD'u (Yol HUD'unun yerleşimiyle): sol üstte balık kovası (Yol kadranının yerinde; bu ayın
