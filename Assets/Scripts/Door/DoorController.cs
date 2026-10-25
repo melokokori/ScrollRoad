@@ -200,11 +200,11 @@ namespace ScrollRoad
             GuestArrived?.Invoke(guest, isNew);
             if (visitor.IsLegendary && notice != null)
             {
-                notice.Announce($"Legendary: {guest.Name}", $"The rarest guest of {Venue.Name} walked in", $"Legendary {guest.Name}!");
+                notice.Announce($"Legendary: {guest.Name}", RareNotes.For(EnvironmentId.Door, guest.Id) ?? $"The rarest guest of {Venue.Name} walked in", $"Legendary {guest.Name}!");
             }
             else if (isNew && notice != null)
             {
-                notice.Announce($"Special guest: {guest.Name}", "Signed in your guest book", $"{guest.Name} · new guest");
+                notice.Announce($"Special guest: {guest.Name}", RareNotes.For(EnvironmentId.Door, guest.Id) ?? "Signed in your guest book", $"{guest.Name} · new guest");
             }
         }
 

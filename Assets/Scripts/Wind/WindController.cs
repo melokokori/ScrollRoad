@@ -178,7 +178,7 @@ namespace ScrollRoad
             SpecialConnected?.Invoke(type, isNew);
             if (isNew && notice != null)
             {
-                notice.Announce($"Powered up: {type.Name}", "Stamped in your grid log", $"{type.Name} · now on the grid");
+                notice.Announce($"Powered up: {type.Name}", RareNotes.For(EnvironmentId.Wind, type.Id) ?? "Stamped in your grid log", $"{type.Name} · now on the grid");
             }
         }
 

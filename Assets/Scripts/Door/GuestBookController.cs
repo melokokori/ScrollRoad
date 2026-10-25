@@ -90,6 +90,7 @@ namespace ScrollRoad
 
                 var record = p.Find(guest.Id);
                 bool met = record != null;
+                RareNoteTarget.Attach(slotRoots[i], EnvironmentId.Door, guest.Id, met);
                 if (guest == venue.Legendary)
                 {
                     slotRoots[i].SetActive(met);

@@ -151,6 +151,7 @@ namespace ScrollRoad
                 rareImages[i].enabled = sprite != null;
                 rareImages[i].color = logged ? Color.white : Silhouette;
                 rareNames[i].text = rare.Name; // Odak seçimi için adı hep görünür; görsel bulunana kadar silüet
+                RareNoteTarget.Attach(rareButtons[i].gameObject, env, rare.Id, known: true); // adı zaten görünür
                 rareStatuses[i].text = isFocus ? "IN FOCUS" : logged ? "<alpha=#88>IN YOUR LOG" : "<alpha=#88>NOT FOUND YET";
             }
         }

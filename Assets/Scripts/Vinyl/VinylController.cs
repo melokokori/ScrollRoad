@@ -182,7 +182,7 @@ namespace ScrollRoad
             SpecialCrated?.Invoke(type, isNew);
             if (isNew && notice != null)
             {
-                notice.Announce($"New record: {type.Name}", "Filed in your record crate", $"{type.Name} · into the crate");
+                notice.Announce($"New record: {type.Name}", RareNotes.For(EnvironmentId.Vinyl, type.Id) ?? "Filed in your record crate", $"{type.Name} · into the crate");
             }
         }
     }

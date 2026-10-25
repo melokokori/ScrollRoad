@@ -143,7 +143,7 @@ namespace ScrollRoad
         public override string UnmetDetail => "<alpha=#88>Not peeled yet";
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"First peel: {type.Name}", "Stamped in your fruit bowl", $"{type.Name} · in the bowl");
+            notice.Announce($"First peel: {type.Name}", RareNotes.For(EnvironmentId.Peeler, type.Id) ?? "Stamped in your fruit bowl", $"{type.Name} · in the bowl");
 
         public override string LoopClip => "peel_loop";
         public override float LoopVolume => 0.24f;

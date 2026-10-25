@@ -52,6 +52,7 @@ namespace ScrollRoad
                 var type = site.Specials[i];
                 var r = p.Find(type.Id);
                 bool met = r != null;
+                RareNoteTarget.Attach(slotRoots[i], env.Def.Id, type.Id, met);
                 int si = System.Array.IndexOf(spriteIds, type.Id);
                 if (si >= 0 && si < sprites.Length) images[i].sprite = sprites[si];
                 images[i].color = met ? Color.white : Silhouette;

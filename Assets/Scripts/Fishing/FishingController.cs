@@ -293,11 +293,11 @@ namespace ScrollRoad
             bool legendary = species == Spot.Legendary;
             if (legendary && notice != null)
             {
-                notice.Announce($"Legendary: {species.Name}", $"{kg:0.00} kg · the rarest fish of {Spot.Name}", $"Legendary {species.Name}!");
+                notice.Announce($"Legendary: {species.Name}", $"{kg:0.00} kg · {RareNotes.For(EnvironmentId.Fishing, species.Id) ?? $"the rarest fish of {Spot.Name}"}", $"Legendary {species.Name}!");
             }
             else if (isNew && notice != null)
             {
-                notice.Announce($"New species: {species.Name}", $"{kg:0.00} kg · stamped in your fish log", $"{species.Name} · new species");
+                notice.Announce($"New species: {species.Name}", $"{kg:0.00} kg · {RareNotes.For(EnvironmentId.Fishing, species.Id) ?? "stamped in your fish log"}", $"{species.Name} · new species");
             }
         }
 

@@ -50,19 +50,28 @@ namespace ScrollRoad
             unitAudio.playOnAwake = false;
         }
 
-        // Kart HUD'u yalnız seçili ortamda açık; geri gelince aradaki fark birim olayı sayılmasın.
-        void OnEnable() => lastUnits = double.NaN;
+        // Kart HUD'u yalnız seçili ortamda açık; geri gelince aradaki fark birim olayı sayılmasın. Takım hemen
+        // uygulanır: görselsiz katmanlar ilk karede beyaz kutu olarak görünmesin.
+        void OnEnable()
+        {
+            lastUnits = double.NaN;
+            var c = EnvironmentContent.Get(environment);
+            if (c != null) ApplySkin(c);
+        }
+
+        void ApplySkin(IEnvironmentContent c)
+        {
+            var skin = c.Skins[Mathf.Max(0, EnvironmentContent.SkinIndex(c, c.SkinId))];
+            if (skin.Tally == shownSet) return;
+            shownSet = skin.Tally;
+            if (!string.IsNullOrEmpty(shownSet)) ApplySet(shownSet, skin);
+        }
 
         void Update()
         {
             var c = EnvironmentContent.Get(environment);
             if (c == null) return;
-            var skin = c.Skins[Mathf.Max(0, EnvironmentContent.SkinIndex(c, c.SkinId))];
-            if (skin.Tally != shownSet)
-            {
-                shownSet = skin.Tally;
-                if (!string.IsNullOrEmpty(shownSet)) ApplySet(shownSet, skin);
-            }
+            ApplySkin(c);
 
             var engine = ScoreEngine.Instance;
             Pace = engine != null && EnvironmentManager.Current.Id == environment ? engine.Pace : 0f;

@@ -134,7 +134,7 @@ namespace ScrollRoad
         public override string UnmetDetail => "<alpha=#88>Not made yet";
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"New on the shelf: {type.Name}", "Stamped on your pottery shelf", $"{type.Name} · on the shelf");
+            notice.Announce($"New on the shelf: {type.Name}", RareNotes.For(EnvironmentId.Pottery, type.Id) ?? "Stamped on your pottery shelf", $"{type.Name} · on the shelf");
 
         // Çömleğin profili: t (0 dip, 1 ağız) → yarıçap (Size cinsinden). Noktalar arası yumuşak geçiş.
         public static float Profile(ItemType type, float t)

@@ -30,6 +30,7 @@ namespace ScrollRoad
         [SerializeField] TMP_Text steamText;
         [SerializeField] TMP_Text collectionLabel; // "Passport" (Yol) / "Fish log" (Olta) satırı
         [SerializeField] TMP_Text garageLabel;     // "Garage" (Yol) / ortamın dolabı ("Tackle box"…) satırı
+        [SerializeField] TMP_Text activitiesLabel; // "Activities" + hiç girilmemiş ortam sayısı
         [SerializeField] Button[] panelButtons; // Passport, Garage, Stats, Settings: panelleri kendi denetleyicileri açar
         [SerializeField] Button leaderboardButton;
         [SerializeField] Button taskbarButton;
@@ -145,6 +146,11 @@ namespace ScrollRoad
             if (collectionLabel != null) collectionLabel.text = EnvironmentManager.Current.CollectionName;
             var content = EnvironmentContent.Current;
             if (garageLabel != null) garageLabel.text = content != null ? content.SkinBoxName : "Garage";
+            if (activitiesLabel != null)
+            {
+                int fresh = ActivityGuide.NewCount;
+                activitiesLabel.text = fresh > 0 ? $"Activities  <size=70%><color=#F2B33D>{fresh} NEW</color></size>" : "Activities";
+            }
             // Üst satır siparişler (Ortam Standardı v2 · Dayanak 4; tıklanınca Orders paneli açılır), alt satır seri.
             var orders = OrdersController.Instance;
             if (orders != null)

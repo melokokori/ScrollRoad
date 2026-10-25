@@ -48,6 +48,7 @@ namespace ScrollRoad
                 if (!inShop) continue;
                 var record = p.Find(type.Id);
                 bool met = record != null;
+                RareNoteTarget.Attach(slotRoots[i], EnvironmentId.Vinyl, type.Id, met);
                 images[i].color = met ? Color.white : Silhouette;
                 nameTexts[i].text = met ? type.Name : "???";
                 detailTexts[i].text = met

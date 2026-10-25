@@ -91,6 +91,7 @@ namespace ScrollRoad
 
                 var record = p.Find(species.Id);
                 bool caught = record != null;
+                RareNoteTarget.Attach(slotRoots[i], EnvironmentId.Fishing, species.Id, caught);
                 if (species == spot.Legendary)
                 {
                     slotRoots[i].SetActive(caught);

@@ -7,7 +7,8 @@ namespace ScrollRoad
     // kaldığı için hepsi sade ve alçak seviyeli; yalnız seçili ortamda çalar. Görev çubuğu/tepside susma ve
     // ana ses ayarı SoundController'da (dinleyici sesi) — buraya ayrıca bir şey gerekmez.
     //  - Döner kapı: her kanat geçişinde yumuşak bir süpürme (4 kanat, ziyaretçi başına yarım tur = 2 geçiş);
-    //    sıklığı dönüş hızının kendisi, şiddeti ve perdesi de hıza göre. Geri dönüşte de çalar.
+    //    sıklığı dönüş hızının kendisi, şiddeti ve perdesi de hıza göre. Geri dönüşte de çalar. Altında AVM lobisi
+    //    ambiyansı (uzak kalabalık uğultusu, 2026-10-25) yalnız kullanıcı aktifken.
     //  - Olta: makara sarma döngüsü yalnız kullanıcı aktifken (son scroll'dan 3 dk) sarılırken/misina boşalırken
     //    (perde ve şiddet scroll hızına göre, boşalırken biraz kalın) — rölantide saatlerce tıkırdamasın;
     //    atış, balık vurma ve tutma tek seferlik (rölantide de). Makara döngüsü seçili takımın sesi
@@ -33,12 +34,15 @@ namespace ScrollRoad
         [SerializeField, Range(0f, 1f)] float legendVolume = 0.4f;
         [SerializeField, Range(0f, 1f)] float windVolume = 0.24f;
         [SerializeField, Range(0f, 1f)] float clickVolume = 0.12f;
+        [SerializeField, Range(0f, 1f)] float mallVolume = 0.2f;
 
         AudioSource reel;
         AudioSource effects;
         AudioSource sweep;
         AudioSource windLoop;
         float windLevel;
+        AudioSource mallLoop;
+        float mallLevel;
         AudioClip clickClip;
         AudioClip sweepClip, castClip, strikeClip, catchClip, chimeClip, legendClip;
 
@@ -77,6 +81,11 @@ namespace ScrollRoad
             windLoop.loop = true;
             windLoop.volume = 0f;
             windLoop.clip = Load("wind_loop");
+            mallLoop = gameObject.AddComponent<AudioSource>();
+            mallLoop.playOnAwake = false;
+            mallLoop.loop = true;
+            mallLoop.volume = 0f;
+            mallLoop.clip = Load("mall_loop");
         }
 
         void OnEnable()
@@ -117,14 +126,20 @@ namespace ScrollRoad
         {
             float target = on && userActive && wind != null && wind.SpinDirection != 0f ? windVolume * Mathf.Lerp(0.4f, 1f, active) : 0f;
             windLoop.pitch = Mathf.Lerp(0.85f, 1.3f, t);
-            windLevel = Mathf.MoveTowards(windLevel, target, dt / 0.6f * windVolume);
-            windLoop.volume = windLevel;
-            if (windLevel > 0f && !windLoop.isPlaying && windLoop.clip != null)
+            Fade(windLoop, ref windLevel, target, windVolume, dt);
+        }
+
+        // Döngü yumuşak açılıp kapanır; susunca durur, yeniden açılınca rastgele yerden başlar.
+        static void Fade(AudioSource source, ref float level, float target, float max, float dt)
+        {
+            level = Mathf.MoveTowards(level, target, dt / 0.6f * max);
+            source.volume = level;
+            if (level > 0f && !source.isPlaying && source.clip != null)
             {
-                windLoop.time = Random.Range(0f, windLoop.clip.length);
-                windLoop.Play();
+                source.time = Random.Range(0f, source.clip.length);
+                source.Play();
             }
-            else if (windLevel <= 0f && windLoop.isPlaying) windLoop.Stop();
+            else if (level <= 0f && source.isPlaying) source.Stop();
         }
 
         void Update()
@@ -140,6 +155,9 @@ namespace ScrollRoad
             UpdateDoor(env == EnvironmentId.Door, t, active);
             UpdateFishing(env == EnvironmentId.Fishing, engine != null && engine.IsUserActive, t, active, dt);
             UpdateWind(env == EnvironmentId.Wind, engine != null && engine.IsUserActive, t, active, dt);
+            // AVM lobisi: kalabalık hızla gürleşmesin, yalnız biraz canlansın.
+            float mall = env == EnvironmentId.Door && engine != null && engine.IsUserActive ? mallVolume * Mathf.Lerp(0.6f, 1f, active) : 0f;
+            Fade(mallLoop, ref mallLevel, mall, mallVolume, dt);
         }
 
         void UpdateDoor(bool on, float t, float active)

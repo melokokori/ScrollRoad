@@ -107,7 +107,7 @@ namespace ScrollRoad
         public override string UnmetDetail => "<alpha=#88>Not raised yet";
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"Wonder raised: {type.Name}", "Stamped in your chronicle", $"{type.Name} · in the chronicle");
+            notice.Announce($"Wonder raised: {type.Name}", RareNotes.For(EnvironmentId.Globe, type.Id) ?? "Stamped in your chronicle", $"{type.Name} · in the chronicle");
 
         // Gezegen: puan başına derece (seyirde ~8 sn'de bir tur, tam boost'ta ~2 sn, rölantide ~48 sn).
         public const double DegreesPerPoint = 2.7;

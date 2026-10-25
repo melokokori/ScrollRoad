@@ -114,7 +114,7 @@ namespace ScrollRoad
         public override string UnmetDetail => "<alpha=#88>Not hit yet";
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"New target hit: {type.Name}", "Stamped in your target log", $"{type.Name} · in the log");
+            notice.Announce($"New target hit: {type.Name}", RareNotes.For(EnvironmentId.Boomerang, type.Id) ?? "Stamped in your target log", $"{type.Name} · in the log");
 
         static readonly SoundCue[] CueList =
         {

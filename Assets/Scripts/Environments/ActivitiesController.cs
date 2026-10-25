@@ -20,6 +20,7 @@ namespace ScrollRoad
         static readonly Color ActiveFrame = new Color(0.055f, 0.42f, 0.243f);   // tabela yeşili
         static readonly Color IdleFrame = new Color(0.133f, 0.145f, 0.172f);
         static readonly Color Muted = new Color(0.957f, 0.945f, 0.902f, 0.6f);
+        static readonly Color Amber = new Color(0.949f, 0.702f, 0.239f);
 
         public GameObject Panel => panel;
 
@@ -60,8 +61,9 @@ namespace ScrollRoad
                 cardFrames[i].color = active ? ActiveFrame : IdleFrame;
                 thumbs[i].color = Color.white;
                 cardButtons[i].interactable = !active;
-                statusTexts[i].text = active ? "PLAYING" : "CLICK TO SWITCH";
-                statusTexts[i].color = active ? Color.white : Muted;
+                bool isNew = !active && ActivityGuide.IsNew(all[i].Id); // hiç girilmemiş (ActivityGuide)
+                statusTexts[i].text = active ? "PLAYING" : isNew ? "NEW · CLICK TO TRY" : "CLICK TO SWITCH";
+                statusTexts[i].color = active ? Color.white : isNew ? Amber : Muted;
             }
         }
     }

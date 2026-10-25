@@ -99,7 +99,7 @@ namespace ScrollRoad
         public override string UnmetDetail => "<alpha=#88>Not served yet";
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"New on the menu: {type.Name}", "Stamped in your menu", $"{type.Name} · on the menu");
+            notice.Announce($"New on the menu: {type.Name}", RareNotes.For(EnvironmentId.Kebab, type.Id) ?? "Stamped in your menu", $"{type.Name} · on the menu");
 
         public override string LoopClip => "sizzle_loop";
         public override float LoopVolume => 0.3f;

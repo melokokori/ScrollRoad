@@ -249,8 +249,8 @@ ENV_SOUNDS = {
     "pot_shelf": (False, "A small ceramic pot placed gently on a wooden shelf: one soft hollow clunk of fired clay on "
                          "wood, quiet, close up, no music, no voices", 1.0),
     # Meyve soyacağı (2026-10-14): kol + soyma döngüsü (yalnız kullanıcı aktifken), meyvenin kâseye düşmesi.
-    "peel_loop": (True, "A hand-cranked cast iron apple peeler turning steadily: soft rhythmic gear clicks and a gentle "
-                        "continuous scraping of a blade peeling fruit skin, quiet kitchen, close up" + LOOP_TAIL, 8.0),
+    # 2026-10-25: elle soyan manav (eskisi kollu makine, dişli tıkırtısı vardı) — kodla, bkz. _peel_loop.
+    "peel_loop": (True, "procedural", 8.0),
     "fruit_drop": (False, "A peeled apple dropping into a wooden fruit bowl: one soft dull wooden thud, quiet, close "
                           "up, no music, no voices", 1.0),
     # Çağ kebabı (2026-10-14): ateş + cızırtı döngüsü (yalnız kullanıcı aktifken), kesim, porsiyonun tezgâha konması.
@@ -261,6 +261,8 @@ ENV_SOUNDS = {
     "plate_serve": (False, "A ceramic plate slid onto a steel serving counter: one short soft scrape and a gentle clink, "
                            "quiet, no music, no voices", 1.0),
     # İnce işaret sesleri: tarif yok, prosedürel (aşağıda _chime).
+    # 2026-10-25: Kapı'nın AVM lobisi ambiyansı (kodla, bkz. _mall_loop).
+    "mall_loop": (True, "procedural", 8.0),
     "guest_chime": (False, None, 0),
     "legend_chime": (False, None, 0),
     # Ortam nesneleri (2026-10-25, TallyView): yeni birimde çok kısa işaretler, prosedürel.
@@ -400,6 +402,83 @@ def _register_ding(path):
     _write_wav(x, path, sr)
 
 
+def _peel_loop(path, length=8.0, strokes=7):
+    """Soyacak (2026-10-25, elle soyan manav): bıçağın kabuğu sıyırdığı yumuşak, ıslak bir 'şşk' — her çekiş
+    ~1,1 sn (8 sn'de tam sayı çekiş: dikişsiz), çekiş içinde hafif hızlanıp yavaşlayan genlik; arada çok kısık
+    sulu çıtırtılar. Dişli/klik yok."""
+    import numpy as np
+    sr = 44100
+    n = int(length * sr)
+    rng = np.random.default_rng(21)
+    f = np.fft.rfftfreq(n, 1 / sr)
+    def band(lo, hi, width):
+        spec = np.fft.rfft(rng.standard_normal(n))
+        gain = np.exp(-0.5 * (np.log(np.maximum(f, 1.0) / np.sqrt(lo * hi)) / (np.log(hi / lo) / width)) ** 2)
+        return np.fft.irfft(spec * np.where(f > 0, gain, 0.0), n)
+    scrape = band(1800, 4200, 4.0)  # bıçağın kabukta sürtünmesi (dar bant: fısıltı değil sıyırma)
+    wet = band(250, 1200, 3.0)      # meyve etinin ıslak gövdesi
+    room = band(80, 600, 2.0)       # sessiz oda: çekişler arası tam sessizlik olmasın
+    t = np.arange(n) / sr
+    period = length / strokes
+    phase = (t % period) / period
+    # Çekiş: %80'i ses (yumuşak atak, yavaş bırakma), %20'si el geri dönerken sessizlik.
+    stroke = np.where(phase < 0.8, np.sin(np.pi * np.clip(phase / 0.8, 0, 1)) ** 1.5, 0.0)
+    # Her çekiş biraz farklı güçte (döngü içinde sabit: dikiş yok).
+    k = np.floor(t / period).astype(int) % strokes
+    strength = (0.8 + 0.2 * rng.random(strokes))[k]
+    # Çekişin içinde kabuk lif lif kopar: 25-40 Hz'lik ince pürüz.
+    grain = 0.75 + 0.25 * np.sin(2 * np.pi * (strokes * 32) * t / length + 3 * np.sin(2 * np.pi * strokes * t / length))
+    x = (scrape / np.abs(scrape).max() * 0.8 + wet / np.abs(wet).max() * 0.45) * stroke * strength * grain
+    x += 0.04 * room / np.abs(room).max()
+    # Sulu çıtırtılar: çekiş başına 2-3 tane, çok kısık, alçak geçirgen.
+    crack = np.zeros(n)
+    for i in range(strokes):
+        for _ in range(rng.integers(2, 4)):
+            at = int(((i + 0.1 + 0.6 * rng.random()) * period) * sr) % n
+            m = int(0.012 * sr)
+            seg = rng.standard_normal(m) * np.exp(-np.arange(m) / (0.003 * sr))
+            idx = (at + np.arange(m)) % n
+            crack[idx] += seg
+    spec = np.fft.rfft(crack)
+    crack = np.fft.irfft(spec / (1 + (f / 2500) ** 2), n)
+    x += 0.12 * crack / (np.abs(crack).max() or 1.0)
+    _write_wav(x, path, sr)
+
+
+def _mall_loop(path, length=8.0, voices=14):
+    """Döner kapı (2026-10-25): AVM lobisi — uzak, anlaşılmaz kalabalık uğultusu (konuşma bandında gürültü,
+    her 'ses' hece ritminde (3-6 Hz) ve cümle uzunluğunda açılıp kapanan genlikle), alçak havalandırma uğultusu ve
+    arada çok kısık uzak adımlar. Tüm modülasyonlar 8 sn'de tam sayı döngü: dikişsiz."""
+    import numpy as np
+    sr = 44100
+    n = int(length * sr)
+    rng = np.random.default_rng(33)
+    f = np.fft.rfftfreq(n, 1 / sr)
+    t = np.arange(n) / sr
+    def shaped(gain):
+        return np.fft.irfft(np.fft.rfft(rng.standard_normal(n)) * np.where(f > 0, gain, 0.0), n)
+    crowd = np.zeros(n)
+    for v in range(voices):
+        centre = rng.uniform(350, 900)
+        gain = np.exp(-0.5 * ((f - centre) / (centre * 0.55)) ** 2) + 0.4 * np.exp(-0.5 * ((f - 2.6 * centre) / (centre * 0.8)) ** 2)
+        voice = shaped(gain)
+        syll = rng.integers(24, 44) / length          # ~3-5,5 Hz, döngüde tam sayı
+        phrase = rng.integers(2, 5) / length          # cümleler
+        env = (0.5 + 0.5 * np.sin(2 * np.pi * syll * t + rng.uniform(0, 6.28))) ** 2
+        env *= np.clip(np.sin(2 * np.pi * phrase * t + rng.uniform(0, 6.28)) * 1.4, 0, 1)
+        crowd += voice / np.abs(voice).max() * env * rng.uniform(0.5, 1.0)
+    air = shaped(np.exp(-0.5 * (np.log(np.maximum(f, 1.0) / 120) / 0.6) ** 2))
+    steps = np.zeros(n)
+    for _ in range(18):
+        at = rng.integers(0, n)
+        m = int(0.03 * sr)
+        idx = (at + np.arange(m)) % n
+        steps[idx] += rng.standard_normal(m) * np.exp(-np.arange(m) / (0.006 * sr)) * rng.uniform(0.3, 1.0)
+    steps = np.fft.irfft(np.fft.rfft(steps) / (1 + (f / 900) ** 2), n)
+    x = crowd / np.abs(crowd).max() + 0.45 * air / np.abs(air).max() + 0.12 * steps / (np.abs(steps).max() or 1.0)
+    _write_wav(x, path, sr)
+
+
 PROCEDURAL = {
     "space_hum": _space_hum,
     "breeze_loop": _breeze_loop,
@@ -407,6 +486,8 @@ PROCEDURAL = {
     "grid_click": _relay_click,
     "tally_click": _tally_click,
     "register_ding": _register_ding,
+    "peel_loop": _peel_loop,
+    "mall_loop": _mall_loop,
     # Kebap'ın sıra numaratörü: elektronik "dıt-dıt" (G5 → E5), kısa sönüm.
     "ticket_ding": lambda path: _chime([(784.0, 1.0), (659.3, 0.9)], 0.2, 0.28, 1.0, path),
     # Kapı zili gibi iki nota (E6 → C6), kısa ve yumuşak.

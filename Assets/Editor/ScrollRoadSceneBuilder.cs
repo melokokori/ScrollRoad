@@ -505,6 +505,9 @@ namespace ScrollRoad.EditorTools
             // Ortam Standardı v2 (2026-10-25): mekân/skin merdiveninin açılma duyuruları.
             var contentUnlocks = engineGo.AddComponent<ContentUnlockWatcher>();
             Bind(contentUnlocks, "notice", notice);
+            // Etkinlikleri tanıtma (2026-10-25): yeni ortam işaretleri, Activities ipucu, ilk giriş duyurusu.
+            var guide = engineGo.AddComponent<ActivityGuide>();
+            Bind(guide, "notice", notice);
             var unlocks = roadGo.AddComponent<CarUnlockTracker>();
             Bind(unlocks, "stats", stats);
             Bind(unlocks, "drive", drive);
@@ -1092,6 +1095,7 @@ namespace ScrollRoad.EditorTools
             Bind(menu, "taskbarButton", buttons[7]);
             Bind(menu, "collectionLabel", buttons[2].GetComponentInChildren<TMP_Text>());
             Bind(menu, "garageLabel", buttons[4].GetComponentInChildren<TMP_Text>());
+            Bind(menu, "activitiesLabel", buttons[0].GetComponentInChildren<TMP_Text>());
             Bind(menu, "quitButton", quit);
             Bind(menu, "leaderboardPanel", lbPanel);
             Bind(menu, "leaderboardText", lbText);
@@ -1104,9 +1108,34 @@ namespace ScrollRoad.EditorTools
             subPanels.AddRange(intervalPanels);
             BindArray(menu, "subPanels", subPanels.ToArray());
 
+            CreateRareNoteTooltip(canvas.transform);
+
             blockerGo.SetActive(false);
             drawerGo.SetActive(false);
             return menu;
+        }
+
+        // Defter notu ipucu (2026-10-25): imlecin yanında koyu plaka; MenuCanvas'ın en üstünde, tıklamayı engellemez.
+        static void CreateRareNoteTooltip(Transform canvas)
+        {
+            var plate = Plate(canvas, "RareNoteTooltip", PlateDark, RoundSprite);
+            plate.raycastTarget = false;
+            var rt = plate.rectTransform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0f, 1f);
+            rt.sizeDelta = new Vector2(200f, 30f);
+            var text = Tmp(plate.transform, "Note", "", 10.5f, UiFonts.SemiBold, Color.white, TextAlignmentOptions.TopLeft);
+            text.fontStyle = FontStyles.Italic;
+            text.textWrappingMode = TextWrappingModes.Normal;
+            text.raycastTarget = false;
+            var tr = text.rectTransform;
+            tr.anchorMin = tr.anchorMax = new Vector2(0f, 1f);
+            tr.pivot = new Vector2(0f, 1f);
+            tr.anchoredPosition = new Vector2(8f, -5f);
+            var tooltip = new GameObject("RareNoteTooltip").AddComponent<RareNoteTooltip>();
+            Bind(tooltip, "canvasRect", canvas.GetComponent<RectTransform>());
+            Bind(tooltip, "plate", rt);
+            Bind(tooltip, "text", text);
         }
 
         // Siparişler (Ortam Standardı v2 · Dayanak 4): üstte 3 günlük sipariş kartı (ortam görseli, iş, ortam / sonuç,
