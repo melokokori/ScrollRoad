@@ -23,7 +23,9 @@ namespace ScrollRoad
         public int target;
         public double baseline;    // Units: ortamın ömür boyu puanı; Rares/Species/AnyRares: bulunma sayısı toplamı
         public bool done;
-        public string result = ""; // tamamlanınca: ödül satırı
+        public string result = ""; // tamamlanınca: ödül satırı (eski kayıtlar; yenileri rewardRare/rewardVenue)
+        public string rewardRare = "";  // ödül nadirinin (İngilizce) adı
+        public string rewardVenue = ""; // gideceği mekânın (İngilizce) adı
     }
 
     [Serializable]
@@ -59,33 +61,33 @@ namespace ScrollRoad
         public const int RaresPerOrder = 2;
         public const int WeeklyRares = 8;
 
-        // Ortamın sipariş dili: birim fiili ve nadirin adı.
+        // Ortamın sipariş dili: birim fiili ("Catch {0}") ve nadirin adı (sayıya göre çoğul).
         static string Verb(EnvironmentId env) => env switch
         {
-            EnvironmentId.Road => "Drive",
-            EnvironmentId.Fishing => "Catch",
-            EnvironmentId.Door => "Welcome",
-            EnvironmentId.Wind => "Generate",
-            EnvironmentId.Vinyl => "Play",
-            EnvironmentId.Globe => "Let",
-            EnvironmentId.Boomerang => "Hit",
-            EnvironmentId.Pottery => "Throw",
-            EnvironmentId.Peeler => "Peel",
-            EnvironmentId.Kebab => "Serve",
-            _ => "Reach",
+            EnvironmentId.Road => L.N("Drive {0}"),
+            EnvironmentId.Fishing => L.N("Catch {0}"),
+            EnvironmentId.Door => L.N("Welcome {0}"),
+            EnvironmentId.Wind => L.N("Generate {0}"),
+            EnvironmentId.Vinyl => L.N("Play {0}"),
+            EnvironmentId.Globe => L.N("Let {0} roll by"),
+            EnvironmentId.Boomerang => L.N("Hit {0}"),
+            EnvironmentId.Pottery => L.N("Throw {0}"),
+            EnvironmentId.Peeler => L.N("Peel {0}"),
+            EnvironmentId.Kebab => L.N("Serve {0}"),
+            _ => L.N("Reach {0}"),
         };
 
-        static string RareNoun(EnvironmentId env, int n) => env switch
+        static string RareCount(EnvironmentId env, int n) => env switch
         {
-            EnvironmentId.Door => n == 1 ? "special guest" : "special guests",
-            EnvironmentId.Wind => n == 1 ? "landmark" : "landmarks",
-            EnvironmentId.Vinyl => n == 1 ? "rare record" : "rare records",
-            EnvironmentId.Globe => n == 1 ? "wonder" : "wonders",
-            EnvironmentId.Boomerang => n == 1 ? "rare target" : "rare targets",
-            EnvironmentId.Pottery => n == 1 ? "masterpiece" : "masterpieces",
-            EnvironmentId.Peeler => n == 1 ? "rare fruit" : "rare fruit",
-            EnvironmentId.Kebab => n == 1 ? "signature dish" : "signature dishes",
-            _ => n == 1 ? "rare find" : "rare finds",
+            EnvironmentId.Door => L.P(n, "{0} special guest", "{0} special guests"),
+            EnvironmentId.Wind => L.P(n, "{0} landmark", "{0} landmarks"),
+            EnvironmentId.Vinyl => L.P(n, "{0} rare record", "{0} rare records"),
+            EnvironmentId.Globe => L.P(n, "{0} wonder", "{0} wonders"),
+            EnvironmentId.Boomerang => L.P(n, "{0} rare target", "{0} rare targets"),
+            EnvironmentId.Pottery => L.P(n, "{0} masterpiece", "{0} masterpieces"),
+            EnvironmentId.Peeler => L.P(n, "{0} rare fruit", "{0} rare fruit"),
+            EnvironmentId.Kebab => L.P(n, "{0} signature dish", "{0} signature dishes"),
+            _ => L.P(n, "{0} rare find", "{0} rare finds"),
         };
 
         public static string Title(Order o)
@@ -95,27 +97,36 @@ namespace ScrollRoad
             switch (o.kind)
             {
                 case OrderKind.Units:
-                    string amount = def.Format(o.target / def.UnitsPerPoint, 0);
-                    return env == EnvironmentId.Globe ? $"Let {amount} roll by" : $"{Verb(env)} {amount}";
+                    return L.F(Verb(env), def.Format(o.target / def.UnitsPerPoint, 0));
                 case OrderKind.Rares:
-                    return $"Find {o.target} {RareNoun(env, o.target)} at {VenueName(o)}";
+                    return L.F("Find {0} at {1}", RareCount(env, o.target), VenueName(o));
                 case OrderKind.Species:
-                    return $"Catch a {FishCatalog.Get(o.rare)?.Name ?? "fish"} at {VenueName(o)}";
+                    return L.F("Catch a {0} at {1}", L.T(FishCatalog.Get(o.rare)?.Name ?? "fish"), VenueName(o));
                 default:
-                    return $"Find {o.target} rare finds in any activity";
+                    return L.F("Find {0} in any activity", L.P(o.target, "{0} rare find", "{0} rare finds"));
             }
         }
 
         public static string Subtitle(Order o) =>
-            o.kind == OrderKind.AnyRares ? "Weekly order" : EnvironmentCatalog.Get((EnvironmentId)o.env).Name;
+            o.kind == OrderKind.AnyRares ? L.T("Weekly order") : L.T(EnvironmentCatalog.Get((EnvironmentId)o.env).Name);
 
         static string VenueName(Order o)
         {
             var c = EnvironmentContent.Get((EnvironmentId)o.env);
             if (c == null) return o.venue;
             var v = Array.Find(c.Venues, x => x.Id == o.venue);
-            return v != null ? v.Name : o.venue;
+            return v != null ? L.T(v.Name) : o.venue;
         }
+
+        // Tamamlanan siparişin ödül satırı, gösterim anında seçili dilde.
+        public static string Result(Order o)
+        {
+            if (!string.IsNullOrEmpty(o.rewardRare)) return L.F("{0} is on the way to {1}", L.T(o.rewardRare), L.T(o.rewardVenue));
+            if (string.IsNullOrEmpty(o.result) || o.result == StampedResult) return L.T(StampedResult);
+            return o.result; // bu sürümden önce İngilizce kaydedilmiş satır
+        }
+
+        public static readonly string StampedResult = L.N("Stamped in your order book");
 
         // Güzel bir hedef: 2 anlamlı basamağa yuvarlanmış (≥1).
         static int Nice(double value)

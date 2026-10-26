@@ -143,22 +143,22 @@ namespace ScrollRoad
             // Ay rekoru = gizli ortak puanın ay rekoru, aktif ortamın biriminde.
             var engine = ScoreEngine.Instance;
             if (engine != null) monthBestText.SetText(EnvironmentManager.Current.Format(engine.MonthBestPoints));
-            if (collectionLabel != null) collectionLabel.text = EnvironmentManager.Current.CollectionName;
+            if (collectionLabel != null) collectionLabel.text = L.T(EnvironmentManager.Current.CollectionName);
             var content = EnvironmentContent.Current;
-            if (garageLabel != null) garageLabel.text = content != null ? content.SkinBoxName : "Garage";
+            if (garageLabel != null) garageLabel.text = L.T(content != null ? content.SkinBoxName : "Garage");
             if (activitiesLabel != null)
             {
                 int fresh = ActivityGuide.NewCount;
-                activitiesLabel.text = fresh > 0 ? $"Activities  <size=70%><color=#F2B33D>{fresh} NEW</color></size>" : "Activities";
+                activitiesLabel.text = fresh > 0 ? L.T("Activities") + "  <size=70%><color=#F2B33D>" + L.F("{0} NEW", fresh) + "</color></size>" : L.T("Activities");
             }
             // Üst satır siparişler (Ortam Standardı v2 · Dayanak 4; tıklanınca Orders paneli açılır), alt satır seri.
             var orders = OrdersController.Instance;
             if (orders != null)
             {
-                headerSubText.text = $"Orders  {orders.DailyDone} / {orders.DailyCount} today  ·  week {orders.WeeklyValue} / {orders.WeeklyTarget}  ›"
-                    + $"\nStreak  {Fmt.Count(orders.DayStreak, "day")}  ·  {Fmt.Count(orders.WeekStreak, "week")}";
+                headerSubText.text = L.F("Orders  {0} / {1} today  ·  week {2} / {3}", orders.DailyDone, orders.DailyCount, orders.WeeklyValue, orders.WeeklyTarget) + "  ›"
+                    + "\n" + L.F("Streak  {0}  ·  {1}", L.P(orders.DayStreak, "{0} day", "{0} days"), L.P(orders.WeekStreak, "{0} week", "{0} weeks"));
             }
-            if (steamText != null) steamText.text = SteamManager.StatusText.ToUpperInvariant();
+            if (steamText != null) steamText.text = L.Upper(SteamManager.StatusText);
         }
 
         void OpenLeaderboard(bool previousMonth)
@@ -170,10 +170,10 @@ namespace ScrollRoad
             lastMonthTab.GetComponent<UnityEngine.UI.Image>().color = previousMonth ? TabOn : TabOff;
             if (!SteamManager.IsInitialized)
             {
-                leaderboardText.text = "Steam is not connected.\nOpen Steam and sign in to see the leaderboard.";
+                leaderboardText.text = L.T("Steam is not connected.\nOpen Steam and sign in to see the leaderboard.");
                 return;
             }
-            leaderboardText.text = "Loading...";
+            leaderboardText.text = L.T("Loading...");
             _ = FetchAndDisplay(previousMonth, ++fetchVersion);
         }
 
@@ -195,7 +195,7 @@ namespace ScrollRoad
 
             if (entries == null || entries.Length == 0)
             {
-                leaderboardText.text = "No scores yet.";
+                leaderboardText.text = L.T("No scores yet.");
                 return;
             }
 

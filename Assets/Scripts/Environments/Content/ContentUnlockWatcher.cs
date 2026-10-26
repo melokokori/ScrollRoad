@@ -34,7 +34,7 @@ namespace ScrollRoad
 
             // İnceleme modu (her şey açık) duyuru harcamasın: gerçek eşik geçilmiş olmalı.
             double points = EnvironmentContent.LadderPoints(c);
-            string where = side ? $"{c.Def.Name} · " : "";
+            string where = side ? $"{L.T(c.Def.Name)} · " : "";
             var venues = c.Venues;
             for (int i = 1; i < venues.Length; i++)
             {
@@ -44,8 +44,9 @@ namespace ScrollRoad
                 dirty = true;
                 if (notice != null)
                 {
-                    notice.Announce($"{where}New {c.VenueNoun}: {venues[i].Name}",
-                        side ? "Unlocked by your side activity" : "Go there from Places in the menu", $"{venues[i].Name} unlocked");
+                    string name = L.T(venues[i].Name);
+                    notice.Announce(where + L.F(NewLine(c.VenueNoun), name),
+                        side ? L.T("Unlocked by your side activity") : L.T("Go there from Places in the menu"), L.F("{0} unlocked", name));
                 }
             }
 
@@ -56,10 +57,24 @@ namespace ScrollRoad
                 if (state.announced.Contains(key) || points < UnlockLadder.SkinPoints(i)) continue;
                 state.announced.Add(key);
                 dirty = true;
-                if (notice != null) notice.Announce($"{where}New {c.SkinNoun}: {skins[i].Name}", side ? "Unlocked by your side activity" : skins[i].Blurb, $"{skins[i].Name} unlocked");
+                if (notice == null) continue;
+                string name = L.T(skins[i].Name);
+                notice.Announce(where + L.F(NewLine(c.SkinNoun), name), side ? L.T("Unlocked by your side activity") : L.T(skins[i].Blurb), L.F("{0} unlocked", name));
             }
 
             if (dirty) EnvironmentContent.Save(id);
         }
+
+        // "New spot: {0}" — ad ile cins/çekim uyumu dile göre değiştiği için her ad ayrı anahtar.
+        static string NewLine(string noun) => noun switch
+        {
+            "venue" => L.N("New venue: {0}"),
+            "place" => L.N("New place: {0}"),
+            "spot" => L.N("New spot: {0}"),
+            "shop" => L.N("New shop: {0}"),
+            "site" => L.N("New site: {0}"),
+            "tackle" => L.N("New tackle: {0}"),
+            _ => L.N("New look: {0}"),
+        };
     }
 }

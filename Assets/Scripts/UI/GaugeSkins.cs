@@ -14,7 +14,7 @@ namespace ScrollRoad
     public static class GaugeSkins
     {
         public enum StripStyle { Plate = 0, CardDial = 1, Peek = 2 }
-        public static readonly string[] StripStyleNames = { "Simple plate", "Card dial", "Big dial" };
+        public static readonly string[] StripStyleNames = { L.N("Simple plate"), L.N("Card dial"), L.N("Big dial") };
 
         public sealed class Skin
         {
@@ -36,19 +36,19 @@ namespace ScrollRoad
 
         public static readonly Skin[] All =
         {
-            new Skin { id = "classic", name = "Classic", unlock = CarCatalog.Unlock.Free,
+            new Skin { id = "classic", name = L.N("Classic"), unlock = CarCatalog.Unlock.Free,
                 odoText = Hex("#F4F1E6"), odoLastText = Hex("#1A1C22"), stripText = Hex("#F4F1E6"), accent = Hex("#F4F1E6") },
-            new Skin { id = "tabela", name = "Highway", unlock = CarCatalog.Unlock.MonthBestKm, unlockValue = 150, unlockLabel = "reach Wheat Fields in one month",
+            new Skin { id = "tabela", name = L.N("Highway"), unlock = CarCatalog.Unlock.MonthBestKm, unlockValue = 150, unlockLabel = L.N("reach Wheat Fields in one month"),
                 odoText = Hex("#FFFFFF"), odoLastText = Hex("#0A3A22"), stripText = Hex("#FFFFFF"), accent = Hex("#0E6B3E") },
-            new Skin { id = "sport", name = "Sport", unlock = CarCatalog.Unlock.LifetimeKm, unlockValue = 5000,
+            new Skin { id = "sport", name = L.N("Sport"), unlock = CarCatalog.Unlock.LifetimeKm, unlockValue = 5000,
                 odoText = Hex("#E9E6DC"), odoLastText = Hex("#14161B"), stripText = Hex("#E9E6DC"), accent = Hex("#FF4B3E") },
-            new Skin { id = "retro", name = "Retro", unlock = CarCatalog.Unlock.MonthBestKm, unlockValue = 11000, unlockLabel = "reach the Snowy Plateau in one month",
+            new Skin { id = "retro", name = L.N("Retro"), unlock = CarCatalog.Unlock.MonthBestKm, unlockValue = 11000, unlockLabel = L.N("reach the Snowy Plateau in one month"),
                 odoText = Hex("#EFE4C8"), odoLastText = Hex("#EFE4C8"), stripText = Hex("#2A2016"), accent = Hex("#C9B98F") },
-            new Skin { id = "lcd", name = "Digital", lcd = true, unlock = CarCatalog.Unlock.LifetimeKm, unlockValue = 20000,
+            new Skin { id = "lcd", name = L.N("Digital"), lcd = true, unlock = CarCatalog.Unlock.LifetimeKm, unlockValue = 20000,
                 odoText = Hex("#A6F06B"), odoLastText = Hex("#0E1512"), stripText = Hex("#A6F06B"), accent = Hex("#A6F06B") },
-            new Skin { id = "harbor", name = "Harbor", knots = true, vehicleOnly = true, unlock = CarCatalog.Unlock.Free,
+            new Skin { id = "harbor", name = L.N("Harbor"), knots = true, vehicleOnly = true, unlock = CarCatalog.Unlock.Free,
                 odoText = Hex("#E8F1F7"), odoLastText = Hex("#0D2238"), stripText = Hex("#E8F1F7"), accent = Hex("#14304F") },
-            new Skin { id = "airspeed", name = "Airspeed", knots = true, vehicleOnly = true, unlock = CarCatalog.Unlock.Free,
+            new Skin { id = "airspeed", name = L.N("Airspeed"), knots = true, vehicleOnly = true, unlock = CarCatalog.Unlock.Free,
                 odoText = Hex("#F2F2F0"), odoLastText = Hex("#101113"), stripText = Hex("#F2F2F0"), accent = Hex("#101113") },
         };
 
@@ -87,8 +87,8 @@ namespace ScrollRoad
             var p = CarCatalog.CurrentProgress;
             return s.unlock switch
             {
-                CarCatalog.Unlock.LifetimeKm => $"{s.name} gauge unlocks at {Fmt.Km(s.unlockValue, 0)} total  ·  {Fmt.Km(s.unlockValue - p.lifetimeKm, 0)} to go",
-                CarCatalog.Unlock.MonthBestKm => $"{s.name} gauge: {s.unlockLabel}  ·  your best: {Fmt.Km(p.monthBestKm, 0)} of {Fmt.Km(s.unlockValue, 0)}",
+                CarCatalog.Unlock.LifetimeKm => L.F("{0} gauge unlocks at {1} total  ·  {2} to go", L.T(s.name), Fmt.Km(s.unlockValue, 0), Fmt.Km(s.unlockValue - p.lifetimeKm, 0)),
+                CarCatalog.Unlock.MonthBestKm => L.F("{0} gauge: {1}  ·  your best: {2} of {3}", L.T(s.name), L.T(s.unlockLabel), Fmt.Km(p.monthBestKm, 0), Fmt.Km(s.unlockValue, 0)),
                 _ => "",
             };
         }

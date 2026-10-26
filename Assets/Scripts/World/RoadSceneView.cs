@@ -247,6 +247,7 @@ namespace ScrollRoad
         SpriteRenderer signPoleRight;
         SpriteRenderer signBoard;
         TextMesh signText;
+        string signLanguage;
         MeshRenderer signTextRenderer;
         int signStopIndex = -1;
 
@@ -1011,10 +1012,11 @@ namespace ScrollRoad
 
             var s = RouteMap.Stops[index];
             bool region = s.Kind == RouteMap.StopKind.Region;
-            if (index != signStopIndex)
+            if (index != signStopIndex || signLanguage != L.Code)
             {
                 signStopIndex = index;
-                signText.text = s.Name;
+                signLanguage = L.Code;
+                signText.text = s.DisplayName;
                 signText.fontStyle = region ? FontStyle.Bold : FontStyle.Normal;
             }
 

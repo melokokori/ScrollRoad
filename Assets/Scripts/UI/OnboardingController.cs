@@ -34,25 +34,25 @@ namespace ScrollRoad
         {
             new Step
             {
-                Title = "Goal: the city",
-                Body = "A single road leads to a distant city. A new race starts every month, and whoever gets furthest by the end of the month wins.",
+                Title = L.N("Goal: the city"),
+                Body = L.N("A single road leads to a distant city. A new race starts every month, and whoever gets furthest by the end of the month wins."),
             },
             new Step
             {
-                Title = "Scroll = gas",
-                Body = "Scroll down, anywhere on your PC, and the car speeds up. Scroll up to slow down; keep going and you'll reverse.",
-                Hint = "Try it: scroll down a little.",
+                Title = L.N("Scroll = gas"),
+                Body = L.N("Scroll down, anywhere on your PC, and the car speeds up. Scroll up to slow down; keep going and you'll reverse."),
+                Hint = L.N("Try it: scroll down a little."),
                 WaitsForScroll = true,
             },
             new Step
             {
-                Title = "It counts everywhere",
-                Body = "In your browser, in Word, wherever you scroll, the car moves, even while the game is in the background. Macros and auto-scroll don't count.",
+                Title = L.N("It counts everywhere"),
+                Body = L.N("In your browser, in Word, wherever you scroll, the car moves, even while the game is in the background. Macros and auto-scroll don't count."),
             },
             new Step
             {
-                Title = "Stop and it idles",
-                Body = "After 3 minutes without a scroll, the car drops to idle. Closing the card keeps the game running in the tray next to the clock. Press F9 to shrink it into the taskbar.",
+                Title = L.N("Stop and it idles"),
+                Body = L.N("After 3 minutes without a scroll, the car drops to idle. Closing the card keeps the game running in the tray next to the clock. Press F9 to shrink it into the taskbar."),
             },
         };
 
@@ -68,6 +68,14 @@ namespace ScrollRoad
             card.SetActive(false);
             active = !SaveService.LoadOnboardingDone();
             if (active) ShowStep(0);
+            L.Changed += HandleLanguageChanged;
+        }
+
+        void OnDestroy() => L.Changed -= HandleLanguageChanged;
+
+        void HandleLanguageChanged()
+        {
+            if (active) ShowStep(stepIndex);
         }
 
         void Update()
@@ -93,7 +101,7 @@ namespace ScrollRoad
             if (source != null && source.FrameNotchesForward > 0f) scrolledForward += source.FrameNotchesForward;
             if (scrolledForward >= scrollNotchesToAdvance)
             {
-                hintText.text = "That's it!";
+                hintText.text = L.T("That's it!");
                 autoAdvanceTimer = autoAdvanceDelay;
             }
         }
@@ -107,10 +115,10 @@ namespace ScrollRoad
             var step = Steps[index];
             bool last = index == Steps.Length - 1;
             stepText.text = $"{index + 1} / {Steps.Length}";
-            titleText.text = step.Title;
-            bodyText.text = step.Body;
-            hintText.text = step.Hint ?? "";
-            nextLabel.text = last ? "Start" : "Next";
+            titleText.text = L.T(step.Title);
+            bodyText.text = L.T(step.Body);
+            hintText.text = L.T(step.Hint) ?? "";
+            nextLabel.text = last ? L.T("Start") : L.T("Next");
             skipButton.gameObject.SetActive(!last);
         }
 

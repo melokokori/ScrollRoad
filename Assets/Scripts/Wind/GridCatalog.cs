@@ -6,6 +6,7 @@ namespace ScrollRoad
     // Rüzgârgülü ortamının vadisindeki yapılar (2026-10-14, Docs/ortamlar.md "Rüzgârgülü"). Ayın i. kWh'ı
     // vadideki i. yapıyı şebekeye bağlar. Sıradan evler sayılır ama deftere girmez; nadir yapılar ilk
     // bağlanışlarında şebeke defterine damgalanır. Görseller Assets/Art/Wind/<id>.png (Tools/gen_wind.py).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public sealed class BuildingType
     {
         public string Id;

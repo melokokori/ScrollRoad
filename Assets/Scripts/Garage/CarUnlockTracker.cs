@@ -41,7 +41,7 @@ namespace ScrollRoad
                 if (unlocked[i] || !CarCatalog.IsUnlocked(catalog.models[i])) continue;
                 unlocked[i] = true;
                 string name = catalog.models[i].displayName;
-                notice.Announce($"New vehicle: {name}", "It's waiting in your garage", $"{name} unlocked");
+                notice.Announce(L.F("New vehicle: {0}", name), L.T("It's waiting in your garage"), L.F("{0} unlocked", name));
                 VehicleUnlocked?.Invoke();
             }
         }

@@ -22,6 +22,10 @@ namespace ScrollRoad
         [SerializeField] Toggle runAtStartupToggle;
         [SerializeField] Button[] stripGaugeButtons; // GaugeSkins.StripStyle sırasıyla
         [SerializeField] Toggle vehicleGaugeToggle;
+        [SerializeField] Button languageButton;
+        [SerializeField] TMP_Text languageButtonText;
+        [SerializeField] GameObject languagePicker;
+        [SerializeField] Button[] languageButtons; // L.All sırasıyla
         [SerializeField] Button openButton;
         [SerializeField] Button closeButton;
 
@@ -56,7 +60,42 @@ namespace ScrollRoad
             }
             vehicleGaugeToggle.onValueChanged.AddListener(on => GaugeSkins.VehicleGauges = on);
             runAtStartupToggle.interactable = WindowsStartup.IsSupported; // Editor'de kayıt defterine yazılmaz
+            languageButton.onClick.AddListener(() =>
+            {
+                languagePicker.SetActive(!languagePicker.activeSelf);
+                HighlightLanguage();
+            });
+            for (int i = 0; i < languageButtons.Length && i < L.All.Length; i++)
+            {
+                string code = L.All[i].code;
+                languageButtons[i].onClick.AddListener(() =>
+                {
+                    L.Set(code);
+                    languagePicker.SetActive(false);
+                    RefreshLanguage();
+                });
+            }
+            languagePicker.SetActive(false);
             settingsPanel.SetActive(false);
+            L.Changed += RefreshLanguage;
+        }
+
+        void OnDestroy() => L.Changed -= RefreshLanguage;
+
+        void RefreshLanguage()
+        {
+            int index = L.IndexOf(L.Code);
+            languageButtonText.text = index >= 0 ? L.All[index].nativeName : L.Code;
+            HighlightLanguage();
+        }
+
+        void HighlightLanguage()
+        {
+            int selected = L.IndexOf(L.Code);
+            for (int i = 0; i < languageButtons.Length; i++)
+            {
+                languageButtons[i].GetComponent<Image>().color = i == selected ? SelectedColor : IdleColor;
+            }
         }
 
         void Open()
@@ -71,6 +110,8 @@ namespace ScrollRoad
             runAtStartupToggle.SetIsOnWithoutNotify(WindowsStartup.IsEnabled());
             HighlightStripGauge();
             vehicleGaugeToggle.SetIsOnWithoutNotify(GaugeSkins.VehicleGauges);
+            languagePicker.SetActive(false);
+            RefreshLanguage();
             settingsPanel.SetActive(true);
         }
 

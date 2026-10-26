@@ -34,10 +34,10 @@ namespace ScrollRoad
             var site = wind != null ? wind.Site : GridCatalog.Hills;
             var p = wind != null ? wind.Progress : SaveService.LoadWind();
 
-            titleText.text = "Grid log · " + site.Name;
+            titleText.text = L.T("Grid log") + " · " + L.T(site.Name);
             int logged = 0;
             foreach (var b in site.Specials) if (p.Find(b.Id) != null) logged++;
-            countText.text = $"{logged} / {site.Specials.Length} landmarks  ·  {Fmt.Int(p.totalKwh)} kWh in all";
+            countText.text = L.F("{0} / {1} landmarks  ·  {2} kWh in all", logged, site.Specials.Length, Fmt.Int(p.totalKwh));
 
             for (int i = 0; i < GridCatalog.AllSpecials.Length && i < slotRoots.Length; i++)
             {
@@ -49,10 +49,10 @@ namespace ScrollRoad
                 bool met = record != null;
                 RareNoteTarget.Attach(slotRoots[i], EnvironmentId.Wind, type.Id, met);
                 images[i].color = met ? Color.white : Silhouette;
-                nameTexts[i].text = met ? type.Name : "???";
+                nameTexts[i].text = met ? L.T(type.Name) : "???";
                 detailTexts[i].text = met
-                    ? $"Powered ×{record.count}\n<alpha=#88>First lit {record.firstSeen}"
-                    : "<alpha=#88>Not on the grid yet";
+                    ? L.F("Powered ×{0}", record.count) + "\n<alpha=#88>" + L.F("First lit {0}", record.firstSeen)
+                    : "<alpha=#88>" + L.T("Not on the grid yet");
             }
             panel.SetActive(true);
         }

@@ -1,0 +1,11 @@
+#1341 kg
+tr	kg
+de	kg
+fr	kg
+es	kg
+pt	kg
+pl	kg
+ru	кг
+zh	kg
+ja	kg
+ko	kg

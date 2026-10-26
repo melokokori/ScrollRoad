@@ -25,26 +25,26 @@ namespace ScrollRoad
         // Sıra Docs/basarimlar.md ile aynı.
         public static readonly Def[] All =
         {
-            new Def { Id = "FIRST_KM", Name = "Ignition", Description = "Drive your first kilometre." },
-            new Def { Id = "KM_100", Name = "Road Tripper", Description = "Drive 100 km in total." },
-            new Def { Id = "KM_1000", Name = "Long Haul", Description = "Drive 1,000 km in total." },
-            new Def { Id = "KM_10000", Name = "Million Scrolls", Description = "Drive 10,000 km in total." },
-            new Def { Id = "GARAGE_10", Name = "Garage Sale", Description = "Unlock 10 vehicles." },
-            new Def { Id = "ALL_ACTIVITIES", Name = "Jack of All Trades", Description = "Try every activity." },
-            new Def { Id = "FIRST_RARE", Name = "Beginner's Luck", Description = "Find your first rare." },
-            new Def { Id = "RARES_50", Name = "Collector", Description = "Find 50 different rares." },
-            new Def { Id = "RARES_150", Name = "Curator", Description = "Find 150 different rares." },
-            new Def { Id = "RARES_ALL", Name = "The Whole Album", Description = "Find every rare in every place." },
-            new Def { Id = "PLACE_COMPLETE", Name = "Full Shelf", Description = "Find all six rares of one place." },
-            new Def { Id = "ACTIVITY_COMPLETE", Name = "Master of One", Description = "Complete every place of one activity." },
-            new Def { Id = "NIGHT_OWL", Name = "Night Owl", Description = "Find a rare that only comes out after dark." },
-            new Def { Id = "LUCKY_TIMING", Name = "Right Place, Right Time", Description = "Find a rare during a happening." },
-            new Def { Id = "FOCUSED", Name = "Eyes on the Prize", Description = "Find the rare you were focusing on." },
-            new Def { Id = "FIRST_ORDER", Name = "Order Up", Description = "Complete an order." },
-            new Def { Id = "ORDERS_50", Name = "Regular", Description = "Complete 50 orders." },
-            new Def { Id = "STREAK_7", Name = "Seven Days", Description = "Finish all of the day's orders seven days in a row." },
-            new Def { Id = "NEW_LOOK", Name = "New Look", Description = "Unlock a new look in any activity." },
-            new Def { Id = "SIDE_GIG", Name = "Side Gig", Description = "Put an activity in the side slot." },
+            new Def { Id = "FIRST_KM", Name = L.N("Ignition"), Description = L.N("Drive your first kilometre.") },
+            new Def { Id = "KM_100", Name = L.N("Road Tripper"), Description = L.N("Drive 100 km in total.") },
+            new Def { Id = "KM_1000", Name = L.N("Long Haul"), Description = L.N("Drive 1,000 km in total.") },
+            new Def { Id = "KM_10000", Name = L.N("Million Scrolls"), Description = L.N("Drive 10,000 km in total.") },
+            new Def { Id = "GARAGE_10", Name = L.N("Garage Sale"), Description = L.N("Unlock 10 vehicles.") },
+            new Def { Id = "ALL_ACTIVITIES", Name = L.N("Jack of All Trades"), Description = L.N("Try every activity.") },
+            new Def { Id = "FIRST_RARE", Name = L.N("Beginner's Luck"), Description = L.N("Find your first rare.") },
+            new Def { Id = "RARES_50", Name = L.N("Collector"), Description = L.N("Find 50 different rares.") },
+            new Def { Id = "RARES_150", Name = L.N("Curator"), Description = L.N("Find 150 different rares.") },
+            new Def { Id = "RARES_ALL", Name = L.N("The Whole Album"), Description = L.N("Find every rare in every place.") },
+            new Def { Id = "PLACE_COMPLETE", Name = L.N("Full Shelf"), Description = L.N("Find all six rares of one place.") },
+            new Def { Id = "ACTIVITY_COMPLETE", Name = L.N("Master of One"), Description = L.N("Complete every place of one activity.") },
+            new Def { Id = "NIGHT_OWL", Name = L.N("Night Owl"), Description = L.N("Find a rare that only comes out after dark.") },
+            new Def { Id = "LUCKY_TIMING", Name = L.N("Right Place, Right Time"), Description = L.N("Find a rare during a happening.") },
+            new Def { Id = "FOCUSED", Name = L.N("Eyes on the Prize"), Description = L.N("Find the rare you were focusing on.") },
+            new Def { Id = "FIRST_ORDER", Name = L.N("Order Up"), Description = L.N("Complete an order.") },
+            new Def { Id = "ORDERS_50", Name = L.N("Regular"), Description = L.N("Complete 50 orders.") },
+            new Def { Id = "STREAK_7", Name = L.N("Seven Days"), Description = L.N("Finish all of the day's orders seven days in a row.") },
+            new Def { Id = "NEW_LOOK", Name = L.N("New Look"), Description = L.N("Unlock a new look in any activity.") },
+            new Def { Id = "SIDE_GIG", Name = L.N("Side Gig"), Description = L.N("Put an activity in the side slot.") },
         };
 
         [Serializable]
@@ -167,7 +167,7 @@ namespace ScrollRoad
             state.unlocked.Add(id);
             SaveService.SaveJson(SaveKey, state);
             var def = Array.Find(All, d => d.Id == id);
-            if (notice != null && def != null) notice.Announce($"Achievement: {def.Name}", def.Description, $"Achievement · {def.Name}");
+            if (notice != null && def != null) notice.Announce(L.F("Achievement: {0}", L.T(def.Name)), L.T(def.Description), L.F("Achievement · {0}", L.T(def.Name)));
         }
 
         // Steam'e henüz işlenmemiş açılmalar (gerçek App ID'de).

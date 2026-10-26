@@ -5,10 +5,11 @@ namespace ScrollRoad
     // Defter notları (2026-10-25): her nadirin tek cümlelik açıklaması — yeni nadir duyurusunun alt satırı,
     // Mekânlar panelinde üzerine gelince ve defterlerde görünür. Anahtar "<ortam>:<nadir kimliği>" (kimlikler yalnız
     // ortam içinde benzersiz). Notu olmayan nadirde eski metin kalır.
+    // loc:catalog — notlar (boşluklu metinler) Tools/loc/extract.py ile çeviri anahtarı olarak toplanır.
     public static class RareNotes
     {
         public static string For(EnvironmentId env, string rareId) =>
-            rareId != null && Notes.TryGetValue(env + ":" + rareId, out var note) ? note : null;
+            rareId != null && Notes.TryGetValue(env + ":" + rareId, out var note) ? L.T(note) : null;
 
         static readonly Dictionary<string, string> Notes = Build();
 

@@ -32,7 +32,7 @@ namespace ScrollRoad
             if (engine == null || submitting) return;
             if (!SteamManager.IsInitialized)
             {
-                LastStatus = "Steam not connected";
+                LastStatus = L.T("Steam not connected");
                 return;
             }
 
@@ -44,11 +44,11 @@ namespace ScrollRoad
             {
                 bool ok = await ScrollRoadLeaderboard.SubmitPointsAsync(points);
                 if (ok) lastSubmitted = points;
-                LastStatus = ok ? $"Submitted: {EnvironmentManager.Current.Format(points)}" : "Submission failed";
+                LastStatus = ok ? L.F("Submitted: {0}", EnvironmentManager.Current.Format(points)) : L.T("Submission failed");
             }
             catch (Exception e)
             {
-                LastStatus = "Submission failed";
+                LastStatus = L.T("Submission failed");
                 Debug.LogWarning($"Leaderboard gönderimi başarısız: {e.Message}");
             }
             finally

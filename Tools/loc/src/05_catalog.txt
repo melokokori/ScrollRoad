@@ -1,0 +1,2200 @@
+#721 Tent
+tr	Çadır
+de	Zelt
+fr	Tente
+es	Tienda de campaña
+pt	Tenda
+pl	Namiot
+ru	Шатёр
+zh	帐篷
+ja	テント
+ko	천막
+#722 Terraced houses
+tr	Sıra evler
+de	Reihenhäuser
+fr	Maisons mitoyennes
+es	Casas adosadas
+pt	Casas geminadas
+pl	Szeregowce
+ru	Таунхаусы
+zh	联排房屋
+ja	長屋
+ko	연립주택
+#723 The Alhambra
+tr	Elhamra Sarayı
+de	Die Alhambra
+fr	L'Alhambra
+es	La Alhambra
+pt	Alhambra
+pl	Alhambra
+ru	Альгамбра
+zh	阿尔罕布拉宫
+ja	アルハンブラ宮殿
+ko	알함브라 궁전
+#724 The Ancient World
+tr	Antik Çağ
+de	Die Antike
+fr	L'Antiquité
+es	La Antigüedad
+pt	A Antiguidade
+pl	Starożytność
+ru	Древний мир
+zh	古代世界
+ja	古代
+ko	고대 세계
+#725 The Atomium
+tr	Atomium
+de	Das Atomium
+fr	L'Atomium
+es	El Atomium
+pt	O Atomium
+pl	Atomium
+ru	Атомиум
+zh	原子塔
+ja	アトミウム
+ko	아토미움
+#726 The CN Tower
+tr	CN Kulesi
+de	Der CN Tower
+fr	La Tour CN
+es	La Torre CN
+pt	A Torre CN
+pl	CN Tower
+ru	Си-Эн Тауэр
+zh	加拿大国家电视塔
+ja	CNタワー
+ko	CN 타워
+#727 The Colosseum
+tr	Kolezyum
+de	Das Kolosseum
+fr	Le Colisée
+es	El Coliseo
+pt	O Coliseu
+pl	Koloseum
+ru	Колизей
+zh	罗马斗兽场
+ja	コロッセオ
+ko	콜로세움
+#728 The Crystal Palace
+tr	Kristal Saray
+de	Der Crystal Palace
+fr	Le Crystal Palace
+es	El Palacio de Cristal
+pt	O Palácio de Cristal
+pl	Kryształowy Pałac
+ru	Хрустальный дворец
+zh	水晶宫
+ja	水晶宮
+ko	수정궁
+#729 The Eiffel Tower
+tr	Eyfel Kulesi
+de	Der Eiffelturm
+fr	La Tour Eiffel
+es	La Torre Eiffel
+pt	A Torre Eiffel
+pl	Wieża Eiffla
+ru	Эйфелева башня
+zh	埃菲尔铁塔
+ja	エッフェル塔
+ko	에펠탑
+#730 The Florence Dome
+tr	Floransa Katedrali Kubbesi
+de	Die Domkuppel von Florenz
+fr	Le Dôme de Florence
+es	La Cúpula de Florencia
+pt	A Cúpula de Florença
+pl	Kopuła katedry we Florencji
+ru	Купол Флорентийского собора
+zh	佛罗伦萨大教堂穹顶
+ja	フィレンツェの大聖堂ドーム
+ko	피렌체 대성당 돔
+#731 The Forbidden City
+tr	Yasak Şehir
+de	Die Verbotene Stadt
+fr	La Cité interdite
+es	La Ciudad Prohibida
+pt	A Cidade Proibida
+pl	Zakazane Miasto
+ru	Запретный город
+zh	紫禁城
+ja	紫禁城
+ko	자금성
+#732 The Great Lighthouse
+tr	Büyük Fener
+de	Der Große Leuchtturm
+fr	Le Grand Phare
+es	El Gran Faro
+pt	O Grande Farol
+pl	Wielka Latarnia
+ru	Великий маяк
+zh	亚历山大灯塔
+ja	アレクサンドリアの大灯台
+ko	파로스 등대
+#733 The Great Telescope
+tr	Büyük Teleskop
+de	Das Große Teleskop
+fr	Le Grand Télescope
+es	El Gran Telescopio
+pt	O Grande Telescópio
+pl	Wielki Teleskop
+ru	Большой телескоп
+zh	巨型望远镜
+ja	大望遠鏡
+ko	거대 망원경
+#734 The Great Wall
+tr	Çin Seddi
+de	Die Chinesische Mauer
+fr	La Grande Muraille
+es	La Gran Muralla
+pt	A Grande Muralha
+pl	Wielki Mur
+ru	Великая Китайская стена
+zh	长城
+ja	万里の長城
+ko	만리장성
+#735 The Hanging Gardens
+tr	Asma Bahçeler
+de	Die Hängenden Gärten
+fr	Les Jardins suspendus
+es	Los Jardines Colgantes
+pt	Os Jardins Suspensos
+pl	Wiszące Ogrody
+ru	Висячие сады
+zh	空中花园
+ja	空中庭園
+ko	공중 정원
+#736 The Industrial Age
+tr	Sanayi Çağı
+de	Das Industriezeitalter
+fr	L'Ère industrielle
+es	La Era Industrial
+pt	A Era Industrial
+pl	Epoka przemysłowa
+ru	Индустриальная эпоха
+zh	工业时代
+ja	産業時代
+ko	산업 시대
+#737 The Leaning Tower
+tr	Eğik Kule
+de	Der Schiefe Turm
+fr	La Tour penchée
+es	La Torre inclinada
+pt	A Torre Inclinada
+pl	Krzywa Wieża
+ru	Падающая башня
+zh	比萨斜塔
+ja	ピサの斜塔
+ko	피사의 사탑
+#738 The Middle Ages
+tr	Orta Çağ
+de	Das Mittelalter
+fr	Le Moyen Âge
+es	La Edad Media
+pt	A Idade Média
+pl	Średniowiecze
+ru	Средневековье
+zh	中世纪
+ja	中世
+ko	중세
+#739 The Moon Rocket
+tr	Ay Roketi
+de	Die Mondrakete
+fr	La Fusée lunaire
+es	El Cohete lunar
+pt	O Foguete lunar
+pl	Rakieta Księżycowa
+ru	Лунная ракета
+zh	登月火箭
+ja	月ロケット
+ko	달 로켓
+#740 The Pyramids
+tr	Piramitler
+de	Die Pyramiden
+fr	Les Pyramides
+es	Las Pirámides
+pt	As Pirâmides
+pl	Piramidy
+ru	Пирамиды
+zh	金字塔
+ja	ピラミッド
+ko	피라미드
+#741 The Renaissance
+tr	Rönesans
+de	Die Renaissance
+fr	La Renaissance
+es	El Renacimiento
+pt	O Renascimento
+pl	Renesans
+ru	Возрождение
+zh	文艺复兴
+ja	ルネサンス
+ko	르네상스
+#742 The Space Age
+tr	Uzay Çağı
+de	Das Raumfahrtzeitalter
+fr	L'Ère spatiale
+es	La Era Espacial
+pt	A Era Espacial
+pl	Era kosmiczna
+ru	Космическая эра
+zh	太空时代
+ja	宇宙時代
+ko	우주 시대
+#743 The Statue of Liberty
+tr	Özgürlük Heykeli
+de	Die Freiheitsstatue
+fr	La Statue de la Liberté
+es	La Estatua de la Libertad
+pt	A Estátua da Liberdade
+pl	Statua Wolności
+ru	Статуя Свободы
+zh	自由女神像
+ja	自由の女神
+ko	자유의 여신상
+#744 The Sydney Opera House
+tr	Sidney Opera Binası
+de	Das Opernhaus Sydney
+fr	L'Opéra de Sydney
+es	La Ópera de Sídney
+pt	A Ópera de Sydney
+pl	Opera w Sydney
+ru	Сиднейский оперный театр
+zh	悉尼歌剧院
+ja	シドニー・オペラハウス
+ko	시드니 오페라 하우스
+#745 The Taj Mahal
+tr	Tac Mahal
+de	Das Taj Mahal
+fr	Le Taj Mahal
+es	El Taj Mahal
+pt	O Taj Mahal
+pl	Tadż Mahal
+ru	Тадж-Махал
+zh	泰姬陵
+ja	タージ・マハル
+ko	타지마할
+#746 Tower Bridge
+tr	Tower Köprüsü
+de	Tower Bridge
+fr	Tower Bridge
+es	Puente de la Torre
+pt	Tower Bridge
+pl	Tower Bridge
+ru	Тауэрский мост
+zh	伦敦塔桥
+ja	タワーブリッジ
+ko	타워 브리지
+#747 Townhouse
+tr	Şehir evi
+de	Stadthaus
+fr	Maison de ville
+es	Casa urbana
+pt	Sobrado
+pl	Kamienica
+ru	Городской дом
+zh	联排别墅
+ja	タウンハウス
+ko	타운하우스
+#748 Versailles
+tr	Versay Sarayı
+de	Versailles
+fr	Versailles
+es	Versalles
+pt	Versalhes
+pl	Wersal
+ru	Версаль
+zh	凡尔赛宫
+ja	ヴェルサイユ宮殿
+ko	베르사유 궁전
+#749 Watchtower
+tr	Gözetleme kulesi
+de	Wachturm
+fr	Tour de guet
+es	Atalaya
+pt	Torre de vigia
+pl	Wieża strażnicza
+ru	Сторожевая башня
+zh	瞭望塔
+ja	物見やぐら
+ko	망루
+#750 Water tower
+tr	Su kulesi
+de	Wasserturm
+fr	Château d'eau
+es	Torre de agua
+pt	Caixa-d'água
+pl	Wieża ciśnień
+ru	Водонапорная башня
+zh	水塔
+ja	給水塔
+ko	급수탑
+#751 Windmill
+tr	Yel değirmeni
+de	Windmühle
+fr	Moulin à vent
+es	Molino de viento
+pt	Moinho de vento
+pl	Wiatrak
+ru	Ветряная мельница
+zh	风车
+ja	風車
+ko	풍차
+#752 Wonder raised: {0}
+tr	Harika yükseldi: {0}
+de	Weltwunder errichtet: {0}
+fr	Merveille érigée : {0}
+es	Maravilla levantada: {0}
+pt	Maravilha erguida: {0}
+pl	Wzniesiono cud: {0}
+ru	Чудо построено: {0}
+zh	奇观落成：{0}
+ja	驚異が完成：{0}
+ko	불가사의 완성: {0}
+#753 Workshop
+tr	Atölye
+de	Werkstatt
+fr	Atelier
+es	Taller
+pt	Oficina
+pl	Warsztat
+ru	Мастерская
+zh	工坊
+ja	工房
+ko	작업장
+#754 wonders
+tr	harika
+de	Weltwunder
+fr	merveilles
+es	maravillas
+pt	maravilhas
+pl	cuda
+ru	чудеса
+zh	奇观
+ja	驚異
+ko	불가사의
+#755 {0} · in the chronicle
+tr	{0} · tarihçede
+de	{0} · in der Chronik
+fr	{0} · dans la chronique
+es	{0} · en la crónica
+pt	{0} · na crônica
+pl	{0} · w kronice
+ru	{0} · в летописи
+zh	{0} · 已载入编年史
+ja	{0} · 年代記に記録
+ko	{0} · 연대기에 기록
+#756 Alambre
+tr	Alambre
+de	Alambre
+fr	Alambre
+es	Alambre
+pt	Alambre
+pl	Alambre
+ru	Аламбре
+zh	阿兰布雷
+ja	アランブレ
+ko	알람브레
+#757 Arabi
+tr	Arabi
+de	Arabi
+fr	Arabi
+es	Arabi
+pt	Arabi
+pl	Arabi
+ru	Араби
+zh	阿拉比卷
+ja	アラビ
+ko	아라비
+#758 Beef Shawarma
+tr	Dana Şavurma
+de	Rinder-Schawarma
+fr	Chawarma de bœuf
+es	Shawarma de ternera
+pt	Shawarma de carne
+pl	Szawarma wołowa
+ru	Шаурма из говядины
+zh	牛肉沙威玛
+ja	ビーフシャワルマ
+ko	소고기 샤와르마
+#759 Berlin durum
+tr	Berlin dürüm
+de	Berliner Dürüm
+fr	Dürüm berlinois
+es	Dürüm berlinés
+pt	Dürüm berlinense
+pl	Dürüm berliński
+ru	Берлинский дюрюм
+zh	柏林卷饼
+ja	ベルリン風デュリュム
+ko	베를린 뒤륌
+#760 COOKING
+tr	PİŞİYOR
+de	BRUTZELT
+fr	CUISSON
+es	COCINANDO
+pt	COZINHANDO
+pl	PIECZENIE
+ru	ГОТОВИТСЯ
+zh	烤制中
+ja	調理中
+ko	조리 중
+#761 COOLING DOWN
+tr	SOĞUYOR
+de	KÜHLT AB
+fr	REFROIDISSEMENT
+es	ENFRIANDO
+pt	ESFRIANDO
+pl	STYGNIE
+ru	ОСТЫВАЕТ
+zh	冷却中
+ja	冷却中
+ko	식는 중
+#762 Cheese Doner
+tr	Kaşarlı Döner
+de	Käse-Döner
+fr	Kebab au fromage
+es	Döner con queso
+pt	Kebab com queijo
+pl	Kebab z serem
+ru	Донер с сыром
+zh	芝士土耳其烤肉
+ja	チーズドネル
+ko	치즈 되네르
+#763 Cheese Durum
+tr	Kaşarlı Dürüm
+de	Käse-Dürüm
+fr	Dürüm au fromage
+es	Dürüm con queso
+pt	Dürüm com queijo
+pl	Dürüm z serem
+ru	Дюрюм с сыром
+zh	芝士卷饼
+ja	チーズデュリュム
+ko	치즈 뒤륌
+#764 Chicken Doner
+tr	Tavuk Döner
+de	Hähnchen-Döner
+fr	Kebab au poulet
+es	Döner de pollo
+pt	Kebab de frango
+pl	Kebab z kurczakiem
+ru	Куриный донер
+zh	鸡肉土耳其烤肉
+ja	チキンドネル
+ko	치킨 되네르
+#765 Chicken pita
+tr	Tavuklu pide arası
+de	Hähnchen-Pita
+fr	Pita au poulet
+es	Pita de pollo
+pt	Pita de frango
+pl	Pita z kurczakiem
+ru	Пита с курицей
+zh	鸡肉皮塔饼
+ja	チキンピタ
+ko	치킨 피타
+#766 Doner box
+tr	Döner kutusu
+de	Dönerbox
+fr	Box kebab
+es	Caja de döner
+pt	Caixa de kebab
+pl	Kebab box
+ru	Донер-бокс
+zh	土耳其烤肉盒
+ja	ドネルボックス
+ko	되네르 박스
+#767 Doner in bread
+tr	Ekmek arası döner
+de	Döner im Brot
+fr	Kebab dans le pain
+es	Döner en pan
+pt	Kebab no pão
+pl	Kebab w bułce
+ru	Донер в хлебе
+zh	面包夹烤肉
+ja	パンに挟んだドネル
+ko	빵 되네르
+#768 Doner plate
+tr	Porsiyon döner
+de	Dönerteller
+fr	Assiette kebab
+es	Plato de döner
+pt	Prato de kebab
+pl	Talerz kebabu
+ru	Тарелка донера
+zh	土耳其烤肉拼盘
+ja	ドネルプレート
+ko	되네르 접시
+#769 Doner portion
+tr	Döner porsiyonu
+de	Döner-Portion
+fr	Portion de kebab
+es	Ración de döner
+pt	Porção de kebab
+pl	Porcja kebabu
+ru	Порция донера
+zh	一份烤肉
+ja	ドネル一人前
+ko	되네르 1인분
+#770 Doner with Everything
+tr	Her Şeyi Bol Döner
+de	Döner mit allem
+fr	Kebab tout compris
+es	Döner con todo
+pt	Kebab completo
+pl	Kebab ze wszystkim
+ru	Донер со всем
+zh	全料烤肉
+ja	全部のせドネル
+ko	다 넣은 되네르
+#771 Double Pita
+tr	Çift Pita
+de	Doppel-Pita
+fr	Double pita
+es	Pita doble
+pt	Pita dupla
+pl	Podwójna pita
+ru	Двойная пита
+zh	双层皮塔饼
+ja	ダブルピタ
+ko	더블 피타
+#772 Erzurum Cag Kebab
+tr	Erzurum Cağ Kebabı
+de	Erzurum-Cağ-Kebap
+fr	Cağ kebab d'Erzurum
+es	Cağ kebab de Erzurum
+pt	Cağ kebab de Erzurum
+pl	Cağ kebab z Erzurum
+ru	Эрзурумский джаг-кебаб
+zh	埃尔祖鲁姆横烤肉
+ja	エルズルムのジャー・ケバブ
+ko	에르주룸 자 케밥
+#773 Extra Spicy Doner
+tr	Ekstra Acılı Döner
+de	Extra scharfer Döner
+fr	Kebab extra épicé
+es	Döner extra picante
+pt	Kebab extra apimentado
+pl	Ekstra ostry kebab
+ru	Очень острый донер
+zh	特辣烤肉
+ja	激辛ドネル
+ko	아주 매운 되네르
+#774 Feta Gyros
+tr	Beyaz Peynirli Gyros
+de	Gyros mit Feta
+fr	Gyros à la feta
+es	Gyros con feta
+pt	Gyros com feta
+pl	Gyros z fetą
+ru	Гирос с фетой
+zh	菲达奶酪希腊烤肉
+ja	フェタのギロス
+ko	페타 기로스
+#775 First served {0}
+tr	İlk servis {0}
+de	Erstmals serviert {0}
+fr	Premier service {0}
+es	Servido por primera vez {0}
+pt	Servido pela primeira vez {0}
+pl	Pierwszy raz podane {0}
+ru	Впервые подано {0}
+zh	首次供应 {0}
+ja	初提供 {0}
+ko	첫 서빙 {0}
+#776 Gemuse Doner
+tr	Sebzeli Döner
+de	Gemüse-Döner
+fr	Gemüse kebab
+es	Döner Gemüse
+pt	Kebab Gemüse
+pl	Gemüse kebab
+ru	Гемюзе-донер
+zh	德式蔬菜烤肉
+ja	ゲミューゼ・ドネル
+ko	게뮈제 되네르
+#777 Gringa
+tr	Gringa
+de	Gringa
+fr	Gringa
+es	Gringa
+pt	Gringa
+pl	Gringa
+ru	Гринга
+zh	格林加
+ja	グリンガ
+ko	그링가
+#778 Gyros baguette
+tr	Baget gyros
+de	Gyros-Baguette
+fr	Baguette gyros
+es	Baguette de gyros
+pt	Baguete de gyros
+pl	Bagietka z gyrosem
+ru	Багет с гиросом
+zh	希腊烤肉法棍
+ja	ギロスバゲット
+ko	기로스 바게트
+#779 Gyros box
+tr	Gyros kutusu
+de	Gyrosbox
+fr	Box gyros
+es	Caja de gyros
+pt	Caixa de gyros
+pl	Gyros box
+ru	Гирос-бокс
+zh	希腊烤肉盒
+ja	ギロスボックス
+ko	기로스 박스
+#780 Gyros plate
+tr	Porsiyon gyros
+de	Gyrosteller
+fr	Assiette gyros
+es	Plato de gyros
+pt	Prato de gyros
+pl	Talerz gyrosa
+ru	Тарелка гироса
+zh	希腊烤肉拼盘
+ja	ギロスプレート
+ko	기로스 접시
+#781 Gyros with Yogurt
+tr	Yoğurtlu Gyros
+de	Gyros mit Joghurt
+fr	Gyros au yaourt
+es	Gyros con yogur
+pt	Gyros com iogurte
+pl	Gyros z jogurtem
+ru	Гирос с йогуртом
+zh	酸奶希腊烤肉
+ja	ヨーグルトのギロス
+ko	요거트 기로스
+#782 Half bread
+tr	Yarım ekmek
+de	Halbes Brot
+fr	Demi-pain
+es	Medio pan
+pt	Meio pão
+pl	Pół bułki
+ru	Половина хлеба
+zh	半个面包
+ja	ハーフブレッド
+ko	반쪽 빵
+#783 Halloumi doner
+tr	Hellimli döner
+de	Halloumi-Döner
+fr	Kebab au halloumi
+es	Döner de halloumi
+pt	Kebab de halloumi
+pl	Kebab z halloumi
+ru	Донер с халлуми
+zh	哈罗米奶酪烤肉
+ja	ハルーミのドネル
+ko	할루미 되네르
+#784 Huarache al Pastor
+tr	Huarache al Pastor
+de	Huarache al Pastor
+fr	Huarache al pastor
+es	Huarache al pastor
+pt	Huarache al pastor
+pl	Huarache al pastor
+ru	Уараче аль пастор
+zh	牧人风味鞋底饼
+ja	ワラチェ・アル・パストール
+ko	우아라체 알 파스토르
+#785 IDLE · LOW FIRE
+tr	RÖLANTİ · KISIK ATEŞ
+de	LEERLAUF · KLEINE FLAMME
+fr	RALENTI · FEU DOUX
+es	RALENTÍ · FUEGO LENTO
+pt	OCIOSO · FOGO BAIXO
+pl	BEZCZYNNY · MAŁY OGIEŃ
+ru	ПРОСТОЙ · СЛАБЫЙ ОГОНЬ
+zh	闲置 · 小火
+ja	アイドル · 弱火
+ko	대기 · 약불
+#786 Iskender
+tr	İskender
+de	Iskender
+fr	Iskender
+es	Iskender
+pt	Iskender
+pl	Iskender
+ru	Искендер
+zh	伊斯坎德尔烤肉
+ja	イスケンデル
+ko	이스켄데르
+#787 Kaak Shawarma
+tr	Kaak Şavurma
+de	Kaak-Schawarma
+fr	Chawarma kaak
+es	Shawarma kaak
+pt	Shawarma kaak
+pl	Szawarma kaak
+ru	Шаурма в кааке
+zh	卡克面包沙威玛
+ja	カアク・シャワルマ
+ko	카아크 샤와르마
+#788 Lahmacun roll
+tr	Lahmacun dürüm
+de	Lahmacun-Rolle
+fr	Roulé de lahmacun
+es	Rollo de lahmacun
+pt	Rolinho de lahmacun
+pl	Lahmacun w rolce
+ru	Лахмаджун-ролл
+zh	土耳其薄饼卷
+ja	ラフマジュン巻き
+ko	라마준 롤
+#789 Lamb Gyros
+tr	Kuzu Gyros
+de	Lamm-Gyros
+fr	Gyros d'agneau
+es	Gyros de cordero
+pt	Gyros de cordeiro
+pl	Gyros z jagnięciny
+ru	Гирос из баранины
+zh	羊肉希腊烤肉
+ja	ラムのギロス
+ko	양고기 기로스
+#790 Lamb Shawarma
+tr	Kuzu Şavurma
+de	Lamm-Schawarma
+fr	Chawarma d'agneau
+es	Shawarma de cordero
+pt	Shawarma de cordeiro
+pl	Szawarma z jagnięciny
+ru	Шаурма из баранины
+zh	羊肉沙威玛
+ja	ラムシャワルマ
+ko	양고기 샤와르마
+#791 Lavash wrap
+tr	Lavaş dürüm
+de	Lavash-Wrap
+fr	Wrap au lavash
+es	Wrap de lavash
+pt	Wrap de lavash
+pl	Wrap z lawaszem
+ru	Ролл в лаваше
+zh	拉瓦什卷饼
+ja	ラヴァシュラップ
+ko	라바시 랩
+#792 MENU
+tr	MENÜ
+de	SPEISEKARTE
+fr	MENU
+es	MENÚ
+pt	CARDÁPIO
+pl	MENU
+ru	МЕНЮ
+zh	菜单
+ja	メニュー
+ko	메뉴판
+#793 New on the menu: {0}
+tr	Menüde yeni: {0}
+de	Neu auf der Karte: {0}
+fr	Nouveau au menu : {0}
+es	Nuevo en el menú: {0}
+pt	Novo no cardápio: {0}
+pl	Nowość w menu: {0}
+ru	Новое в меню: {0}
+zh	菜单新品：{0}
+ja	新メニュー：{0}
+ko	새 메뉴: {0}
+#794 Next order: {0}
+tr	Sıradaki sipariş: {0}
+de	Nächste Bestellung: {0}
+fr	Commande suivante : {0}
+es	Siguiente pedido: {0}
+pt	Próximo pedido: {0}
+pl	Następne zamówienie: {0}
+ru	Следующий заказ: {0}
+zh	下一单：{0}
+ja	次の注文：{0}
+ko	다음 주문: {0}
+#795 Not served yet
+tr	Henüz servis edilmedi
+de	Noch nicht serviert
+fr	Pas encore servi
+es	Aún sin servir
+pt	Ainda não servido
+pl	Jeszcze niepodane
+ru	Ещё не подавалось
+zh	尚未供应
+ja	未提供
+ko	아직 안 나감
+#796 Open pita
+tr	Açık pita
+de	Offene Pita
+fr	Pita ouverte
+es	Pita abierta
+pt	Pita aberta
+pl	Otwarta pita
+ru	Открытая пита
+zh	开口皮塔饼
+ja	オープンピタ
+ko	오픈 피타
+#797 Order up
+tr	Sipariş hazır
+de	Bestellung fertig
+fr	Commande prête
+es	Pedido listo
+pt	Pedido pronto
+pl	Zamówienie gotowe
+ru	Заказ готов
+zh	出餐
+ja	お待ちどおさま
+ko	주문 나왔습니다
+#798 Pastor Burrito
+tr	Pastor Burrito
+de	Pastor-Burrito
+fr	Burrito al pastor
+es	Burrito al pastor
+pt	Burrito al pastor
+pl	Burrito al pastor
+ru	Буррито аль пастор
+zh	牧人风味墨西哥卷
+ja	パストールのブリトー
+ko	파스토르 부리토
+#799 Pastor quesadilla
+tr	Pastor quesadilla
+de	Pastor-Quesadilla
+fr	Quesadilla al pastor
+es	Quesadilla al pastor
+pt	Quesadilla al pastor
+pl	Quesadilla al pastor
+ru	Кесадилья аль пастор
+zh	牧人风味芝士薄饼
+ja	パストールのケサディーヤ
+ko	파스토르 케사디야
+#800 Pideli Doner
+tr	Pideli Döner
+de	Pide-Döner
+fr	Kebab sur pide
+es	Döner con pide
+pt	Kebab com pide
+pl	Kebab na pide
+ru	Донер на пиде
+zh	皮德饼烤肉
+ja	ピデのドネル
+ko	피데 되네르
+#801 Pineapple Special
+tr	Ananaslı Özel
+de	Ananas-Spezial
+fr	Spécial ananas
+es	Especial de piña
+pt	Especial de abacaxi
+pl	Specjał z ananasem
+ru	Ананасовый спешл
+zh	菠萝特制
+ja	パイナップルスペシャル
+ko	파인애플 스페셜
+#802 Pita
+tr	Pita
+de	Pita
+fr	Pita
+es	Pita
+pt	Pita
+pl	Pita
+ru	Пита
+zh	皮塔饼
+ja	ピタ
+ko	피타
+#803 Pita gyros
+tr	Pita gyros
+de	Pita-Gyros
+fr	Pita gyros
+es	Pita gyros
+pt	Pita gyros
+pl	Pita gyros
+ru	Пита-гирос
+zh	皮塔希腊烤肉
+ja	ピタギロス
+ko	피타 기로스
+#804 Rice plate
+tr	Pilav üstü
+de	Reisteller
+fr	Assiette avec riz
+es	Plato con arroz
+pt	Prato com arroz
+pl	Talerz z ryżem
+ru	Тарелка с рисом
+zh	米饭套餐
+ja	ライスプレート
+ko	밥 접시
+#805 SERVED
+tr	SERVİS
+de	SERVIERT
+fr	SERVIS
+es	SERVIDOS
+pt	SERVIDOS
+pl	PODANE
+ru	ПОДАНО
+zh	已供应
+ja	提供数
+ko	서빙
+#806 Saj shawarma
+tr	Saç şavurma
+de	Saj-Schawarma
+fr	Chawarma saj
+es	Shawarma saj
+pt	Shawarma saj
+pl	Szawarma saj
+ru	Шаурма на садже
+zh	萨吉饼沙威玛
+ja	サージ・シャワルマ
+ko	사지 샤와르마
+#807 Samoon
+tr	Samoon
+de	Samoon
+fr	Samoon
+es	Samoon
+pt	Samoon
+pl	Samoon
+ru	Самун
+zh	萨蒙面包
+ja	サムーン
+ko	사문
+#808 Served ×{0}
+tr	Servis ×{0}
+de	Serviert ×{0}
+fr	Servi ×{0}
+es	Servido ×{0}
+pt	Servido ×{0}
+pl	Podano ×{0}
+ru	Подано ×{0}
+zh	供应 ×{0}
+ja	提供 ×{0}
+ko	서빙 ×{0}
+#809 Shawarma Fatteh
+tr	Şavurma Fatteh
+de	Schawarma-Fatteh
+fr	Fatteh au chawarma
+es	Fatteh de shawarma
+pt	Fatteh de shawarma
+pl	Fatteh z szawarmą
+ru	Фаттех с шаурмой
+zh	沙威玛法塔
+ja	シャワルマのファッテ
+ko	샤와르마 파테
+#810 Shawarma fries
+tr	Şavurmalı patates
+de	Schawarma-Pommes
+fr	Frites au chawarma
+es	Patatas con shawarma
+pt	Batata com shawarma
+pl	Frytki z szawarmą
+ru	Картошка фри с шаурмой
+zh	沙威玛薯条
+ja	シャワルマポテト
+ko	샤와르마 감자튀김
+#811 Shawarma plate
+tr	Porsiyon şavurma
+de	Schawarma-Teller
+fr	Assiette chawarma
+es	Plato de shawarma
+pt	Prato de shawarma
+pl	Talerz szawarmy
+ru	Тарелка шаурмы
+zh	沙威玛拼盘
+ja	シャワルマプレート
+ko	샤와르마 접시
+#812 Shawarma wrap
+tr	Şavurma dürüm
+de	Schawarma-Wrap
+fr	Wrap chawarma
+es	Wrap de shawarma
+pt	Wrap de shawarma
+pl	Wrap z szawarmą
+ru	Шаурма в лаваше
+zh	沙威玛卷
+ja	シャワルマラップ
+ko	샤와르마 랩
+#813 Spicy Gyros
+tr	Acılı Gyros
+de	Scharfes Gyros
+fr	Gyros épicé
+es	Gyros picante
+pt	Gyros apimentado
+pl	Ostry gyros
+ru	Острый гирос
+zh	香辣希腊烤肉
+ja	スパイシーギロス
+ko	매운 기로스
+#814 Stamped in your menu
+tr	Menüne işlendi
+de	In deine Speisekarte eingetragen
+fr	Inscrit à votre menu
+es	Anotado en tu menú
+pt	Registrado no seu cardápio
+pl	Wpisano do menu
+ru	Записано в меню
+zh	已记入菜单
+ja	メニューに記録
+ko	메뉴판에 기록됨
+#815 Tacos Arabes
+tr	Tacos Árabes
+de	Tacos Árabes
+fr	Tacos árabes
+es	Tacos árabes
+pt	Tacos árabes
+pl	Tacos árabes
+ru	Такос арабес
+zh	阿拉伯风味塔可
+ja	タコス・アラベス
+ko	타코스 아라베스
+#816 Tacos al pastor
+tr	Tacos al pastor
+de	Tacos al Pastor
+fr	Tacos al pastor
+es	Tacos al pastor
+pt	Tacos al pastor
+pl	Tacos al pastor
+ru	Такос аль пастор
+zh	牧人风味塔可
+ja	タコス・アル・パストール
+ko	타코스 알 파스토르
+#817 Tacos de Costra
+tr	Tacos de Costra
+de	Tacos de Costra
+fr	Tacos de costra
+es	Tacos de costra
+pt	Tacos de costra
+pl	Tacos de costra
+ru	Такос де костра
+zh	脆芝士塔可
+ja	タコス・デ・コストラ
+ko	타코스 데 코스트라
+#818 The Golden Doner
+tr	Altın Döner
+de	Der Goldene Döner
+fr	Le Kebab d'or
+es	El Döner Dorado
+pt	O Kebab de Ouro
+pl	Złoty Kebab
+ru	Золотой донер
+zh	黄金烤肉
+ja	黄金のドネル
+ko	황금 되네르
+#819 The Golden Trompo
+tr	Altın Trompo
+de	Der Goldene Trompo
+fr	Le Trompo d'or
+es	El Trompo de Oro
+pt	O Trompo de Ouro
+pl	Złote Trompo
+ru	Золотой тромпо
+zh	黄金烤肉柱
+ja	黄金のトロンポ
+ko	황금 트롬포
+#820 The Greek Taverna
+tr	Yunan Tavernası
+de	Die Griechische Taverne
+fr	La Taverne grecque
+es	La Taberna Griega
+pt	A Taverna Grega
+pl	Grecka Tawerna
+ru	Греческая таверна
+zh	希腊小酒馆
+ja	ギリシャのタベルナ
+ko	그리스 타베르나
+#821 The Gyros Tower
+tr	Gyros Kulesi
+de	Der Gyros-Turm
+fr	La Tour de gyros
+es	La Torre de Gyros
+pt	A Torre de Gyros
+pl	Wieża Gyrosa
+ru	Башня из гироса
+zh	希腊烤肉塔
+ja	ギロスタワー
+ko	기로스 타워
+#822 The Kebab House
+tr	Kebapçı
+de	Das Kebabhaus
+fr	La Maison du kebab
+es	La Casa del Kebab
+pt	A Casa do Kebab
+pl	Dom Kebabu
+ru	Кебабная
+zh	烤肉店
+ja	ケバブハウス
+ko	케밥 하우스
+#823 The Midnight Plate
+tr	Gece Yarısı Tabağı
+de	Der Mitternachtsteller
+fr	L'Assiette de minuit
+es	El Plato de Medianoche
+pt	O Prato da Meia-Noite
+pl	Talerz o Północy
+ru	Полуночная тарелка
+zh	午夜拼盘
+ja	真夜中のプレート
+ko	한밤의 접시
+#824 The Night Grill
+tr	Gece Izgarası
+de	Der Nachtgrill
+fr	Le Grill de nuit
+es	La Parrilla Nocturna
+pt	A Grelha Noturna
+pl	Nocny Grill
+ru	Ночной гриль
+zh	深夜烤肉摊
+ja	ナイトグリル
+ko	나이트 그릴
+#825 The Royal Platter
+tr	Kraliyet Tabağı
+de	Die Königsplatte
+fr	Le Plateau royal
+es	La Bandeja Real
+pt	A Travessa Real
+pl	Królewski Półmisek
+ru	Королевское блюдо
+zh	皇家拼盘
+ja	ロイヤルプラッター
+ko	로열 플래터
+#826 The Shawarma Stand
+tr	Şavurma Tezgâhı
+de	Der Schawarma-Stand
+fr	Le Stand de chawarma
+es	El Puesto de Shawarma
+pt	A Barraca de Shawarma
+pl	Budka z Szawarmą
+ru	Ларёк с шаурмой
+zh	沙威玛小摊
+ja	シャワルマの屋台
+ko	샤와르마 노점
+#827 The Sultan's Platter
+tr	Sultan Tabağı
+de	Die Sultansplatte
+fr	Le Plateau du sultan
+es	La Bandeja del Sultán
+pt	A Travessa do Sultão
+pl	Półmisek Sułtana
+ru	Блюдо султана
+zh	苏丹拼盘
+ja	スルタンのプラッター
+ko	술탄의 플래터
+#828 The Taqueria
+tr	Taquería
+de	Die Taquería
+fr	La Taquería
+es	La Taquería
+pt	A Taquería
+pl	Taquería
+ru	Такерия
+zh	塔可店
+ja	タケリア
+ko	타케리아
+#829 Tombik
+tr	Tombik
+de	Tombik
+fr	Tombik
+es	Tombik
+pt	Tombik
+pl	Tombik
+ru	Томбик
+zh	通比克面包
+ja	トンビク
+ko	톰빅
+#830 Torta al pastor
+tr	Torta al pastor
+de	Torta al Pastor
+fr	Torta al pastor
+es	Torta al pastor
+pt	Torta al pastor
+pl	Torta al pastor
+ru	Торта аль пастор
+zh	牧人风味三明治
+ja	トルタ・アル・パストール
+ko	토르타 알 파스토르
+#831 Toum Special
+tr	Sarımsak Soslu Özel
+de	Toum-Spezial
+fr	Spécial toum
+es	Especial de toum
+pt	Especial de toum
+pl	Specjał z toum
+ru	Спешл с тумом
+zh	蒜酱特制
+ja	トゥームスペシャル
+ko	툼 스페셜
+#832 Volcanes
+tr	Volcanes
+de	Volcanes
+fr	Volcanes
+es	Volcanes
+pt	Volcanes
+pl	Volcanes
+ru	Волканес
+zh	火山塔可
+ja	ボルカネス
+ko	볼카네스
+#833 dishes
+tr	yemek
+de	Gerichte
+fr	plats
+es	platos
+pt	pratos
+pl	dania
+ru	блюда
+zh	菜品
+ja	料理
+ko	메뉴
+#834 {0} · on the menu
+tr	{0} · menüde
+de	{0} · auf der Karte
+fr	{0} · au menu
+es	{0} · en el menú
+pt	{0} · no cardápio
+pl	{0} · w menu
+ru	{0} · в меню
+zh	{0} · 已上菜单
+ja	{0} · メニュー入り
+ko	{0} · 메뉴에 추가
+#835 Apricot
+tr	Kayısı
+de	Aprikose
+fr	Abricot
+es	Albaricoque
+pt	Damasco
+pl	Morela
+ru	Абрикос
+zh	杏
+ja	アンズ
+ko	살구
+#836 Asian pear
+tr	Asya armudu
+de	Nashi-Birne
+fr	Nashi
+es	Pera asiática
+pt	Pera asiática
+pl	Gruszka azjatycka
+ru	Азиатская груша
+zh	梨
+ja	和梨
+ko	배
+#837 Avocado
+tr	Avokado
+de	Avocado
+fr	Avocat
+es	Aguacate
+pt	Abacate
+pl	Awokado
+ru	Авокадо
+zh	牛油果
+ja	アボカド
+ko	아보카도
+#838 Beetroot
+tr	Pancar
+de	Rote Bete
+fr	Betterave
+es	Remolacha
+pt	Beterraba
+pl	Burak
+ru	Свёкла
+zh	甜菜根
+ja	ビーツ
+ko	비트
+#839 Blood Orange
+tr	Kan Portakalı
+de	Blutorange
+fr	Orange sanguine
+es	Naranja sanguina
+pt	Laranja-sanguínea
+pl	Czerwona pomarańcza
+ru	Красный апельсин
+zh	血橙
+ja	ブラッドオレンジ
+ko	블러드 오렌지
+#840 Buddha's Hand
+tr	Buda Eli
+de	Buddhas Hand
+fr	Main de Bouddha
+es	Mano de Buda
+pt	Mão-de-buda
+pl	Ręka Buddy
+ru	Рука Будды
+zh	佛手柑
+ja	仏手柑
+ko	불수감
+#841 Butternut Squash
+tr	Balkabağı (Butternut)
+de	Butternut-Kürbis
+fr	Courge butternut
+es	Calabaza moscada
+pt	Abóbora-manteiga
+pl	Dynia piżmowa
+ru	Мускатная тыква
+zh	奶油南瓜
+ja	バターナッツかぼちゃ
+ko	버터넛 스쿼시
+#842 Cantaloupe
+tr	Kantalup kavunu
+de	Cantaloupe-Melone
+fr	Cantaloup
+es	Melón cantalupo
+pt	Melão cantalupo
+pl	Kantalupa
+ru	Канталупа
+zh	哈密瓜
+ja	カンタロープメロン
+ko	칸탈루프 멜론
+#843 Carrot
+tr	Havuç
+de	Karotte
+fr	Carotte
+es	Zanahoria
+pt	Cenoura
+pl	Marchewka
+ru	Морковь
+zh	胡萝卜
+ja	ニンジン
+ko	당근
+#844 Coconut
+tr	Hindistancevizi
+de	Kokosnuss
+fr	Noix de coco
+es	Coco
+pt	Coco
+pl	Kokos
+ru	Кокос
+zh	椰子
+ja	ココナッツ
+ko	코코넛
+#845 Cucumber
+tr	Salatalık
+de	Gurke
+fr	Concombre
+es	Pepino
+pt	Pepino
+pl	Ogórek
+ru	Огурец
+zh	黄瓜
+ja	キュウリ
+ko	오이
+#846 Dragon Fruit
+tr	Ejder Meyvesi
+de	Drachenfrucht
+fr	Fruit du dragon
+es	Pitahaya
+pt	Pitaia
+pl	Smoczy owoc
+ru	Питахайя
+zh	火龙果
+ja	ドラゴンフルーツ
+ko	용과
+#847 Durian
+tr	Durian
+de	Durian
+fr	Durian
+es	Durián
+pt	Durião
+pl	Durian
+ru	Дуриан
+zh	榴莲
+ja	ドリアン
+ko	두리안
+#848 Eggplant
+tr	Patlıcan
+de	Aubergine
+fr	Aubergine
+es	Berenjena
+pt	Berinjela
+pl	Bakłażan
+ru	Баклажан
+zh	茄子
+ja	ナス
+ko	가지
+#849 FRUIT BOWL
+tr	MEYVE KÂSESİ
+de	OBSTSCHALE
+fr	CORBEILLE DE FRUITS
+es	FRUTERO
+pt	FRUTEIRA
+pl	MISA OWOCÓW
+ru	ВАЗА С ФРУКТАМИ
+zh	果盘
+ja	フルーツボウル
+ko	과일 그릇
+#850 Fig
+tr	İncir
+de	Feige
+fr	Figue
+es	Higo
+pt	Figo
+pl	Figa
+ru	Инжир
+zh	无花果
+ja	イチジク
+ko	무화과
+#851 First peel {0}
+tr	İlk soyuluş {0}
+de	Erstmals geschält {0}
+fr	Première épluchure {0}
+es	Primer pelado {0}
+pt	Primeira descascada {0}
+pl	Pierwsze obranie {0}
+ru	Впервые очищено {0}
+zh	首次削皮 {0}
+ja	初むき {0}
+ko	첫 깎기 {0}
+#852 First peel: {0}
+tr	İlk soyuluş: {0}
+de	Erstmals geschält: {0}
+fr	Première épluchure : {0}
+es	Primer pelado: {0}
+pt	Primeira descascada: {0}
+pl	Pierwsze obranie: {0}
+ru	Впервые очищено: {0}
+zh	首次削皮：{0}
+ja	初めてむいた：{0}
+ko	첫 깎기: {0}
+#853 Green apple
+tr	Yeşil elma
+de	Grüner Apfel
+fr	Pomme verte
+es	Manzana verde
+pt	Maçã verde
+pl	Zielone jabłko
+ru	Зелёное яблоко
+zh	青苹果
+ja	青リンゴ
+ko	청사과
+#854 Guava
+tr	Guava
+de	Guave
+fr	Goyave
+es	Guayaba
+pt	Goiaba
+pl	Gujawa
+ru	Гуава
+zh	番石榴
+ja	グアバ
+ko	구아바
+#855 Hami Melon
+tr	Hami Kavunu
+de	Hami-Melone
+fr	Melon de Hami
+es	Melón de Hami
+pt	Melão de Hami
+pl	Melon Hami
+ru	Хамийская дыня
+zh	新疆哈密瓜
+ja	ハミウリ
+ko	하미과
+#856 Honeydew
+tr	Kış kavunu
+de	Honigmelone
+fr	Melon miel
+es	Melón dulce
+pt	Melão-de-mel
+pl	Melon miodowy
+ru	Медовая дыня
+zh	蜜瓜
+ja	ハネデューメロン
+ko	허니듀 멜론
+#857 Horned Melon
+tr	Boynuzlu Kavun
+de	Hornmelone
+fr	Kiwano
+es	Kiwano
+pt	Kiwano
+pl	Kiwano
+ru	Кивано
+zh	火参果
+ja	キワノ
+ko	키와노
+#858 IDLE · SLOW PEEL
+tr	RÖLANTİ · YAVAŞ SOYMA
+de	LEERLAUF · LANGSAMES SCHÄLEN
+fr	RALENTI · ÉPLUCHAGE LENT
+es	RALENTÍ · PELADO LENTO
+pt	OCIOSO · DESCASCANDO DEVAGAR
+pl	BEZCZYNNY · POWOLNE OBIERANIE
+ru	ПРОСТОЙ · МЕДЛЕННАЯ ЧИСТКА
+zh	闲置 · 慢速削皮
+ja	アイドル · ゆっくりむく
+ko	대기 · 천천히 깎기
+#859 Jackfruit
+tr	Jackfruit
+de	Jackfrucht
+fr	Jacquier
+es	Yaca
+pt	Jaca
+pl	Chlebowiec
+ru	Джекфрут
+zh	菠萝蜜
+ja	ジャックフルーツ
+ko	잭프루트
+#860 Jujube
+tr	Hünnap
+de	Jujube
+fr	Jujube
+es	Azufaifa
+pt	Jujuba
+pl	Głożyna
+ru	Зизифус
+zh	枣
+ja	ナツメ
+ko	대추
+#861 Kiwi
+tr	Kivi
+de	Kiwi
+fr	Kiwi
+es	Kiwi
+pt	Kiwi
+pl	Kiwi
+ru	Киви
+zh	猕猴桃
+ja	キウイ
+ko	키위
+#862 Kohlrabi
+tr	Alabaş
+de	Kohlrabi
+fr	Chou-rave
+es	Colinabo
+pt	Couve-rábano
+pl	Kalarepa
+ru	Кольраби
+zh	苤蓝
+ja	コールラビ
+ko	콜라비
+#863 Kumquat
+tr	Kamkat
+de	Kumquat
+fr	Kumquat
+es	Kumquat
+pt	Kumquat
+pl	Kumkwat
+ru	Кумкват
+zh	金橘
+ja	キンカン
+ko	금귤
+#864 LONGEST PEEL
+tr	EN UZUN KABUK
+de	LÄNGSTE SCHALE
+fr	PLUS LONGUE ÉPLUCHURE
+es	PIEL MÁS LARGA
+pt	CASCA MAIS LONGA
+pl	NAJDŁUŻSZA SKÓRKA
+ru	САМАЯ ДЛИННАЯ КОЖУРА
+zh	最长果皮
+ja	最長の皮
+ko	최장 껍질
+#865 Lemon
+tr	Limon
+de	Zitrone
+fr	Citron
+es	Limón
+pt	Limão-siciliano
+pl	Cytryna
+ru	Лимон
+zh	柠檬
+ja	レモン
+ko	레몬
+#866 Lime
+tr	Misket limonu
+de	Limette
+fr	Citron vert
+es	Lima
+pt	Limão
+pl	Limonka
+ru	Лайм
+zh	青柠
+ja	ライム
+ko	라임
+#867 Longan
+tr	Longan
+de	Longan
+fr	Longane
+es	Longán
+pt	Longana
+pl	Longan
+ru	Лонган
+zh	龙眼
+ja	リュウガン
+ko	용안
+#868 Lychee
+tr	Liçi
+de	Litschi
+fr	Litchi
+es	Lichi
+pt	Lichia
+pl	Liczi
+ru	Личи
+zh	荔枝
+ja	ライチ
+ko	리치
+#869 Mango
+tr	Mango
+de	Mango
+fr	Mangue
+es	Mango
+pt	Manga
+pl	Mango
+ru	Манго
+zh	芒果
+ja	マンゴー
+ko	망고
+#870 Mangosteen
+tr	Mangostan
+de	Mangostane
+fr	Mangoustan
+es	Mangostán
+pt	Mangostão
+pl	Mangostan
+ru	Мангостин
+zh	山竹
+ja	マンゴスチン
+ko	망고스틴
+#871 Nectarine
+tr	Nektarin
+de	Nektarine
+fr	Nectarine
+es	Nectarina
+pt	Nectarina
+pl	Nektarynka
+ru	Нектарин
+zh	油桃
+ja	ネクタリン
+ko	천도복숭아
+#872 Not peeled yet
+tr	Henüz soyulmadı
+de	Noch nicht geschält
+fr	Pas encore épluché
+es	Aún sin pelar
+pt	Ainda não descascado
+pl	Jeszcze nieobrany
+ru	Ещё не очищено
+zh	尚未削皮
+ja	未むき
+ko	아직 안 깎음
+#873 Onion
+tr	Soğan
+de	Zwiebel
+fr	Oignon
+es	Cebolla
+pt	Cebola
+pl	Cebula
+ru	Лук
+zh	洋葱
+ja	タマネギ
+ko	양파
+#874 Orange
+tr	Portakal
+de	Orange
+fr	Orange
+es	Naranja
+pt	Laranja
+pl	Pomarańcza
+ru	Апельсин
+zh	橙子
+ja	オレンジ
+ko	오렌지
+#875 PEELED
+tr	SOYULAN
+de	GESCHÄLT
+fr	ÉPLUCHÉS
+es	PELADAS
+pt	DESCASCADAS
+pl	OBRANE
+ru	ОЧИЩЕНО
+zh	已削
+ja	むいた数
+ko	깎은 수
+#876 PEELING
+tr	SOYUYOR
+de	SCHÄLT
+fr	ÉPLUCHAGE
+es	PELANDO
+pt	DESCASCANDO
+pl	OBIERANIE
+ru	ЧИСТКА
+zh	削皮中
+ja	皮むき中
+ko	깎는 중
+#877 Papaya
+tr	Papaya
+de	Papaya
+fr	Papaye
+es	Papaya
+pt	Mamão
+pl	Papaja
+ru	Папайя
+zh	木瓜
+ja	パパイヤ
+ko	파파야
+#878 Passion fruit
+tr	Çarkıfelek meyvesi
+de	Maracuja
+fr	Fruit de la passion
+es	Maracuyá
+pt	Maracujá
+pl	Marakuja
+ru	Маракуйя
+zh	百香果
+ja	パッションフルーツ
+ko	패션프루트
+#879 Peach
+tr	Şeftali
+de	Pfirsich
+fr	Pêche
+es	Melocotón
+pt	Pêssego
+pl	Brzoskwinia
+ru	Персик
+zh	桃子
+ja	モモ
+ko	복숭아
+#880 Pear
+tr	Armut
+de	Birne
+fr	Poire
+es	Pera
+pt	Pera
+pl	Gruszka
+ru	Груша
+zh	洋梨
+ja	洋ナシ
+ko	서양배
+#881 Peeled ×{0} · best {1}
+tr	Soyuldu ×{0} · rekor {1}
+de	Geschält ×{0} · Bestwert {1}
+fr	Épluché ×{0} · record {1}
+es	Pelado ×{0} · récord {1}
+pt	Descascado ×{0} · recorde {1}
+pl	Obrano ×{0} · rekord {1}
+ru	Очищено ×{0} · рекорд {1}
+zh	削皮 ×{0} · 最长 {1}
+ja	むいた ×{0} · 最長 {1}
+ko	깎음 ×{0} · 최고 {1}
+#882 Peeling
+tr	Soyuluyor
+de	Wird geschält
+fr	En cours d'épluchage
+es	Pelando
+pt	Descascando
+pl	Obierane
+ru	Чистим
+zh	正在削
+ja	皮むき中
+ko	깎는 중
+#883 Peeling: {0} · {1}
+tr	Soyuluyor: {0} · {1}
+de	Wird geschält: {0} · {1}
+fr	Épluchage : {0} · {1}
+es	Pelando: {0} · {1}
+pt	Descascando: {0} · {1}
+pl	Obierane: {0} · {1}
+ru	Чистим: {0} · {1}
+zh	正在削：{0} · {1}
+ja	皮むき中：{0} · {1}
+ko	깎는 중: {0} · {1}
+#884 Persimmon
+tr	Trabzon hurması
+de	Kaki
+fr	Kaki
+es	Caqui
+pt	Caqui
+pl	Persymona
+ru	Хурма
+zh	柿子
+ja	カキ
+ko	감
+#885 Pineapple
+tr	Ananas
+de	Ananas
+fr	Ananas
+es	Piña
+pt	Abacaxi
+pl	Ananas
+ru	Ананас
+zh	菠萝
+ja	パイナップル
+ko	파인애플
+#886 Pink Pineapple
+tr	Pembe Ananas
+de	Rosa Ananas
+fr	Ananas rose
+es	Piña rosa
+pt	Abacaxi rosa
+pl	Różowy ananas
+ru	Розовый ананас
+zh	粉红菠萝
+ja	ピンクパイナップル
+ko	핑크 파인애플
+#887 Plum
+tr	Erik
+de	Pflaume
+fr	Prune
+es	Ciruela
+pt	Ameixa
+pl	Śliwka
+ru	Слива
+zh	李子
+ja	プラム
+ko	자두
+#888 Pomegranate
+tr	Nar
+de	Granatapfel
+fr	Grenade
+es	Granada
+pt	Romã
+pl	Granat
+ru	Гранат
+zh	石榴
+ja	ザクロ
+ko	석류
+#889 Pomelo
+tr	Pomelo
+de	Pomelo
+fr	Pomelo
+es	Pomelo
+pt	Pomelo
+pl	Pomelo
+ru	Помело
+zh	柚子
+ja	ブンタン
+ko	포멜로
+#890 Potato
+tr	Patates
+de	Kartoffel
+fr	Pomme de terre
+es	Patata
+pt	Batata
+pl	Ziemniak
+ru	Картофель
+zh	土豆
+ja	ジャガイモ
+ko	감자
+#891 Pumpkin
+tr	Balkabağı
+de	Kürbis
+fr	Citrouille
+es	Calabaza
+pt	Abóbora
+pl	Dynia
+ru	Тыква
+zh	南瓜
+ja	カボチャ
+ko	호박
+#892 Quince
+tr	Ayva
+de	Quitte
+fr	Coing
+es	Membrillo
+pt	Marmelo
+pl	Pigwa
+ru	Айва
+zh	榅桲
+ja	マルメロ
+ko	마르멜로
+#893 Rambutan
+tr	Rambutan
+de	Rambutan
+fr	Ramboutan
+es	Rambután
+pt	Rambutã
+pl	Rambutan
+ru	Рамбутан
+zh	红毛丹
+ja	ランブータン
+ko	람부탄
+#894 Red apple
+tr	Kırmızı elma
+de	Roter Apfel
+fr	Pomme rouge
+es	Manzana roja
+pt	Maçã vermelha
+pl	Czerwone jabłko
+ru	Красное яблоко
+zh	红苹果
+ja	赤リンゴ
+ko	빨간 사과
+#895 Snake Fruit
+tr	Yılan Meyvesi
+de	Schlangenfrucht
+fr	Salak
+es	Salak
+pt	Salak
+pl	Salak
+ru	Салак
+zh	蛇皮果
+ja	サラク
+ko	살락
+#896 Stamped in your fruit bowl
+tr	Meyve kâsene işlendi
+de	In deine Obstschale eingetragen
+fr	Inscrit dans votre corbeille de fruits
+es	Anotado en tu frutero
+pt	Registrado na sua fruteira
+pl	Wpisano do misy owoców
+ru	Записано в вазу с фруктами
+zh	已记入果盘
+ja	フルーツボウルに記録
+ko	과일 그릇에 기록됨
+#897 Sugar apple
+tr	Şeker elması
+de	Zimtapfel
+fr	Pomme-cannelle
+es	Anón
+pt	Pinha
+pl	Słodkie jabłko
+ru	Сахарное яблоко
+zh	番荔枝
+ja	シュガーアップル
+ko	슈거애플
+#898 Sweet Potato
+tr	Tatlı Patates
+de	Süßkartoffel
+fr	Patate douce
+es	Batata
+pt	Batata-doce
+pl	Batat
+ru	Батат
+zh	红薯
+ja	サツマイモ
+ko	고구마
+#899 Tangerine
+tr	Mandalina
+de	Mandarine
+fr	Mandarine
+es	Mandarina
+pt	Tangerina
+pl	Mandarynka
+ru	Мандарин
+zh	橘子
+ja	ミカン
+ko	귤
+#900 The Fruit Stall
+tr	Manav Tezgâhı
+de	Der Obststand
+fr	L'Étal de fruits
+es	El Puesto de Fruta
+pt	A Barraca de Frutas
+pl	Stragan z Owocami
+ru	Фруктовый лоток
+zh	水果摊
+ja	果物の屋台
+ko	과일 가게
+#901 The Golden Apple
+tr	Altın Elma
+de	Der Goldene Apfel
+fr	La Pomme d'or
+es	La Manzana Dorada
+pt	A Maçã Dourada
+pl	Złote Jabłko
+ru	Золотое яблоко
+zh	金苹果
+ja	黄金のリンゴ
+ko	황금 사과
+#902 The Night Market
+tr	Gece Pazarı
+de	Der Nachtmarkt
+fr	Le Marché de nuit
+es	El Mercado Nocturno
+pt	O Mercado Noturno
+pl	Nocny Targ
+ru	Ночной рынок
+zh	夜市
+ja	ナイトマーケット
+ko	야시장
+#903 The Orchard
+tr	Meyve Bahçesi
+de	Der Obstgarten
+fr	Le Verger
+es	El Huerto
+pt	O Pomar
+pl	Sad
+ru	Фруктовый сад
+zh	果园
+ja	果樹園
+ko	과수원
+#904 The Prize Marrow
+tr	Ödüllü Kabak
+de	Der Preiskürbis
+fr	La Courge primée
+es	El Calabacín Premiado
+pt	A Abobrinha Premiada
+pl	Nagrodzona Cukinia
+ru	Призовой кабачок
+zh	获奖西葫芦
+ja	品評会の巨大ウリ
+ko	우승 애호박
+#905 The Square Watermelon
+tr	Kare Karpuz
+de	Die Quadratische Wassermelone
+fr	La Pastèque carrée
+es	La Sandía Cuadrada
+pt	A Melancia Quadrada
+pl	Kwadratowy Arbuz
+ru	Квадратный арбуз
+zh	方形西瓜
+ja	四角いスイカ
+ko	네모난 수박
+#906 The Tropical Market
+tr	Tropik Pazar
+de	Der Tropenmarkt
+fr	Le Marché tropical
+es	El Mercado Tropical
+pt	O Mercado Tropical
+pl	Tropikalny Targ
+ru	Тропический рынок
+zh	热带市场
+ja	トロピカルマーケット
+ko	열대 시장
+#907 The Veggie Garden
+tr	Sebze Bahçesi
+de	Der Gemüsegarten
+fr	Le Potager
+es	La Huerta
+pt	A Horta
+pl	Ogródek Warzywny
+ru	Огород
+zh	菜园
+ja	家庭菜園
+ko	텃밭
+#908 Turnip
+tr	Şalgam
+de	Rübe
+fr	Navet
+es	Nabo
+pt	Nabo
+pl	Rzepa
+ru	Репа
+zh	芜菁
+ja	カブ
+ko	순무
+#909 WINDING BACK
+tr	GERİ SARIYOR
+de	SPULT ZURÜCK
+fr	RETOUR ARRIÈRE
+es	REBOBINANDO
+pt	VOLTANDO
+pl	COFANIE
+ru	ОТМАТЫВАЕТ
+zh	回卷中
+ja	巻き戻し中
+ko	되감는 중
+#910 Watermelon
+tr	Karpuz
+de	Wassermelone
+fr	Pastèque
+es	Sandía
+pt	Melancia
+pl	Arbuz
+ru	Арбуз
+zh	西瓜
+ja	スイカ
+ko	수박
+#911 Yellow apple
+tr	Sarı elma
+de	Gelber Apfel
+fr	Pomme jaune
+es	Manzana amarilla
+pt	Maçã amarela
+pl	Żółte jabłko
+ru	Жёлтое яблоко
+zh	黄苹果
+ja	黄リンゴ
+ko	노란 사과
+#912 Yuzu
+tr	Yuzu
+de	Yuzu
+fr	Yuzu
+es	Yuzu
+pt	Yuzu
+pl	Yuzu
+ru	Юдзу
+zh	香橙
+ja	ゆず
+ko	유자
+#913 {0:0.0#} m
+tr	{0:0.0#} m
+de	{0:0.0#} m
+fr	{0:0.0#} m
+es	{0:0.0#} m
+pt	{0:0.0#} m
+pl	{0:0.0#} m
+ru	{0:0.0#} м
+zh	{0:0.0#} 米
+ja	{0:0.0#} m
+ko	{0:0.0#}m
+#914 {0:0} cm
+tr	{0:0} cm
+de	{0:0} cm
+fr	{0:0} cm
+es	{0:0} cm
+pt	{0:0} cm
+pl	{0:0} cm
+ru	{0:0} см
+zh	{0:0} 厘米
+ja	{0:0} cm
+ko	{0:0}cm
+#915 {0} · in the bowl
+tr	{0} · kâsede
+de	{0} · in der Schale
+fr	{0} · dans la corbeille
+es	{0} · en el frutero
+pt	{0} · na fruteira
+pl	{0} · w misie
+ru	{0} · в вазе
+zh	{0} · 已入果盘
+ja	{0} · ボウル入り
+ko	{0} · 그릇에 담김
+#916 Bowl
+tr	Kâse
+de	Schale
+fr	Bol
+es	Cuenco
+pt	Tigela
+pl	Miska
+ru	Миска
+zh	碗
+ja	ボウル
+ko	그릇
+#917 Bud vase
+tr	Tek dal vazo
+de	Knospenvase
+fr	Soliflore
+es	Florero
+pt	Vaso de botão
+pl	Wazonik
+ru	Вазочка
+zh	细颈花瓶
+ja	一輪挿し
+ko	한 송이 꽃병
+#918 Clay cup
+tr	Toprak bardak
+de	Tonbecher
+fr	Gobelet en terre
+es	Vaso de barro
+pt	Copo de barro
+pl	Gliniany kubek
+ru	Глиняная чашка
+zh	陶杯
+ja	土のカップ
+ko	흙 컵
+#919 Couscous bowl
+tr	Kuskus kâsesi
+de	Couscousschale
+fr	Bol à couscous
+es	Cuenco de cuscús
+pt	Tigela de cuscuz
+pl	Miska na kuskus
+ru	Миска для кускуса
+zh	古斯米碗
+ja	クスクスボウル
+ko	쿠스쿠스 그릇
+#920 Cup
+tr	Fincan
+de	Tasse
+fr	Tasse
+es	Taza
+pt	Xícara
+pl	Filiżanka
+ru	Чашка
+zh	杯子
+ja	カップ
+ko	컵

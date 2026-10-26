@@ -92,7 +92,7 @@ namespace ScrollRoad
             if (gained <= 0) return;
 
             var env = EnvironmentManager.Current;
-            titleText.text = "While you were away  ·  " + UnlockLadder.Remaining((now.SeenAt - before.SeenAt) / 3600.0 * UnlockLadder.PointsPerHour);
+            titleText.text = L.T("While you were away") + "  ·  " + UnlockLadder.Remaining((now.SeenAt - before.SeenAt) / 3600.0 * UnlockLadder.PointsPerHour);
             amountText.text = "+" + env.Format(gained);
 
             var body = new StringBuilder();
@@ -109,15 +109,15 @@ namespace ScrollRoad
                         int delta = c.TimesFound(rare.Id) - was;
                         if (delta <= 0) continue;
                         if (was == 0) newOnes.Add(rare);
-                        else again.Add(delta > 1 ? $"{rare.Name} ×{delta}" : rare.Name);
+                        else again.Add(delta > 1 ? $"{L.T(rare.Name)} ×{delta}" : L.T(rare.Name));
                     }
                 }
                 if (newOnes.Count > 0)
-                    body.AppendLine($"<color=#F2B33D>New in your {env.CollectionName.ToLowerInvariant()}:</color>  {string.Join(", ", newOnes.ConvertAll(r => r.Name))}");
-                if (again.Count > 0) body.AppendLine($"<alpha=#AA>Turned up again:  {string.Join(", ", again)}");
-                if (newOnes.Count == 0 && again.Count == 0) body.AppendLine("<alpha=#AA>No rare finds this time. They're out there.");
+                    body.AppendLine("<color=#F2B33D>" + L.F("New in your {0}:", L.Lower(L.T(env.CollectionName))) + "</color>  " + string.Join(L.T(", "), newOnes.ConvertAll(r => L.T(r.Name))));
+                if (again.Count > 0) body.AppendLine("<alpha=#AA>" + L.T("Turned up again:") + "  " + string.Join(L.T(", "), again));
+                if (newOnes.Count == 0 && again.Count == 0) body.AppendLine("<alpha=#AA>" + L.T("No rare finds this time. They're out there."));
                 if (EnvironmentContent.NextUnlock(c, out string next, out double left))
-                    body.AppendLine($"<alpha=#AA>Next unlock:  <color=#FFFFFF>{next}</color> in {UnlockLadder.Remaining(left)}");
+                    body.AppendLine("<alpha=#AA>" + L.F("Next unlock:  <color=#FFFFFF>{0}</color> in {1}", next, UnlockLadder.Remaining(left)));
             }
             else if (carCatalog != null)
             {
@@ -126,7 +126,7 @@ namespace ScrollRoad
                 foreach (var m in carCatalog.models)
                     if (m.unlock == CarCatalog.Unlock.LifetimeKm && m.unlockValue > km && (nextCar == null || m.unlockValue < nextCar.unlockValue))
                         nextCar = m;
-                if (nextCar != null) body.AppendLine($"<alpha=#AA>Next car:  <color=#FFFFFF>{nextCar.displayName}</color> in {Fmt.Km(nextCar.unlockValue - km)}");
+                if (nextCar != null) body.AppendLine("<alpha=#AA>" + L.F("Next car:  <color=#FFFFFF>{0}</color> in {1}", nextCar.displayName, Fmt.Km(nextCar.unlockValue - km)));
             }
             bodyText.text = body.ToString().TrimEnd();
 

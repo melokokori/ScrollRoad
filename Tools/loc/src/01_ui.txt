@@ -1,0 +1,1760 @@
+#1 <alpha=#88>Counted in {0}.
+tr	<alpha=#88>Birim: {0}.
+de	<alpha=#88>Einheit: {0}.
+fr	<alpha=#88>Compté en {0}.
+es	<alpha=#88>Se cuenta en {0}.
+pt	<alpha=#88>Contado em {0}.
+pl	<alpha=#88>Jednostka: {0}.
+ru	<alpha=#88>Единица: {0}.
+zh	<alpha=#88>计数单位：{0}。
+ja	<alpha=#88>単位：{0}
+ko	<alpha=#88>단위: {0}
+#2 Album
+tr	Albüm
+de	Album
+fr	Album
+es	Álbum
+pt	Álbum
+pl	Album
+ru	Альбом
+zh	图鉴
+ja	アルバム
+ko	앨범
+#3 Boats and aircraft use their own gauge
+tr	Tekne ve uçaklar kendi göstergesini kullansın
+de	Boote und Flugzeuge nutzen ihre eigene Anzeige
+fr	Bateaux et avions ont leur propre compteur
+es	Barcos y aviones usan su propio indicador
+pt	Barcos e aeronaves usam o próprio mostrador
+pl	Łodzie i samoloty mają własny wskaźnik
+ru	У лодок и самолётов свой прибор
+zh	船只和飞机使用各自的仪表
+ja	船と飛行機は専用メーターを使う
+ko	배와 항공기는 전용 계기판 사용
+#4 CLICK TO CONTINUE
+tr	DEVAM ETMEK İÇİN TIKLA
+de	KLICKEN ZUM FORTFAHREN
+fr	CLIQUEZ POUR CONTINUER
+es	HAZ CLIC PARA CONTINUAR
+pt	CLIQUE PARA CONTINUAR
+pl	KLIKNIJ, ABY KONTYNUOWAĆ
+ru	НАЖМИТЕ, ЧТОБЫ ПРОДОЛЖИТЬ
+zh	点击继续
+ja	クリックして続ける
+ko	클릭하여 계속
+#5 Card
+tr	Kart
+de	Karte
+fr	Carte
+es	Tarjeta
+pt	Cartão
+pl	Karta
+ru	Карточка
+zh	卡片
+ja	カード
+ko	카드
+#6 Card size
+tr	Kart boyutu
+de	Kartengröße
+fr	Taille de la carte
+es	Tamaño de tarjeta
+pt	Tamanho do cartão
+pl	Rozmiar karty
+ru	Размер карточки
+zh	卡片大小
+ja	カードのサイズ
+ko	카드 크기
+#7 GAUGE
+tr	GÖSTERGE
+de	ANZEIGE
+fr	COMPTEUR
+es	INDICADOR
+pt	MOSTRADOR
+pl	WSKAŹNIK
+ru	ПРИБОР
+zh	仪表
+ja	メーター
+ko	계기판
+#8 Garage
+tr	Garaj
+de	Garage
+fr	Garage
+es	Garaje
+pt	Garagem
+pl	Garaż
+ru	Гараж
+zh	车库
+ja	ガレージ
+ko	차고
+#9 Keep running in the tray when closed
+tr	Kapatınca sistem tepsisinde çalışmaya devam et
+de	Beim Schließen im Infobereich weiterlaufen
+fr	Continuer dans la zone de notification à la fermeture
+es	Seguir en la bandeja del sistema al cerrar
+pt	Continuar na bandeja do sistema ao fechar
+pl	Po zamknięciu działaj dalej w zasobniku
+ru	При закрытии работать в трее
+zh	关闭后在系统托盘中继续运行
+ja	閉じても通知領域で動作を続ける
+ko	닫으면 시스템 트레이에서 계속 실행
+#10 Keep the card on top of other windows
+tr	Kartı diğer pencerelerin üstünde tut
+de	Karte über anderen Fenstern halten
+fr	Garder la carte au-dessus des autres fenêtres
+es	Mantener la tarjeta sobre otras ventanas
+pt	Manter o cartão acima das outras janelas
+pl	Karta zawsze na wierzchu
+ru	Карточка поверх других окон
+zh	卡片始终置顶
+ja	カードを常に手前に表示
+ko	카드를 항상 위에 표시
+#11 Language
+tr	Dil
+de	Sprache
+fr	Langue
+es	Idioma
+pt	Idioma
+pl	Język
+ru	Язык
+zh	语言
+ja	言語
+ko	언어
+#12 Last month
+tr	Geçen ay
+de	Letzter Monat
+fr	Mois dernier
+es	Mes pasado
+pt	Mês passado
+pl	Poprzedni miesiąc
+ru	Прошлый месяц
+zh	上个月
+ja	先月
+ko	지난달
+#13 Leaderboard
+tr	Sıralama
+de	Bestenliste
+fr	Classement
+es	Clasificación
+pt	Classificação
+pl	Ranking
+ru	Таблица лидеров
+zh	排行榜
+ja	ランキング
+ko	순위표
+#14 MONTH BEST
+tr	AYIN REKORU
+de	MONATSBESTWERT
+fr	RECORD DU MOIS
+es	MEJOR DEL MES
+pt	RECORDE DO MÊS
+pl	REKORD MIESIĄCA
+ru	РЕКОРД МЕСЯЦА
+zh	本月最佳
+ja	今月のベスト
+ko	이달의 최고
+#15 Only the activity you pick moves forward. Your monthly score counts them all.
+tr	Yalnız seçtiğin etkinlik ilerler. Aylık puanın hepsini sayar.
+de	Nur die gewählte Aktivität kommt voran. Deine Monatswertung zählt alle.
+fr	Seule l'activité choisie progresse. Votre score du mois les compte toutes.
+es	Solo avanza la actividad que elijas. Tu puntuación mensual las cuenta todas.
+pt	Só a atividade escolhida avança. Sua pontuação do mês conta todas.
+pl	Postępuje tylko wybrana aktywność. Wynik miesiąca liczy wszystkie.
+ru	Продвигается только выбранное занятие. Месячный счёт учитывает все.
+zh	只有所选活动会推进。月度得分会全部计入。
+ja	進むのは選んだアクティビティだけ。月間スコアはすべてを数えます。
+ko	선택한 활동만 진행됩니다. 월간 점수는 모두 합산됩니다.
+#16 Orders
+tr	Siparişler
+de	Aufträge
+fr	Commandes
+es	Pedidos
+pt	Pedidos
+pl	Zamówienia
+ru	Заказы
+zh	订单
+ja	注文
+ko	주문
+#17 PAINT
+tr	BOYA
+de	LACK
+fr	PEINTURE
+es	PINTURA
+pt	PINTURA
+pl	LAKIER
+ru	ЦВЕТ
+zh	涂装
+ja	塗装
+ko	도색
+#18 QUIT
+tr	ÇIKIŞ
+de	BEENDEN
+fr	QUITTER
+es	SALIR
+pt	SAIR
+pl	WYJDŹ
+ru	ВЫХОД
+zh	退出
+ja	終了
+ko	종료
+#19 SIDE
+tr	YAN
+de	NEBEN
+fr	EN PLUS
+es	EXTRA
+pt	EXTRA
+pl	DODAJ
+ru	ДОП
+zh	副
+ja	サブ
+ko	보조
+#20 STAMPED
+tr	DAMGALANDI
+de	GESTEMPELT
+fr	TAMPONNÉ
+es	SELLADO
+pt	CARIMBADO
+pl	OSTEMPLOWANO
+ru	ОТМЕЧЕНО
+zh	已盖章
+ja	スタンプ
+ko	도장 완료
+#21 Settings
+tr	Ayarlar
+de	Einstellungen
+fr	Paramètres
+es	Ajustes
+pt	Configurações
+pl	Ustawienia
+ru	Настройки
+zh	设置
+ja	設定
+ko	설정
+#22 Skip
+tr	Geç
+de	Überspringen
+fr	Passer
+es	Omitir
+pt	Pular
+pl	Pomiń
+ru	Пропустить
+zh	跳过
+ja	スキップ
+ko	건너뛰기
+#23 Start in taskbar mode
+tr	Görev çubuğu modunda başlat
+de	Im Taskleistenmodus starten
+fr	Démarrer en mode barre des tâches
+es	Iniciar en modo barra de tareas
+pt	Iniciar no modo barra de tarefas
+pl	Uruchamiaj w trybie paska zadań
+ru	Запускать в режиме панели задач
+zh	以任务栏模式启动
+ja	タスクバーモードで起動
+ko	작업 표시줄 모드로 시작
+#24 Start with Windows
+tr	Windows ile başlat
+de	Mit Windows starten
+fr	Lancer avec Windows
+es	Iniciar con Windows
+pt	Iniciar com o Windows
+pl	Uruchamiaj z systemem Windows
+ru	Запускать вместе с Windows
+zh	随 Windows 启动
+ja	Windows と同時に起動
+ko	Windows 시작 시 실행
+#25 Stats
+tr	İstatistikler
+de	Statistik
+fr	Statistiques
+es	Estadísticas
+pt	Estatísticas
+pl	Statystyki
+ru	Статистика
+zh	统计
+ja	統計
+ko	통계
+#26 Taskbar gauge
+tr	Görev çubuğu göstergesi
+de	Taskleisten-Anzeige
+fr	Compteur de la barre
+es	Indicador de barra
+pt	Mostrador da barra
+pl	Wskaźnik na pasku
+ru	Прибор на панели
+zh	任务栏仪表
+ja	タスクバーのメーター
+ko	작업 표시줄 계기판
+#27 Taskbar mode: a small transparent strip...
+tr	Görev çubuğu modu: görev çubuğunda küçük, saydam bir şerit (F9). Kartı herhangi bir boş yerinden sürükleyebilirsin. Sistem tepsisindeyken de kaydırmaların sayılmaya devam eder; saatin yanındaki simgeden yeniden açabilirsin.
+de	Taskleistenmodus: ein kleiner, transparenter Streifen auf deiner Taskleiste (F9). Zieh die Karte an einer beliebigen freien Stelle. Im Infobereich zählt dein Scrollen weiter; öffne sie über das Symbol neben der Uhr wieder.
+fr	Mode barre des tâches : une petite bande transparente sur votre barre des tâches (F9). Déplacez la carte depuis n'importe quelle zone vide. Dans la zone de notification, vos défilements continuent de compter ; rouvrez-la depuis l'icône près de l'horloge.
+es	Modo barra de tareas: una pequeña franja transparente en tu barra de tareas (F9). Arrastra la tarjeta desde cualquier zona vacía. En la bandeja del sistema, tus desplazamientos siguen contando; vuelve a abrirla desde el icono junto al reloj.
+pt	Modo barra de tarefas: uma pequena faixa transparente na sua barra de tarefas (F9). Arraste o cartão por qualquer espaço vazio. Na bandeja do sistema, suas rolagens continuam contando; reabra pelo ícone ao lado do relógio.
+pl	Tryb paska zadań: mały przezroczysty pasek na pasku zadań (F9). Przeciągnij kartę za dowolne puste miejsce. W zasobniku przewijanie nadal się liczy; otworzysz ją ponownie ikoną obok zegara.
+ru	Режим панели задач: маленькая прозрачная полоска на панели задач (F9). Перетаскивайте карточку за любое пустое место. В трее прокрутка продолжает считаться; откройте игру снова значком рядом с часами.
+zh	任务栏模式：任务栏上的一条透明小窄条（F9）。拖动卡片的任意空白处即可移动。在系统托盘中，滚动仍会计数；点击时钟旁的图标即可重新打开。
+ja	タスクバーモード：タスクバー上の小さな透明の帯（F9）。カードは空いている所ならどこでもドラッグできます。通知領域にいる間もスクロールは数え続けます。時計の横のアイコンから再び開けます。
+ko	작업 표시줄 모드: 작업 표시줄 위의 작은 투명 띠(F9). 카드의 빈 곳 아무 데나 끌어서 옮기세요. 시스템 트레이에 있어도 스크롤은 계속 집계되며, 시계 옆 아이콘으로 다시 열 수 있습니다.
+#28 This month
+tr	Bu ay
+de	Dieser Monat
+fr	Ce mois-ci
+es	Este mes
+pt	Este mês
+pl	Ten miesiąc
+ru	Этот месяц
+zh	本月
+ja	今月
+ko	이번 달
+#29 This one keeps its own colours.
+tr	Bunun rengi kendine özgü.
+de	Dieses behält seine eigenen Farben.
+fr	Celui-ci garde ses propres couleurs.
+es	Este conserva sus propios colores.
+pt	Este mantém as próprias cores.
+pl	Ten ma własne barwy.
+ru	У этого свои цвета.
+zh	此款保留原有配色。
+ja	これは専用カラーです。
+ko	이 차량은 고유 색상입니다.
+#30 Volume
+tr	Ses
+de	Lautstärke
+fr	Volume
+es	Volumen
+pt	Volume
+pl	Głośność
+ru	Громкость
+zh	音量
+ja	音量
+ko	음량
+#31 WORLD
+tr	DÜNYA
+de	WELT
+fr	MONDE
+es	MUNDO
+pt	MUNDO
+pl	ŚWIAT
+ru	МИР
+zh	世界
+ja	ワールド
+ko	월드
+#32 YOU REACHED THE CITY!
+tr	ŞEHRE ULAŞTIN!
+de	DU HAST DIE STADT ERREICHT!
+fr	VOUS AVEZ ATTEINT LA VILLE !
+es	¡HAS LLEGADO A LA CIUDAD!
+pt	VOCÊ CHEGOU À CIDADE!
+pl	DOTARŁEŚ DO MIASTA!
+ru	ВЫ ДОБРАЛИСЬ ДО ГОРОДА!
+zh	你抵达了城市！
+ja	シティに到着！
+ko	도시에 도착했습니다!
+#33 Your rivals can't see this...
+tr	Rakiplerin bunu göremez. Ay sonunu bekle.
+de	Deine Rivalen sehen das nicht. Warte bis zum Monatsende.
+fr	Vos rivaux ne le voient pas. Attendez la fin du mois.
+es	Tus rivales no pueden verlo. Espera al final del mes.
+pt	Seus rivais não podem ver isso. Espere o fim do mês.
+pl	Rywale tego nie widzą. Poczekaj do końca miesiąca.
+ru	Соперники этого не видят. Дождитесь конца месяца.
+zh	对手看不到这一点。等到月底吧。
+ja	ライバルには見えません。月末まで待ちましょう。
+ko	경쟁자에게는 보이지 않습니다. 월말까지 기다리세요.
+#34 COMPLETE
+tr	TAMAM
+de	KOMPLETT
+fr	COMPLET
+es	COMPLETO
+pt	COMPLETO
+pl	KOMPLET
+ru	СОБРАНО
+zh	已完成
+ja	コンプリート
+ko	완료
+#35 click to go
+tr	gitmek için tıkla
+de	zum Hingehen klicken
+fr	cliquez pour y aller
+es	haz clic para ir
+pt	clique para ir
+pl	kliknij, aby przejść
+ru	нажмите, чтобы перейти
+zh	点击前往
+ja	クリックで移動
+ko	클릭하여 이동
+#36 opens after {0} more here
+tr	burada {0} daha oynayınca açılır
+de	öffnet sich nach weiteren {0} hier
+fr	s'ouvre après {0} de plus ici
+es	se abre tras {0} más aquí
+pt	abre após mais {0} aqui
+pl	otworzy się po kolejnych {0} tutaj
+ru	откроется через {0} игры здесь
+zh	在此再玩 {0} 后开放
+ja	ここであと{0}で解放
+ko	여기서 {0} 더 하면 열림
+#37 you are here
+tr	buradasın
+de	du bist hier
+fr	vous êtes ici
+es	estás aquí
+pt	você está aqui
+pl	jesteś tutaj
+ru	вы здесь
+zh	当前位置
+ja	現在地
+ko	현재 위치
+#38 {0} / {1} rares
+tr	{0} / {1} nadir
+de	{0} / {1} Raritäten
+fr	{0} / {1} raretés
+es	{0} / {1} rarezas
+pt	{0} / {1} raridades
+pl	{0} / {1} rarytasów
+ru	Редкостей: {0} / {1}
+zh	稀有物 {0} / {1}
+ja	レア {0} / {1}
+ko	희귀품 {0} / {1}
+#39 {0} places complete
+tr	{0} yer tamamlandı
+de	{0} Ort komplett|{0} Orte komplett
+fr	{0} lieu complété|{0} lieux complétés
+es	{0} lugar completo|{0} lugares completos
+pt	{0} lugar completo|{0} lugares completos
+pl	{0} miejsce ukończone|{0} miejsca ukończone|{0} miejsc ukończonych
+ru	{0} место собрано|{0} места собрано|{0} мест собрано
+zh	已完成 {0} 个地点
+ja	{0}か所コンプリート
+ko	{0}곳 완료
+#40 Activities
+tr	Etkinlikler
+de	Aktivitäten
+fr	Activités
+es	Actividades
+pt	Atividades
+pl	Aktywności
+ru	Занятия
+zh	活动
+ja	アクティビティ
+ko	활동
+#41 Loading...
+tr	Yükleniyor...
+de	Wird geladen...
+fr	Chargement...
+es	Cargando...
+pt	Carregando...
+pl	Wczytywanie...
+ru	Загрузка...
+zh	加载中...
+ja	読み込み中...
+ko	불러오는 중...
+#42 No scores yet.
+tr	Henüz skor yok.
+de	Noch keine Ergebnisse.
+fr	Aucun score pour l'instant.
+es	Aún no hay puntuaciones.
+pt	Ainda não há pontuações.
+pl	Brak wyników.
+ru	Пока нет результатов.
+zh	暂无成绩。
+ja	まだスコアがありません。
+ko	아직 점수가 없습니다.
+#43 Orders  {0} / {1} today  ·  week {2} / {3}
+tr	Siparişler  bugün {0} / {1}  ·  hafta {2} / {3}
+de	Aufträge  heute {0} / {1}  ·  Woche {2} / {3}
+fr	Commandes  {0} / {1} aujourd'hui  ·  semaine {2} / {3}
+es	Pedidos  {0} / {1} hoy  ·  semana {2} / {3}
+pt	Pedidos  {0} / {1} hoje  ·  semana {2} / {3}
+pl	Zamówienia  dziś {0} / {1}  ·  tydzień {2} / {3}
+ru	Заказы  сегодня {0} / {1}  ·  неделя {2} / {3}
+zh	订单  今日 {0} / {1}  ·  本周 {2} / {3}
+ja	注文  今日 {0} / {1}  ·  今週 {2} / {3}
+ko	주문  오늘 {0} / {1}  ·  이번 주 {2} / {3}
+#44 Steam is not connected.\nOpen Steam...
+tr	Steam bağlı değil.\nSıralamayı görmek için Steam'i açıp giriş yap.
+de	Steam ist nicht verbunden.\nÖffne Steam und melde dich an, um die Bestenliste zu sehen.
+fr	Steam n'est pas connecté.\nOuvrez Steam et connectez-vous pour voir le classement.
+es	Steam no está conectado.\nAbre Steam e inicia sesión para ver la clasificación.
+pt	O Steam não está conectado.\nAbra o Steam e entre para ver a classificação.
+pl	Steam nie jest połączony.\nOtwórz Steam i zaloguj się, aby zobaczyć ranking.
+ru	Steam не подключён.\nОткройте Steam и войдите, чтобы увидеть таблицу лидеров.
+zh	Steam 未连接。\n请打开 Steam 并登录以查看排行榜。
+ja	Steam に接続されていません。\nランキングを見るには Steam を開いてサインインしてください。
+ko	Steam에 연결되지 않았습니다.\n순위표를 보려면 Steam을 열고 로그인하세요.
+#45 Streak  {0}  ·  {1}
+tr	Seri  {0}  ·  {1}
+de	Serie  {0}  ·  {1}
+fr	Série  {0}  ·  {1}
+es	Racha  {0}  ·  {1}
+pt	Sequência  {0}  ·  {1}
+pl	Seria  {0}  ·  {1}
+ru	Серия  {0}  ·  {1}
+zh	连续  {0}  ·  {1}
+ja	連続  {0}  ·  {1}
+ko	연속  {0}  ·  {1}
+#46 {0} NEW
+tr	{0} YENİ
+de	{0} NEU
+fr	{0} NOUV.
+es	{0} NUEVAS
+pt	{0} NOVAS
+pl	NOWE: {0}
+ru	НОВЫХ: {0}
+zh	{0} 个新
+ja	新着 {0}
+ko	새 활동 {0}
+#47 SOON
+tr	YAKINDA
+de	BALD
+fr	BIENTÔT
+es	PRONTO
+pt	EM BREVE
+pl	WKRÓTCE
+ru	СКОРО
+zh	即将推出
+ja	近日
+ko	곧 출시
+#48 Airspeed
+tr	Hava hızı
+de	Fahrtmesser
+fr	Anémomètre
+es	Velocímetro aéreo
+pt	Velocímetro aéreo
+pl	Prędkościomierz
+ru	Указатель скорости
+zh	空速表
+ja	速度計
+ko	대기속도계
+#49 Big dial
+tr	Büyük kadran
+de	Großes Ziffernblatt
+fr	Grand cadran
+es	Esfera grande
+pt	Mostrador grande
+pl	Duża tarcza
+ru	Большой циферблат
+zh	大表盘
+ja	大きな文字盤
+ko	큰 다이얼
+#50 Card dial
+tr	Karttaki kadran
+de	Wie auf der Karte
+fr	Cadran de la carte
+es	Esfera de la tarjeta
+pt	Mostrador do cartão
+pl	Tarcza z karty
+ru	Как на карточке
+zh	卡片表盘
+ja	カードと同じ
+ko	카드 다이얼
+#51 Digital
+tr	Dijital
+de	Digital
+fr	Numérique
+es	Digital
+pt	Digital
+pl	Cyfrowy
+ru	Цифровой
+zh	数字
+ja	デジタル
+ko	디지털
+#52 Harbor
+tr	Liman
+de	Hafen
+fr	Port
+es	Puerto
+pt	Porto
+pl	Port
+ru	Гавань
+zh	港口
+ja	ハーバー
+ko	항구
+#53 Highway
+tr	Otoyol
+de	Autobahn
+fr	Autoroute
+es	Autopista
+pt	Rodovia
+pl	Autostrada
+ru	Трасса
+zh	公路
+ja	ハイウェイ
+ko	고속도로
+#54 Retro
+tr	Retro
+de	Retro
+fr	Rétro
+es	Retro
+pt	Retrô
+pl	Retro
+ru	Ретро
+zh	复古
+ja	レトロ
+ko	레트로
+#55 Simple plate
+tr	Sade plaka
+de	Schlichtes Schild
+fr	Plaque simple
+es	Placa simple
+pt	Placa simples
+pl	Prosta tabliczka
+ru	Простая табличка
+zh	简洁铭牌
+ja	シンプルプレート
+ko	심플 플레이트
+#56 Sport
+tr	Spor
+de	Sport
+fr	Sport
+es	Deportivo
+pt	Esportivo
+pl	Sportowy
+ru	Спорт
+zh	运动
+ja	スポーツ
+ko	스포츠
+#57 reach Wheat Fields in one month
+tr	bir ayda Buğday Tarlaları'na ulaş
+de	erreiche in einem Monat die Weizenfelder
+fr	atteindre les Champs de blé en un mois
+es	llega a los Trigales en un mes
+pt	chegue aos Trigais em um mês
+pl	dotrzyj do Pól Pszenicy w jeden miesiąc
+ru	доберитесь до Пшеничных полей за месяц
+zh	一个月内抵达麦田
+ja	1か月で小麦畑に到達
+ko	한 달 안에 밀밭 도달
+#58 reach the Snowy Plateau in one month
+tr	bir ayda Karlı Yayla'ya ulaş
+de	erreiche in einem Monat das Schneeplateau
+fr	atteindre le Plateau enneigé en un mois
+es	llega a la Meseta Nevada en un mes
+pt	chegue ao Planalto Nevado em um mês
+pl	dotrzyj do Śnieżnego Płaskowyżu w jeden miesiąc
+ru	доберитесь до Снежного плато за месяц
+zh	一个月内抵达雪原高地
+ja	1か月で雪の高原に到達
+ko	한 달 안에 설원 고원 도달
+#59 {0} gauge unlocks at {1} total  ·  {2} to go
+tr	{0} göstergesi toplam {1} ile açılır  ·  {2} kaldı
+de	Anzeige „{0}“ bei {1} insgesamt  ·  noch {2}
+fr	Compteur {0} débloqué à {1} au total  ·  encore {2}
+es	Indicador {0}: se desbloquea con {1} en total  ·  faltan {2}
+pt	Mostrador {0} desbloqueia com {1} no total  ·  faltam {2}
+pl	Wskaźnik {0} odblokujesz po {1} łącznie  ·  zostało {2}
+ru	Прибор «{0}» откроется на {1} всего  ·  осталось {2}
+zh	{0}仪表在累计 {1} 时解锁  ·  还差 {2}
+ja	{0}メーターは累計{1}で解放  ·  残り{2}
+ko	{0} 계기판은 누적 {1}에 해제  ·  {2} 남음
+#60 {0} gauge: {1}  ·  your best: {2} of {3}
+tr	{0} göstergesi: {1}  ·  rekorun: {2} / {3}
+de	Anzeige „{0}“: {1}  ·  dein Bestwert: {2} von {3}
+fr	Compteur {0} : {1}  ·  votre record : {2} sur {3}
+es	Indicador {0}: {1}  ·  tu mejor marca: {2} de {3}
+pt	Mostrador {0}: {1}  ·  seu recorde: {2} de {3}
+pl	Wskaźnik {0}: {1}  ·  twój rekord: {2} z {3}
+ru	Прибор «{0}»: {1}  ·  ваш рекорд: {2} из {3}
+zh	{0}仪表：{1}  ·  你的最佳：{2} / {3}
+ja	{0}メーター：{1}  ·  自己ベスト：{2} / {3}
+ko	{0} 계기판: {1}  ·  최고 기록: {2} / {3}
+#61 <alpha=#99>TODAY<alpha=#FF>  ALL ORDERS DONE
+tr	<alpha=#99>BUGÜN<alpha=#FF>  TÜM SİPARİŞLER TAMAM
+de	<alpha=#99>HEUTE<alpha=#FF>  ALLE AUFTRÄGE ERLEDIGT
+fr	<alpha=#99>AUJOURD'HUI<alpha=#FF>  TOUTES LES COMMANDES FAITES
+es	<alpha=#99>HOY<alpha=#FF>  TODOS LOS PEDIDOS HECHOS
+pt	<alpha=#99>HOJE<alpha=#FF>  TODOS OS PEDIDOS FEITOS
+pl	<alpha=#99>DZIŚ<alpha=#FF>  WSZYSTKIE ZAMÓWIENIA GOTOWE
+ru	<alpha=#99>СЕГОДНЯ<alpha=#FF>  ВСЕ ЗАКАЗЫ ВЫПОЛНЕНЫ
+zh	<alpha=#99>今日<alpha=#FF>  订单全部完成
+ja	<alpha=#99>今日<alpha=#FF>  注文すべて完了
+ko	<alpha=#99>오늘<alpha=#FF>  주문 모두 완료
+#62 <alpha=#99>TODAY<alpha=#FF>  ORDERS {0} / {1}
+tr	<alpha=#99>BUGÜN<alpha=#FF>  SİPARİŞ {0} / {1}
+de	<alpha=#99>HEUTE<alpha=#FF>  AUFTRÄGE {0} / {1}
+fr	<alpha=#99>AUJOURD'HUI<alpha=#FF>  COMMANDES {0} / {1}
+es	<alpha=#99>HOY<alpha=#FF>  PEDIDOS {0} / {1}
+pt	<alpha=#99>HOJE<alpha=#FF>  PEDIDOS {0} / {1}
+pl	<alpha=#99>DZIŚ<alpha=#FF>  ZAMÓWIENIA {0} / {1}
+ru	<alpha=#99>СЕГОДНЯ<alpha=#FF>  ЗАКАЗЫ {0} / {1}
+zh	<alpha=#99>今日<alpha=#FF>  订单 {0} / {1}
+ja	<alpha=#99>今日<alpha=#FF>  注文 {0} / {1}
+ko	<alpha=#99>오늘<alpha=#FF>  주문 {0} / {1}
+#63 STREAK {0}
+tr	SERİ {0}
+de	SERIE {0}
+fr	SÉRIE {0}
+es	RACHA {0}
+pt	SEQUÊNCIA {0}
+pl	SERIA {0}
+ru	СЕРИЯ {0}
+zh	连续 {0}
+ja	連続 {0}
+ko	연속 {0}
+#64 THE CITY  <alpha=#99>REACHED
+tr	ŞEHİR  <alpha=#99>ULAŞILDI
+de	DIE STADT  <alpha=#99>ERREICHT
+fr	LA VILLE  <alpha=#99>ATTEINTE
+es	LA CIUDAD  <alpha=#99>ALCANZADA
+pt	A CIDADE  <alpha=#99>ALCANÇADA
+pl	MIASTO  <alpha=#99>OSIĄGNIĘTE
+ru	ГОРОД  <alpha=#99>ДОСТИГНУТ
+zh	城市  <alpha=#99>已抵达
+ja	シティ  <alpha=#99>到着
+ko	도시  <alpha=#99>도착
+#65 {0}  <alpha=#99>TO THE CITY
+tr	{0}  <alpha=#99>ŞEHRE KALAN
+de	{0}  <alpha=#99>BIS ZUR STADT
+fr	{0}  <alpha=#99>JUSQU'À LA VILLE
+es	{0}  <alpha=#99>HASTA LA CIUDAD
+pt	{0}  <alpha=#99>ATÉ A CIDADE
+pl	{0}  <alpha=#99>DO MIASTA
+ru	{0}  <alpha=#99>ДО ГОРОДА
+zh	{0}  <alpha=#99>距城市
+ja	{0}  <alpha=#99>シティまで
+ko	{0}  <alpha=#99>도시까지
+#66 New region · passport stamped
+tr	Yeni bölge · pasaport damgalandı
+de	Neue Region · Pass gestempelt
+fr	Nouvelle région · passeport tamponné
+es	Nueva región · pasaporte sellado
+pt	Nova região · passaporte carimbado
+pl	Nowy region · paszport ostemplowany
+ru	Новый регион · отметка в паспорте
+zh	新区域 · 护照已盖章
+ja	新しい地域 · パスポートにスタンプ
+ko	새 지역 · 여권 도장 완료
+#67 Passport stamped
+tr	Pasaport damgalandı
+de	Pass gestempelt
+fr	Passeport tamponné
+es	Pasaporte sellado
+pt	Passaporte carimbado
+pl	Paszport ostemplowany
+ru	Отметка в паспорте
+zh	护照已盖章
+ja	パスポートにスタンプ
+ko	여권 도장 완료
+#68 {0} · new region
+tr	{0} · yeni bölge
+de	{0} · neue Region
+fr	{0} · nouvelle région
+es	{0} · nueva región
+pt	{0} · nova região
+pl	{0} · nowy region
+ru	{0} · новый регион
+zh	{0} · 新区域
+ja	{0} · 新しい地域
+ko	{0} · 새 지역
+#69 {0} · stamped
+tr	{0} · damgalandı
+de	{0} · gestempelt
+fr	{0} · tamponné
+es	{0} · sellado
+pt	{0} · carimbado
+pl	{0} · ostemplowano
+ru	{0} · отмечено
+zh	{0} · 已盖章
+ja	{0} · スタンプ
+ko	{0} · 도장 완료
+#70 A single road leads to a distant city...
+tr	Tek bir yol uzaktaki bir şehre gider. Her ay yeni bir yarış başlar; ay sonunda en uzağa giden kazanır.
+de	Eine einzige Straße führt zu einer fernen Stadt. Jeden Monat beginnt ein neues Rennen, und wer bis Monatsende am weitesten kommt, gewinnt.
+fr	Une seule route mène à une ville lointaine. Chaque mois, une nouvelle course commence : celui qui va le plus loin d'ici la fin du mois gagne.
+es	Una sola carretera lleva a una ciudad lejana. Cada mes empieza una nueva carrera, y gana quien llegue más lejos al final del mes.
+pt	Uma única estrada leva a uma cidade distante. Todo mês começa uma nova corrida, e vence quem chegar mais longe até o fim do mês.
+pl	Jedna droga prowadzi do odległego miasta. Co miesiąc zaczyna się nowy wyścig, a wygrywa ten, kto do końca miesiąca zajedzie najdalej.
+ru	Одна дорога ведёт к далёкому городу. Каждый месяц начинается новая гонка, и побеждает тот, кто к концу месяца уедет дальше всех.
+zh	一条公路通往远方的城市。每个月都会开始新的比赛，月底时走得最远的人获胜。
+ja	一本の道が遠くのシティへ続いています。毎月新しいレースが始まり、月末までに一番遠くまで進んだ人が勝ちです。
+ko	하나의 길이 먼 도시로 이어집니다. 매달 새 레이스가 시작되고, 월말까지 가장 멀리 간 사람이 우승합니다.
+#71 After 3 minutes without a scroll...
+tr	3 dakika kaydırma olmazsa araba rölantiye düşer. Kartı kapatınca oyun saatin yanındaki sistem tepsisinde çalışmaya devam eder. Görev çubuğuna küçültmek için F9'a bas.
+de	Nach 3 Minuten ohne Scrollen geht das Auto in den Leerlauf. Schließt du die Karte, läuft das Spiel im Infobereich neben der Uhr weiter. Drück F9, um es in die Taskleiste zu verkleinern.
+fr	Après 3 minutes sans défilement, la voiture passe au ralenti. Fermer la carte laisse le jeu tourner dans la zone de notification près de l'horloge. Appuyez sur F9 pour le réduire dans la barre des tâches.
+es	Tras 3 minutos sin desplazarte, el coche pasa al ralentí. Al cerrar la tarjeta, el juego sigue en la bandeja del sistema junto al reloj. Pulsa F9 para reducirlo a la barra de tareas.
+pt	Após 3 minutos sem rolar, o carro entra em marcha lenta. Fechar o cartão mantém o jogo rodando na bandeja do sistema, ao lado do relógio. Pressione F9 para reduzi-lo à barra de tarefas.
+pl	Po 3 minutach bez przewijania auto przechodzi na bieg jałowy. Po zamknięciu karty gra działa dalej w zasobniku obok zegara. Naciśnij F9, aby zmniejszyć ją do paska zadań.
+ru	Через 3 минуты без прокрутки машина переходит на холостой ход. Если закрыть карточку, игра продолжит работать в трее рядом с часами. Нажмите F9, чтобы свернуть её на панель задач.
+zh	3 分钟不滚动，汽车就会进入怠速。关闭卡片后，游戏会在时钟旁的系统托盘中继续运行。按 F9 可将其缩小到任务栏。
+ja	3分間スクロールしないと車はアイドリングになります。カードを閉じてもゲームは時計の横の通知領域で動き続けます。F9 でタスクバーに縮小できます。
+ko	3분 동안 스크롤하지 않으면 차가 공회전 상태가 됩니다. 카드를 닫아도 게임은 시계 옆 시스템 트레이에서 계속 실행됩니다. F9를 누르면 작업 표시줄로 줄어듭니다.
+#72 Goal: the city
+tr	Hedef: şehir
+de	Ziel: die Stadt
+fr	Objectif : la ville
+es	Meta: la ciudad
+pt	Meta: a cidade
+pl	Cel: miasto
+ru	Цель: город
+zh	目标：城市
+ja	目標：シティ
+ko	목표: 도시
+#73 In your browser, in Word, wherever you scroll...
+tr	Tarayıcıda, Word'de, nerede kaydırırsan kaydır araba ilerler; oyun arka plandayken bile. Makrolar ve otomatik kaydırma sayılmaz.
+de	Im Browser, in Word, überall wo du scrollst, fährt das Auto, sogar wenn das Spiel im Hintergrund ist. Makros und automatisches Scrollen zählen nicht.
+fr	Dans votre navigateur, dans Word, partout où vous faites défiler, la voiture avance, même quand le jeu est en arrière-plan. Les macros et le défilement automatique ne comptent pas.
+es	En el navegador, en Word, donde sea que te desplaces, el coche avanza, incluso con el juego en segundo plano. Las macros y el desplazamiento automático no cuentan.
+pt	No navegador, no Word, onde você rolar, o carro anda, mesmo com o jogo em segundo plano. Macros e rolagem automática não contam.
+pl	W przeglądarce, w Wordzie, gdziekolwiek przewijasz, auto jedzie, nawet gdy gra działa w tle. Makra i automatyczne przewijanie się nie liczą.
+ru	В браузере, в Word, где бы вы ни прокручивали, машина едет, даже когда игра в фоне. Макросы и автопрокрутка не считаются.
+zh	在浏览器里、在 Word 里，无论在哪里滚动，汽车都会前进，即使游戏在后台运行。宏和自动滚动不计入。
+ja	ブラウザでも Word でも、どこでスクロールしても車は進みます。ゲームがバックグラウンドでも大丈夫。マクロや自動スクロールは数えません。
+ko	브라우저든 Word든 어디서 스크롤하든 차가 달립니다. 게임이 백그라운드에 있어도요. 매크로와 자동 스크롤은 집계되지 않습니다.
+#74 It counts everywhere
+tr	Her yerde sayılır
+de	Es zählt überall
+fr	Ça compte partout
+es	Cuenta en todas partes
+pt	Conta em todo lugar
+pl	Liczy się wszędzie
+ru	Считается везде
+zh	随处都计数
+ja	どこでもカウント
+ko	어디서나 집계
+#75 Next
+tr	İleri
+de	Weiter
+fr	Suivant
+es	Siguiente
+pt	Próximo
+pl	Dalej
+ru	Далее
+zh	下一步
+ja	次へ
+ko	다음
+#76 Scroll = gas
+tr	Kaydırma = gaz
+de	Scrollen = Gas
+fr	Défilement = accélérateur
+es	Desplazar = acelerar
+pt	Rolar = acelerar
+pl	Przewijanie = gaz
+ru	Прокрутка = газ
+zh	滚动 = 油门
+ja	スクロール＝アクセル
+ko	스크롤 = 가속
+#77 Scroll down, anywhere on your PC...
+tr	Bilgisayarında herhangi bir yerde aşağı kaydır, araba hızlanır. Yavaşlamak için yukarı kaydır; devam edersen geri gidersin.
+de	Scroll irgendwo auf deinem PC nach unten, und das Auto beschleunigt. Scroll nach oben zum Bremsen; machst du weiter, fährst du rückwärts.
+fr	Faites défiler vers le bas, n'importe où sur votre PC, et la voiture accélère. Vers le haut pour ralentir ; continuez et vous reculerez.
+es	Desplázate hacia abajo, en cualquier parte de tu PC, y el coche acelera. Hacia arriba para frenar; si sigues, irás marcha atrás.
+pt	Role para baixo, em qualquer lugar do seu PC, e o carro acelera. Role para cima para frear; se continuar, você dá ré.
+pl	Przewiń w dół gdziekolwiek na komputerze, a auto przyspieszy. Przewiń w górę, aby zwolnić; jeśli nie przestaniesz, pojedziesz do tyłu.
+ru	Прокрутите вниз в любом месте на ПК, и машина разгонится. Прокрутка вверх тормозит; продолжите — и поедете задним ходом.
+zh	在电脑上任何地方向下滚动，汽车就会加速。向上滚动可减速；继续滚动就会倒车。
+ja	PCのどこでも下にスクロールすると車が加速します。上にスクロールすると減速し、そのまま続けるとバックします。
+ko	PC 어디서든 아래로 스크롤하면 차가 빨라집니다. 위로 스크롤하면 느려지고, 계속하면 후진합니다.
+#78 Start
+tr	Başla
+de	Los geht's
+fr	Commencer
+es	Empezar
+pt	Começar
+pl	Start
+ru	Начать
+zh	开始
+ja	スタート
+ko	시작
+#79 Stop and it idles
+tr	Durursan rölantiye geçer
+de	Hörst du auf, läuft es im Leerlauf
+fr	Arrêtez-vous et elle tourne au ralenti
+es	Si paras, va al ralentí
+pt	Parou, fica em marcha lenta
+pl	Przestaniesz, a auto zwolni
+ru	Остановитесь — и холостой ход
+zh	停下就怠速
+ja	止まるとアイドリング
+ko	멈추면 공회전
+#80 That's it!
+tr	İşte bu!
+de	Genau so!
+fr	C'est ça !
+es	¡Eso es!
+pt	Isso aí!
+pl	Właśnie tak!
+ru	Вот так!
+zh	就是这样！
+ja	その調子！
+ko	바로 그거예요!
+#81 Try it: scroll down a little.
+tr	Dene: biraz aşağı kaydır.
+de	Probier's: scroll ein wenig nach unten.
+fr	Essayez : faites défiler un peu vers le bas.
+es	Pruébalo: desplázate un poco hacia abajo.
+pt	Experimente: role um pouco para baixo.
+pl	Spróbuj: przewiń trochę w dół.
+ru	Попробуйте: прокрутите немного вниз.
+zh	试试看：向下滚动一点。
+ja	試してみよう：少し下にスクロール。
+ko	해 보세요: 아래로 조금 스크롤하세요.
+#82 {0} / {1} stamps · a new passport every month
+tr	{0} / {1} damga · her ay yeni bir pasaport
+de	{0} / {1} Stempel · jeden Monat ein neuer Pass
+fr	{0} / {1} tampons · un nouveau passeport chaque mois
+es	{0} / {1} sellos · un pasaporte nuevo cada mes
+pt	{0} / {1} carimbos · um passaporte novo todo mês
+pl	{0} / {1} stempli · co miesiąc nowy paszport
+ru	Отметок: {0} / {1} · каждый месяц новый паспорт
+zh	印章 {0} / {1} · 每月换新护照
+ja	スタンプ {0} / {1} · 毎月新しいパスポート
+ko	도장 {0} / {1} · 매달 새 여권
+#83 <color=#FFFFFF>{0}</color> turns up {1:0}× as often after dark...
+tr	<color=#FFFFFF>{0}</color> hava karardıktan sonra {1:0}× daha sık çıkar. Kaldırmak için yeniden tıkla.
+de	<color=#FFFFFF>{0}</color> taucht nach Einbruch der Dunkelheit {1:0}× so oft auf. Zum Aufheben erneut klicken.
+fr	<color=#FFFFFF>{0}</color> apparaît {1:0}× plus souvent la nuit. Cliquez à nouveau pour annuler.
+es	<color=#FFFFFF>{0}</color> aparece {1:0}× más a menudo de noche. Haz clic otra vez para quitarlo.
+pt	<color=#FFFFFF>{0}</color> aparece {1:0}× mais vezes à noite. Clique de novo para limpar.
+pl	<color=#FFFFFF>{0}</color> pojawia się {1:0}× częściej po zmroku. Kliknij ponownie, aby wyczyścić.
+ru	<color=#FFFFFF>{0}</color> после заката попадается в {1:0}× чаще. Нажмите ещё раз, чтобы сбросить.
+zh	<color=#FFFFFF>{0}</color> 在天黑后出现频率提高 {1:0}×。再次点击可取消。
+ja	<color=#FFFFFF>{0}</color> は夜になると{1:0}×出やすくなります。もう一度クリックで解除。
+ko	<color=#FFFFFF>{0}</color>이(가) 밤에 {1:0}× 더 자주 나타납니다. 다시 클릭하면 해제됩니다.
+#84 <color=#FFFFFF>{0}</color> turns up {1:0}× as often...
+tr	<color=#FFFFFF>{0}</color> {1:0}× daha sık çıkar. Kaldırmak için yeniden tıkla.
+de	<color=#FFFFFF>{0}</color> taucht {1:0}× so oft auf. Zum Aufheben erneut klicken.
+fr	<color=#FFFFFF>{0}</color> apparaît {1:0}× plus souvent. Cliquez à nouveau pour annuler.
+es	<color=#FFFFFF>{0}</color> aparece {1:0}× más a menudo. Haz clic otra vez para quitarlo.
+pt	<color=#FFFFFF>{0}</color> aparece {1:0}× mais vezes. Clique de novo para limpar.
+pl	<color=#FFFFFF>{0}</color> pojawia się {1:0}× częściej. Kliknij ponownie, aby wyczyścić.
+ru	<color=#FFFFFF>{0}</color> попадается в {1:0}× чаще. Нажмите ещё раз, чтобы сбросить.
+zh	<color=#FFFFFF>{0}</color> 出现频率提高 {1:0}×。再次点击可取消。
+ja	<color=#FFFFFF>{0}</color> が{1:0}×出やすくなります。もう一度クリックで解除。
+ko	<color=#FFFFFF>{0}</color>이(가) {1:0}× 더 자주 나타납니다. 다시 클릭하면 해제됩니다.
+#85 AFTER DARK ONLY
+tr	YALNIZ GECE
+de	NUR NACHTS
+fr	LA NUIT SEULEMENT
+es	SOLO DE NOCHE
+pt	SÓ À NOITE
+pl	TYLKO PO ZMROKU
+ru	ТОЛЬКО НОЧЬЮ
+zh	仅限夜间
+ja	夜のみ
+ko	밤에만
+#86 CLICK TO GO
+tr	GİTMEK İÇİN TIKLA
+de	KLICKEN ZUM HINGEHEN
+fr	CLIQUEZ POUR Y ALLER
+es	CLIC PARA IR
+pt	CLIQUE PARA IR
+pl	KLIKNIJ, ABY PRZEJŚĆ
+ru	НАЖМИТЕ, ЧТОБЫ ПЕРЕЙТИ
+zh	点击前往
+ja	クリックで移動
+ko	클릭하여 이동
+#87 FOCUS
+tr	ODAK
+de	FOKUS
+fr	CIBLE
+es	ENFOQUE
+pt	FOCO
+pl	CEL
+ru	ФОКУС
+zh	专注
+ja	注目
+ko	집중
+#88 IN FOCUS
+tr	ODAKTA
+de	IM FOKUS
+fr	CIBLÉ
+es	EN EL PUNTO DE MIRA
+pt	EM FOCO
+pl	NA CELOWNIKU
+ru	В ФОКУСЕ
+zh	专注中
+ja	注目中
+ko	집중 중
+#89 IN FOCUS · AFTER DARK
+tr	ODAKTA · GECE
+de	IM FOKUS · NACHTS
+fr	CIBLÉ · LA NUIT
+es	EN EL PUNTO DE MIRA · DE NOCHE
+pt	EM FOCO · À NOITE
+pl	NA CELOWNIKU · PO ZMROKU
+ru	В ФОКУСЕ · НОЧЬЮ
+zh	专注中 · 夜间
+ja	注目中 · 夜
+ko	집중 중 · 밤
+#90 IN YOUR LOG
+tr	DEFTERİNDE
+de	IN DEINEM BUCH
+fr	DANS VOTRE CARNET
+es	EN TU REGISTRO
+pt	NO SEU REGISTRO
+pl	W TWOIM DZIENNIKU
+ru	В ВАШЕМ ЖУРНАЛЕ
+zh	已收录
+ja	記録済み
+ko	기록됨
+#91 NOT FOUND YET
+tr	HENÜZ BULUNMADI
+de	NOCH NICHT GEFUNDEN
+fr	PAS ENCORE TROUVÉ
+es	AÚN NO ENCONTRADO
+pt	AINDA NÃO ENCONTRADO
+pl	JESZCZE NIEZNALEZIONE
+ru	ЕЩЁ НЕ НАЙДЕНО
+zh	尚未发现
+ja	未発見
+ko	아직 못 찾음
+#92 Pick one to look out for...
+tr	Aramak için birini seç: {0:0}× daha sık çıkar. Puanın değişmez.
+de	Wähle eins, nach dem du Ausschau hältst: Es taucht {0:0}× so oft auf. Deine Wertung bleibt gleich.
+fr	Choisissez-en un à guetter : il apparaît {0:0}× plus souvent. Votre score ne change pas.
+es	Elige uno que buscar: aparece {0:0}× más a menudo. Tu puntuación no cambia.
+pt	Escolha um para procurar: ele aparece {0:0}× mais vezes. Sua pontuação não muda.
+pl	Wybierz jeden do wypatrywania: pojawia się {0:0}× częściej. Twój wynik się nie zmienia.
+ru	Выберите, что высматривать: попадается в {0:0}× чаще. Счёт не меняется.
+zh	选一个重点寻找：其出现频率提高 {0:0}×。得分不受影响。
+ja	狙うものを1つ選ぼう：{0:0}×出やすくなります。スコアは変わりません。
+ko	찾을 것을 하나 고르세요: {0:0}× 더 자주 나타납니다. 점수는 그대로입니다.
+#93 Places
+tr	Mekânlar
+de	Orte
+fr	Lieux
+es	Lugares
+pt	Lugares
+pl	Miejsca
+ru	Места
+zh	地点
+ja	場所
+ko	장소
+#94 {0} / {1} open  ·  {2} played here
+tr	{0} / {1} açık  ·  burada {2} oynandı
+de	{0} / {1} offen  ·  hier {2} gespielt
+fr	{0} / {1} ouverts  ·  {2} joué ici
+es	{0} / {1} abiertos  ·  {2} jugado aquí
+pt	{0} / {1} abertos  ·  {2} jogado aqui
+pl	{0} / {1} otwartych  ·  tu grano {2}
+ru	Открыто {0} / {1}  ·  сыграно здесь {2}
+zh	已开放 {0} / {1}  ·  在此游玩 {2}
+ja	解放 {0} / {1}  ·  ここで{2}プレイ
+ko	{0} / {1} 열림  ·  여기서 {2} 플레이
+#95 {0} TO GO
+tr	{0} KALDI
+de	NOCH {0}
+fr	ENCORE {0}
+es	FALTAN {0}
+pt	FALTAM {0}
+pl	ZOSTAŁO {0}
+ru	ОСТАЛОСЬ {0}
+zh	还差 {0}
+ja	あと{0}
+ko	{0} 남음
+#96 ,_
+tr	,
+de	,
+fr	,
+es	,
+pt	,
+pl	,
+ru	,
+zh	、
+ja	、
+ko	,
+#97 New in your {0}:
+tr	{0} içinde yeni:
+de	Neu in: {0}:
+fr	Nouveau — {0} :
+es	Nuevo en {0}:
+pt	Novo em {0}:
+pl	Nowe — {0}:
+ru	Новое — {0}:
+zh	{0}新增：
+ja	{0}に新登場：
+ko	{0}에 새로 추가:
+#98 Next car:  <color=#FFFFFF>{0}</color> in {1}
+tr	Sıradaki araç:  <color=#FFFFFF>{0}</color>, {1} sonra
+de	Nächstes Fahrzeug:  <color=#FFFFFF>{0}</color> in {1}
+fr	Prochain véhicule :  <color=#FFFFFF>{0}</color> dans {1}
+es	Próximo vehículo:  <color=#FFFFFF>{0}</color> en {1}
+pt	Próximo veículo:  <color=#FFFFFF>{0}</color> em {1}
+pl	Następny pojazd:  <color=#FFFFFF>{0}</color> za {1}
+ru	Следующая машина:  <color=#FFFFFF>{0}</color> через {1}
+zh	下一辆车：  <color=#FFFFFF>{0}</color>，还需 {1}
+ja	次の車両：  <color=#FFFFFF>{0}</color> まであと{1}
+ko	다음 차량:  <color=#FFFFFF>{0}</color>, {1} 후
+#99 Next unlock:  <color=#FFFFFF>{0}</color> in {1}
+tr	Sıradaki açılış:  <color=#FFFFFF>{0}</color>, {1} sonra
+de	Nächste Freischaltung:  <color=#FFFFFF>{0}</color> in {1}
+fr	Prochain déblocage :  <color=#FFFFFF>{0}</color> dans {1}
+es	Próximo desbloqueo:  <color=#FFFFFF>{0}</color> en {1}
+pt	Próximo desbloqueio:  <color=#FFFFFF>{0}</color> em {1}
+pl	Następne odblokowanie:  <color=#FFFFFF>{0}</color> za {1}
+ru	Следующее открытие:  <color=#FFFFFF>{0}</color> через {1}
+zh	下次解锁：  <color=#FFFFFF>{0}</color>，还需 {1}
+ja	次の解放：  <color=#FFFFFF>{0}</color> まであと{1}
+ko	다음 해제:  <color=#FFFFFF>{0}</color>, {1} 후
+#100 No rare finds this time. They're out there.
+tr	Bu sefer nadir bir şey çıkmadı. Ama oradalar.
+de	Diesmal keine Raritäten. Aber es gibt sie.
+fr	Aucune rareté cette fois. Elles sont pourtant là.
+es	Esta vez no hubo rarezas. Pero están ahí fuera.
+pt	Nenhuma raridade desta vez. Mas elas estão por aí.
+pl	Tym razem bez rarytasów. Ale one tam są.
+ru	На этот раз без редкостей. Но они где-то рядом.
+zh	这次没有稀有发现。但它们就在某处。
+ja	今回はレアなし。でも、どこかにいます。
+ko	이번엔 희귀품이 없었습니다. 하지만 어딘가에 있어요.
+#101 Turned up again:
+tr	Yine çıkanlar:
+de	Wieder aufgetaucht:
+fr	De retour :
+es	Volvieron a aparecer:
+pt	Apareceram de novo:
+pl	Znów się pojawiły:
+ru	Снова попались:
+zh	再次出现：
+ja	また出た：
+ko	다시 나타남:
+#102 While you were away
+tr	Sen yokken
+de	Während du weg warst
+fr	Pendant votre absence
+es	Mientras no estabas
+pt	Enquanto você estava fora
+pl	Gdy cię nie było
+ru	Пока вас не было
+zh	你离开期间
+ja	留守の間に
+ko	자리를 비운 동안
+#103 IN USE
+tr	KULLANIMDA
+de	IN BENUTZUNG
+fr	UTILISÉ
+es	EN USO
+pt	EM USO
+pl	W UŻYCIU
+ru	ВЫБРАНО
+zh	使用中
+ja	使用中
+ko	사용 중
+#104 Unlocks with more play here
+tr	Burada oynadıkça açılır
+de	Wird durch mehr Spielzeit hier freigeschaltet
+fr	Se débloque en jouant davantage ici
+es	Se desbloquea jugando más aquí
+pt	Desbloqueia jogando mais aqui
+pl	Odblokujesz, grając tu dłużej
+ru	Откроется, если играть здесь дольше
+zh	在此多玩即可解锁
+ja	ここで遊ぶと解放
+ko	여기서 더 플레이하면 해제
+#105 {0} / {1} unlocked  ·  {2} played here
+tr	{0} / {1} açık  ·  burada {2} oynandı
+de	{0} / {1} freigeschaltet  ·  hier {2} gespielt
+fr	{0} / {1} débloqués  ·  {2} joué ici
+es	{0} / {1} desbloqueados  ·  {2} jugado aquí
+pt	{0} / {1} desbloqueados  ·  {2} jogado aqui
+pl	{0} / {1} odblokowanych  ·  tu grano {2}
+ru	Открыто {0} / {1}  ·  сыграно здесь {2}
+zh	已解锁 {0} / {1}  ·  在此游玩 {2}
+ja	解放 {0} / {1}  ·  ここで{2}プレイ
+ko	{0} / {1} 해제  ·  여기서 {2} 플레이
+#106 {0} to go
+tr	{0} kaldı
+de	noch {0}
+fr	encore {0}
+es	faltan {0}
+pt	faltam {0}
+pl	zostało {0}
+ru	осталось {0}
+zh	还差 {0}
+ja	あと{0}
+ko	{0} 남음
+#107 ALL TIME
+tr	TÜM ZAMANLAR
+de	INSGESAMT
+fr	DEPUIS LE DÉBUT
+es	DE SIEMPRE
+pt	DE TODOS OS TEMPOS
+pl	OD POCZĄTKU
+ru	ЗА ВСЁ ВРЕМЯ
+zh	总计
+ja	累計
+ko	전체 기간
+#108 Best month:  {0}
+tr	En iyi ay:  {0}
+de	Bester Monat:  {0}
+fr	Meilleur mois :  {0}
+es	Mejor mes:  {0}
+pt	Melhor mês:  {0}
+pl	Najlepszy miesiąc:  {0}
+ru	Лучший месяц:  {0}
+zh	最佳月份：  {0}
+ja	ベスト月間：  {0}
+ko	최고의 달:  {0}
+#109 Cities reached:  {0}
+tr	Ulaşılan şehir:  {0}
+de	Städte erreicht:  {0}
+fr	Villes atteintes :  {0}
+es	Ciudades alcanzadas:  {0}
+pt	Cidades alcançadas:  {0}
+pl	Osiągnięte miasta:  {0}
+ru	Городов достигнуто:  {0}
+zh	抵达城市次数：  {0}
+ja	シティ到着：  {0}
+ko	도시 도착:  {0}
+#110 City reached.
+tr	Şehre ulaşıldı.
+de	Stadt erreicht.
+fr	Ville atteinte.
+es	Ciudad alcanzada.
+pt	Cidade alcançada.
+pl	Miasto osiągnięte.
+ru	Город достигнут.
+zh	已抵达城市。
+ja	シティに到着済み。
+ko	도시 도착 완료.
+#111 Furthest point:  {0}
+tr	En uzak nokta:  {0}
+de	Weitester Punkt:  {0}
+fr	Point le plus lointain :  {0}
+es	Punto más lejano:  {0}
+pt	Ponto mais distante:  {0}
+pl	Najdalszy punkt:  {0}
+ru	Дальше всего:  {0}
+zh	最远处：  {0}
+ja	最遠地点：  {0}
+ko	최장 지점:  {0}
+#112 Scrolls:  {0}
+tr	Kaydırma:  {0}
+de	Scrolls:  {0}
+fr	Défilements :  {0}
+es	Desplazamientos:  {0}
+pt	Rolagens:  {0}
+pl	Przewinięcia:  {0}
+ru	Прокруток:  {0}
+zh	滚动次数：  {0}
+ja	スクロール回数：  {0}
+ko	스크롤:  {0}
+#113 THIS MONTH
+tr	BU AY
+de	DIESER MONAT
+fr	CE MOIS-CI
+es	ESTE MES
+pt	ESTE MÊS
+pl	TEN MIESIĄC
+ru	ЭТОТ МЕСЯЦ
+zh	本月
+ja	今月
+ko	이번 달
+#114 Total distance:  {0}
+tr	Toplam mesafe:  {0}
+de	Gesamtstrecke:  {0}
+fr	Distance totale :  {0}
+es	Distancia total:  {0}
+pt	Distância total:  {0}
+pl	Łączny dystans:  {0}
+ru	Всего пройдено:  {0}
+zh	总里程：  {0}
+ja	総距離：  {0}
+ko	총 거리:  {0}
+#115 U-turns:  {0}
+tr	U dönüşü:  {0}
+de	Wendemanöver:  {0}
+fr	Demi-tours :  {0}
+es	Cambios de sentido:  {0}
+pt	Retornos:  {0}
+pl	Zawracania:  {0}
+ru	Разворотов:  {0}
+zh	掉头次数：  {0}
+ja	Uターン：  {0}
+ko	유턴:  {0}
+#116 (idle)
+tr	(rölanti)
+de	(Leerlauf)
+fr	(ralenti)
+es	(ralentí)
+pt	(ocioso)
+pl	(bezczynny)
+ru	(простой)
+zh	（闲置）
+ja	（アイドル）
+ko	(대기)
+#117 Quit
+tr	Çıkış
+de	Beenden
+fr	Quitter
+es	Salir
+pt	Sair
+pl	Wyjdź
+ru	Выход
+zh	退出
+ja	終了
+ko	종료
+#118 ScrollRoad is running in the background
+tr	ScrollRoad arka planda çalışıyor
+de	ScrollRoad läuft im Hintergrund
+fr	ScrollRoad tourne en arrière-plan
+es	ScrollRoad se está ejecutando en segundo plano
+pt	O ScrollRoad está rodando em segundo plano
+pl	ScrollRoad działa w tle
+ru	ScrollRoad работает в фоне
+zh	ScrollRoad 正在后台运行
+ja	ScrollRoad はバックグラウンドで動作中です
+ko	ScrollRoad가 백그라운드에서 실행 중입니다
+#119 Show ScrollRoad
+tr	ScrollRoad'u göster
+de	ScrollRoad anzeigen
+fr	Afficher ScrollRoad
+es	Mostrar ScrollRoad
+pt	Mostrar ScrollRoad
+pl	Pokaż ScrollRoad
+ru	Показать ScrollRoad
+zh	显示 ScrollRoad
+ja	ScrollRoad を表示
+ko	ScrollRoad 보기
+#120 Taskbar mode
+tr	Görev çubuğu modu
+de	Taskleistenmodus
+fr	Mode barre des tâches
+es	Modo barra de tareas
+pt	Modo barra de tarefas
+pl	Tryb paska zadań
+ru	Режим панели задач
+zh	任务栏模式
+ja	タスクバーモード
+ko	작업 표시줄 모드
+#121 Your scrolls keep counting...
+tr	Kaydırmaların sayılmaya devam ediyor. Yeniden açmak için simgeye tıkla, kapatmak için sağ tık > Çıkış.
+de	Dein Scrollen zählt weiter. Klick auf das Symbol, um es wieder zu öffnen, oder Rechtsklick > Beenden zum Schließen.
+fr	Vos défilements continuent de compter. Cliquez sur l'icône pour rouvrir, ou clic droit > Quitter pour fermer.
+es	Tus desplazamientos siguen contando. Haz clic en el icono para volver a abrirlo, o clic derecho > Salir para cerrarlo.
+pt	Suas rolagens continuam contando. Clique no ícone para reabrir, ou botão direito > Sair para fechar.
+pl	Przewijanie nadal się liczy. Kliknij ikonę, aby otworzyć ponownie, lub prawy przycisk > Wyjdź, aby zamknąć.
+ru	Прокрутка продолжает считаться. Нажмите на значок, чтобы открыть снова, или правой кнопкой > Выход, чтобы закрыть.
+zh	你的滚动仍在计数。点击图标重新打开，或右键 > 退出 来关闭。
+ja	スクロールは数え続けています。アイコンをクリックで再表示、右クリック > 終了 で閉じます。
+ko	스크롤은 계속 집계됩니다. 아이콘을 클릭하면 다시 열리고, 오른쪽 클릭 > 종료로 닫을 수 있습니다.
+#122 {0} this month
+tr	bu ay {0}
+de	{0} diesen Monat
+fr	{0} ce mois-ci
+es	{0} este mes
+pt	{0} este mês
+pl	{0} w tym miesiącu
+ru	{0} за месяц
+zh	本月 {0}
+ja	今月 {0}
+ko	이번 달 {0}
+#123 Achievement · {0}
+tr	Başarım · {0}
+de	Erfolg · {0}
+fr	Succès · {0}
+es	Logro · {0}
+pt	Conquista · {0}
+pl	Osiągnięcie · {0}
+ru	Достижение · {0}
+zh	成就 · {0}
+ja	実績 · {0}
+ko	도전 과제 · {0}
+#124 Achievement: {0}
+tr	Başarım: {0}
+de	Erfolg: {0}
+fr	Succès : {0}
+es	Logro: {0}
+pt	Conquista: {0}
+pl	Osiągnięcie: {0}
+ru	Достижение: {0}
+zh	成就：{0}
+ja	実績：{0}
+ko	도전 과제: {0}
+#125 Beginner's Luck
+tr	Acemi Şansı
+de	Anfängerglück
+fr	La chance du débutant
+es	Suerte del principiante
+pt	Sorte de principiante
+pl	Szczęście początkującego
+ru	Новичкам везёт
+zh	新手运气
+ja	ビギナーズラック
+ko	초심자의 행운
+#126 Collector
+tr	Koleksiyoncu
+de	Sammler
+fr	Collectionneur
+es	Coleccionista
+pt	Colecionador
+pl	Kolekcjoner
+ru	Коллекционер
+zh	收藏家
+ja	コレクター
+ko	수집가
+#127 Complete 50 orders.
+tr	50 sipariş tamamla.
+de	Schließe 50 Aufträge ab.
+fr	Terminez 50 commandes.
+es	Completa 50 pedidos.
+pt	Conclua 50 pedidos.
+pl	Wykonaj 50 zamówień.
+ru	Выполните 50 заказов.
+zh	完成 50 个订单。
+ja	注文を50件達成する。
+ko	주문 50개 완료.
+#128 Complete an order.
+tr	Bir sipariş tamamla.
+de	Schließe einen Auftrag ab.
+fr	Terminez une commande.
+es	Completa un pedido.
+pt	Conclua um pedido.
+pl	Wykonaj zamówienie.
+ru	Выполните заказ.
+zh	完成一个订单。
+ja	注文を1件達成する。
+ko	주문 1개 완료.
+#129 Complete every place of one activity.
+tr	Bir etkinliğin bütün mekânlarını tamamla.
+de	Vervollständige alle Orte einer Aktivität.
+fr	Complétez tous les lieux d'une activité.
+es	Completa todos los lugares de una actividad.
+pt	Complete todos os lugares de uma atividade.
+pl	Ukończ wszystkie miejsca jednej aktywności.
+ru	Соберите все места одного занятия.
+zh	完成某一活动的所有地点。
+ja	1つのアクティビティの全場所をコンプリートする。
+ko	한 활동의 모든 장소 완료.
+#130 Curator
+tr	Küratör
+de	Kurator
+fr	Conservateur
+es	Conservador
+pt	Curador
+pl	Kurator
+ru	Куратор
+zh	策展人
+ja	キュレーター
+ko	큐레이터
+#131 Drive 1,000 km in total.
+tr	Toplam 1.000 km yol yap.
+de	Fahre insgesamt 1.000 km.
+fr	Parcourez 1 000 km au total.
+es	Conduce 1.000 km en total.
+pt	Dirija 1.000 km no total.
+pl	Przejedź łącznie 1000 km.
+ru	Проедьте 1000 км всего.
+zh	累计行驶 1,000 公里。
+ja	累計1,000 km走る。
+ko	총 1,000km 주행.
+#132 Drive 10,000 km in total.
+tr	Toplam 10.000 km yol yap.
+de	Fahre insgesamt 10.000 km.
+fr	Parcourez 10 000 km au total.
+es	Conduce 10.000 km en total.
+pt	Dirija 10.000 km no total.
+pl	Przejedź łącznie 10 000 km.
+ru	Проедьте 10 000 км всего.
+zh	累计行驶 10,000 公里。
+ja	累計10,000 km走る。
+ko	총 10,000km 주행.
+#133 Drive 100 km in total.
+tr	Toplam 100 km yol yap.
+de	Fahre insgesamt 100 km.
+fr	Parcourez 100 km au total.
+es	Conduce 100 km en total.
+pt	Dirija 100 km no total.
+pl	Przejedź łącznie 100 km.
+ru	Проедьте 100 км всего.
+zh	累计行驶 100 公里。
+ja	累計100 km走る。
+ko	총 100km 주행.
+#134 Drive your first kilometre.
+tr	İlk kilometreni yap.
+de	Fahre deinen ersten Kilometer.
+fr	Parcourez votre premier kilomètre.
+es	Conduce tu primer kilómetro.
+pt	Dirija seu primeiro quilômetro.
+pl	Przejedź pierwszy kilometr.
+ru	Проедьте первый километр.
+zh	行驶你的第一公里。
+ja	最初の1 kmを走る。
+ko	첫 1km 주행.
+#135 Eyes on the Prize
+tr	Gözün Hedefte
+de	Das Ziel im Blick
+fr	L'œil sur l'objectif
+es	La vista en el premio
+pt	De olho no prêmio
+pl	Oczy na nagrodę
+ru	Взгляд на цель
+zh	目标明确
+ja	狙いどおり
+ko	목표 달성
+#136 Find 150 different rares.
+tr	150 farklı nadir bul.
+de	Finde 150 verschiedene Raritäten.
+fr	Trouvez 150 raretés différentes.
+es	Encuentra 150 rarezas distintas.
+pt	Encontre 150 raridades diferentes.
+pl	Znajdź 150 różnych rarytasów.
+ru	Найдите 150 разных редкостей.
+zh	发现 150 种不同的稀有物。
+ja	異なるレアを150個見つける。
+ko	서로 다른 희귀품 150개 발견.
+#137 Find 50 different rares.
+tr	50 farklı nadir bul.
+de	Finde 50 verschiedene Raritäten.
+fr	Trouvez 50 raretés différentes.
+es	Encuentra 50 rarezas distintas.
+pt	Encontre 50 raridades diferentes.
+pl	Znajdź 50 różnych rarytasów.
+ru	Найдите 50 разных редкостей.
+zh	发现 50 种不同的稀有物。
+ja	異なるレアを50個見つける。
+ko	서로 다른 희귀품 50개 발견.
+#138 Find a rare during a happening.
+tr	Bir olay sırasında nadir bul.
+de	Finde eine Rarität während eines Ereignisses.
+fr	Trouvez une rareté pendant un événement.
+es	Encuentra una rareza durante un evento.
+pt	Encontre uma raridade durante um evento.
+pl	Znajdź rarytas podczas wydarzenia.
+ru	Найдите редкость во время события.
+zh	在特殊事件期间发现稀有物。
+ja	イベント中にレアを見つける。
+ko	이벤트 중에 희귀품 발견.
+#139 Find a rare that only comes out after dark.
+tr	Yalnız geceleri çıkan bir nadir bul.
+de	Finde eine Rarität, die nur nachts auftaucht.
+fr	Trouvez une rareté qui ne sort que la nuit.
+es	Encuentra una rareza que solo sale de noche.
+pt	Encontre uma raridade que só aparece à noite.
+pl	Znajdź rarytas, który pojawia się tylko po zmroku.
+ru	Найдите редкость, которая бывает только ночью.
+zh	发现一种只在夜间出现的稀有物。
+ja	夜にしか出ないレアを見つける。
+ko	밤에만 나오는 희귀품 발견.
+#140 Find all six rares of one place.
+tr	Bir mekânın altı nadirinin hepsini bul.
+de	Finde alle sechs Raritäten eines Ortes.
+fr	Trouvez les six raretés d'un lieu.
+es	Encuentra las seis rarezas de un lugar.
+pt	Encontre as seis raridades de um lugar.
+pl	Znajdź wszystkie sześć rarytasów jednego miejsca.
+ru	Найдите все шесть редкостей одного места.
+zh	找齐某个地点的全部六种稀有物。
+ja	1つの場所のレア6種をすべて見つける。
+ko	한 장소의 희귀품 6개 모두 발견.
+#141 Find every rare in every place.
+tr	Her mekândaki her nadiri bul.
+de	Finde jede Rarität an jedem Ort.
+fr	Trouvez toutes les raretés de tous les lieux.
+es	Encuentra todas las rarezas de todos los lugares.
+pt	Encontre todas as raridades de todos os lugares.
+pl	Znajdź każdy rarytas w każdym miejscu.
+ru	Найдите все редкости во всех местах.
+zh	找齐所有地点的全部稀有物。
+ja	すべての場所のレアをすべて見つける。
+ko	모든 장소의 희귀품 전부 발견.
+#142 Find the rare you were focusing on.
+tr	Odakladığın nadiri bul.
+de	Finde die Rarität, auf die du dich konzentriert hast.
+fr	Trouvez la rareté que vous ciblez.
+es	Encuentra la rareza en la que te enfocabas.
+pt	Encontre a raridade em que você focou.
+pl	Znajdź rarytas, na którym się skupiasz.
+ru	Найдите редкость, на которой был фокус.
+zh	找到你专注寻找的稀有物。
+ja	注目していたレアを見つける。
+ko	집중하던 희귀품 발견.
+#143 Find your first rare.
+tr	İlk nadirini bul.
+de	Finde deine erste Rarität.
+fr	Trouvez votre première rareté.
+es	Encuentra tu primera rareza.
+pt	Encontre sua primeira raridade.
+pl	Znajdź pierwszy rarytas.
+ru	Найдите первую редкость.
+zh	发现你的第一个稀有物。
+ja	最初のレアを見つける。
+ko	첫 희귀품 발견.
+#144 Finish all of the day's orders seven days in a row.
+tr	Yedi gün üst üste günün bütün siparişlerini bitir.
+de	Erledige sieben Tage in Folge alle Tagesaufträge.
+fr	Terminez toutes les commandes du jour sept jours de suite.
+es	Completa todos los pedidos del día siete días seguidos.
+pt	Conclua todos os pedidos do dia por sete dias seguidos.
+pl	Wykonaj wszystkie dzienne zamówienia siedem dni z rzędu.
+ru	Выполняйте все заказы дня семь дней подряд.
+zh	连续七天完成当天所有订单。
+ja	7日連続でその日の注文をすべて達成する。
+ko	7일 연속 그날의 주문 모두 완료.
+#145 Full Shelf
+tr	Dolu Raf
+de	Volles Regal
+fr	Étagère pleine
+es	Estante lleno
+pt	Prateleira cheia
+pl	Pełna półka
+ru	Полная полка
+zh	满满一架
+ja	棚いっぱい
+ko	가득 찬 선반
+#146 Garage Sale
+tr	Garaj Dolusu
+de	Garagenflohmarkt
+fr	Vide-garage
+es	Garaje lleno
+pt	Garagem cheia
+pl	Pełny garaż
+ru	Полный гараж
+zh	车库满满
+ja	ガレージ満杯
+ko	차고 가득
+#147 Ignition
+tr	Kontak
+de	Zündung
+fr	Contact
+es	Encendido
+pt	Ignição
+pl	Zapłon
+ru	Зажигание
+zh	点火
+ja	イグニッション
+ko	시동
+#148 Jack of All Trades
+tr	Her İşin Ehli
+de	Hans Dampf in allen Gassen
+fr	Touche-à-tout
+es	Todoterreno
+pt	Faz-tudo
+pl	Złota rączka
+ru	Мастер на все руки
+zh	多面手
+ja	何でも屋
+ko	팔방미인
+#149 Long Haul
+tr	Uzun Yol
+de	Langstrecke
+fr	Long courrier
+es	Larga distancia
+pt	Longa distância
+pl	Długa trasa
+ru	Дальняя дорога
+zh	长途跋涉
+ja	長距離ドライバー
+ko	장거리
+#150 Master of One
+tr	Bir İşin Ustası
+de	Meister eines Fachs
+fr	Maître en la matière
+es	Maestro de uno
+pt	Mestre de um
+pl	Mistrz jednej dziedziny
+ru	Мастер своего дела
+zh	专精大师
+ja	一芸の達人
+ko	한 분야의 달인
+#151 Million Scrolls
+tr	Milyon Kaydırma
+de	Millionen Scrolls
+fr	Un million de défilements
+es	Un millón de desplazamientos
+pt	Um milhão de rolagens
+pl	Milion przewinięć
+ru	Миллион прокруток
+zh	百万次滚动
+ja	百万スクロール
+ko	백만 스크롤
+#152 New Look
+tr	Yeni Görünüm
+de	Neuer Look
+fr	Nouveau look
+es	Nuevo look
+pt	Visual novo
+pl	Nowy wygląd
+ru	Новый облик
+zh	焕然一新
+ja	イメチェン
+ko	새 모습
+#153 Night Owl
+tr	Gece Kuşu
+de	Nachteule
+fr	Oiseau de nuit
+es	Ave nocturna
+pt	Coruja
+pl	Nocny marek
+ru	Сова
+zh	夜猫子
+ja	夜ふかし
+ko	올빼미
+#154 Order Up
+tr	Sipariş Hazır
+de	Bestellung fertig
+fr	Commande prête
+es	Pedido listo
+pt	Pedido pronto
+pl	Zamówienie gotowe
+ru	Заказ готов
+zh	订单完成
+ja	注文完了
+ko	주문 완료
+#155 Put an activity in the side slot.
+tr	Yan yuvaya bir etkinlik koy.
+de	Lege eine Aktivität in den Nebenplatz.
+fr	Placez une activité dans l'emplacement secondaire.
+es	Pon una actividad en la ranura secundaria.
+pt	Coloque uma atividade no espaço secundário.
+pl	Umieść aktywność w dodatkowym miejscu.
+ru	Поставьте занятие в дополнительный слот.
+zh	把一个活动放进副活动栏。
+ja	サブ枠にアクティビティを入れる。
+ko	보조 슬롯에 활동 넣기.
+#156 Regular
+tr	Müdavim
+de	Stammkunde
+fr	Habitué
+es	Habitual
+pt	Freguês
+pl	Stały bywalec
+ru	Завсегдатай
+zh	常客
+ja	常連
+ko	단골
+#157 Right Place, Right Time
+tr	Doğru Yer, Doğru Zaman
+de	Zur richtigen Zeit am richtigen Ort
+fr	Au bon endroit, au bon moment
+es	En el lugar y momento justos
+pt	Lugar certo, hora certa
+pl	Właściwe miejsce, właściwy czas
+ru	В нужное время в нужном месте
+zh	天时地利
+ja	絶好のタイミング
+ko	적시적소
+#158 Road Tripper
+tr	Yol Tutkunu
+de	Roadtripper
+fr	Baroudeur
+es	Viajero de carretera
+pt	Estradeiro
+pl	Podróżnik
+ru	Путешественник
+zh	公路旅行者
+ja	ロードトリッパー
+ko	로드 트리퍼
+#159 Seven Days
+tr	Yedi Gün
+de	Sieben Tage
+fr	Sept jours
+es	Siete días
+pt	Sete dias
+pl	Siedem dni
+ru	Семь дней
+zh	七天
+ja	7日間
+ko	7일
+#160 Side Gig
+tr	Yan Uğraş
+de	Nebenjob
+fr	Petit boulot
+es	Trabajo extra
+pt	Bico
+pl	Fucha
+ru	Подработка
+zh	副业
+ja	副業
+ko	부업

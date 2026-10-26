@@ -68,7 +68,7 @@ namespace ScrollRoad
             }
             var skins = c.Skins;
             double points = EnvironmentContent.LadderPoints(c);
-            titleText.text = c.SkinBoxName;
+            titleText.text = L.T(c.SkinBoxName);
             int open = 0;
             for (int i = 0; i < cardButtons.Length; i++)
             {
@@ -87,13 +87,13 @@ namespace ScrollRoad
                 dialImages[i].sprite = dial;
                 dialImages[i].enabled = dial != null;
                 dialImages[i].color = unlocked ? Color.white : Locked;
-                nameTexts[i].text = skin.Name;
+                nameTexts[i].text = L.T(skin.Name);
                 detailTexts[i].text = !unlocked
-                    ? $"<alpha=#88>Unlocks with more play here\n{UnlockLadder.Remaining(UnlockLadder.SkinPoints(i) - points)} to go"
-                    : current ? $"IN USE\n<alpha=#88>{skin.Blurb}" : $"<alpha=#88>{skin.Blurb}";
+                    ? "<alpha=#88>" + L.T("Unlocks with more play here") + "\n" + L.F("{0} to go", UnlockLadder.Remaining(UnlockLadder.SkinPoints(i) - points))
+                    : current ? L.T("IN USE") + "\n<alpha=#88>" + L.T(skin.Blurb) : "<alpha=#88>" + L.T(skin.Blurb);
                 cardButtons[i].interactable = unlocked;
             }
-            countText.text = $"{open} / {skins.Length} unlocked  ·  {UnlockLadder.Remaining(c.LifetimePoints)} played here";
+            countText.text = L.F("{0} / {1} unlocked  ·  {2} played here", open, skins.Length, UnlockLadder.Remaining(c.LifetimePoints));
         }
     }
 }

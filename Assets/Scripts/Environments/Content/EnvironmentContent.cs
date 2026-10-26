@@ -98,7 +98,7 @@ namespace ScrollRoad
     public static class EnvironmentContent
     {
         // Skin takımı henüz olmayan ortamların tek, hep açık takımı (Ortam Standardı v2'nin içerik adımına kadar).
-        public static readonly SkinInfo[] ClassicOnly = { new SkinInfo { Id = "classic", Name = "Classic", Blurb = "The original look" } };
+        public static readonly SkinInfo[] ClassicOnly = { new SkinInfo { Id = "classic", Name = L.N("Classic"), Blurb = L.N("The original look") } };
 
         static readonly Dictionary<EnvironmentId, IEnvironmentContent> Registry = new Dictionary<EnvironmentId, IEnvironmentContent>();
         static readonly Dictionary<EnvironmentId, ContentState> States = new Dictionary<EnvironmentId, ContentState>();
@@ -250,12 +250,13 @@ namespace ScrollRoad
             for (int i = 1; i < c.Venues.Length; i++)
             {
                 double left = UnlockLadder.VenuePoints(i) - points;
-                if (left > 0 && left < remaining) { remaining = left; name = c.Venues[i].Name; }
+                if (left > 0 && left < remaining) { remaining = left; name = L.T(c.Venues[i].Name); }
             }
             for (int i = 1; i < c.Skins.Length; i++)
             {
                 double left = UnlockLadder.SkinPoints(i) - points;
-                if (left > 0 && left < remaining) { remaining = left; name = $"{c.Skins[i].Name} {c.SkinNoun}"; }
+                // "Brass dial": ad + takım adı (dile göre sıra değişebilir).
+                if (left > 0 && left < remaining) { remaining = left; name = L.F("{0} {1}", L.T(c.Skins[i].Name), L.T(c.SkinNoun)); }
             }
             return name != null;
         }

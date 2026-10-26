@@ -10,6 +10,7 @@ namespace ScrollRoad
     //
     // Bir atışın evreleri (öğenin ilerlemesi f = Phase): 0–0,15 bumerang önceki hedeften ele döner; 0,15–0,70
     // elde dönerek hız biriktirir; 0,70–1 uçar; f = 1'de hedefi vurur (sayılır).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public class BoomerangEnvironment : IntervalEnvironment
     {
         public const float ReturnEnd = 0.15f;
@@ -99,22 +100,22 @@ namespace ScrollRoad
         public static float Distance(EnvItem item) => Mathf.Round(item.Type.Value + item.Roll * 30f);
 
         public override float ItemValue(EnvItem item) => Distance(item);
-        public override string FormatValue(float value) => $"{value:0} m";
-        public override string RecordLabel => "LONGEST HIT";
+        public override string FormatValue(float value) => L.F("{0:0} m", value);
+        public override string RecordLabel => L.T("LONGEST HIT");
 
-        public override string TotalLabel => "TARGETS HIT";
-        public override string StatusActive => "THROWING";
-        public override string StatusIdle => "IDLE · LAZY THROWS";
-        public override string StatusBack => "REWINDING";
-        public override string RarePhrase => "Aiming at";
-        public override string NextLine(long index, EnvItem item) => $"Next: target {Fmt.Int(index)} · {Distance(item):0} m";
-        public override string CollectionShort => "TARGET LOG";
-        public override string LogNoun => "targets";
-        public override string MetDetail(ItemRecord r) => $"Hit ×{r.count} · best {r.best:0} m\n<alpha=#88>First hit {r.firstSeen}";
-        public override string UnmetDetail => "<alpha=#88>Not hit yet";
+        public override string TotalLabel => L.T("TARGETS HIT");
+        public override string StatusActive => L.T("THROWING");
+        public override string StatusIdle => L.T("IDLE · LAZY THROWS");
+        public override string StatusBack => L.T("REWINDING");
+        public override string RarePhrase => L.T("Aiming at");
+        public override string NextLine(long index, EnvItem item) => L.F("Next: target {0} · {1:0} m", Fmt.Int(index), Distance(item));
+        public override string CollectionShort => L.T("TARGET LOG");
+        public override string LogNoun => L.T("targets");
+        public override string MetDetail(ItemRecord r) => L.F("Hit ×{0} · best {1:0} m", r.count, r.best) + "\n<alpha=#88>" + L.F("First hit {0}", r.firstSeen);
+        public override string UnmetDetail => "<alpha=#88>" + L.T("Not hit yet");
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"New target hit: {type.Name}", RareNotes.For(EnvironmentId.Boomerang, type.Id) ?? "Stamped in your target log", $"{type.Name} · in the log");
+            notice.Announce(L.F("New target hit: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Boomerang, type.Id) ?? L.T("Stamped in your target log"), L.F("{0} · in the log", L.T(type.Name)));
 
         static readonly SoundCue[] CueList =
         {

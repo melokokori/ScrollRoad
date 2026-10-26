@@ -38,11 +38,11 @@ namespace ScrollRoad
             var site = env.Site;
             var p = env.Progress;
 
-            titleText.text = $"{env.Def.CollectionName} · {site.Name}";
+            titleText.text = $"{L.T(env.Def.CollectionName)} · {L.T(site.Name)}";
             int logged = env.LoggedAt(site);
             string record = env.RecordLabel != null && p.best > 0f
-                ? $"  ·  {env.RecordLabel.ToLowerInvariant()} {env.FormatValue(p.best)}" : "";
-            countText.text = $"{logged} / {site.Specials.Length} {env.LogNoun}  ·  {Fmt.Int(p.total)} {env.Def.Unit} in all{record}";
+                ? $"  ·  {L.Lower(env.RecordLabel)} {env.FormatValue(p.best)}" : "";
+            countText.text = L.F("{0} / {1} {2}  ·  {3} in all", logged, site.Specials.Length, env.LogNoun, L.P(p.total, "{0} " + env.Def.Unit, "{0} " + env.Def.Unit)) + record;
 
             for (int i = 0; i < slotRoots.Length; i++)
             {
@@ -56,7 +56,7 @@ namespace ScrollRoad
                 int si = System.Array.IndexOf(spriteIds, type.Id);
                 if (si >= 0 && si < sprites.Length) images[i].sprite = sprites[si];
                 images[i].color = met ? Color.white : Silhouette;
-                nameTexts[i].text = met ? type.Name : "???";
+                nameTexts[i].text = met ? L.T(type.Name) : "???";
                 detailTexts[i].text = met ? env.MetDetail(r) : env.UnmetDetail;
             }
             panel.SetActive(true);

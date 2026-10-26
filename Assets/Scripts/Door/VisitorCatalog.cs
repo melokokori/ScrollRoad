@@ -6,6 +6,7 @@ namespace ScrollRoad
     // Döner kapının ziyaretçileri (2026-10-14, Docs/ortamlar.md "Döner kapı"). Sıradan yürüyenler sayılır
     // ama deftere girmez; nadir ziyaretçiler ilk gelişlerinde misafir defterine damgalanır. Görseller
     // Assets/Art/Door/<id>.png (Tools/gen_visitors.py), yandan SAĞA yürür. Id'ler bütün mekânlarda benzersiz.
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public sealed class VisitorType
     {
         public string Id;

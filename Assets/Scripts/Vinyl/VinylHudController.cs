@@ -32,28 +32,28 @@ namespace ScrollRoad
             bool active = engine != null && engine.IsUserActive;
             if (vinyl.SpinDirection < 0f)
             {
-                statusText.text = "REWINDING";
+                statusText.text = L.T("REWINDING");
                 statusText.color = Normal;
             }
             else if (!active)
             {
-                statusText.text = "IDLE · SLOW SPIN";
+                statusText.text = L.T("IDLE · SLOW SPIN");
                 statusText.color = Idle;
             }
             else
             {
-                statusText.text = "PLAYING";
+                statusText.text = L.T("PLAYING");
                 statusText.color = Normal;
             }
 
-            placeText.SetText(vinyl.Shop.Name.ToUpperInvariant());
+            placeText.SetText(L.Upper(L.T(vinyl.Shop.Name)));
             var rec = vinyl.Current;
-            phaseText.SetText($"Track {vinyl.TrackInRecord}/{RecordCatalog.TracksPerRecord}");
-            nowText.SetText(rec.Name);
+            phaseText.SetText(L.F("Track {0}/{1}", vinyl.TrackInRecord, RecordCatalog.TracksPerRecord));
+            nowText.SetText(rec.DisplayName);
 
             var last = vinyl.LastSpecial;
-            string lastLine = last != null ? $"  ·  <alpha=#99>LAST<alpha=#FF>  {last.Name}" : "";
-            logText.text = $"<alpha=#99>RECORD CRATE<alpha=#FF>  {vinyl.LoggedAt(vinyl.Shop)} / {vinyl.Shop.Specials.Length}{lastLine}";
+            string lastLine = last != null ? $"  ·  <alpha=#99>{L.T("LAST")}<alpha=#FF>  {L.T(last.Name)}" : "";
+            logText.text = $"<alpha=#99>{L.T("RECORD CRATE")}<alpha=#FF>  {vinyl.LoggedAt(vinyl.Shop)} / {vinyl.Shop.Specials.Length}{lastLine}";
         }
     }
 }

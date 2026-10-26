@@ -34,36 +34,36 @@ namespace ScrollRoad
             bool active = engine != null && engine.IsUserActive;
             if (wind.SpinDirection < 0f)
             {
-                statusText.text = "BRAKING";
+                statusText.text = L.T("BRAKING");
                 statusText.color = Normal;
             }
             else if (!active)
             {
-                statusText.text = "IDLE · LIGHT BREEZE";
+                statusText.text = L.T("IDLE · LIGHT BREEZE");
                 statusText.color = Idle;
             }
             else
             {
-                statusText.text = "GENERATING";
+                statusText.text = L.T("GENERATING");
                 statusText.color = Normal;
             }
 
-            placeText.SetText(wind.Site.Name.ToUpperInvariant());
+            placeText.SetText(L.Upper(L.T(wind.Site.Name)));
             var coming = Upcoming();
             nextText.gameObject.SetActive(coming != null);
             if (coming != null)
             {
-                phaseText.SetText("Powering");
-                nextText.SetText(coming.Name);
+                phaseText.SetText(L.T("Powering"));
+                nextText.SetText(L.T(coming.Name));
             }
             else
             {
-                phaseText.SetText("Next: home #" + Fmt.Int(wind.Connected + 1));
+                phaseText.SetText(L.F("Next: home #{0}", Fmt.Int(wind.Connected + 1)));
             }
 
             var last = wind.LastSpecial;
-            string lastLine = last != null ? $"  ·  <alpha=#99>LAST<alpha=#FF>  {last.Name}" : "";
-            logText.text = $"<alpha=#99>GRID LOG<alpha=#FF>  {wind.LoggedAt(wind.Site)} / {wind.Site.Specials.Length}{lastLine}";
+            string lastLine = last != null ? $"  ·  <alpha=#99>{L.T("LAST")}<alpha=#FF>  {L.T(last.Name)}" : "";
+            logText.text = $"<alpha=#99>{L.T("GRID LOG")}<alpha=#FF>  {wind.LoggedAt(wind.Site)} / {wind.Site.Specials.Length}{lastLine}";
         }
 
         // Direğe yaklaşan ilk nadir yapı (yoksa null).

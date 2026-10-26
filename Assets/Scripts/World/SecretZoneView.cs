@@ -20,14 +20,14 @@ namespace ScrollRoad
         // Şehrin kaç km ötesinde hangi metin (küçük harf — fısıltı estetiği).
         static readonly (float kmBeyond, string text)[] Whispers =
         {
-            (10f, "still going?"),
-            (30f, "the city is behind you."),
-            (60f, "this place isn't on the map."),
-            (120f, "no one has come this far."),
-            (126f, "something is waiting for you in your garage."),
-            (250f, "those who turn back lose nothing."),
-            (500f, "those who keep going find something."),
-            (1000f, "the road never ends. neither should you."),
+            (10f, L.N("still going?")),
+            (30f, L.N("the city is behind you.")),
+            (60f, L.N("this place isn't on the map.")),
+            (120f, L.N("no one has come this far.")),
+            (126f, L.N("something is waiting for you in your garage.")),
+            (250f, L.N("those who turn back lose nothing.")),
+            (500f, L.N("those who keep going find something.")),
+            (1000f, L.N("the road never ends. neither should you.")),
         };
 
         readonly bool[] shown = new bool[Whispers.Length];
@@ -63,7 +63,7 @@ namespace ScrollRoad
             {
                 if (shown[i] || beyondKm < Whispers[i].kmBeyond) continue;
                 shown[i] = true;
-                CurrentText = Whispers[i].text;
+                CurrentText = L.T(Whispers[i].text);
                 timer = 0f;
             }
 

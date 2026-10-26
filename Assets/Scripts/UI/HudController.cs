@@ -45,8 +45,8 @@ namespace ScrollRoad
             // Şehrin ötesi UI'da asla anılmaz: ulaşıldıktan sonra yalnız "ulaşıldı" yazar.
             double remaining = drive.CityDistanceKm - drive.CurrentDistanceKmPrecise;
             cityText.text = drive.ReachedCity
-                ? "THE CITY  <alpha=#99>REACHED"
-                : Fmt.Km(System.Math.Max(0, remaining), 0) + "  <alpha=#99>TO THE CITY";
+                ? L.T("THE CITY  <alpha=#99>REACHED")
+                : L.F("{0}  <alpha=#99>TO THE CITY", Fmt.Km(System.Math.Max(0, remaining), 0));
 
             float progress = Mathf.Clamp01((float)(drive.CurrentDistanceKmPrecise / drive.CityDistanceKm));
             progressFill.anchorMax = new Vector2(progress, 1f);
@@ -71,7 +71,7 @@ namespace ScrollRoad
             if (signRoot.activeSelf != show) signRoot.SetActive(show);
             if (!show) return;
 
-            string region = RouteMap.Regions[RouteMap.RegionIndexAt(d)].Name;
+            string region = L.T(RouteMap.Regions[RouteMap.RegionIndexAt(d)].Name);
             int next = RouteMap.NextIndexAfter(d);
             bool hasStop = next >= 0 && RouteMap.Stops[next].Kind != RouteMap.StopKind.City;
             regionText.gameObject.SetActive(hasStop);
@@ -79,8 +79,8 @@ namespace ScrollRoad
             if (hasStop)
             {
                 var stop = RouteMap.Stops[next];
-                regionText.SetText(region.ToUpperInvariant());
-                townText.SetText(stop.Name);
+                regionText.SetText(L.Upper(region));
+                townText.SetText(stop.DisplayName);
                 stopDistanceText.SetText(Fmt.Km(stop.Km - d));
             }
             else
@@ -95,10 +95,10 @@ namespace ScrollRoad
             var orders = OrdersController.Instance;
             if (orders == null || orders.DailyCount == 0) return "";
             string line = orders.DailyDone >= orders.DailyCount
-                ? "<alpha=#99>TODAY<alpha=#FF>  ALL ORDERS DONE"
-                : $"<alpha=#99>TODAY<alpha=#FF>  ORDERS {orders.DailyDone} / {orders.DailyCount}";
+                ? L.T("<alpha=#99>TODAY<alpha=#FF>  ALL ORDERS DONE")
+                : L.F("<alpha=#99>TODAY<alpha=#FF>  ORDERS {0} / {1}", orders.DailyDone, orders.DailyCount);
             int streak = orders.DayStreak;
-            return streak > 0 ? $"{line}  ·  STREAK {Fmt.Count(streak, "day").ToUpperInvariant()}" : line;
+            return streak > 0 ? line + "  ·  " + L.Upper(L.F("STREAK {0}", L.P(streak, "{0} day", "{0} days"))) : line;
         }
     }
 }

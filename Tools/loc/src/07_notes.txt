@@ -1,0 +1,1496 @@
+#1069 A city in the clouds, rediscovered in 1911.
+tr	Bulutların içinde bir şehir, 1911'de yeniden keşfedildi.
+de	Eine Stadt in den Wolken, 1911 wiederentdeckt.
+fr	Une cité dans les nuages, redécouverte en 1911.
+es	Una ciudad entre las nubes, redescubierta en 1911.
+pt	Uma cidade nas nuvens, redescoberta em 1911.
+pl	Miasto w chmurach, odkryte na nowo w 1911 roku.
+ru	Город в облаках, заново открытый в 1911 году.
+zh	云端之城，于 1911 年被重新发现。
+ja	雲の上の都市。1911年に再発見された。
+ko	구름 속의 도시, 1911년에 재발견되었다.
+#1070 A clay body with a hammered brass rim.
+tr	Kil gövde, dövme pirinç ağız.
+de	Ein Tonkörper mit gehämmertem Messingrand.
+fr	Un corps d'argile au bord de laiton martelé.
+es	Un cuerpo de barro con borde de latón martillado.
+pt	Corpo de barro com borda de latão martelado.
+pl	Gliniany korpus z kutym mosiężnym brzegiem.
+ru	Глиняное тело с кованым латунным ободком.
+zh	陶土器身，锤纹黄铜边。
+ja	土の胴に、槌目の真鍮の縁。
+ko	점토 몸체에 두드린 황동 테.
+#1071 A cod that moved to the lake and spawns under the ice.
+tr	Göle taşınmış ve buzun altında yumurtlayan bir morina.
+de	Ein Dorsch, der an den See gezogen ist und unter dem Eis laicht.
+fr	Une morue partie vivre au lac, qui fraie sous la glace.
+es	Un bacalao que se mudó al lago y desova bajo el hielo.
+pt	Um bacalhau que se mudou para o lago e desova sob o gelo.
+pl	Dorsz, który przeniósł się do jeziora i trze się pod lodem.
+ru	Треска, переехавшая в озеро и нерестящаяся подо льдом.
+zh	搬进湖里的鳕鱼，在冰下产卵。
+ja	湖に引っ越したタラ。氷の下で産卵する。
+ko	호수로 이사 와 얼음 밑에서 알을 낳는 대구.
+#1072 A crown on top, a thousand jewels inside.
+tr	Tepesinde bir taç, içinde bin mücevher.
+de	Oben eine Krone, innen tausend Juwelen.
+fr	Une couronne au sommet, mille joyaux à l'intérieur.
+es	Una corona arriba y mil joyas dentro.
+pt	Uma coroa no topo, mil joias por dentro.
+pl	Korona na górze, tysiąc klejnotów w środku.
+ru	Сверху корона, внутри тысяча самоцветов.
+zh	顶上一顶王冠，里面千颗宝石。
+ja	頭には王冠、中には千の宝石。
+ko	위에는 왕관, 안에는 천 개의 보석.
+#1073 A crust of grilled cheese folded around the pastor.
+tr	Pastor etinin etrafına sarılmış kızarmış peynir kabuğu.
+de	Eine Kruste aus gegrilltem Käse, um das Pastor-Fleisch gefaltet.
+fr	Une croûte de fromage grillé repliée autour du pastor.
+es	Una costra de queso a la plancha doblada alrededor del pastor.
+pt	Uma crosta de queijo grelhado dobrada em volta do pastor.
+pl	Chrupiąca skorupka z grillowanego sera owinięta wokół pastora.
+ru	Корочка жареного сыра, обёрнутая вокруг мяса пастор.
+zh	烤芝士脆壳包裹着牧人烤肉。
+ja	焼いたチーズの皮でパストールを包んで。
+ko	구운 치즈 껍질로 파스토르를 감쌌다.
+#1074 A dome that seems to float on light.
+tr	Işığın üstünde süzülüyormuş gibi duran bir kubbe.
+de	Eine Kuppel, die auf Licht zu schweben scheint.
+fr	Une coupole qui semble flotter sur la lumière.
+es	Una cúpula que parece flotar sobre la luz.
+pt	Uma cúpula que parece flutuar sobre a luz.
+pl	Kopuła, która zdaje się unosić na świetle.
+ru	Купол, будто парящий на свету.
+zh	仿佛漂浮在光上的穹顶。
+ja	光の上に浮かんでいるようなドーム。
+ko	빛 위에 떠 있는 듯한 돔.
+#1075 A dragon coils around it from foot to rim.
+tr	Bir ejderha dibinden ağzına kadar etrafına dolanır.
+de	Ein Drache windet sich vom Fuß bis zum Rand darum.
+fr	Un dragon s'y enroule du pied jusqu'au bord.
+es	Un dragón lo rodea desde la base hasta el borde.
+pt	Um dragão se enrola nele da base até a borda.
+pl	Smok owija go od podstawy aż po brzeg.
+ru	Дракон обвивает его от основания до края.
+zh	一条龙从底部盘绕到口沿。
+ja	龍が足元から口縁まで巻きついている。
+ko	용 한 마리가 바닥부터 입구까지 휘감고 있다.
+#1076 A flash of pink along the side, gone if you blink.
+tr	Yanında pembe bir parıltı; göz kırparsan kaçar.
+de	Ein rosa Schimmer an der Seite, weg, wenn du blinzelst.
+fr	Un éclair rose sur le flanc, disparu si vous clignez des yeux.
+es	Un destello rosa en el costado; si parpadeas, se va.
+pt	Um lampejo rosa na lateral; piscou, sumiu.
+pl	Różowy błysk na boku, znika, gdy mrugniesz.
+ru	Розовая вспышка на боку — моргнёте, и её нет.
+zh	侧身一抹粉光，一眨眼就没了。
+ja	脇腹にピンクのきらめき。まばたきしたら消える。
+ko	옆구리의 분홍빛 섬광, 눈 깜빡하면 사라진다.
+#1077 A gift from France, shipped in 350 pieces.
+tr	Fransa'nın hediyesi, 350 parça hâlinde gönderildi.
+de	Ein Geschenk Frankreichs, in 350 Teilen verschifft.
+fr	Un cadeau de la France, expédié en 350 morceaux.
+es	Un regalo de Francia, enviado en 350 piezas.
+pt	Um presente da França, enviado em 350 peças.
+pl	Dar od Francji, wysłany w 350 częściach.
+ru	Подарок Франции, отправленный в 350 частях.
+zh	法国的礼物，分 350 块运来。
+ja	フランスからの贈り物。350個に分けて船で運ばれた。
+ko	프랑스의 선물, 350조각으로 배송되었다.
+#1078 A glaze so bright it looks plugged in.
+tr	Öyle parlak bir sır ki prize takılı sanırsın.
+de	Eine Glasur so hell, als wäre sie eingesteckt.
+fr	Un émail si vif qu'on le croirait branché.
+es	Un esmalte tan brillante que parece enchufado.
+pt	Um esmalte tão brilhante que parece ligado na tomada.
+pl	Glazura tak jasna, jakby była podłączona do prądu.
+ru	Глазурь такая яркая, будто включена в розетку.
+zh	釉色亮得像插了电。
+ja	コンセントに挿したかのように明るい釉薬。
+ko	플러그를 꽂은 듯 밝은 유약.
+#1079 A gold bar between the eyes, like a little crown.
+tr	Gözlerinin arasında altın bir şerit, küçük bir taç gibi.
+de	Ein Goldstreifen zwischen den Augen, wie eine kleine Krone.
+fr	Une barre dorée entre les yeux, comme une petite couronne.
+es	Una franja dorada entre los ojos, como una pequeña corona.
+pt	Uma faixa dourada entre os olhos, como uma pequena coroa.
+pl	Złoty pasek między oczami, jak mała korona.
+ru	Золотая полоска между глаз, как маленькая корона.
+zh	两眼之间一道金纹，像顶小王冠。
+ja	目の間に金の帯。小さな王冠のよう。
+ko	두 눈 사이의 금빛 띠, 작은 왕관 같다.
+#1080 A hunting lodge that got out of hand.
+tr	Kontrolden çıkmış bir av köşkü.
+de	Ein Jagdschloss, das aus dem Ruder lief.
+fr	Un pavillon de chasse qui a dégénéré.
+es	Un pabellón de caza que se fue de las manos.
+pt	Um pavilhão de caça que saiu do controle.
+pl	Domek myśliwski, który wymknął się spod kontroli.
+ru	Охотничий домик, который вышел из-под контроля.
+zh	一座失控扩建的狩猎小屋。
+ja	歯止めがきかなくなった狩猟小屋。
+ko	손쓸 수 없이 커진 사냥 별장.
+#1081 A love song with a drum machine heartbeat.
+tr	Kalp atışı davul makinesinden bir aşk şarkısı.
+de	Ein Liebeslied mit Drumcomputer-Herzschlag.
+fr	Une chanson d'amour au cœur de boîte à rythmes.
+es	Una canción de amor con latido de caja de ritmos.
+pt	Uma canção de amor com coração de bateria eletrônica.
+pl	Piosenka o miłości z sercem z automatu perkusyjnego.
+ru	Песня о любви с сердцем драм-машины.
+zh	以鼓机为心跳的情歌。
+ja	ドラムマシンの鼓動を持つラブソング。
+ko	드럼 머신 심장 박동의 사랑 노래.
+#1082 A needle with a green spine and a sense of drama.
+tr	Yeşil sırtlı, drama düşkünü bir iğne.
+de	Eine Nadel mit grünem Rücken und Sinn für Drama.
+fr	Une aiguille au dos vert, avec le sens du drame.
+es	Una aguja de lomo verde con gusto por el drama.
+pt	Uma agulha de dorso verde e senso dramático.
+pl	Igła z zielonym grzbietem i zamiłowaniem do dramatu.
+ru	Игла с зелёной спиной и любовью к драме.
+zh	绿色背脊的长针，还很爱演。
+ja	緑の背を持つ、芝居がかった針。
+ko	초록 등에 극적인 감각을 지닌 바늘.
+#1083 A palace of glass and iron for the Great Exhibition.
+tr	Büyük Sergi için camdan ve demirden bir saray.
+de	Ein Palast aus Glas und Eisen für die Weltausstellung.
+fr	Un palais de verre et de fer pour la Grande Exposition.
+es	Un palacio de vidrio y hierro para la Gran Exposición.
+pt	Um palácio de vidro e ferro para a Grande Exposição.
+pl	Pałac ze szkła i żelaza na Wielką Wystawę.
+ru	Дворец из стекла и железа для Великой выставки.
+zh	为万国博览会建造的玻璃钢铁宫殿。
+ja	万国博覧会のためのガラスと鉄の宮殿。
+ko	만국 박람회를 위한 유리와 철의 궁전.
+#1084 A peel as thick as your thumb, and twice as fragrant.
+tr	Başparmağın kadar kalın bir kabuk, iki kat da kokulu.
+de	Eine Schale so dick wie dein Daumen und doppelt so duftend.
+fr	Une peau aussi épaisse que le pouce, et deux fois plus parfumée.
+es	Una piel tan gruesa como tu pulgar, y el doble de fragante.
+pt	Uma casca grossa como seu polegar, e duas vezes mais perfumada.
+pl	Skórka gruba jak kciuk i dwa razy bardziej pachnąca.
+ru	Кожура толщиной с большой палец и вдвое ароматнее.
+zh	果皮厚如拇指，香气加倍。
+ja	親指ほど厚い皮、香りは二倍。
+ko	엄지만큼 두꺼운 껍질, 향은 두 배.
+#1085 A prize for champions, filled with olive oil.
+tr	Şampiyonlara verilen, zeytinyağıyla dolu bir ödül.
+de	Ein Preis für Champions, gefüllt mit Olivenöl.
+fr	Un prix pour les champions, rempli d'huile d'olive.
+es	Un premio para campeones, lleno de aceite de oliva.
+pt	Um prêmio para campeões, cheio de azeite.
+pl	Nagroda dla mistrzów, napełniona oliwą.
+ru	Награда чемпионам, наполненная оливковым маслом.
+zh	冠军的奖品，里面盛满橄榄油。
+ja	オリーブオイルで満たされた勝者への賞品。
+ko	올리브유로 가득 찬 우승자의 상.
+#1086 A row of soft bubbles. Hard to throw, easy to love.
+tr	Bir sıra yumuşak kabarcık. Yapması zor, sevmesi kolay.
+de	Eine Reihe weicher Blasen. Schwer zu drehen, leicht zu lieben.
+fr	Une rangée de bulles douces. Difficile à tourner, facile à aimer.
+es	Una fila de burbujas suaves. Difícil de tornear, fácil de querer.
+pt	Uma fileira de bolhas suaves. Difícil de modelar, fácil de amar.
+pl	Rząd miękkich bąbelków. Trudny do uformowania, łatwy do pokochania.
+ru	Ряд мягких пузырей. Трудно вылепить, легко полюбить.
+zh	一串柔和的泡泡。难拉坯，易喜爱。
+ja	柔らかな泡の連なり。作るのは難しく、愛するのは簡単。
+ko	부드러운 거품의 줄. 빚기는 어렵고 사랑하기는 쉽다.
+#1087 A small tuna in a big hurry.
+tr	Çok aceleci küçük bir ton balığı.
+de	Ein kleiner Thun in großer Eile.
+fr	Un petit thon très pressé.
+es	Un atún pequeño con mucha prisa.
+pt	Um atum pequeno com muita pressa.
+pl	Mały tuńczyk w wielkim pośpiechu.
+ru	Маленький тунец, который очень спешит.
+zh	一条急匆匆的小金枪鱼。
+ja	大急ぎの小さなマグロ。
+ko	몹시 바쁜 작은 참치.
+#1088 A solo so long the audience forgot to clap.
+tr	O kadar uzun bir solo ki seyirci alkışlamayı unuttu.
+de	Ein Solo, so lang, dass das Publikum das Klatschen vergaß.
+fr	Un solo si long que le public a oublié d'applaudir.
+es	Un solo tan largo que el público olvidó aplaudir.
+pt	Um solo tão longo que a plateia esqueceu de aplaudir.
+pl	Solo tak długie, że publiczność zapomniała klaskać.
+ru	Соло такое длинное, что зал забыл аплодировать.
+zh	独奏太长，观众都忘了鼓掌。
+ja	長すぎて観客が拍手を忘れたソロ。
+ko	관객이 박수를 잊을 만큼 긴 솔로.
+#1089 A string quartet playing the sunrise.
+tr	Gün doğumunu çalan bir yaylı çalgılar dörtlüsü.
+de	Ein Streichquartett, das den Sonnenaufgang spielt.
+fr	Un quatuor à cordes qui joue le lever du soleil.
+es	Un cuarteto de cuerda tocando el amanecer.
+pt	Um quarteto de cordas tocando o nascer do sol.
+pl	Kwartet smyczkowy grający wschód słońca.
+ru	Струнный квартет, играющий рассвет.
+zh	弦乐四重奏演奏日出。
+ja	日の出を奏でる弦楽四重奏。
+ko	해돋이를 연주하는 현악 사중주.
+#1090 A thousand bulbs along the boards.
+tr	Tahtalar boyunca bin ampul.
+de	Tausend Glühbirnen entlang der Planken.
+fr	Mille ampoules le long des planches.
+es	Mil bombillas a lo largo de las tablas.
+pt	Mil lâmpadas ao longo das tábuas.
+pl	Tysiąc żarówek wzdłuż desek.
+ru	Тысяча лампочек вдоль настила.
+zh	栈道上亮着上千盏灯泡。
+ja	板張りに沿って千個の電球。
+ko	판자길을 따라 늘어선 천 개의 전구.
+#1091 A trio that never played the same song twice.
+tr	Aynı şarkıyı hiç iki kez çalmamış bir üçlü.
+de	Ein Trio, das nie zweimal dasselbe Lied spielte.
+fr	Un trio qui n'a jamais joué deux fois le même morceau.
+es	Un trío que nunca tocó dos veces la misma canción.
+pt	Um trio que nunca tocou a mesma música duas vezes.
+pl	Trio, które nigdy nie zagrało dwa razy tego samego.
+ru	Трио, ни разу не сыгравшее одну песню дважды.
+zh	从不把同一首歌演奏两次的三重奏。
+ja	同じ曲を二度と演奏しなかったトリオ。
+ko	같은 곡을 두 번 연주한 적 없는 트리오.
+#1092 A waltz that makes the crystal ring.
+tr	Kristalleri çınlatan bir vals.
+de	Ein Walzer, der das Kristall klingen lässt.
+fr	Une valse qui fait chanter le cristal.
+es	Un vals que hace sonar el cristal.
+pt	Uma valsa que faz o cristal tilintar.
+pl	Walc, od którego dzwoni kryształ.
+ru	Вальс, от которого звенит хрусталь.
+zh	让水晶叮当作响的华尔兹。
+ja	クリスタルを鳴らすワルツ。
+ko	크리스털을 울리는 왈츠.
+#1093 Actually the name of the bell, not the tower.
+tr	Aslında kulenin değil, çanın adı.
+de	Eigentlich der Name der Glocke, nicht des Turms.
+fr	En réalité le nom de la cloche, pas de la tour.
+es	En realidad es el nombre de la campana, no de la torre.
+pt	Na verdade, é o nome do sino, não da torre.
+pl	Tak naprawdę to nazwa dzwonu, nie wieży.
+ru	На самом деле это имя колокола, а не башни.
+zh	其实是钟的名字，不是塔的。
+ja	実は塔ではなく鐘の名前。
+ko	사실 탑이 아니라 종의 이름이다.
+#1094 Alexandria's fire could be seen fifty kilometres out to sea.
+tr	İskenderiye'nin ateşi denizde elli kilometre öteden görülürdü.
+de	Das Feuer von Alexandria sah man fünfzig Kilometer weit draußen auf See.
+fr	Le feu d'Alexandrie se voyait à cinquante kilomètres en mer.
+es	El fuego de Alejandría se veía a cincuenta kilómetros mar adentro.
+pt	O fogo de Alexandria era visto a cinquenta quilômetros mar adentro.
+pl	Ogień Aleksandrii było widać pięćdziesiąt kilometrów w morzu.
+ru	Огонь Александрии был виден в море за пятьдесят километров.
+zh	亚历山大港的灯火在海上五十公里外都能看见。
+ja	アレクサンドリアの火は50キロ沖からも見えた。
+ko	알렉산드리아의 불빛은 바다 50km 밖에서도 보였다.
+#1095 All peel and perfume, fingers like a blessing.
+tr	Baştan sona kabuk ve koku; parmakları bir dua gibi.
+de	Nur Schale und Duft, Finger wie ein Segen.
+fr	Tout en écorce et en parfum, des doigts comme une bénédiction.
+es	Todo piel y perfume, dedos como una bendición.
+pt	Só casca e perfume, dedos como uma bênção.
+pl	Sama skórka i zapach, palce jak błogosławieństwo.
+ru	Одна кожура и аромат, пальцы словно благословение.
+zh	满是果皮与芬芳，指状果瓣如同祝福。
+ja	皮と香りだけ。指は祝福のかたち。
+ko	껍질과 향뿐, 손가락은 축복처럼.
+#1096 Always on, always ready. The most important switch.
+tr	Hep açık, hep hazır. En önemli şalter.
+de	Immer an, immer bereit. Der wichtigste Schalter.
+fr	Toujours allumé, toujours prêt. L'interrupteur le plus important.
+es	Siempre encendido, siempre listo. El interruptor más importante.
+pt	Sempre ligado, sempre pronto. O interruptor mais importante.
+pl	Zawsze włączony, zawsze gotowy. Najważniejszy przełącznik.
+ru	Всегда включён, всегда готов. Самый важный рубильник.
+zh	永远开着，随时待命。最重要的开关。
+ja	いつもオン、いつも準備万端。一番大事なスイッチ。
+ko	늘 켜져 있고 늘 준비된, 가장 중요한 스위치.
+#1097 An iron crystal blown up 165 billion times.
+tr	165 milyar kat büyütülmüş bir demir kristali.
+de	Ein Eisenkristall, 165 Milliarden Mal vergrößert.
+fr	Un cristal de fer agrandi 165 milliards de fois.
+es	Un cristal de hierro ampliado 165 000 millones de veces.
+pt	Um cristal de ferro ampliado 165 bilhões de vezes.
+pl	Kryształ żelaza powiększony 165 miliardów razy.
+ru	Кристалл железа, увеличенный в 165 миллиардов раз.
+zh	放大了 1650 亿倍的铁晶体。
+ja	1650億倍に拡大した鉄の結晶。
+ko	1,650억 배로 확대한 철 결정.
+#1098 Asked for room 7. It was already his.
+tr	7 numaralı odayı istedi. Oda zaten onundu.
+de	Fragte nach Zimmer 7. Es gehörte ihm schon.
+fr	A demandé la chambre 7. Elle était déjà à lui.
+es	Pidió la habitación 7. Ya era suya.
+pt	Pediu o quarto 7. Já era dele.
+pl	Poprosił o pokój 7. Już był jego.
+ru	Попросил номер 7. Он и так был его.
+zh	要了 7 号房。那本来就是他的。
+ja	7号室を頼んだ。もともと彼の部屋だった。
+ko	7호실을 달라고 했다. 이미 그의 방이었다.
+#1099 Asked for the manager of Earth. Was sent to floor 88.
+tr	Dünya'nın müdürünü istedi. 88. kata gönderildi.
+de	Verlangte den Chef der Erde. Wurde in den 88. Stock geschickt.
+fr	A demandé le responsable de la Terre. On l'a envoyé au 88e étage.
+es	Pidió hablar con el encargado de la Tierra. Lo mandaron a la planta 88.
+pt	Pediu para falar com o gerente da Terra. Foi mandado ao 88º andar.
+pl	Poprosił o kierownika Ziemi. Odesłano go na 88. piętro.
+ru	Попросил позвать управляющего Землёй. Его отправили на 88-й этаж.
+zh	要求见地球的负责人，被打发到了 88 楼。
+ja	地球の責任者を呼べと言い、88階に案内された。
+ko	지구 책임자를 찾았다. 88층으로 안내받았다.
+#1100 Athena's owl painted on, watching you drink.
+tr	Üstüne Athena'nın baykuşu çizilmiş; içerken seni izler.
+de	Athenes Eule ist aufgemalt und sieht dir beim Trinken zu.
+fr	La chouette d'Athéna peinte dessus vous regarde boire.
+es	La lechuza de Atenea pintada te mira mientras bebes.
+pt	A coruja de Atena pintada observa você beber.
+pl	Namalowana sowa Ateny patrzy, jak pijesz.
+ru	Нарисованная сова Афины смотрит, как вы пьёте.
+zh	绘着雅典娜的猫头鹰，看着你喝。
+ja	アテナのフクロウが描かれ、飲むあなたを見ている。
+ko	아테나의 부엉이가 그려져 마시는 당신을 지켜본다.
+#1101 Babylon's terraces. Nobody has ever found them.
+tr	Babil'in terasları. Onları hiç kimse bulamadı.
+de	Babylons Terrassen. Niemand hat sie je gefunden.
+fr	Les terrasses de Babylone. Personne ne les a jamais trouvées.
+es	Las terrazas de Babilonia. Nadie las ha encontrado jamás.
+pt	Os terraços da Babilônia. Ninguém jamais os encontrou.
+pl	Tarasy Babilonu. Nikt nigdy ich nie odnalazł.
+ru	Террасы Вавилона. Их так никто и не нашёл.
+zh	巴比伦的梯台。从来没有人找到过。
+ja	バビロンの段丘。誰も見つけたことがない。
+ko	바빌론의 계단식 정원. 아무도 찾지 못했다.
+#1102 Berlin style: roasted vegetables, feta, three sauces.
+tr	Berlin usulü: közlenmiş sebze, beyaz peynir, üç sos.
+de	Berliner Art: Röstgemüse, Feta, drei Soßen.
+fr	À la berlinoise : légumes rôtis, feta, trois sauces.
+es	Al estilo de Berlín: verduras asadas, feta y tres salsas.
+pt	Estilo Berlim: legumes assados, feta e três molhos.
+pl	Po berlińsku: pieczone warzywa, feta, trzy sosy.
+ru	По-берлински: запечённые овощи, фета, три соуса.
+zh	柏林风味：烤蔬菜、菲达奶酪、三种酱汁。
+ja	ベルリン流：焼き野菜、フェタ、ソース三種。
+ko	베를린식: 구운 채소, 페타, 소스 세 가지.
+#1103 Big enough to sit on. Better as soup.
+tr	Üstüne oturulacak kadar büyük. Çorbası daha iyi.
+de	Groß genug, um sich draufzusetzen. Besser als Suppe.
+fr	Assez grosse pour s'asseoir dessus. Meilleure en soupe.
+es	Tan grande que te puedes sentar encima. Mejor en sopa.
+pt	Grande o bastante para sentar em cima. Melhor como sopa.
+pl	Na tyle duża, że można na niej usiąść. Lepsza jako zupa.
+ru	На нём можно сидеть. Но лучше пустить на суп.
+zh	大到能坐上去。还是做汤更好。
+ja	座れるほど大きい。スープにするのがいい。
+ko	앉을 수 있을 만큼 크다. 수프로 먹는 게 낫다.
+#1104 Bites through lines, lures and the occasional finger.
+tr	Misinayı, yemi ve arada bir parmağı da keser.
+de	Beißt Schnüre, Köder und gelegentlich einen Finger durch.
+fr	Tranche lignes, leurres et parfois un doigt.
+es	Corta sedales, señuelos y algún que otro dedo.
+pt	Corta linhas, iscas e, de vez em quando, um dedo.
+pl	Przegryza żyłki, przynęty i od czasu do czasu palec.
+ru	Перекусывает лески, приманки и порой пальцы.
+zh	能咬断鱼线、假饵，偶尔还有手指。
+ja	糸もルアーも、時には指も噛み切る。
+ko	줄도, 미끼도, 가끔은 손가락도 끊어 먹는다.
+#1105 Black figures fighting across a red sky.
+tr	Kırmızı bir göğün üstünde savaşan siyah figürler.
+de	Schwarze Figuren kämpfen über einen roten Himmel.
+fr	Des figures noires qui se battent sur un ciel rouge.
+es	Figuras negras luchando sobre un cielo rojo.
+pt	Figuras negras lutando sobre um céu vermelho.
+pl	Czarne postacie walczące na czerwonym niebie.
+ru	Чёрные фигуры сражаются на красном небе.
+zh	黑色人像在红色天空下厮杀。
+ja	赤い空を背に戦う黒い人影。
+ko	붉은 하늘을 가로질러 싸우는 검은 형상들.
+#1106 Black seeds, orange flesh, a squeeze of lime.
+tr	Siyah çekirdekler, turuncu meyve eti, biraz misket limonu.
+de	Schwarze Kerne, oranges Fruchtfleisch, ein Spritzer Limette.
+fr	Pépins noirs, chair orange, un filet de citron vert.
+es	Semillas negras, pulpa naranja y un chorrito de lima.
+pt	Sementes pretas, polpa laranja e um pouco de limão.
+pl	Czarne pestki, pomarańczowy miąższ, odrobina limonki.
+ru	Чёрные семечки, оранжевая мякоть, капля лайма.
+zh	黑籽、橙色果肉，挤点青柠。
+ja	黒い種、オレンジの果肉、ライムをひと絞り。
+ko	검은 씨, 주황 과육, 라임 한 번 짜서.
+#1107 Board bag bigger than the plane's luggage limit.
+tr	Sörf tahtası çantası uçağın bagaj sınırından büyük.
+de	Die Boardtasche ist größer als das Gepäcklimit des Flugzeugs.
+fr	Une housse de planche plus grande que la limite de bagages.
+es	La funda de la tabla supera el límite de equipaje del avión.
+pt	A capa da prancha é maior que o limite de bagagem do avião.
+pl	Pokrowiec na deskę większy niż limit bagażu w samolocie.
+ru	Чехол для доски больше лимита багажа в самолёте.
+zh	冲浪板袋比飞机行李限额还大。
+ja	ボードケースが飛行機の手荷物制限より大きい。
+ko	보드 가방이 비행기 수하물 한도보다 크다.
+#1108 Bossa nova recorded with the windows open.
+tr	Pencereler açıkken kaydedilmiş bir bossa nova.
+de	Bossa Nova, bei offenen Fenstern aufgenommen.
+fr	De la bossa-nova enregistrée fenêtres ouvertes.
+es	Bossa nova grabada con las ventanas abiertas.
+pt	Bossa nova gravada com as janelas abertas.
+pl	Bossa nova nagrana przy otwartych oknach.
+ru	Босса-нова, записанная с открытыми окнами.
+zh	开着窗录下的波萨诺瓦。
+ja	窓を開けたまま録音したボサノバ。
+ko	창문을 열어 둔 채 녹음한 보사노바.
+#1109 Bright as a lemon against the snow.
+tr	Karın üstünde bir limon kadar parlak.
+de	Leuchtend wie eine Zitrone im Schnee.
+fr	Éclatante comme un citron sur la neige.
+es	Brillante como un limón sobre la nieve.
+pt	Brilhante como um limão na neve.
+pl	Jaskrawy jak cytryna na śniegu.
+ru	Яркий, как лимон на снегу.
+zh	在雪地上亮得像颗柠檬。
+ja	雪に映えるレモンのような鮮やかさ。
+ko	눈 위의 레몬처럼 선명하다.
+#1110 Broken once, mended with gold, more precious now.
+tr	Bir kez kırılmış, altınla onarılmış, şimdi daha değerli.
+de	Einmal zerbrochen, mit Gold geflickt, jetzt kostbarer.
+fr	Cassé une fois, réparé à l'or, plus précieux désormais.
+es	Roto una vez, reparado con oro, ahora más valioso.
+pt	Quebrado uma vez, reparado com ouro, agora mais precioso.
+pl	Raz pęknięta, sklejona złotem, teraz cenniejsza.
+ru	Однажды разбита, починена золотом и стала ценнее.
+zh	碎过一次，用金修补，如今更加珍贵。
+ja	一度割れて金で繕われ、今はさらに貴重。
+ko	한 번 깨져 금으로 이어 붙여 이제 더 귀하다.
+#1111 Brought a brush, just in case.
+tr	Ne olur ne olmaz diye yanında fırça getirdi.
+de	Hat sicherheitshalber einen Pinsel mitgebracht.
+fr	A apporté un pinceau, au cas où.
+es	Trajo un pincel, por si acaso.
+pt	Trouxe um pincel, por via das dúvidas.
+pl	Przyniosła pędzelek, tak na wszelki wypadek.
+ru	Захватил кисточку на всякий случай.
+zh	带了把刷子，以防万一。
+ja	念のため刷毛を持ってきた。
+ko	혹시 몰라 붓을 챙겨 왔다.
+#1112 Brought his own pillow and a small orchestra.
+tr	Kendi yastığını ve küçük bir orkestrayı getirdi.
+de	Brachte sein eigenes Kissen und ein kleines Orchester mit.
+fr	A apporté son propre oreiller et un petit orchestre.
+es	Trajo su propia almohada y una pequeña orquesta.
+pt	Trouxe o próprio travesseiro e uma pequena orquestra.
+pl	Przyniósł własną poduszkę i małą orkiestrę.
+ru	Привёз свою подушку и небольшой оркестр.
+zh	自带枕头，还带了个小乐团。
+ja	自分の枕と小さなオーケストラを連れてきた。
+ko	자기 베개와 작은 오케스트라를 데려왔다.
+#1113 Brunelleschi raised it with no wooden frame underneath.
+tr	Brunelleschi onu altında ahşap iskele olmadan yükseltti.
+de	Brunelleschi errichtete sie ohne Holzgerüst darunter.
+fr	Brunelleschi l'a élevée sans charpente de bois en dessous.
+es	Brunelleschi la levantó sin cimbra de madera debajo.
+pt	Brunelleschi a ergueu sem armação de madeira por baixo.
+pl	Brunelleschi wzniósł ją bez drewnianego rusztowania pod spodem.
+ru	Брунеллески возвёл его без деревянных лесов внизу.
+zh	布鲁内莱斯基在没有木制支架的情况下建起了它。
+ja	ブルネレスキは木の型枠なしでこれを築いた。
+ko	브루넬레스키는 아래에 나무 틀 없이 이것을 올렸다.
+#1114 Brushes on the snare like rain on a window.
+tr	Trampetin üstünde fırçalar, cama vuran yağmur gibi.
+de	Besen auf der Snare wie Regen am Fenster.
+fr	Des balais sur la caisse claire, comme la pluie sur une vitre.
+es	Escobillas en la caja como lluvia en la ventana.
+pt	Vassourinhas na caixa como chuva na janela.
+pl	Miotełki na werblu jak deszcz o szybę.
+ru	Щётки по малому барабану, как дождь по стеклу.
+zh	鼓刷扫过小军鼓，像雨打窗棂。
+ja	スネアのブラシ、窓を打つ雨のように。
+ko	스네어 위의 브러시, 창에 부딪히는 비처럼.
+#1115 Built over centuries, wall by wall, dynasty by dynasty.
+tr	Yüzyıllar boyunca, duvar duvar, hanedan hanedan yapıldı.
+de	Über Jahrhunderte gebaut, Mauer um Mauer, Dynastie um Dynastie.
+fr	Bâtie au fil des siècles, mur après mur, dynastie après dynastie.
+es	Construida durante siglos, muro a muro, dinastía tras dinastía.
+pt	Construída ao longo de séculos, muro a muro, dinastia a dinastia.
+pl	Budowany przez wieki, mur po murze, dynastia po dynastii.
+ru	Строилась веками, стена за стеной, династия за династией.
+zh	历经数百年，一墙接一墙，一朝接一朝地修建。
+ja	何世紀もかけて、壁ごと、王朝ごとに築かれた。
+ko	수 세기에 걸쳐, 성벽마다, 왕조마다 쌓아 올렸다.
+#1116 Can fold a blanket in one move.
+tr	Bir battaniyeyi tek hareketle katlayabilir.
+de	Kann eine Decke mit einem Handgriff falten.
+fr	Sait plier une couverture d'un seul geste.
+es	Sabe doblar una manta de un solo movimiento.
+pt	Dobra um cobertor com um único movimento.
+pl	Potrafi złożyć koc jednym ruchem.
+ru	Складывает плед одним движением.
+zh	一个动作就能叠好毯子。
+ja	毛布をひと振りでたためる。
+ko	담요를 한 번에 갤 수 있다.
+#1117 Carries skiers up while your blades turn below.
+tr	Sen aşağıda kanatları döndürürken kayakçıları yukarı taşır.
+de	Bringt Skifahrer nach oben, während unten deine Flügel kreisen.
+fr	Monte les skieurs pendant que vos pales tournent en bas.
+es	Sube a los esquiadores mientras tus aspas giran abajo.
+pt	Leva esquiadores para cima enquanto suas pás giram lá embaixo.
+pl	Wwozi narciarzy na górę, gdy w dole kręcą się twoje łopaty.
+ru	Поднимает лыжников, пока внизу крутятся ваши лопасти.
+zh	你的叶片在下方转动，它把滑雪者送上山。
+ja	下であなたの羽根が回る間、スキーヤーを運び上げる。
+ko	아래에서 당신의 날개가 도는 동안 스키어들을 실어 올린다.
+#1118 Carved from one block. Won't last the spring.
+tr	Tek bir bloktan oyuldu. Bahara kadar dayanmaz.
+de	Aus einem Block geschnitzt. Übersteht den Frühling nicht.
+fr	Taillé dans un seul bloc. Ne passera pas le printemps.
+es	Tallado de un solo bloque. No durará hasta la primavera.
+pt	Esculpido em um só bloco. Não dura até a primavera.
+pl	Wyrzeźbiony z jednego bloku. Nie przetrwa wiosny.
+ru	Вырезан из одной глыбы. До весны не доживёт.
+zh	由一整块冰雕成。撑不过春天。
+ja	一つの塊から彫り出した。春までは持たない。
+ko	한 덩어리로 조각했다. 봄까지는 못 버틴다.
+#1119 Catches the morning sun and throws it back.
+tr	Sabah güneşini yakalayıp geri fırlatır.
+de	Fängt die Morgensonne ein und wirft sie zurück.
+fr	Attrape le soleil du matin et le renvoie.
+es	Atrapa el sol de la mañana y lo devuelve.
+pt	Captura o sol da manhã e o devolve.
+pl	Łapie poranne słońce i odbija je z powrotem.
+ru	Ловит утреннее солнце и отбрасывает его назад.
+zh	接住晨光，再把它抛回去。
+ja	朝日を受け止めて投げ返す。
+ko	아침 햇살을 받아 되던진다.
+#1120 Chases small fish across the surface in loud splashes.
+tr	Küçük balıkları yüzeyde gürültülü sıçramalarla kovalar.
+de	Jagt kleine Fische mit lautem Platschen über die Oberfläche.
+fr	Chasse les petits poissons en surface dans de grandes éclaboussures.
+es	Persigue peces pequeños por la superficie con grandes chapoteos.
+pt	Persegue peixinhos na superfície com grandes espirros d'água.
+pl	Goni małe ryby po powierzchni z głośnym pluskiem.
+ru	Гоняет мелкую рыбу у поверхности с громкими всплесками.
+zh	在水面上追逐小鱼，水花四溅。
+ja	水面で小魚を追い、派手に水しぶきを上げる。
+ko	요란한 물보라를 일으키며 수면의 작은 물고기를 쫓는다.
+#1121 Checked in under a fake name. Everyone knows.
+tr	Sahte bir isimle giriş yaptı. Herkes biliyor.
+de	Hat unter falschem Namen eingecheckt. Alle wissen Bescheid.
+fr	A réservé sous un faux nom. Tout le monde le sait.
+es	Se registró con un nombre falso. Todo el mundo lo sabe.
+pt	Fez check-in com nome falso. Todo mundo sabe.
+pl	Zameldowała się pod fałszywym nazwiskiem. Wszyscy wiedzą.
+ru	Заселилась под чужим именем. Все в курсе.
+zh	用假名入住了。大家都知道。
+ja	偽名でチェックイン。みんな知っている。
+ko	가명으로 체크인했다. 모두가 안다.
+#1122 Clank, clank, then a cheer from the farmhands.
+tr	Tak, tak, sonra işçilerden bir alkış.
+de	Klonk, klonk, dann Jubel von den Knechten.
+fr	Clang, clang, puis une acclamation des ouvriers agricoles.
+es	Clanc, clanc, y luego un vítor de los peones.
+pt	Clang, clang, e depois os peões comemoram.
+pl	Brzdęk, brzdęk, a potem wiwaty parobków.
+ru	Бряк, бряк — и радостный крик батраков.
+zh	哐当、哐当，然后农工们一阵欢呼。
+ja	ガチャン、ガチャン、そして牧場の働き手たちの歓声。
+ko	철컹, 철컹, 그리고 일꾼들의 환호.
+#1123 Climate control for paintings older than electricity.
+tr	Elektrikten daha eski tablolar için iklim kontrolü.
+de	Klimatisierung für Gemälde, die älter sind als der Strom.
+fr	De la climatisation pour des tableaux plus vieux que l'électricité.
+es	Climatización para cuadros más antiguos que la electricidad.
+pt	Climatização para quadros mais antigos que a eletricidade.
+pl	Klimatyzacja dla obrazów starszych niż elektryczność.
+ru	Климат-контроль для картин, которые старше электричества.
+zh	为比电还古老的画作控温控湿。
+ja	電気より古い絵画のための空調。
+ko	전기보다 오래된 그림들을 위한 항온항습.
+#1124 Cobalt glaze, conical lid, slow-cooked dinner inside.
+tr	Kobalt sır, konik kapak, içinde ağır ağır pişmiş akşam yemeği.
+de	Kobaltglasur, kegelförmiger Deckel, darin ein Schmorgericht.
+fr	Émail cobalt, couvercle conique, un dîner mijoté à l'intérieur.
+es	Esmalte cobalto, tapa cónica y una cena a fuego lento dentro.
+pt	Esmalte cobalto, tampa cônica e um jantar cozido lentamente dentro.
+pl	Kobaltowa glazura, stożkowa pokrywa, w środku wolno duszona kolacja.
+ru	Кобальтовая глазурь, конусная крышка, внутри томлёный ужин.
+zh	钴蓝釉、尖锥盖，里面是慢炖晚餐。
+ja	コバルトの釉薬、円錐のふた、中にはじっくり煮込んだ夕食。
+ko	코발트 유약, 원뿔 뚜껑, 안에는 뭉근히 익힌 저녁.
+#1125 Cold drinks for every caravan that passes.
+tr	Geçen her kervana soğuk içecek.
+de	Kalte Getränke für jede vorbeiziehende Karawane.
+fr	Des boissons fraîches pour chaque caravane de passage.
+es	Bebidas frías para cada caravana que pasa.
+pt	Bebidas geladas para cada caravana que passa.
+pl	Zimne napoje dla każdej przejeżdżającej karawany.
+ru	Прохладные напитки для каждого проходящего каравана.
+zh	为每一支路过的商队送上冷饮。
+ja	通り過ぎるキャラバンすべてに冷たい飲み物を。
+ko	지나가는 모든 대상에게 시원한 음료를.
+#1126 Comes in by the hundred when the lights go on at the pier.
+tr	İskelede ışıklar yanınca yüzlercesi gelir.
+de	Kommt zu Hunderten, wenn am Steg die Lichter angehen.
+fr	Arrive par centaines quand les lumières s'allument sur la jetée.
+es	Llega a cientos cuando se encienden las luces del muelle.
+pt	Chega às centenas quando as luzes do píer se acendem.
+pl	Przypływa setkami, gdy na molo zapalają się światła.
+ru	Приходит сотнями, когда на пирсе зажигаются огни.
+zh	码头一亮灯，就成百条地游过来。
+ja	桟橋に灯りがともると何百匹もやって来る。
+ko	부두에 불이 켜지면 수백 마리씩 몰려온다.
+#1127 Comes with a free fistful of sequins.
+tr	Yanında bir avuç bedava payetle gelir.
+de	Mit einer Handvoll Pailletten gratis dazu.
+fr	Livré avec une poignée de paillettes offerte.
+es	Viene con un puñado de lentejuelas de regalo.
+pt	Vem com um punhado de lantejoulas de brinde.
+pl	W zestawie garść cekinów gratis.
+ru	К ней бесплатно прилагается горсть блёсток.
+zh	附赠一大把亮片。
+ja	スパンコールひとつかみのおまけ付き。
+ko	스팽글 한 줌이 덤으로 딸려 온다.
+#1128 Crumbled feta on top, olive oil on everything.
+tr	Üstüne ufalanmış beyaz peynir, her şeye zeytinyağı.
+de	Zerbröselter Feta obendrauf, Olivenöl über alles.
+fr	Feta émiettée dessus, huile d'olive sur tout.
+es	Feta desmenuzado por encima y aceite de oliva en todo.
+pt	Feta esfarelado por cima e azeite em tudo.
+pl	Pokruszona feta na wierzchu, oliwa na wszystkim.
+ru	Сверху крошка феты, оливковое масло на всём.
+zh	上面撒满碎菲达，处处淋上橄榄油。
+ja	上に砕いたフェタ、全体にオリーブオイル。
+ko	위에는 부순 페타, 전부에 올리브유.
+#1129 Curtain up at eight. Don't let the wind drop.
+tr	Perde sekizde açılıyor. Rüzgârın kesilmesine izin verme.
+de	Vorhang um acht. Lass den Wind nicht abflauen.
+fr	Lever de rideau à huit heures. Ne laissez pas le vent tomber.
+es	Se levanta el telón a las ocho. Que no amaine el viento.
+pt	A cortina sobe às oito. Não deixe o vento cair.
+pl	Kurtyna w górę o ósmej. Nie pozwól, by wiatr ucichł.
+ru	Занавес в восемь. Не дайте ветру стихнуть.
+zh	八点开幕。别让风停下来。
+ja	幕開けは8時。風を止めないで。
+ko	8시에 막이 오른다. 바람이 멎지 않게 하라.
+#1130 Delivers coffee to the top floor without spilling a drop.
+tr	Kahveyi bir damla dökmeden en üst kata götürür.
+de	Bringt Kaffee in den obersten Stock, ohne einen Tropfen zu verschütten.
+fr	Livre le café au dernier étage sans en renverser une goutte.
+es	Lleva café a la última planta sin derramar una gota.
+pt	Entrega café no último andar sem derramar uma gota.
+pl	Dostarcza kawę na ostatnie piętro, nie rozlewając ani kropli.
+ru	Доставляет кофе на верхний этаж, не пролив ни капли.
+zh	把咖啡送到顶楼，一滴都不洒。
+ja	一滴もこぼさず最上階にコーヒーを届ける。
+ko	한 방울도 흘리지 않고 꼭대기 층에 커피를 배달한다.
+#1131 Departures board, clock and a thousand lamps.
+tr	Kalkış panosu, saat ve bin lamba.
+de	Abfahrtstafel, Uhr und tausend Lampen.
+fr	Tableau des départs, horloge et mille lampes.
+es	Panel de salidas, reloj y mil lámparas.
+pt	Painel de partidas, relógio e mil lâmpadas.
+pl	Tablica odjazdów, zegar i tysiąc lamp.
+ru	Табло отправлений, часы и тысяча ламп.
+zh	发车牌、大钟和上千盏灯。
+ja	発車案内板、時計、千のランプ。
+ko	출발 안내판, 시계, 그리고 천 개의 등.
+#1132 Disco pressed on heavy vinyl, still glittering.
+tr	Ağır vinile basılmış, hâlâ parıldayan bir disko.
+de	Disco auf schwerem Vinyl gepresst, glitzert noch immer.
+fr	Du disco pressé sur vinyle épais, qui scintille encore.
+es	Disco prensada en vinilo grueso, aún brillante.
+pt	Disco prensada em vinil pesado, ainda brilhando.
+pl	Disco wytłoczone na ciężkim winylu, wciąż błyszczy.
+ru	Диско на тяжёлом виниле, всё ещё сверкает.
+zh	压在厚重黑胶上的迪斯科，依旧闪闪发光。
+ja	重量盤にプレスされたディスコ。今もきらめく。
+ko	두꺼운 바이닐에 찍은 디스코, 아직도 반짝인다.
+#1133 Dives straight for the rocks the moment it's hooked.
+tr	Oltaya takıldığı an doğrudan kayalara dalar.
+de	Taucht sofort in die Felsen, sobald er am Haken hängt.
+fr	Plonge droit vers les rochers dès qu'il est ferré.
+es	Se lanza directo a las rocas en cuanto pica.
+pt	Mergulha direto para as pedras assim que é fisgado.
+pl	Gdy tylko złapie haczyk, nurkuje prosto w skały.
+ru	Едва засечёшь, сразу уходит в камни.
+zh	一上钩就直冲礁石。
+ja	掛かった瞬間、一直線に岩場へ突っ込む。
+ko	걸리는 순간 곧장 바위 쪽으로 파고든다.
+#1134 Dolphins circling the rim as if it were the sea.
+tr	Yunuslar ağzın etrafında dönüyor, sanki orası denizmiş gibi.
+de	Delfine umkreisen den Rand, als wäre er das Meer.
+fr	Des dauphins tournent sur le bord comme si c'était la mer.
+es	Delfines nadando en el borde como si fuera el mar.
+pt	Golfinhos circulando a borda como se fosse o mar.
+pl	Delfiny krążą wokół brzegu, jakby to było morze.
+ru	Дельфины кружат по краю, будто это море.
+zh	海豚绕着盘沿游动，仿佛那是大海。
+ja	縁を海のようにイルカが巡っている。
+ko	돌고래들이 테두리를 바다인 양 맴돈다.
+#1135 Doner on pide, tomato sauce, sizzling butter poured at the table.
+tr	Pide üstünde döner, domates sosu, masada dökülen cızırdayan tereyağı.
+de	Döner auf Pide, Tomatensoße, zischende Butter am Tisch übergossen.
+fr	Kebab sur pide, sauce tomate, beurre grésillant versé à table.
+es	Döner sobre pide, salsa de tomate y mantequilla chisporroteante servida en la mesa.
+pt	Kebab sobre pide, molho de tomate e manteiga chiando servida à mesa.
+pl	Kebab na pide, sos pomidorowy, skwierczące masło polane przy stole.
+ru	Донер на пиде, томатный соус и шипящее масло прямо у стола.
+zh	皮德饼上铺烤肉，淋番茄酱，上桌时浇上滋滋作响的黄油。
+ja	ピデにドネル、トマトソース、卓上でジュッとかける焦がしバター。
+ko	피데 위 되네르, 토마토소스, 식탁에서 붓는 지글지글 버터.
+#1136 Doner wrapped with melted kashar, pressed on the grill.
+tr	Eritilmiş kaşarla sarılıp ızgarada bastırılmış döner.
+de	Döner mit geschmolzenem Kaşar eingerollt und auf dem Grill gepresst.
+fr	Kebab roulé avec du kaşar fondu, pressé sur le grill.
+es	Döner envuelto con kaşar fundido y prensado en la plancha.
+pt	Kebab enrolado com kaşar derretido e prensado na chapa.
+pl	Kebab zawinięty z roztopionym kaşarem, przyciśnięty na grillu.
+ru	Донер, завёрнутый с расплавленным кашаром и прижатый на гриле.
+zh	烤肉裹上融化的卡沙尔奶酪，在烤盘上压制。
+ja	溶けたカシャールチーズで巻き、グリルで押し焼き。
+ko	녹은 카샤르 치즈로 감싸 그릴에 눌러 구운 되네르.
+#1137 Doner, chips and salad for the last train home.
+tr	Eve son trene yetişmeden döner, patates ve salata.
+de	Döner, Pommes und Salat für den letzten Zug nach Hause.
+fr	Kebab, frites et salade pour le dernier train.
+es	Döner, patatas y ensalada para el último tren a casa.
+pt	Kebab, fritas e salada para o último trem para casa.
+pl	Kebab, frytki i sałatka na ostatni pociąg do domu.
+ru	Донер, картошка и салат перед последней электричкой.
+zh	赶末班车回家前的烤肉、薯条和沙拉。
+ja	終電前のドネル、ポテト、サラダ。
+ko	막차 타기 전의 되네르, 감자튀김, 샐러드.
+#1138 Eats almost anything, trusts almost nothing.
+tr	Neredeyse her şeyi yer, neredeyse hiçbir şeye güvenmez.
+de	Frisst fast alles, traut fast nichts.
+fr	Mange presque tout, ne se fie presque à rien.
+es	Come casi de todo y no se fía de casi nada.
+pt	Come quase tudo, confia em quase nada.
+pl	Je prawie wszystko, ufa prawie niczemu.
+ru	Ест почти всё, не доверяет почти ничему.
+zh	几乎什么都吃，几乎什么都不信。
+ja	何でも食べるが、何も信用しない。
+ko	거의 다 먹고, 거의 아무것도 믿지 않는다.
+#1139 Erzurum's horizontal spit, eaten straight off the skewer.
+tr	Erzurum'un yatay şişi, doğrudan şişten yenir.
+de	Erzurums waagerechter Spieß, direkt vom Spieß gegessen.
+fr	La broche horizontale d'Erzurum, mangée à même la brochette.
+es	El asador horizontal de Erzurum, comido directamente de la brocheta.
+pt	O espeto horizontal de Erzurum, comido direto do espeto.
+pl	Poziomy rożen z Erzurum, jedzony prosto z szpikulca.
+ru	Горизонтальный вертел Эрзурума, едят прямо с шампура.
+zh	埃尔祖鲁姆的横式烤肉，直接从签子上吃。
+ja	エルズルムの横串。串から直接食べる。
+ko	에르주룸의 가로 꼬치, 꼬치째 바로 먹는다.
+#1140 Every colour of the sea, until it leaves the water.
+tr	Sudan çıkana dek denizin bütün renkleri.
+de	Alle Farben des Meeres, bis er das Wasser verlässt.
+fr	Toutes les couleurs de la mer, jusqu'à ce qu'il sorte de l'eau.
+es	Todos los colores del mar, hasta que sale del agua.
+pt	Todas as cores do mar, até sair da água.
+pl	Wszystkie kolory morza, dopóki nie opuści wody.
+ru	Все цвета моря — пока не покинет воду.
+zh	离开水之前，拥有大海的所有颜色。
+ja	水から出るまでは海のあらゆる色。
+ko	물 밖으로 나오기 전까진 바다의 모든 색.
+#1141 Every cow in the county looked up.
+tr	İlçedeki bütün inekler başını kaldırdı.
+de	Jede Kuh im Landkreis hat aufgeschaut.
+fr	Toutes les vaches du comté ont levé la tête.
+es	Todas las vacas del condado levantaron la cabeza.
+pt	Todas as vacas do condado olharam para cima.
+pl	Każda krowa w hrabstwie podniosła głowę.
+ru	Все коровы округи подняли головы.
+zh	全县的牛都抬起了头。
+ja	郡じゅうの牛が顔を上げた。
+ko	온 고을의 소들이 고개를 들었다.
+#1142 Every note recorded from the front row.
+tr	Her nota ön sıradan kaydedildi.
+de	Jede Note aus der ersten Reihe aufgenommen.
+fr	Chaque note enregistrée depuis le premier rang.
+es	Cada nota grabada desde la primera fila.
+pt	Cada nota gravada da primeira fila.
+pl	Każda nuta nagrana z pierwszego rzędu.
+ru	Каждая нота записана из первого ряда.
+zh	每个音符都在第一排录下。
+ja	すべての音を最前列で録音。
+ko	모든 음을 맨 앞줄에서 녹음했다.
+#1143 Every tank glows a slightly different blue.
+tr	Her tank biraz farklı bir mavide parlar.
+de	Jedes Becken leuchtet in einem etwas anderen Blau.
+fr	Chaque bassin brille d'un bleu légèrement différent.
+es	Cada tanque brilla en un azul ligeramente distinto.
+pt	Cada tanque brilha num azul um pouco diferente.
+pl	Każde akwarium świeci odrobinę innym błękitem.
+ru	Каждый аквариум светится чуть другим синим.
+zh	每个水缸都泛着略有不同的蓝光。
+ja	どの水槽も少しずつ違う青に光る。
+ko	수조마다 조금씩 다른 파란빛으로 빛난다.
+#1144 Everything is made of ice except the lights.
+tr	Işıklar hariç her şey buzdan.
+de	Alles ist aus Eis, außer den Lichtern.
+fr	Tout est en glace, sauf les lumières.
+es	Todo es de hielo, menos las luces.
+pt	Tudo é feito de gelo, menos as luzes.
+pl	Wszystko jest z lodu, oprócz świateł.
+ru	Всё изо льда, кроме огней.
+zh	除了灯，一切都是冰做的。
+ja	照明以外はすべて氷でできている。
+ko	조명 빼고 전부 얼음으로 만들었다.
+#1145 Everything the house can carve, on one silver tray.
+tr	Mekânın kesebildiği her şey, tek bir gümüş tepside.
+de	Alles, was das Haus schneiden kann, auf einem Silbertablett.
+fr	Tout ce que la maison sait trancher, sur un plateau d'argent.
+es	Todo lo que la casa sabe cortar, en una bandeja de plata.
+pt	Tudo o que a casa sabe fatiar, numa bandeja de prata.
+pl	Wszystko, co lokal potrafi pokroić, na jednej srebrnej tacy.
+ru	Всё, что умеет нарезать заведение, на одном серебряном подносе.
+zh	店里能切的全都摆在一个银盘上。
+ja	店で切れるものすべてを銀の盆にひとまとめに。
+ko	가게가 썰 수 있는 모든 것을 은쟁반 하나에.
+#1146 Everything, with everything. Mit alles.
+tr	Her şey, her şeyle. Mit alles.
+de	Alles, mit allem. Mit alles.
+fr	Tout, avec tout. Mit alles.
+es	Todo, con todo. Mit alles.
+pt	Tudo, com tudo. Mit alles.
+pl	Wszystko, ze wszystkim. Mit alles.
+ru	Всё и со всем. Mit alles.
+zh	全都要，全都加。Mit alles。
+ja	全部入り、全部のせ。ミット・アレス。
+ko	전부, 전부 넣어서. 미트 알레스.
+#1147 Exotica for long evenings by the fire.
+tr	Ateş başında uzun akşamlar için egzotik müzik.
+de	Exotica für lange Abende am Feuer.
+fr	De l'exotica pour les longues soirées au coin du feu.
+es	Exótica para largas noches junto al fuego.
+pt	Exotica para longas noites junto à fogueira.
+pl	Egzotyka na długie wieczory przy ognisku.
+ru	Экзотика для долгих вечеров у огня.
+zh	适合炉边长夜的异国情调音乐。
+ja	焚き火のそばの長い夜のためのエキゾチカ。
+ko	모닥불 곁의 긴 저녁을 위한 이국적인 음악.
+#1148 Extra pineapple shaved straight off the trompo.
+tr	Trompodan doğrudan kesilmiş bol ananas.
+de	Extra Ananas, direkt vom Trompo geschnitten.
+fr	Supplément ananas tranché directement sur le trompo.
+es	Piña extra cortada directamente del trompo.
+pt	Abacaxi extra cortado direto do trompo.
+pl	Dodatkowy ananas ścięty prosto z trompo.
+ru	Двойная порция ананаса, срезанного прямо с тромпо.
+zh	直接从烤肉柱上削下的加量菠萝。
+ja	トロンポから直接削ったパイナップル増量。
+ko	트롬포에서 바로 깎은 파인애플 듬뿍.
+#1149 Feathers painted in seven greens.
+tr	Yedi ayrı yeşille boyanmış tüyler.
+de	Federn in sieben Grüntönen gemalt.
+fr	Des plumes peintes en sept verts.
+es	Plumas pintadas en siete verdes.
+pt	Penas pintadas em sete tons de verde.
+pl	Pióra malowane w siedmiu odcieniach zieleni.
+ru	Перья, расписанные семью оттенками зелёного.
+zh	羽毛用七种绿色绘成。
+ja	七つの緑で描かれた羽根。
+ko	일곱 가지 초록으로 칠한 깃털.
+#1150 Feels the gravel with four whiskers, pulls like a mule.
+tr	Çakılı dört bıyığıyla yoklar, katır gibi çeker.
+de	Ertastet den Kies mit vier Barteln, zieht wie ein Maultier.
+fr	Tâte le gravier de ses quatre barbillons, tire comme une mule.
+es	Tantea la grava con cuatro barbillas y tira como una mula.
+pt	Sente o cascalho com quatro barbilhões e puxa como uma mula.
+pl	Bada żwir czterema wąsikami, ciągnie jak muł.
+ru	Ощупывает гальку четырьмя усиками, тянет как мул.
+zh	用四根须探摸砾石，拉起来像头骡子。
+ja	4本のヒゲで砂利を探り、ラバのように引く。
+ko	네 가닥 수염으로 자갈을 더듬고, 노새처럼 당긴다.
+#1151 Fifty thousand seats and a canvas roof.
+tr	Elli bin koltuk ve bir branda çatı.
+de	Fünfzigtausend Plätze und ein Dach aus Plane.
+fr	Cinquante mille places et un toit de toile.
+es	Cincuenta mil asientos y un techo de lona.
+pt	Cinquenta mil lugares e um teto de lona.
+pl	Pięćdziesiąt tysięcy miejsc i dach z płótna.
+ru	Пятьдесят тысяч мест и крыша из ткани.
+zh	五万个座位，一顶帆布屋顶。
+ja	5万の座席とキャンバスの屋根。
+ko	5만 개의 좌석과 천막 지붕.
+#1152 Fingerprint marks on its back, a sprinter's build.
+tr	Sırtında parmak izi desenleri, bir koşucunun yapısı.
+de	Fingerabdruckmuster auf dem Rücken, gebaut wie ein Sprinter.
+fr	Des marques d'empreintes sur le dos, une carrure de sprinteur.
+es	Marcas como huellas en el lomo y cuerpo de velocista.
+pt	Marcas de impressão digital no dorso, corpo de velocista.
+pl	Wzór odcisków palców na grzbiecie, budowa sprintera.
+ru	Узор, как отпечатки пальцев, на спине и фигура спринтера.
+zh	背上有指纹般的花纹，短跑健将的身形。
+ja	背中に指紋のような模様、短距離走者の体つき。
+ko	등에 지문 같은 무늬, 단거리 선수의 몸매.
+#1153 Fire drill on floor 54. Again.
+tr	54. katta yangın tatbikatı. Yine.
+de	Feueralarmübung im 54. Stock. Schon wieder.
+fr	Exercice d'incendie au 54e étage. Encore.
+es	Simulacro de incendio en la planta 54. Otra vez.
+pt	Simulado de incêndio no 54º andar. De novo.
+pl	Próbny alarm przeciwpożarowy na 54. piętrze. Znowu.
+ru	Пожарная тревога на 54-м этаже. Опять.
+zh	54 楼又在消防演习。
+ja	54階でまた避難訓練。
+ko	54층에서 또 소방 훈련.
+#1154 Fired three times for a mirror finish.
+tr	Ayna parlaklığı için üç kez pişirildi.
+de	Dreimal gebrannt für einen Spiegelglanz.
+fr	Cuit trois fois pour un fini miroir.
+es	Cocido tres veces para un acabado de espejo.
+pt	Queimado três vezes para um acabamento espelhado.
+pl	Wypalany trzy razy dla lustrzanego połysku.
+ru	Обожжена трижды ради зеркального блеска.
+zh	烧制三次，光可鉴人。
+ja	鏡面に仕上げるため三度焼成。
+ko	거울 같은 광택을 위해 세 번 구웠다.
+#1155 Fireplace, fondue and a heated boot room.
+tr	Şömine, fondü ve ısıtmalı bir bot odası.
+de	Kamin, Fondue und ein beheizter Schuhraum.
+fr	Cheminée, fondue et un local à chaussures chauffé.
+es	Chimenea, fondue y un cuarto de botas con calefacción.
+pt	Lareira, fondue e um quarto de botas aquecido.
+pl	Kominek, fondue i ogrzewana suszarnia butów.
+ru	Камин, фондю и тёплая комната для ботинок.
+zh	壁炉、芝士火锅和暖鞋间。
+ja	暖炉、フォンデュ、暖房付きのブーツ部屋。
+ko	벽난로, 퐁뒤, 그리고 난방되는 신발 보관실.
+#1156 First lights on in the valley, every single morning.
+tr	Her sabah vadide ilk yanan ışıklar.
+de	Jeden Morgen die ersten Lichter im Tal.
+fr	Les premières lumières de la vallée, chaque matin.
+es	Las primeras luces del valle, cada mañana.
+pt	As primeiras luzes do vale, toda manhã.
+pl	Pierwsze światła w dolinie, każdego ranka.
+ru	Первые огни в долине — каждое утро.
+zh	每天清晨，山谷里最早亮起的灯。
+ja	毎朝、谷で一番最初に灯る明かり。
+ko	매일 아침 골짜기에서 가장 먼저 켜지는 불.
+#1157 First prize at the county fair.
+tr	İlçe fuarında birincilik ödülü.
+de	Erster Preis auf dem Jahrmarkt.
+fr	Premier prix à la foire du comté.
+es	Primer premio en la feria del condado.
+pt	Primeiro prêmio na feira do condado.
+pl	Pierwsza nagroda na jarmarku hrabstwa.
+ru	Первый приз на окружной ярмарке.
+zh	县集市的头等奖。
+ja	郡の品評会の一等賞。
+ko	고을 장터의 1등 상.
+#1158 First prize at the outback throwing contest.
+tr	Çöl atış yarışmasında birincilik ödülü.
+de	Erster Preis beim Wurfwettbewerb im Outback.
+fr	Premier prix au concours de lancer de l'outback.
+es	Primer premio en el concurso de lanzamiento del outback.
+pt	Primeiro prêmio no concurso de lançamento do outback.
+pl	Pierwsza nagroda w konkursie rzutów w buszu.
+ru	Первый приз на конкурсе бросков в аутбэке.
+zh	内陆投掷大赛的头等奖。
+ja	アウトバック投てき大会の一等賞。
+ko	아웃백 던지기 대회의 1등 상.
+#1159 First prize at the village show, rosette and all.
+tr	Köy fuarında birincilik, rozetiyle birlikte.
+de	Erster Preis bei der Dorfschau, samt Rosette.
+fr	Premier prix au concours du village, cocarde comprise.
+es	Primer premio en la feria del pueblo, con escarapela y todo.
+pt	Primeiro prêmio na exposição da vila, com roseta e tudo.
+pl	Pierwsza nagroda na wiejskim pokazie, z rozetą i wszystkim.
+ru	Первый приз на деревенской выставке, с розеткой и всем прочим.
+zh	村展头等奖，连奖章花结都有。
+ja	村の品評会で一等賞、リボン付き。
+ko	마을 품평회 1등, 리본 장식까지.
+#1160 Floodlights that can be seen from the next town.
+tr	Yandaki kasabadan görülebilen projektörler.
+de	Flutlicht, das man vom Nachbarort aus sieht.
+fr	Des projecteurs visibles depuis la ville voisine.
+es	Focos que se ven desde el pueblo de al lado.
+pt	Refletores que se veem da cidade vizinha.
+pl	Reflektory widoczne z sąsiedniego miasteczka.
+ru	Прожекторы, которые видно из соседнего городка.
+zh	邻镇都看得见的泛光灯。
+ja	隣町からも見える照明塔。
+ko	옆 마을에서도 보이는 투광 조명.
+#1161 Flying over a sandcastle. Not any more.
+tr	Bir kumdan kalenin üstünde dalgalanıyordu. Artık değil.
+de	Wehte über einer Sandburg. Jetzt nicht mehr.
+fr	Flottait sur un château de sable. Plus maintenant.
+es	Ondeaba sobre un castillo de arena. Ya no.
+pt	Tremulava sobre um castelo de areia. Não mais.
+pl	Powiewała nad zamkiem z piasku. Już nie.
+ru	Развевался над песочным замком. Больше нет.
+zh	曾飘扬在沙堡上。现在不了。
+ja	砂の城にはためいていた。もう違う。
+ko	모래성 위에서 펄럭이던 깃발. 이젠 아니다.
+#1162 For mixing wine and water at very long dinners.
+tr	Çok uzun akşam yemeklerinde şarapla suyu karıştırmak için.
+de	Zum Mischen von Wein und Wasser bei sehr langen Gelagen.
+fr	Pour mélanger vin et eau lors de très longs dîners.
+es	Para mezclar vino y agua en cenas muy largas.
+pt	Para misturar vinho e água em jantares muito longos.
+pl	Do mieszania wina z wodą podczas bardzo długich uczt.
+ru	Чтобы смешивать вино с водой на очень долгих пирах.
+zh	用于在漫长晚宴上调和葡萄酒与水。
+ja	とても長い宴会でワインと水を混ぜるため。
+ko	아주 긴 만찬에서 포도주와 물을 섞기 위한 것.
+#1163 For when one pita is clearly not enough.
+tr	Tek pitanın açıkça yetmediği zamanlar için.
+de	Für den Fall, dass eine Pita eindeutig nicht reicht.
+fr	Pour quand une pita ne suffit clairement pas.
+es	Para cuando una pita claramente no basta.
+pt	Para quando uma pita claramente não basta.
+pl	Na wypadek, gdy jedna pita to stanowczo za mało.
+ru	Для тех случаев, когда одной питы явно мало.
+zh	一个皮塔饼显然不够的时候。
+ja	ピタ1枚じゃ明らかに足りないときに。
+ko	피타 하나로는 분명히 모자랄 때를 위해.
+#1164 Four wheels, eight bars, one long groove.
+tr	Dört tekerlek, sekiz ölçü, uzun bir ritim.
+de	Vier Rollen, acht Takte, ein langer Groove.
+fr	Quatre roues, huit mesures, un long groove.
+es	Cuatro ruedas, ocho compases, un largo groove.
+pt	Quatro rodas, oito compassos, um longo groove.
+pl	Cztery kółka, osiem taktów, jeden długi groove.
+ru	Четыре колеса, восемь тактов, один долгий грув.
+zh	四个轮子，八个小节，一段长长的律动。
+ja	4つの車輪、8小節、ひとつの長いグルーヴ。
+ko	바퀴 넷, 여덟 마디, 하나의 긴 그루브.
+#1165 From the Silk Road, crisp and honey-sweet.
+tr	İpek Yolu'ndan, gevrek ve bal gibi tatlı.
+de	Von der Seidenstraße, knackig und honigsüß.
+fr	De la route de la soie, croquant et doux comme le miel.
+es	De la Ruta de la Seda, crujiente y dulce como la miel.
+pt	Da Rota da Seda, crocante e doce como mel.
+pl	Z Jedwabnego Szlaku, chrupiący i słodki jak miód.
+ru	С Шёлкового пути, хрустящая и сладкая как мёд.
+zh	来自丝绸之路，脆甜如蜜。
+ja	シルクロードから。シャキッと蜜のように甘い。
+ko	실크로드에서 온, 아삭하고 꿀처럼 달콤한.
+#1166 From the oldest tree in the orchard. Just one a year.
+tr	Bahçedeki en yaşlı ağaçtan. Yılda yalnız bir tane.
+de	Vom ältesten Baum im Obstgarten. Nur einer pro Jahr.
+fr	Du plus vieil arbre du verger. Une seule par an.
+es	Del árbol más viejo del huerto. Solo una al año.
+pt	Da árvore mais velha do pomar. Só uma por ano.
+pl	Z najstarszego drzewa w sadzie. Tylko jedno na rok.
+ru	С самого старого дерева в саду. Всего одно в год.
+zh	来自果园里最老的那棵树。一年只结一个。
+ja	果樹園で一番古い木から。年に一つだけ。
+ko	과수원에서 가장 오래된 나무에서. 1년에 단 하나.
+#1167 Garlic sauce so strong you'll taste it tomorrow.
+tr	O kadar güçlü bir sarımsak sosu ki tadını yarın da alırsın.
+de	Knoblauchsoße, so kräftig, dass du sie morgen noch schmeckst.
+fr	Une sauce à l'ail si forte que vous la sentirez encore demain.
+es	Una salsa de ajo tan fuerte que la saborearás mañana.
+pt	Um molho de alho tão forte que você vai sentir amanhã.
+pl	Sos czosnkowy tak mocny, że poczujesz go jutro.
+ru	Чесночный соус такой сильный, что вкус останется до завтра.
+zh	蒜酱浓到明天还能尝到。
+ja	明日まで残るほど強烈なガーリックソース。
+ko	내일까지 맛이 남을 만큼 강한 마늘 소스.
+#1168 Gilded rim. The village keeps it for weddings.
+tr	Yaldızlı ağız. Köy onu düğünler için saklar.
+de	Vergoldeter Rand. Das Dorf hebt es für Hochzeiten auf.
+fr	Bord doré. Le village le garde pour les mariages.
+es	Borde dorado. El pueblo lo guarda para las bodas.
+pt	Borda dourada. A vila o guarda para casamentos.
+pl	Złocony brzeg. Wieś trzyma go na wesela.
+ru	Позолоченный край. Деревня бережёт его для свадеб.
+zh	镀金边。村里留着它办婚礼用。
+ja	金の縁。村では婚礼のためにとってある。
+ko	금박 테두리. 마을에서 혼례 때 쓰려고 아껴 둔다.
+#1169 Glassy eyes made for hunting in murky water at dusk.
+tr	Alacakaranlıkta bulanık suda avlanmak için yapılmış camsı gözler.
+de	Glasige Augen, gemacht für die Jagd in trübem Wasser bei Dämmerung.
+fr	Des yeux vitreux faits pour chasser en eau trouble au crépuscule.
+es	Ojos vidriosos hechos para cazar en aguas turbias al anochecer.
+pt	Olhos vítreos feitos para caçar em água turva ao entardecer.
+pl	Szkliste oczy stworzone do polowania w mętnej wodzie o zmierzchu.
+ru	Стеклянные глаза для охоты в мутной воде в сумерках.
+zh	玻璃般的眼睛，专为黄昏浑水中狩猎而生。
+ja	夕暮れの濁った水で狩るための、ガラスのような目。
+ko	해 질 녘 흐린 물에서 사냥하도록 만들어진 유리 같은 눈.
+#1170 Glossy as a new shoe.
+tr	Yeni bir ayakkabı kadar parlak.
+de	Glänzend wie ein neuer Schuh.
+fr	Brillante comme une chaussure neuve.
+es	Brillante como un zapato nuevo.
+pt	Brilhante como sapato novo.
+pl	Lśniący jak nowy but.
+ru	Блестит, как новый ботинок.
+zh	油亮得像双新鞋。
+ja	新品の靴のようにツヤツヤ。
+ko	새 구두처럼 반들반들하다.
+#1171 Glows through the snow walls when it's hit.
+tr	Vurulunca kar duvarların ardından ışıldar.
+de	Leuchtet durch die Schneewände, wenn er getroffen wird.
+fr	Brille à travers les murs de neige quand on la touche.
+es	Brilla a través de las paredes de nieve cuando aciertas.
+pt	Brilha através das paredes de neve quando é atingida.
+pl	Po trafieniu świeci przez śnieżne ściany.
+ru	При попадании светится сквозь снежные стены.
+zh	被击中时，光透过雪墙。
+ja	当たると雪の壁越しに光る。
+ko	맞으면 눈 벽 너머로 빛난다.
+#1172 Green and violet, like the sky at midnight.
+tr	Yeşil ve mor, gece yarısı göğü gibi.
+de	Grün und violett wie der Himmel um Mitternacht.
+fr	Vert et violet, comme le ciel à minuit.
+es	Verde y violeta, como el cielo a medianoche.
+pt	Verde e violeta, como o céu à meia-noite.
+pl	Zielony i fioletowy jak niebo o północy.
+ru	Зелёный и фиолетовый, как небо в полночь.
+zh	绿与紫，如同午夜的天空。
+ja	真夜中の空のような緑と紫。
+ko	한밤의 하늘 같은 초록과 보라.
+#1173 Grown for the night market, pink to the core.
+tr	Gece pazarı için yetiştirildi, özüne kadar pembe.
+de	Für den Nachtmarkt gezogen, rosa bis ins Herz.
+fr	Cultivé pour le marché de nuit, rose jusqu'au cœur.
+es	Cultivada para el mercado nocturno, rosa hasta el corazón.
+pt	Cultivado para o mercado noturno, rosa até o miolo.
+pl	Wyhodowany na nocny targ, różowy do samego środka.
+ru	Выращен для ночного рынка, розовый до самой сердцевины.
+zh	专为夜市种植，粉到芯里。
+ja	ナイトマーケット用に育てた、芯までピンク。
+ko	야시장을 위해 키운, 속까지 분홍빛.
+#1174 Grown in a box. Stacks perfectly.
+tr	Bir kutuda yetiştirildi. Mükemmel istiflenir.
+de	In einer Kiste gewachsen. Lässt sich perfekt stapeln.
+fr	Cultivée dans une boîte. S'empile parfaitement.
+es	Cultivada en una caja. Se apila a la perfección.
+pt	Cultivada numa caixa. Empilha perfeitamente.
+pl	Wyhodowany w pudełku. Idealnie się układa.
+ru	Выращен в коробке. Отлично складывается штабелем.
+zh	在盒子里长大。码放起来严丝合缝。
+ja	箱の中で育った。きれいに積み重なる。
+ko	상자 안에서 자랐다. 완벽하게 쌓인다.
+#1175 Hairy outside, sweet and white within.
+tr	Dışı tüylü, içi tatlı ve beyaz.
+de	Außen haarig, innen süß und weiß.
+fr	Poilu dehors, doux et blanc dedans.
+es	Peludo por fuera, dulce y blanco por dentro.
+pt	Peludo por fora, doce e branco por dentro.
+pl	Włochaty z zewnątrz, słodki i biały w środku.
+ru	Снаружи волосатый, внутри сладкий и белый.
+zh	外面毛茸茸，里面又白又甜。
+ja	外は毛むくじゃら、中は白くて甘い。
+ko	겉은 털북숭이, 속은 하얗고 달콤하다.
+#1176 Has seen more sunrises than anyone in the building.
+tr	Binadaki herkesten daha çok gün doğumu gördü.
+de	Hat mehr Sonnenaufgänge gesehen als jeder andere im Gebäude.
+fr	A vu plus de levers de soleil que n'importe qui dans l'immeuble.
+es	Ha visto más amaneceres que nadie en el edificio.
+pt	Já viu mais nasceres do sol que qualquer um no prédio.
+pl	Widział więcej wschodów słońca niż ktokolwiek w budynku.
+ru	Видел больше рассветов, чем кто-либо в здании.
+zh	看过的日出比楼里任何人都多。
+ja	ビルの誰よりも多くの朝日を見てきた。
+ko	건물의 누구보다 많은 해돋이를 봤다.
+#1177 Has the best view in the city and a long rope.
+tr	Şehrin en güzel manzarasına ve uzun bir ipe sahip.
+de	Hat die beste Aussicht der Stadt und ein langes Seil.
+fr	A la plus belle vue de la ville et une longue corde.
+es	Tiene la mejor vista de la ciudad y una cuerda larga.
+pt	Tem a melhor vista da cidade e uma corda comprida.
+pl	Ma najlepszy widok w mieście i długą linę.
+ru	Лучший вид на город и длинная верёвка.
+zh	拥有全城最好的风景，和一根长绳。
+ja	街一番の眺めと長いロープを持っている。
+ko	도시 최고의 전망과 긴 밧줄을 가졌다.
+#1178 Hasn't rung in a thousand years. Until now.
+tr	Bin yıldır çalmamıştı. Şimdiye kadar.
+de	Hat seit tausend Jahren nicht geläutet. Bis jetzt.
+fr	N'avait pas sonné depuis mille ans. Jusqu'à maintenant.
+es	No había sonado en mil años. Hasta ahora.
+pt	Não tocava havia mil anos. Até agora.
+pl	Nie dzwonił od tysiąca lat. Aż do teraz.
+ru	Не звонил тысячу лет. До сегодняшнего дня.
+zh	一千年没响过了。直到现在。
+ja	千年鳴っていなかった。今までは。
+ko	천 년 동안 울리지 않았다. 지금까지는.
+#1179 Heard all the way back at the homestead.
+tr	Ta çiftlik evinden bile duyuldu.
+de	War bis zum Gehöft zu hören.
+fr	On l'a entendu jusqu'à la ferme.
+es	Se oyó hasta en la granja.
+pt	Ouvido lá na sede da fazenda.
+pl	Słychać było aż w gospodarstwie.
+ru	Было слышно даже на ферме.
+zh	远在农庄都听得见。
+ja	はるか家屋敷まで聞こえた。
+ko	저 멀리 농장 집까지 들렸다.
+#1180 Here for the medieval fair. Can't find the parking ticket.
+tr	Orta Çağ fuarı için gelmiş. Otopark fişini bulamıyor.
+de	Ist zum Mittelaltermarkt hier. Findet den Parkschein nicht.
+fr	Venu pour la fête médiévale. Ne trouve pas son ticket de parking.
+es	Ha venido a la feria medieval. No encuentra el ticket del parking.
+pt	Veio para a feira medieval. Não acha o tíquete do estacionamento.
+pl	Przyjechał na jarmark średniowieczny. Nie może znaleźć biletu parkingowego.
+ru	Приехал на средневековую ярмарку. Не может найти парковочный талон.
+zh	来参加中世纪集市，找不到停车票了。
+ja	中世祭りに来た。駐車券が見つからない。
+ko	중세 축제에 왔다. 주차권을 못 찾고 있다.
+#1181 Hold it to your ear...
+tr	Kulağına tut: bumerangın geri döndüğünü duyacaksın.
+de	Halt sie ans Ohr: Du hörst den Bumerang zurückkommen.
+fr	Portez-la à l'oreille : vous entendrez le boomerang revenir.
+es	Acércala al oído: oirás volver el bumerán.
+pt	Encoste no ouvido: você vai ouvir o bumerangue voltando.
+pl	Przyłóż ją do ucha: usłyszysz, jak bumerang wraca.
+ru	Приложите к уху — услышите, как возвращается бумеранг.
+zh	贴到耳边：你会听见回旋镖飞回来的声音。
+ja	耳に当ててごらん。ブーメランが戻ってくる音がする。
+ko	귀에 대 보라: 부메랑이 돌아오는 소리가 들린다.
+#1182 Hunts the surf line in long, fast runs.
+tr	Dalga hattında uzun, hızlı koşularla avlanır.
+de	Jagt in langen, schnellen Zügen an der Brandungslinie.
+fr	Chasse le long des vagues en longues courses rapides.
+es	Caza en la rompiente con carreras largas y rápidas.
+pt	Caça na arrebentação em corridas longas e rápidas.
+pl	Poluje na linii fal w długich, szybkich zrywach.
+ru	Охотится в линии прибоя длинными быстрыми рывками.
+zh	沿着浪线长距离高速追猎。
+ja	波打ち際を長く速い突進で狩る。
+ko	파도선을 따라 길고 빠르게 질주하며 사냥한다.
+#1183 Ice machines running before the boats are back.
+tr	Tekneler dönmeden buz makineleri çalışmaya başlar.
+de	Eismaschinen laufen, bevor die Boote zurück sind.
+fr	Les machines à glace tournent avant le retour des bateaux.
+es	Las máquinas de hielo funcionan antes de que vuelvan los barcos.
+pt	As máquinas de gelo rodam antes de os barcos voltarem.
+pl	Maszyny do lodu pracują, zanim łodzie wrócą.
+ru	Льдогенераторы работают ещё до возвращения лодок.
+zh	船还没回来，制冰机就已运转。
+ja	船が戻る前から製氷機が動いている。
+ko	배가 돌아오기 전부터 제빙기가 돌아간다.
+#1184 Iron flecks in the glaze, like a quail's egg.
+tr	Sırrın içinde demir benekleri, bıldırcın yumurtası gibi.
+de	Eisensprenkel in der Glasur, wie ein Wachtelei.
+fr	Des mouchetures de fer dans l'émail, comme un œuf de caille.
+es	Motas de hierro en el esmalte, como un huevo de codorniz.
+pt	Pintas de ferro no esmalte, como um ovo de codorna.
+pl	Żelazne plamki w glazurze, jak jajo przepiórki.
+ru	Железные крапинки в глазури, как на перепелином яйце.
+zh	釉中有铁斑，像鹌鹑蛋。
+ja	釉薬に鉄の斑点、ウズラの卵のよう。
+ko	유약 속 철 반점, 메추리알 같다.
+#1185 It's very warm inside. It waves anyway.
+tr	İçerisi çok sıcak. Yine de el sallıyor.
+de	Drinnen ist es sehr warm. Es winkt trotzdem.
+fr	Il fait très chaud dedans. Il fait coucou quand même.
+es	Dentro hace mucho calor. Saluda igualmente.
+pt	Lá dentro está muito quente. Ele acena mesmo assim.
+pl	W środku jest bardzo gorąco. I tak macha.
+ru	Внутри очень жарко. А он всё равно машет.
+zh	里面很热，但它还是在挥手。
+ja	中はとても暑い。それでも手を振る。
+ko	안은 무척 덥다. 그래도 손을 흔든다.
+#1186 Jingles for a whole minute after you hit it.
+tr	Vurduktan sonra tam bir dakika şıngırdar.
+de	Klingelt nach dem Treffer eine ganze Minute lang.
+fr	Tinte pendant une bonne minute après l'avoir touché.
+es	Tintinea un minuto entero después de acertarle.
+pt	Tilinta por um minuto inteiro depois do acerto.
+pl	Dzwoni przez całą minutę po trafieniu.
+ru	Звенит целую минуту после попадания.
+zh	击中后叮当响了整整一分钟。
+ja	当てた後、まる1分チリンチリン鳴る。
+ko	맞히면 꼬박 1분 동안 딸랑거린다.
+#1187 Just back from orbit, looking for a good pretzel.
+tr	Yörüngeden yeni döndü, güzel bir simit arıyor.
+de	Gerade aus dem Orbit zurück, auf der Suche nach einer guten Brezel.
+fr	Tout juste rentré d'orbite, cherche un bon bretzel.
+es	Recién vuelto de la órbita, busca un buen pretzel.
+pt	Recém-chegado da órbita, procurando um bom pretzel.
+pl	Właśnie wrócił z orbity, szuka dobrego precla.
+ru	Только что с орбиты, ищет хороший крендель.
+zh	刚从轨道回来，想找个好吃的椒盐卷饼。
+ja	軌道から戻ったばかり。おいしいプレッツェルを探している。
+ko	막 궤도에서 돌아와 맛있는 프레첼을 찾고 있다.
+#1188 Keeps water cool through the hottest summer.
+tr	En sıcak yazda bile suyu serin tutar.
+de	Hält das Wasser auch im heißesten Sommer kühl.
+fr	Garde l'eau fraîche même au plus chaud de l'été.
+es	Mantiene el agua fresca en el verano más caluroso.
+pt	Mantém a água fresca no verão mais quente.
+pl	Utrzymuje wodę chłodną nawet w najgorętsze lato.
+ru	Хранит воду прохладной даже в самое жаркое лето.
+zh	最炎热的夏天也能让水保持清凉。
+ja	一番暑い夏でも水を冷たく保つ。
+ko	가장 더운 여름에도 물을 시원하게 지킨다.
+#1189 Knocked clean out of the sky. It'll fly again.
+tr	Gökten tertemiz düşürüldü. Yine uçacak.
+de	Glatt vom Himmel geholt. Er wird wieder fliegen.
+fr	Abattu net en plein ciel. Il revolera.
+es	Derribada limpiamente del cielo. Volverá a volar.
+pt	Derrubada em cheio do céu. Vai voar de novo.
+pl	Strącony czysto z nieba. Jeszcze poleci.
+ru	Чисто сбит с неба. Он ещё полетит.
+zh	被干净利落地从天上打了下来。它还会再飞的。
+ja	空からきれいに撃ち落とした。また飛ぶさ。
+ko	하늘에서 깔끔하게 떨어뜨렸다. 다시 날 것이다.
+#1190 Knocked loose from a stone jaguar.
+tr	Taş bir jaguardan yerinden oynatıldı.
+de	Aus einem steinernen Jaguar herausgeschlagen.
+fr	Arraché à un jaguar de pierre.
+es	Arrancado de un jaguar de piedra.
+pt	Arrancado de uma onça de pedra.
+pl	Wybite z kamiennego jaguara.
+ru	Выбит из каменного ягуара.
+zh	从石雕美洲豹上打落的。
+ja	石のジャガーから外れ落ちた。
+ko	돌 재규어에서 떨어져 나왔다.
+#1191 Knocked out of a clam the size of a suitcase.
+tr	Bavul büyüklüğünde bir istiridyeden düşürüldü.
+de	Aus einer Muschel so groß wie ein Koffer geschlagen.
+fr	Délogée d'une palourde grande comme une valise.
+es	Sacada de una almeja del tamaño de una maleta.
+pt	Arrancada de um molusco do tamanho de uma mala.
+pl	Wybita z małży wielkości walizki.
+ru	Выбита из моллюска размером с чемодан.
+zh	从手提箱大小的蚌里打出来的。
+ja	スーツケースほどの貝からはじき出した。
+ko	여행 가방만 한 조개에서 튀어나왔다.
+#1192 Knows every guest's secret and keeps every one.
+tr	Her konuğun sırrını bilir ve hepsini saklar.
+de	Kennt jedes Geheimnis der Gäste und bewahrt jedes.
+fr	Connaît les secrets de chaque client et les garde tous.
+es	Conoce el secreto de cada huésped y los guarda todos.
+pt	Sabe o segredo de cada hóspede e guarda todos.
+pl	Zna sekret każdego gościa i każdego dochowuje.
+ru	Знает секреты всех гостей и хранит каждый.
+zh	知道每位客人的秘密，并守口如瓶。
+ja	客の秘密を全部知っていて、全部守る。
+ko	모든 손님의 비밀을 알고, 하나도 발설하지 않는다.
+#1193 Lanterns for travellers, as it has been for centuries.
+tr	Yüzyıllardır olduğu gibi yolcular için fenerler.
+de	Laternen für Reisende, wie seit Jahrhunderten.
+fr	Des lanternes pour les voyageurs, comme depuis des siècles.
+es	Faroles para los viajeros, como desde hace siglos.
+pt	Lanternas para viajantes, como há séculos.
+pl	Latarnie dla podróżnych, jak od wieków.
+ru	Фонари для путников, как и много веков назад.
+zh	为旅人点亮灯笼，几百年来一向如此。
+ja	何世紀も前と同じく、旅人のための灯り。
+ko	수백 년 전처럼 나그네를 위한 등불.
+#1194 Late-night blues with a crackle on side B.
+tr	B yüzünde cızırtısıyla gece yarısı blues'u.
+de	Blues für spät in der Nacht, mit Knistern auf Seite B.
+fr	Du blues de fin de soirée, avec un craquement sur la face B.
+es	Blues de madrugada con un crujido en la cara B.
+pt	Blues da madrugada com um chiado no lado B.
+pl	Nocny blues z trzaskiem na stronie B.
+ru	Ночной блюз с потрескиванием на стороне B.
+zh	深夜蓝调，B 面带点噼啪声。
+ja	B面にパチパチ音の入った深夜のブルース。
+ko	B면에 지직거림이 섞인 늦은 밤의 블루스.
+#1195 Lighter, juicier, a lunchtime favourite.
+tr	Daha hafif, daha sulu, öğle yemeklerinin gözdesi.
+de	Leichter, saftiger, ein Mittagsliebling.
+fr	Plus léger, plus juteux, un favori du midi.
+es	Más ligero, más jugoso, el favorito del almuerzo.
+pt	Mais leve, mais suculento, o favorito do almoço.
+pl	Lżejszy, soczystszy, ulubieniec w porze lunchu.
+ru	Легче, сочнее, любимец обеденного перерыва.
+zh	更清爽、更多汁，午餐时段的人气之选。
+ja	より軽く、よりジューシー。ランチの定番。
+ko	더 가볍고 더 촉촉한 점심 인기 메뉴.
+#1196 Lined up with the midsummer sunrise for five thousand years.
+tr	Beş bin yıldır yaz ortası gün doğumuyla aynı hizada.
+de	Seit fünftausend Jahren auf den Sonnenaufgang zur Sommersonnenwende ausgerichtet.
+fr	Aligné sur le lever du soleil du solstice depuis cinq mille ans.
+es	Alineado con el amanecer del solsticio desde hace cinco mil años.
+pt	Alinhado com o nascer do sol do solstício há cinco mil anos.
+pl	Od pięciu tysięcy lat ustawiony ku wschodowi słońca w przesilenie.
+ru	Пять тысяч лет смотрит на рассвет летнего солнцестояния.
+zh	五千年来始终对准仲夏的日出。
+ja	5千年もの間、夏至の日の出に向いている。
+ko	5천 년 동안 하지의 해돋이와 나란히 서 있다.
+#1197 Lines thrown in by fingertip, lit from inside.
+tr	Çizgiler parmak ucuyla çekilmiş, içten aydınlatılmış.
+de	Linien mit der Fingerspitze gezogen, von innen beleuchtet.
+fr	Des lignes tracées du bout des doigts, éclairées de l'intérieur.
+es	Líneas trazadas con la yema de los dedos, iluminadas desde dentro.
+pt	Linhas traçadas com a ponta dos dedos, iluminadas por dentro.
+pl	Linie wyciągnięte opuszkiem palca, podświetlone od środka.
+ru	Линии проведены кончиками пальцев, подсветка изнутри.
+zh	指尖拉出的纹路，从内部点亮。
+ja	指先で引いた筋、内側から灯る光。
+ko	손끝으로 그은 선, 안에서 빛난다.
+#1198 Lives further north than any other freshwater fish.
+tr	Tatlı su balıkları arasında en kuzeyde yaşayanı.
+de	Lebt nördlicher als jeder andere Süßwasserfisch.
+fr	Vit plus au nord que tout autre poisson d'eau douce.
+es	Vive más al norte que cualquier otro pez de agua dulce.
+pt	Vive mais ao norte que qualquer outro peixe de água doce.
+pl	Żyje dalej na północy niż jakakolwiek inna ryba słodkowodna.
+ru	Живёт севернее любой другой пресноводной рыбы.
+zh	栖息地比任何淡水鱼都更靠北。
+ja	どの淡水魚よりも北に住む。
+ko	어떤 민물고기보다 더 북쪽에 산다.
+#1199 Looks like a tiny alien. Tastes like sweet cabbage.
+tr	Minik bir uzaylıya benzer. Tadı tatlı lahana gibi.
+de	Sieht aus wie ein winziger Außerirdischer. Schmeckt wie süßer Kohl.
+fr	Ressemble à un petit extraterrestre. A le goût d'un chou sucré.
+es	Parece un pequeño extraterrestre. Sabe a col dulce.
+pt	Parece um alienígena minúsculo. Tem gosto de repolho doce.
+pl	Wygląda jak mały kosmita. Smakuje jak słodka kapusta.
+ru	Похожа на крошечного инопланетянина. На вкус как сладкая капуста.
+zh	长得像个小外星人，吃起来像甜白菜。
+ja	小さな宇宙人みたい。味は甘いキャベツ。
+ko	작은 외계인처럼 생겼다. 맛은 달콤한 양배추.
+#1200 Luckiest thing on the prairie. Points up.
+tr	Bozkırın en şanslı şeyi. Ucu yukarı bakıyor.
+de	Das glücklichste Ding der Prärie. Zeigt nach oben.
+fr	La chose la plus chanceuse de la prairie. Pointes vers le haut.
+es	Lo más afortunado de la pradera. Con las puntas hacia arriba.
+pt	A coisa mais sortuda da pradaria. Pontas para cima.
+pl	Najszczęśliwsza rzecz na prerii. Ramionami do góry.
+ru	Самая счастливая вещь в прерии. Концами вверх.
+zh	草原上最幸运的东西。开口朝上。
+ja	プレーリーで一番の縁起物。上向きに。
+ko	대초원에서 가장 운 좋은 물건. 끝이 위를 향한다.
+#1201 Made for the palace. Took a whole season.
+tr	Saray için yapıldı. Koca bir mevsim sürdü.
+de	Für den Palast gemacht. Hat eine ganze Saison gedauert.
+fr	Fait pour le palais. Il a fallu toute une saison.
+es	Hecho para el palacio. Llevó toda una temporada.
+pt	Feito para o palácio. Levou uma estação inteira.
+pl	Zrobiony dla pałacu. Zajęło to cały sezon.
+ru	Сделан для дворца. Ушёл целый сезон.
+zh	为宫廷而作，耗时整整一季。
+ja	宮殿のために作られた。丸ひと季節かかった。
+ko	궁전을 위해 만들었다. 한 철이 꼬박 걸렸다.
+#1202 Marble that turns pink at dawn and gold at dusk.
+tr	Şafakta pembeye, akşamüstü altına dönen mermer.
+de	Marmor, der bei Sonnenaufgang rosa und abends golden wird.
+fr	Un marbre qui devient rose à l'aube et doré au crépuscule.
+es	Mármol que se vuelve rosa al alba y dorado al atardecer.
+pt	Mármore que fica rosa ao amanhecer e dourado ao entardecer.
+pl	Marmur, który o świcie różowieje, a o zmierzchu złocieje.
+ru	Мрамор, розовеющий на рассвете и золотой на закате.
+zh	黎明时泛粉、黄昏时泛金的大理石。
+ja	夜明けにピンク、夕暮れに金色に染まる大理石。
+ko	새벽엔 분홍, 해 질 녘엔 금빛으로 물드는 대리석.
+#1203 Meant to stand for twenty years. Still here.
+tr	Yirmi yıl ayakta kalması planlanmıştı. Hâlâ burada.
+de	Sollte zwanzig Jahre stehen. Steht immer noch.
+fr	Prévue pour vingt ans. Toujours là.
+es	Iba a durar veinte años. Sigue aquí.
+pt	Era para durar vinte anos. Ainda está aqui.
+pl	Miała stać dwadzieścia lat. Wciąż stoi.
+ru	Должна была простоять двадцать лет. До сих пор стоит.
+zh	原本只打算立二十年。至今仍在。
+ja	20年だけ建っているはずだった。まだある。
+ko	20년만 서 있을 예정이었다. 아직도 있다.
+#1204 Measuring snow, wind and the odd yeti footprint.
+tr	Karı, rüzgârı ve arada bir yeti ayak izini ölçer.
+de	Misst Schnee, Wind und gelegentlich einen Yeti-Fußabdruck.
+fr	Mesure la neige, le vent et parfois une empreinte de yéti.
+es	Mide la nieve, el viento y alguna que otra huella de yeti.
+pt	Mede neve, vento e uma ou outra pegada de yeti.
+pl	Mierzy śnieg, wiatr i czasem ślad yeti.
+ru	Измеряет снег, ветер и иногда следы йети.
+zh	测量雪、风，偶尔还有雪人脚印。
+ja	雪と風、ときどきイエティの足跡を観測。
+ko	눈과 바람, 가끔은 설인 발자국을 측정한다.

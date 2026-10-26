@@ -11,6 +11,7 @@ namespace ScrollRoad
     //  - Bambu takımda makara yerine merkez makara (centerpin): tamburun kendisi döner, telleri görünür.
     //  - Kova Tools/make_tallies.py ile (Resources/Tallies/<Tally>_<parça>; 2026-10-25 makara kadranının yerine),
     //    ses Tools/gen_sound.py --env.
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public static class FishingGear
     {
         public sealed class Gear

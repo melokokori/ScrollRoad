@@ -146,7 +146,7 @@ namespace ScrollRoad
             int v = Mathf.RoundToInt(Mathf.Abs(shown));
             plateSpeed.SetText(speed < -1f ? "R {0}" : "{0}", v);
             bool idle = !drive.IsUserActive;
-            plateUnit.text = idle ? "IDLE" : plateSkin.knots ? "KN" : "KM/H";
+            plateUnit.text = idle ? L.T("IDLE") : plateSkin.knots ? L.T("KN") : L.T("KM/H");
             var unitColor = idle ? IdleColor : plateSkin.stripText;
             plateUnit.color = new Color(unitColor.r, unitColor.g, unitColor.b, idle ? 1f : 0.65f);
         }
@@ -175,8 +175,8 @@ namespace ScrollRoad
                 bool knots = skin != null && skin.knots;
                 float speed = drive.CurrentSpeedKmh;
                 int v = Mathf.RoundToInt(knots ? speed / 1.852f : speed);
-                string unit = knots ? "kn" : "km/h";
-                subText.text = drive.IsUserActive ? $"{v} {unit}" : $"idle · {v} {unit}";
+                string unit = knots ? L.T("kn") : L.T("km/h");
+                subText.text = drive.IsUserActive ? $"{v} {unit}" : L.F("idle · {0} {1}", v, unit);
                 subText.color = SubTextColor;
                 subText.fontStyle = FontStyle.Normal;
             }
@@ -212,8 +212,8 @@ namespace ScrollRoad
 
             string status;
             if (door == null) status = "";
-            else if (door.TurnDirection < 0f) status = "backing out";
-            else status = drive.IsUserActive ? "turning" : "idle · slow turn";
+            else if (door.TurnDirection < 0f) status = L.T("backing out");
+            else status = drive.IsUserActive ? L.T("turning") : L.T("idle · slow turn");
             subText.text = status;
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;
@@ -236,8 +236,8 @@ namespace ScrollRoad
 
             string status;
             if (vinyl == null) status = "";
-            else if (vinyl.SpinDirection < 0f) status = "rewinding";
-            else status = drive.IsUserActive ? vinyl.Current.Name.ToLowerInvariant() : "idle · slow spin";
+            else if (vinyl.SpinDirection < 0f) status = L.T("rewinding");
+            else status = drive.IsUserActive ? L.Lower(vinyl.Current.DisplayName) : L.T("idle · slow spin");
             subText.text = status;
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;
@@ -262,7 +262,7 @@ namespace ScrollRoad
             string status;
             if (env.Direction < 0f) status = env.StatusBack;
             else status = drive.IsUserActive ? env.StatusActive : env.StatusIdle;
-            subText.text = status.ToLowerInvariant();
+            subText.text = L.Lower(status);
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;
         }
@@ -284,8 +284,8 @@ namespace ScrollRoad
 
             string status;
             if (wind == null) status = "";
-            else if (wind.SpinDirection < 0f) status = "braking";
-            else status = drive.IsUserActive ? "generating" : "idle · light breeze";
+            else if (wind.SpinDirection < 0f) status = L.T("braking");
+            else status = drive.IsUserActive ? L.T("generating") : L.T("idle · light breeze");
             subText.text = status;
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;
@@ -309,11 +309,11 @@ namespace ScrollRoad
 
             string status;
             if (fishing == null) status = "";
-            else if (fishing.CurrentPhase == FishingController.Phase.Hooked) status = "fish on!";
+            else if (fishing.CurrentPhase == FishingController.Phase.Hooked) status = L.T("fish on!");
             else if (fishing.CurrentPhase == FishingController.Phase.Landing && fishing.LastFish != null)
-                status = $"{fishing.LastFish.Name} {fishing.LastKg:0.00} kg";
-            else if (fishing.ReelDirection < 0f) status = "letting line out";
-            else status = drive.IsUserActive ? "reeling" : "idle · slow reel";
+                status = L.T(fishing.LastFish.Name) + " " + L.F("{0:0.00} kg", fishing.LastKg);
+            else if (fishing.ReelDirection < 0f) status = L.T("letting line out");
+            else status = drive.IsUserActive ? L.T("reeling") : L.T("idle · slow reel");
             subText.text = status;
             subText.color = SubTextColor;
             subText.fontStyle = FontStyle.Normal;

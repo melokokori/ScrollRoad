@@ -54,7 +54,7 @@ namespace ScrollRoad
 
         public EnvironmentDef Def => EnvironmentCatalog.Wind;
         public double LifetimePoints => state.totalKwh * Interval;
-        public string VenueNoun => "site";
+        public string VenueNoun => L.N("site");
         public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(GridCatalog.Sites, v => new VenueInfo { Id = v.Id, Name = v.Name });
         public string VenueId => Site.Id;
         public void SetVenue(string id)
@@ -69,8 +69,8 @@ namespace ScrollRoad
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.monthBest + 1;
         public double MonthUnits => Kwh;
-        public string SkinNoun => "look";
-        public string SkinBoxName => "Looks";
+        public string SkinNoun => L.N("look");
+        public string SkinBoxName => L.N("Looks");
         public SkinInfo[] Skins => SkinCatalog.Wind;
         public string SkinId
         {
@@ -178,7 +178,7 @@ namespace ScrollRoad
             SpecialConnected?.Invoke(type, isNew);
             if (isNew && notice != null)
             {
-                notice.Announce($"Powered up: {type.Name}", RareNotes.For(EnvironmentId.Wind, type.Id) ?? "Stamped in your grid log", $"{type.Name} · now on the grid");
+                notice.Announce(L.F("Powered up: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Wind, type.Id) ?? L.T("Stamped in your grid log"), L.F("{0} · now on the grid", L.T(type.Name)));
             }
         }
 

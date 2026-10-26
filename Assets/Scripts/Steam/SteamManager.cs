@@ -15,7 +15,7 @@ namespace ScrollRoad
         public const uint TestAppId = 480;
 
         public static bool IsInitialized { get; private set; }
-        public static string StatusText { get; private set; } = "Steam not connected";
+        public static string StatusText => IsInitialized ? L.F("Steam: {0}", SteamClient.Name) : L.T("Steam not connected");
 
         static SteamManager instance;
 
@@ -38,13 +38,11 @@ namespace ScrollRoad
                 // Editor'de domain reload kapalıysa önceki Play oturumundan kalan bağlantı geçerli olabilir.
                 if (!SteamClient.IsValid) SteamClient.Init(TestAppId, asyncCallbacks: false);
                 IsInitialized = SteamClient.IsValid;
-                StatusText = IsInitialized ? $"Steam: {SteamClient.Name}" : "Steam not connected";
                 if (IsInitialized) Debug.Log($"Steam bağlandı: {SteamClient.Name}, ülke: {SteamUtils.IpCountry}");
             }
             catch (Exception e)
             {
                 IsInitialized = false;
-                StatusText = "Steam not connected";
                 Debug.Log($"Steam başlatılamadı, yerel modda devam (Steam açık ve giriş yapılmış mı?): {e.Message}");
             }
         }

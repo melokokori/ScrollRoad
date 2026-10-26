@@ -40,12 +40,12 @@ namespace ScrollRoad
             {
                 statusText.text = status;
                 statusText.color = !active && env.Direction >= 0f ? Idle : Normal;
-                placeText.SetText(env.Site.Name.ToUpperInvariant());
+                placeText.SetText(L.Upper(L.T(env.Site.Name)));
             }
             else
             {
                 string hex = ColorUtility.ToHtmlStringRGB(!active && env.Direction >= 0f ? Idle : Color.white);
-                placeText.text = $"{env.Site.Name.ToUpperInvariant()}  ·  <color=#{hex}>{status}</color>";
+                placeText.text = $"{L.Upper(L.T(env.Site.Name))}  ·  <color=#{hex}>{status}</color>";
             }
             long next = env.Done + 1;
             var item = env.Identify(next);
@@ -53,7 +53,7 @@ namespace ScrollRoad
             if (item.IsSpecial)
             {
                 phrase = env.RarePhrase;
-                comingName = item.Type.Name;
+                comingName = L.T(item.Type.Name);
             }
             else
             {
@@ -61,8 +61,8 @@ namespace ScrollRoad
                 {
                     var b = env.Identify(i);
                     if (!b.IsSpecial) continue;
-                    phrase = "Coming up";
-                    comingName = b.Type.Name;
+                    phrase = L.T("Coming up");
+                    comingName = L.T(b.Type.Name);
                     break;
                 }
             }
@@ -82,7 +82,7 @@ namespace ScrollRoad
             if (env.RecordLabel != null && env.Progress.best > 0f)
                 tail = $"  ·  <alpha=#99>{env.RecordLabel}<alpha=#FF>  {env.FormatValue(env.Progress.best)}";
             else
-                tail = last != null ? $"  ·  <alpha=#99>LAST<alpha=#FF>  {last.Name}" : "";
+                tail = last != null ? $"  ·  <alpha=#99>{L.T("LAST")}<alpha=#FF>  {L.T(last.Name)}" : "";
             logText.text = $"<alpha=#99>{env.CollectionShort}<alpha=#FF>  {env.LoggedAt(env.Site)} / {env.Site.Specials.Length}{tail}";
         }
     }

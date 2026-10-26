@@ -23,8 +23,22 @@ namespace ScrollRoad
         public string Format(double points) => Format(points, Decimals);
 
         // Ondalıksız birim aşağı yuvarlanır: 1,6 balık "1 fish" (tutulmamış balık sayılmasın).
-        public string Format(double points, int decimals) =>
-            Fmt.Amount(decimals == 0 ? Math.Floor(ToUnits(points) + 1e-9) : ToUnits(points), decimals, Unit);
+        // Sayılabilir birimler dilin çoğul kuralıyla yazılır (anahtar "{0} fish", UnitKeys).
+        public string Format(double points, int decimals)
+        {
+            double units = decimals == 0 ? Math.Floor(ToUnits(points) + 1e-9) : ToUnits(points);
+            if (decimals == 0 && Countable) return L.P((long)units, "{0} " + Unit, "{0} " + Unit);
+            return Fmt.Amount(units, decimals, Unit);
+        }
+
+        public bool Countable => Unit != "km" && Unit != "kWh";
+
+        // Sayılabilir birimlerin çeviri anahtarları (Tools/loc/extract.py bunları toplar).
+        static readonly string[] UnitKeys =
+        {
+            L.N("{0} fish"), L.N("{0} visitors"), L.N("{0} tracks"), L.N("{0} years"), L.N("{0} targets"),
+            L.N("{0} pots"), L.N("{0} fruit"), L.N("{0} portions"),
+        };
     }
 
     public static class EnvironmentCatalog
@@ -34,13 +48,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Road = new EnvironmentDef
         {
             Id = EnvironmentId.Road,
-            Name = "Road trip",
-            Tagline = "Drive from the plains to the city.",
-            Unit = "km",
+            Name = L.N("Road trip"),
+            Tagline = L.N("Drive from the plains to the city."),
+            Unit = L.N("km"),
             Decimals = 1,
             UnitsPerPoint = 0.001,
             AmountNoun = "distance",
-            CollectionName = "Passport",
+            CollectionName = L.N("Passport"),
         };
 
         // Olta (2026-10-14 kullanıcı kararı): birim BALIK SAYISI. Kendi ilerlemesiyle, eşit aralıkla
@@ -52,13 +66,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Fishing = new EnvironmentDef
         {
             Id = EnvironmentId.Fishing,
-            Name = "Fishing",
-            Tagline = "Cast, reel in and fill your fish log.",
-            Unit = "fish",
+            Name = L.N("Fishing"),
+            Tagline = L.N("Cast, reel in and fill your fish log."),
+            Unit = L.N("fish"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / FishIntervalPoints,
             AmountNoun = "catch",
-            CollectionName = "Fish log",
+            CollectionName = L.N("Fish log"),
         };
 
         // Döner kapı (2026-10-14 kullanıcı kararı): birim ZİYARETÇİ SAYISI, her VisitorIntervalPoints'te bir
@@ -69,13 +83,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Door = new EnvironmentDef
         {
             Id = EnvironmentId.Door,
-            Name = "Revolving door",
-            Tagline = "Spin the door, welcome the crowd.",
-            Unit = "visitors",
+            Name = L.N("Revolving door"),
+            Tagline = L.N("Spin the door, welcome the crowd."),
+            Unit = L.N("visitors"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / VisitorIntervalPoints,
             AmountNoun = "visitor",
-            CollectionName = "Guest book",
+            CollectionName = L.N("Guest book"),
         };
 
         // Rüzgârgülü (2026-10-14, ajan kararı — onay bekliyor): birim kWh, her KwhIntervalPoints'te bir kWh
@@ -85,13 +99,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Wind = new EnvironmentDef
         {
             Id = EnvironmentId.Wind,
-            Name = "Wind turbine",
-            Tagline = "Spin the blades, power the valley.",
-            Unit = "kWh",
+            Name = L.N("Wind turbine"),
+            Tagline = L.N("Spin the blades, power the valley."),
+            Unit = L.N("kWh"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / KwhIntervalPoints,
             AmountNoun = "power",
-            CollectionName = "Grid log",
+            CollectionName = L.N("Grid log"),
         };
 
         // Plak tablası (2026-10-14, ajan kararı — onay bekliyor): birim PARÇA, her TrackIntervalPoints'te bir
@@ -101,13 +115,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Vinyl = new EnvironmentDef
         {
             Id = EnvironmentId.Vinyl,
-            Name = "Record player",
-            Tagline = "Spin the record, the music follows your scroll.",
-            Unit = "tracks",
+            Name = L.N("Record player"),
+            Tagline = L.N("Spin the record, the music follows your scroll."),
+            Unit = L.N("tracks"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / TrackIntervalPoints,
             AmountNoun = "music",
-            CollectionName = "Record crate",
+            CollectionName = L.N("Record crate"),
         };
 
         // Dünyayı döndüren el (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim YIL,
@@ -118,13 +132,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Globe = new EnvironmentDef
         {
             Id = EnvironmentId.Globe,
-            Name = "Turn the world",
-            Tagline = "Spin the globe, let the years roll by.",
-            Unit = "years",
+            Name = L.N("Turn the world"),
+            Tagline = L.N("Spin the globe, let the years roll by."),
+            Unit = L.N("years"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / YearIntervalPoints,
             AmountNoun = "history",
-            CollectionName = "Chronicle",
+            CollectionName = L.N("Chronicle"),
         };
 
         // Bumerang (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim VURULAN HEDEF,
@@ -135,13 +149,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Boomerang = new EnvironmentDef
         {
             Id = EnvironmentId.Boomerang,
-            Name = "Boomerang",
-            Tagline = "Spin it up, let it fly, hit the target.",
-            Unit = "targets",
+            Name = L.N("Boomerang"),
+            Tagline = L.N("Spin it up, let it fly, hit the target."),
+            Unit = L.N("targets"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / TargetIntervalPoints,
             AmountNoun = "target",
-            CollectionName = "Target log",
+            CollectionName = L.N("Target log"),
         };
 
         // Çömlekçi çarkı (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim BİTEN ÇÖMLEK,
@@ -152,13 +166,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Pottery = new EnvironmentDef
         {
             Id = EnvironmentId.Pottery,
-            Name = "Pottery wheel",
-            Tagline = "Spin the wheel, shape the clay.",
-            Unit = "pots",
+            Name = L.N("Pottery wheel"),
+            Tagline = L.N("Spin the wheel, shape the clay."),
+            Unit = L.N("pots"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / PotIntervalPoints,
             AmountNoun = "pottery",
-            CollectionName = "Pottery shelf",
+            CollectionName = L.N("Pottery shelf"),
         };
 
         // Meyve soyacağı (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim SOYULAN MEYVE,
@@ -169,13 +183,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Peeler = new EnvironmentDef
         {
             Id = EnvironmentId.Peeler,
-            Name = "Fruit peeler",
-            Tagline = "Peel by hand, keep the peel in one piece.",
-            Unit = "fruit",
+            Name = L.N("Fruit peeler"),
+            Tagline = L.N("Peel by hand, keep the peel in one piece."),
+            Unit = L.N("fruit"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / FruitIntervalPoints,
             AmountNoun = "peeling",
-            CollectionName = "Fruit bowl",
+            CollectionName = L.N("Fruit bowl"),
         };
 
         // Tavuk/et döner, çağ kebabı (2026-10-14, kullanıcının fikri; ayrıntılar ajan kararı — onay bekliyor): birim
@@ -186,13 +200,13 @@ namespace ScrollRoad
         public static readonly EnvironmentDef Kebab = new EnvironmentDef
         {
             Id = EnvironmentId.Kebab,
-            Name = "Kebab spit",
-            Tagline = "Turn the spit, slice the portions.",
-            Unit = "portions",
+            Name = L.N("Kebab spit"),
+            Tagline = L.N("Turn the spit, slice the portions."),
+            Unit = L.N("portions"),
             Decimals = 0,
             UnitsPerPoint = 1.0 / PortionIntervalPoints,
             AmountNoun = "kebab",
-            CollectionName = "Menu",
+            CollectionName = L.N("Menu"),
         };
 
         public static readonly EnvironmentDef[] All = { Road, Fishing, Door, Wind, Vinyl, Globe, Boomerang, Pottery, Peeler, Kebab };

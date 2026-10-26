@@ -73,7 +73,7 @@ namespace ScrollRoad
 
         public EnvironmentDef Def => EnvironmentCatalog.Door;
         public double LifetimePoints => LifetimePointsOf(state);
-        public string VenueNoun => "venue";
+        public string VenueNoun => L.N("venue");
         public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(VisitorCatalog.Venues, v => new VenueInfo { Id = v.Id, Name = v.Name });
         public string VenueId => Venue.Id;
         public void SetVenue(string id) => SelectVenue(VisitorCatalog.GetVenue(id));
@@ -83,8 +83,8 @@ namespace ScrollRoad
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.monthBest + 1;
         public double MonthUnits => Turns;
-        public string SkinNoun => "look";
-        public string SkinBoxName => "Looks";
+        public string SkinNoun => L.N("look");
+        public string SkinBoxName => L.N("Looks");
         public SkinInfo[] Skins => SkinCatalog.Door;
         public string SkinId
         {
@@ -204,11 +204,11 @@ namespace ScrollRoad
             GuestArrived?.Invoke(guest, isNew);
             if (visitor.IsLegendary && notice != null)
             {
-                notice.Announce($"Legendary: {guest.Name}", RareNotes.For(EnvironmentId.Door, guest.Id) ?? $"The rarest guest of {Venue.Name} walked in", $"Legendary {guest.Name}!");
+                notice.Announce(L.F("Legendary: {0}", L.T(guest.Name)), RareNotes.For(EnvironmentId.Door, guest.Id) ?? L.F("The rarest guest of {0} walked in", L.T(Venue.Name)), L.F("Legendary {0}!", L.T(guest.Name)));
             }
             else if (isNew && notice != null)
             {
-                notice.Announce($"Special guest: {guest.Name}", RareNotes.For(EnvironmentId.Door, guest.Id) ?? "Signed in your guest book", $"{guest.Name} · new guest");
+                notice.Announce(L.F("Special guest: {0}", L.T(guest.Name)), RareNotes.For(EnvironmentId.Door, guest.Id) ?? L.T("Signed in your guest book"), L.F("{0} · new guest", L.T(guest.Name)));
             }
         }
 

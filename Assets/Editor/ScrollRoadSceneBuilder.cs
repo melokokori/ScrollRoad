@@ -1067,11 +1067,14 @@ namespace ScrollRoad.EditorTools
                 buttons[i] = CreateDrawerRow(drawer, labels[i], new Vector2(20, -94 - i * 23), 23f);
             }
 
-            var quit = CreateTextButton(drawer, "QuitButton", "QUIT", 10.5f, Color.white, new Vector2(20, 15), new Vector2(46, 18));
-            var steam = Tmp(drawer, "SteamStatus", "", 8.5f, UiFonts.SemiBold, new Color(1f, 1f, 1f, 0.6f), TextAlignmentOptions.BottomLeft);
+            // QUIT solda, Steam durumu sağa yaslı: çevirilerde uzayınca çakışmasınlar (ikisi de sığmazsa küçülür).
+            var quit = CreateTextButton(drawer, "QuitButton", "QUIT", 10.5f, Color.white, new Vector2(20, 15), new Vector2(84, 18));
+            FitToWidth(quit.GetComponentInChildren<TMP_Text>(), 7f);
+            var steam = Tmp(drawer, "SteamStatus", "", 8.5f, UiFonts.SemiBold, new Color(1f, 1f, 1f, 0.6f), TextAlignmentOptions.BottomRight);
             steam.characterSpacing = 8;
-            Anchor(steam.rectTransform, new Vector2(0, 0), new Vector2(72, 18), new Vector2(0, 0));
-            steam.rectTransform.sizeDelta = new Vector2(156, 14);
+            Anchor(steam.rectTransform, new Vector2(1, 0), new Vector2(-20, 18), new Vector2(1, 0));
+            steam.rectTransform.sizeDelta = new Vector2(124, 14);
+            FitToWidth(steam, 5.5f);
 
             var activities = CreateActivitiesPanel(canvas.transform, buttons[0]);
             var passport = CreatePassportPanel(canvas.transform, buttons[3], drive);
@@ -1678,8 +1681,9 @@ namespace ScrollRoad.EditorTools
                 else SetRect(name.rectTransform, new Vector2(0f, -130f), new Vector2(cardW - 20f, 24f));
                 FitToWidth(name, compact ? 9f : 11f); // 4+ ortamda kart daralır
                 // İki sıralı küçük kartta yalnız birim (tarif sığmıyor).
-                string tagText = compact ? $"<alpha=#88>Counted in {def.Unit}." : $"{def.Tagline}  <alpha=#88>Counted in {def.Unit}.";
-                var tag = Tmp(frame.transform, "Tagline", tagText, compact ? 9f : 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Center);
+                var tag = Tmp(frame.transform, "Tagline", "", compact ? 9f : 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Center);
+                if (compact) Localize(tag, "<alpha=#88>Counted in {0}.", def.Unit);
+                else Localize(tag, "{0}  <alpha=#88>Counted in {1}.", def.Tagline, def.Unit);
                 tag.rectTransform.anchorMin = tag.rectTransform.anchorMax = new Vector2(0.5f, 1f);
                 if (compact) SetRect(tag.rectTransform, new Vector2(0f, -80f), new Vector2(cardW - 12f, 14f));
                 else SetRect(tag.rectTransform, new Vector2(0f, -164f), new Vector2(cardW - 16f, 38f)); // dar kartta iki-üç satır
@@ -1734,6 +1738,7 @@ namespace ScrollRoad.EditorTools
         static FishLogController CreateFishLogPanel(Transform parent, FishingController fishing)
         {
             var panel = CreatePanel(parent, "FishLogPanel", "Fish log · " + FishCatalog.Lake.Name, out var close, out var title);
+            NoLocalize(title); // başlığı denetleyici yazar
             var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
             Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
             count.rectTransform.sizeDelta = new Vector2(420, 16);
@@ -1918,6 +1923,7 @@ namespace ScrollRoad.EditorTools
         static GridLogController CreateGridLogPanel(Transform parent, WindController wind)
         {
             var panel = CreatePanel(parent, "GridLogPanel", "Grid log · " + GridCatalog.Hills.Name, out var close, out var title);
+            NoLocalize(title); // başlığı denetleyici yazar
             var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
             Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
             count.rectTransform.sizeDelta = new Vector2(420, 16);
@@ -1984,6 +1990,7 @@ namespace ScrollRoad.EditorTools
         static CrateLogController CreateCrateLogPanel(Transform parent, VinylController vinyl)
         {
             var panel = CreatePanel(parent, "CrateLogPanel", "Record crate · " + RecordCatalog.Shop.Name, out var close, out var title);
+            NoLocalize(title); // başlığı denetleyici yazar
             var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
             Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
             count.rectTransform.sizeDelta = new Vector2(420, 16);
@@ -2052,6 +2059,7 @@ namespace ScrollRoad.EditorTools
         {
             var site = env.Sites[0];
             var panel = CreatePanel(parent, env.Def.Id + "LogPanel", env.Def.CollectionName + " · " + site.Name, out var close, out var title);
+            NoLocalize(title); // başlığı denetleyici yazar
             var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
             Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
             count.rectTransform.sizeDelta = new Vector2(440, 16);
@@ -2120,6 +2128,7 @@ namespace ScrollRoad.EditorTools
         static GuestBookController CreateGuestBookPanel(Transform parent, DoorController door)
         {
             var panel = CreatePanel(parent, "GuestBookPanel", "Guest book · " + VisitorCatalog.Mall.Name, out var close, out var title);
+            NoLocalize(title); // başlığı denetleyici yazar
             var count = Tmp(panel.transform, "Count", "", 10.5f, UiFonts.SemiBold, TextMuted, TextAlignmentOptions.Right);
             Anchor(count.rectTransform, new Vector2(1, 1), new Vector2(-50, -18), new Vector2(1, 1));
             count.rectTransform.sizeDelta = new Vector2(420, 16);
@@ -2318,6 +2327,7 @@ namespace ScrollRoad.EditorTools
                 x += w + gap;
 
                 var label = Tmp(frame.transform, "Name", stop.Name, big ? 12 : 11.5f, big ? UiFonts.ExtraBold : UiFonts.SemiBold, PlateText);
+                if (stop.Kind == RouteMap.StopKind.Town) NoLocalize(label); // kasaba adı özel ad
                 Stretch(label.rectTransform);
                 label.rectTransform.offsetMin = new Vector2(0, -1);
 
@@ -2555,9 +2565,31 @@ namespace ScrollRoad.EditorTools
 
             var volumeLabel = Tmp(panel.transform, "VolumeLabel", "Volume", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
             SetRect(volumeLabel.rectTransform, new Vector2(-290, 110), new Vector2(140, 26));
-            var slider = CreateSlider(panel.transform, "VolumeSlider", new Vector2(-20, 110), new Vector2(360, 22));
+            var slider = CreateSlider(panel.transform, "VolumeSlider", new Vector2(-90, 110), new Vector2(220, 22));
             var volumeValue = Tmp(panel.transform, "VolumeValue", "", 12, UiFonts.Mono, PlateText);
-            SetRect(volumeValue.rectTransform, new Vector2(200, 110), new Vector2(70, 26));
+            SetRect(volumeValue.rectTransform, new Vector2(55, 110), new Vector2(60, 26));
+
+            // Dil (2026-10-26): düğme seçili dilin kendi adını gösterir; tıklayınca 11 dilin ızgarası açılır.
+            var languageLabel = Tmp(panel.transform, "LanguageLabel", "Language", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Right);
+            SetRect(languageLabel.rectTransform, new Vector2(155, 110), new Vector2(120, 26));
+            var languageButton = CreateButton(panel.transform, "LanguageButton", "English", new Vector2(305, 110), new Vector2(160, 26), ButtonIdle, 12.5f, UiFonts.SemiBold);
+            var languageButtonText = languageButton.GetComponentInChildren<TMP_Text>();
+            NoLocalize(languageButtonText);
+            FitToWidth(languageButtonText, 9f);
+
+            var picker = Plate(panel.transform, "LanguagePicker", new Color(0.13f, 0.145f, 0.175f), RoundMediumSprite);
+            picker.raycastTarget = true; // altındaki ayarlara tıklanmasın
+            SetRect(picker.rectTransform, new Vector2(0, -12), new Vector2(740, 160));
+            var languageOptions = new Object[L.All.Length];
+            for (int i = 0; i < L.All.Length; i++)
+            {
+                int col = i % 4, line = i / 4;
+                var option = CreateButton(picker.transform, $"Language_{L.All[i].code}", L.All[i].nativeName,
+                    new Vector2(-270 + col * 180, 46 - line * 46), new Vector2(170, 36), ButtonIdle, 13, UiFonts.SemiBold);
+                NoLocalize(option.GetComponentInChildren<TMP_Text>()); // her dil kendi adıyla
+                languageOptions[i] = option;
+            }
+            picker.gameObject.SetActive(false);
 
             var sizeLabel = Tmp(panel.transform, "CardSizeLabel", "Card size", 13, UiFonts.SemiBold, PlateText, TextAlignmentOptions.Left);
             SetRect(sizeLabel.rectTransform, new Vector2(-290, 80), new Vector2(140, 26));
@@ -2589,6 +2621,7 @@ namespace ScrollRoad.EditorTools
             note.textWrappingMode = TextWrappingModes.Normal;
             SetRect(note.rectTransform, new Vector2(0, -134), new Vector2(720, 30));
 
+            picker.transform.SetAsLastSibling(); // ayar satırlarının üstünde
             panel.SetActive(false); // Editor'de sahne temiz görünsün (runtime'da da kapalı başlar)
             var controller = new GameObject("SettingsController").AddComponent<SettingsController>();
             Bind(controller, "settingsPanel", panel);
@@ -2602,6 +2635,10 @@ namespace ScrollRoad.EditorTools
             Bind(controller, "runAtStartupToggle", startupToggle);
             BindArray(controller, "stripGaugeButtons", stripButtons);
             Bind(controller, "vehicleGaugeToggle", vehicleGauge);
+            Bind(controller, "languageButton", languageButton);
+            Bind(controller, "languageButtonText", languageButtonText);
+            Bind(controller, "languagePicker", picker.gameObject);
+            BindArray(controller, "languageButtons", languageOptions);
             Bind(controller, "openButton", openButton);
             Bind(controller, "closeButton", close);
             return controller;
@@ -3116,7 +3153,35 @@ namespace ScrollRoad.EditorTools
             text.textWrappingMode = TextWrappingModes.NoWrap;
             text.overflowMode = TextOverflowModes.Overflow;
             text.raycastTarget = false;
+            // Sabit etiket: çalışma zamanında seçili dile çevrilir (anahtar = bu İngilizce metin).
+            if (!string.IsNullOrEmpty(content) && System.Linq.Enumerable.Any(content, char.IsLetter))
+            {
+                var localized = go.AddComponent<LocalizedText>();
+                var so = new SerializedObject(localized);
+                so.FindProperty("key").stringValue = content;
+                so.ApplyModifiedPropertiesWithoutUndo();
+            }
             return text;
+        }
+
+        // Birleşik etiket: anahtar bir biçim, args ayrı ayrı çevrilir (LocalizedText). Metin İngilizcesiyle yazılır.
+        static void Localize(TMP_Text text, string format, params string[] args)
+        {
+            text.text = string.Format(System.Globalization.CultureInfo.InvariantCulture, format, args);
+            var localized = text.GetComponent<LocalizedText>() ?? text.gameObject.AddComponent<LocalizedText>();
+            var so = new SerializedObject(localized);
+            so.FindProperty("key").stringValue = format;
+            var list = so.FindProperty("args");
+            list.arraySize = args.Length;
+            for (int i = 0; i < args.Length; i++) list.GetArrayElementAtIndex(i).stringValue = args[i];
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        // Çalışma zamanında kodun yazdığı ya da çevrilmeyen (özel ad) etiket: LocalizedText olmasın.
+        static void NoLocalize(TMP_Text text)
+        {
+            var localized = text.GetComponent<LocalizedText>();
+            if (localized != null) Object.DestroyImmediate(localized);
         }
 
         // Tek satırlık sayaç metni kutusuna sığmazsa küçülür (en çok fontSize, en az min).
@@ -3229,6 +3294,8 @@ namespace ScrollRoad.EditorTools
             var text = Tmp(plate.transform, "Text", label, fontSize, font != null ? font : UiFonts.SemiBold, PlateText);
             Stretch(text.rectTransform);
             text.rectTransform.offsetMin = new Vector2(0, -1);
+            text.margin = new Vector4(3, 0, 3, 0);
+            FitToWidth(text, fontSize * 0.6f); // çeviriler uzunsa küçülür, sığarsa boyut aynı
             return button;
         }
 

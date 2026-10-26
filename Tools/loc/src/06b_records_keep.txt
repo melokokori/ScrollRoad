@@ -1,0 +1,341 @@
+#995 Blue Hour
+tr	Blue Hour
+de	Blue Hour
+fr	Blue Hour
+es	Blue Hour
+pt	Blue Hour
+pl	Blue Hour
+ru	Blue Hour
+zh	Blue Hour
+ja	Blue Hour
+ko	Blue Hour
+#996 Blue Smoke
+tr	Blue Smoke
+de	Blue Smoke
+fr	Blue Smoke
+es	Blue Smoke
+pt	Blue Smoke
+pl	Blue Smoke
+ru	Blue Smoke
+zh	Blue Smoke
+ja	Blue Smoke
+ko	Blue Smoke
+#997 Chandelier
+tr	Chandelier
+de	Chandelier
+fr	Chandelier
+es	Chandelier
+pt	Chandelier
+pl	Chandelier
+ru	Chandelier
+zh	Chandelier
+ja	Chandelier
+ko	Chandelier
+#998 Coconut Grove
+tr	Coconut Grove
+de	Coconut Grove
+fr	Coconut Grove
+es	Coconut Grove
+pt	Coconut Grove
+pl	Coconut Grove
+ru	Coconut Grove
+zh	Coconut Grove
+ja	Coconut Grove
+ko	Coconut Grove
+#999 Full Orchestra
+tr	Full Orchestra
+de	Full Orchestra
+fr	Full Orchestra
+es	Full Orchestra
+pt	Full Orchestra
+pl	Full Orchestra
+ru	Full Orchestra
+zh	Full Orchestra
+ja	Full Orchestra
+ko	Full Orchestra
+#1000 Glitter Night
+tr	Glitter Night
+de	Glitter Night
+fr	Glitter Night
+es	Glitter Night
+pt	Glitter Night
+pl	Glitter Night
+ru	Glitter Night
+zh	Glitter Night
+ja	Glitter Night
+ko	Glitter Night
+#1001 Gold Trumpet
+tr	Gold Trumpet
+de	Gold Trumpet
+fr	Gold Trumpet
+es	Gold Trumpet
+pt	Gold Trumpet
+pl	Gold Trumpet
+ru	Gold Trumpet
+zh	Gold Trumpet
+ja	Gold Trumpet
+ko	Gold Trumpet
+#1002 Golden Groove
+tr	Golden Groove
+de	Golden Groove
+fr	Golden Groove
+es	Golden Groove
+pt	Golden Groove
+pl	Golden Groove
+ru	Golden Groove
+zh	Golden Groove
+ja	Golden Groove
+ko	Golden Groove
+#1003 Grand Piano
+tr	Grand Piano
+de	Grand Piano
+fr	Grand Piano
+es	Grand Piano
+pt	Grand Piano
+pl	Grand Piano
+ru	Grand Piano
+zh	Grand Piano
+ja	Grand Piano
+ko	Grand Piano
+#1004 Hammock
+tr	Hammock
+de	Hammock
+fr	Hammock
+es	Hammock
+pt	Hammock
+pl	Hammock
+ru	Hammock
+zh	Hammock
+ja	Hammock
+ko	Hammock
+#1005 Light-Up Floor
+tr	Light-Up Floor
+de	Light-Up Floor
+fr	Light-Up Floor
+es	Light-Up Floor
+pt	Light-Up Floor
+pl	Light-Up Floor
+ru	Light-Up Floor
+zh	Light-Up Floor
+ja	Light-Up Floor
+ko	Light-Up Floor
+#1006 Midnight Sax
+tr	Midnight Sax
+de	Midnight Sax
+fr	Midnight Sax
+es	Midnight Sax
+pt	Midnight Sax
+pl	Midnight Sax
+ru	Midnight Sax
+zh	Midnight Sax
+ja	Midnight Sax
+ko	Midnight Sax
+#1007 Mirror Ball
+tr	Mirror Ball
+de	Mirror Ball
+fr	Mirror Ball
+es	Mirror Ball
+pt	Mirror Ball
+pl	Mirror Ball
+ru	Mirror Ball
+zh	Mirror Ball
+ja	Mirror Ball
+ko	Mirror Ball
+#1008 Neon Heart
+tr	Neon Heart
+de	Neon Heart
+fr	Neon Heart
+es	Neon Heart
+pt	Neon Heart
+pl	Neon Heart
+ru	Neon Heart
+zh	Neon Heart
+ja	Neon Heart
+ko	Neon Heart
+#1009 Night Drive
+tr	Night Drive
+de	Night Drive
+fr	Night Drive
+es	Night Drive
+pt	Night Drive
+pl	Night Drive
+ru	Night Drive
+zh	Night Drive
+ja	Night Drive
+ko	Night Drive
+#1010 Night at the Opera
+tr	Night at the Opera
+de	Night at the Opera
+fr	Night at the Opera
+es	Night at the Opera
+pt	Night at the Opera
+pl	Night at the Opera
+ru	Night at the Opera
+zh	Night at the Opera
+ja	Night at the Opera
+ko	Night at the Opera
+#1011 Pearl Shore
+tr	Pearl Shore
+de	Pearl Shore
+fr	Pearl Shore
+es	Pearl Shore
+pt	Pearl Shore
+pl	Pearl Shore
+ru	Pearl Shore
+zh	Pearl Shore
+ja	Pearl Shore
+ko	Pearl Shore
+#1012 Platform Shoes
+tr	Platform Shoes
+de	Platform Shoes
+fr	Platform Shoes
+es	Platform Shoes
+pt	Platform Shoes
+pl	Platform Shoes
+ru	Platform Shoes
+zh	Platform Shoes
+ja	Platform Shoes
+ko	Platform Shoes
+#1013 Praia
+tr	Praia
+de	Praia
+fr	Praia
+es	Praia
+pt	Praia
+pl	Praia
+ru	Praia
+zh	Praia
+ja	Praia
+ko	Praia
+#1014 Rain City
+tr	Rain City
+de	Rain City
+fr	Rain City
+es	Rain City
+pt	Rain City
+pl	Rain City
+ru	Rain City
+zh	Rain City
+ja	Rain City
+ko	Rain City
+#1015 Rainy Window
+tr	Rainy Window
+de	Rainy Window
+fr	Rainy Window
+es	Rainy Window
+pt	Rainy Window
+pl	Rainy Window
+ru	Rainy Window
+zh	Rainy Window
+ja	Rainy Window
+ko	Rainy Window
+#1016 Record #
+tr	Record #
+de	Record #
+fr	Record #
+es	Record #
+pt	Record #
+pl	Record #
+ru	Record #
+zh	Record #
+ja	Record #
+ko	Record #
+#1018 Roller Rink
+tr	Roller Rink
+de	Roller Rink
+fr	Roller Rink
+es	Roller Rink
+pt	Roller Rink
+pl	Roller Rink
+ru	Roller Rink
+zh	Roller Rink
+ja	Roller Rink
+ko	Roller Rink
+#1019 Smoke Rings
+tr	Smoke Rings
+de	Smoke Rings
+fr	Smoke Rings
+es	Smoke Rings
+pt	Smoke Rings
+pl	Smoke Rings
+ru	Smoke Rings
+zh	Smoke Rings
+ja	Smoke Rings
+ko	Smoke Rings
+#1020 Starlight Express
+tr	Starlight Express
+de	Starlight Express
+fr	Starlight Express
+es	Starlight Express
+pt	Starlight Express
+pl	Starlight Express
+ru	Starlight Express
+zh	Starlight Express
+ja	Starlight Express
+ko	Starlight Express
+#1021 Strings at Dawn
+tr	Strings at Dawn
+de	Strings at Dawn
+fr	Strings at Dawn
+es	Strings at Dawn
+pt	Strings at Dawn
+pl	Strings at Dawn
+ru	Strings at Dawn
+zh	Strings at Dawn
+ja	Strings at Dawn
+ko	Strings at Dawn
+#1022 Sunset Bay
+tr	Sunset Bay
+de	Sunset Bay
+fr	Sunset Bay
+es	Sunset Bay
+pt	Sunset Bay
+pl	Sunset Bay
+ru	Sunset Bay
+zh	Sunset Bay
+ja	Sunset Bay
+ko	Sunset Bay
+#1023 Surf Wave
+tr	Surf Wave
+de	Surf Wave
+fr	Surf Wave
+es	Surf Wave
+pt	Surf Wave
+pl	Surf Wave
+ru	Surf Wave
+zh	Surf Wave
+ja	Surf Wave
+ko	Surf Wave
+#1027 The Golden Baton
+tr	The Golden Baton
+de	The Golden Baton
+fr	The Golden Baton
+es	The Golden Baton
+pt	The Golden Baton
+pl	The Golden Baton
+ru	The Golden Baton
+zh	The Golden Baton
+ja	The Golden Baton
+ko	The Golden Baton
+#1030 Tiki Torch
+tr	Tiki Torch
+de	Tiki Torch
+fr	Tiki Torch
+es	Tiki Torch
+pt	Tiki Torch
+pl	Tiki Torch
+ru	Tiki Torch
+zh	Tiki Torch
+ja	Tiki Torch
+ko	Tiki Torch
+#1031 Velvet Room
+tr	Velvet Room
+de	Velvet Room
+fr	Velvet Room
+es	Velvet Room
+pt	Velvet Room
+pl	Velvet Room
+ru	Velvet Room
+zh	Velvet Room
+ja	Velvet Room
+ko	Velvet Room

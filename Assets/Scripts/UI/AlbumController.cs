@@ -95,7 +95,7 @@ namespace ScrollRoad
             {
                 var def = rows[r];
                 var c = EnvironmentContent.Get(def.Id);
-                rowNames[r].text = def.Name;
+                rowNames[r].text = L.T(def.Name);
                 int rowFound = 0, rowTotal = 0;
                 for (int v = 0; v < Venues; v++)
                 {
@@ -120,20 +120,20 @@ namespace ScrollRoad
                     float t = rares.Length == 0 ? 0f : (float)n / rares.Length;
                     cellFills[i].anchorMax = new Vector2(t, 1f);
                     cellFillImages[i].color = done ? Complete : Amber;
-                    cellTexts[i].text = !unlocked ? "<alpha=#55>LOCKED" : done ? "COMPLETE" : $"{n} / {rares.Length}";
+                    cellTexts[i].text = !unlocked ? "<alpha=#55>" + L.T("LOCKED") : done ? L.T("COMPLETE") : $"{n} / {rares.Length}";
                     cellTexts[i].color = n > 0 && t >= 0.5f && !done ? new Color(0.12f, 0.1f, 0.06f) : Color.white;
                     cellButtons[i].interactable = unlocked && !here;
 
                     string state = !unlocked
-                        ? $"opens after {UnlockLadder.Remaining(UnlockLadder.VenuePoints(v) - EnvironmentContent.LadderPoints(c))} more here"
-                        : here ? "you are here" : "click to go";
-                    TooltipTarget.Attach(cellButtons[i].gameObject, $"{venue.Name}  ·  {n} / {rares.Length}  ·  {state}");
+                        ? L.F("opens after {0} more here", UnlockLadder.Remaining(UnlockLadder.VenuePoints(v) - EnvironmentContent.LadderPoints(c)))
+                        : here ? L.T("you are here") : L.T("click to go");
+                    TooltipTarget.Attach(cellButtons[i].gameObject, $"{L.T(venue.Name)}  ·  {n} / {rares.Length}  ·  {state}");
                 }
                 rowTotals[r].text = $"{rowFound} / {rowTotal}";
                 found += rowFound;
                 total += rowTotal;
             }
-            countText.text = $"{Fmt.Int(found)} / {Fmt.Int(total)} rares  ·  {Fmt.Count(complete, "place")} complete";
+            countText.text = L.F("{0} / {1} rares", Fmt.Int(found), Fmt.Int(total)) + "  ·  " + L.P(complete, "{0} place complete", "{0} places complete");
         }
     }
 }

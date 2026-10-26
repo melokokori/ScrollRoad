@@ -31,16 +31,16 @@ namespace ScrollRoad
 
         static Kind KindOf(EnvironmentId env) => env switch
         {
-            EnvironmentId.Fishing => new Kind { Name = "Feeding frenzy", Story = "The big fish are on the move.", Rares = "Big species bite" },
-            EnvironmentId.Door => new Kind { Name = "Tour bus", Story = "A tour bus just pulled up outside.", Rares = "Special guests walk in" },
-            EnvironmentId.Wind => new Kind { Name = "Gale", Story = "Gale-force wind over the valley.", Rares = "Landmarks join the grid" },
-            EnvironmentId.Vinyl => new Kind { Name = "Crate delivery", Story = "A fresh crate of records arrived.", Rares = "Rare records turn up" },
-            EnvironmentId.Globe => new Kind { Name = "Golden age", Story = "History is in a generous mood.", Rares = "Wonders rise" },
-            EnvironmentId.Boomerang => new Kind { Name = "Perfect wind", Story = "The wind is just right for long throws.", Rares = "Rare targets get hit" },
-            EnvironmentId.Pottery => new Kind { Name = "Kiln day", Story = "The big kiln is fired up today.", Rares = "Masterpieces come off the wheel" },
-            EnvironmentId.Peeler => new Kind { Name = "Market day", Story = "The good crates came in this morning.", Rares = "Rare fruit turns up" },
-            EnvironmentId.Kebab => new Kind { Name = "Lunch rush", Story = "Hungry crowd at the counter.", Rares = "House specials go out" },
-            _ => new Kind { Name = "Lucky streak", Story = "Something is in the air.", Rares = "Rare finds turn up" },
+            EnvironmentId.Fishing => new Kind { Name = L.N("Feeding frenzy"), Story = L.N("The big fish are on the move."), Rares = L.N("Big species bite") },
+            EnvironmentId.Door => new Kind { Name = L.N("Tour bus"), Story = L.N("A tour bus just pulled up outside."), Rares = L.N("Special guests walk in") },
+            EnvironmentId.Wind => new Kind { Name = L.N("Gale"), Story = L.N("Gale-force wind over the valley."), Rares = L.N("Landmarks join the grid") },
+            EnvironmentId.Vinyl => new Kind { Name = L.N("Crate delivery"), Story = L.N("A fresh crate of records arrived."), Rares = L.N("Rare records turn up") },
+            EnvironmentId.Globe => new Kind { Name = L.N("Golden age"), Story = L.N("History is in a generous mood."), Rares = L.N("Wonders rise") },
+            EnvironmentId.Boomerang => new Kind { Name = L.N("Perfect wind"), Story = L.N("The wind is just right for long throws."), Rares = L.N("Rare targets get hit") },
+            EnvironmentId.Pottery => new Kind { Name = L.N("Kiln day"), Story = L.N("The big kiln is fired up today."), Rares = L.N("Masterpieces come off the wheel") },
+            EnvironmentId.Peeler => new Kind { Name = L.N("Market day"), Story = L.N("The good crates came in this morning."), Rares = L.N("Rare fruit turns up") },
+            EnvironmentId.Kebab => new Kind { Name = L.N("Lunch rush"), Story = L.N("Hungry crowd at the counter."), Rares = L.N("House specials go out") },
+            _ => new Kind { Name = L.N("Lucky streak"), Story = L.N("Something is in the air."), Rares = L.N("Rare finds turn up") },
         };
 
         static EnvironmentId activeEnv;
@@ -61,7 +61,7 @@ namespace ScrollRoad
         public static bool IsActive(EnvironmentId env) => activeLeft > 0f && activeEnv == env;
         public static float BoostFor(EnvironmentId env) => IsActive(env) ? activeBoost : 1f;
         public static float SecondsLeft => Mathf.Max(0f, activeLeft);
-        public static string NameOf(EnvironmentId env) => KindOf(env).Name;
+        public static string NameOf(EnvironmentId env) => L.T(KindOf(env).Name);
 
         void Awake()
         {
@@ -112,8 +112,8 @@ namespace ScrollRoad
             var kind = KindOf(env);
             int minutes = Mathf.RoundToInt(seconds / 60f);
             if (notice != null)
-                notice.Announce(kind.Name, $"{kind.Story} {kind.Rares} {multiplier:0.#}× as often for {minutes} minutes.",
-                    $"{kind.Name}! {minutes} min");
+                notice.Announce(L.T(kind.Name), L.T(kind.Story) + " " + L.F("{0} {1:0.#}× as often for {2} minutes.", L.T(kind.Rares), multiplier, minutes),
+                    L.F("{0}! {1} min", L.T(kind.Name), minutes));
         }
 
         // Kartta, vitrinin üstünde: "FEEDING FRENZY · 4:12" (yalnız olayın ortamı seçiliyken).
@@ -125,7 +125,7 @@ namespace ScrollRoad
             if (badgeRoot.activeSelf != show) badgeRoot.SetActive(show);
             if (!show) return;
             int left = Mathf.CeilToInt(activeLeft);
-            badgeText.SetText($"{KindOf(activeEnv).Name.ToUpperInvariant()}  ·  {left / 60}:{left % 60:00}");
+            badgeText.SetText($"{L.Upper(L.T(KindOf(activeEnv).Name))}  ·  {left / 60}:{left % 60:00}");
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

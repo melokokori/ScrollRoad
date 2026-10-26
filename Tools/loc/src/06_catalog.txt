@@ -1,0 +1,1287 @@
+#921 Dinner plate
+tr	Yemek tabağı
+de	Speiseteller
+fr	Assiette plate
+es	Plato llano
+pt	Prato raso
+pl	Talerz obiadowy
+ru	Обеденная тарелка
+zh	餐盘
+ja	ディナープレート
+ko	식사 접시
+#922 Drinking bowl
+tr	İçme kâsesi
+de	Trinkschale
+fr	Bol à boire
+es	Cuenco para beber
+pt	Tigela para beber
+pl	Czarka
+ru	Пиала
+zh	饮杯
+ja	飲み碗
+ko	음료 사발
+#923 Espresso cup
+tr	Espresso fincanı
+de	Espressotasse
+fr	Tasse à expresso
+es	Taza de espresso
+pt	Xícara de espresso
+pl	Filiżanka do espresso
+ru	Чашка для эспрессо
+zh	浓缩咖啡杯
+ja	エスプレッソカップ
+ko	에스프레소 잔
+#924 First fired {0}
+tr	İlk pişirim {0}
+de	Erstmals gebrannt {0}
+fr	Première cuisson {0}
+es	Primera cocción {0}
+pt	Primeira queima {0}
+pl	Pierwszy wypał {0}
+ru	Впервые обожжено {0}
+zh	首次烧制 {0}
+ja	初焼成 {0}
+ko	첫 소성 {0}
+#925 Flower pot
+tr	Saksı
+de	Blumentopf
+fr	Pot de fleurs
+es	Maceta
+pt	Vaso de flores
+pl	Doniczka
+ru	Цветочный горшок
+zh	花盆
+ja	植木鉢
+ko	화분
+#926 IDLE · SLOW WHEEL
+tr	RÖLANTİ · YAVAŞ ÇARK
+de	LEERLAUF · LANGSAME SCHEIBE
+fr	RALENTI · TOUR LENT
+es	RALENTÍ · TORNO LENTO
+pt	OCIOSO · TORNO LENTO
+pl	BEZCZYNNY · POWOLNE KOŁO
+ru	ПРОСТОЙ · МЕДЛЕННЫЙ КРУГ
+zh	闲置 · 慢速转盘
+ja	アイドル · ゆっくり轆轤
+ko	대기 · 느린 물레
+#927 Incense pot
+tr	Tütsülük
+de	Räuchergefäß
+fr	Brûle-encens
+es	Incensario
+pt	Incensário
+pl	Kadzielnica
+ru	Курильница
+zh	香炉
+ja	香炉
+ko	향로
+#928 Jar
+tr	Kavanoz
+de	Krug
+fr	Jarre
+es	Tarro
+pt	Pote
+pl	Słój
+ru	Банка
+zh	罐子
+ja	壺
+ko	단지
+#929 Kylix
+tr	Kyliks
+de	Kylix
+fr	Kylix
+es	Kílix
+pt	Kylix
+pl	Kyliks
+ru	Килик
+zh	基里克斯杯
+ja	キュリクス
+ko	킬릭스
+#930 Made ×{0}
+tr	Yapıldı ×{0}
+de	Gefertigt ×{0}
+fr	Fabriqué ×{0}
+es	Hecho ×{0}
+pt	Feito ×{0}
+pl	Zrobiono ×{0}
+ru	Сделано ×{0}
+zh	制作 ×{0}
+ja	制作 ×{0}
+ko	제작 ×{0}
+#931 Mezze plate
+tr	Meze tabağı
+de	Mezze-Teller
+fr	Assiette à mezzé
+es	Plato de mezze
+pt	Prato de mezze
+pl	Talerz na meze
+ru	Тарелка для мезе
+zh	开胃菜盘
+ja	メゼ皿
+ko	메제 접시
+#932 Milk jug
+tr	Süt sürahisi
+de	Milchkännchen
+fr	Pot à lait
+es	Jarra de leche
+pt	Leiteira
+pl	Dzbanuszek na mleko
+ru	Молочник
+zh	奶壶
+ja	ミルクピッチャー
+ko	우유 주전자
+#933 Mug
+tr	Kupa
+de	Becher
+fr	Mug
+es	Taza alta
+pt	Caneca
+pl	Kubek
+ru	Кружка
+zh	马克杯
+ja	マグカップ
+ko	머그잔
+#934 New on the shelf: {0}
+tr	Rafta yeni: {0}
+de	Neu im Regal: {0}
+fr	Nouveau sur l'étagère : {0}
+es	Nuevo en el estante: {0}
+pt	Novo na prateleira: {0}
+pl	Nowość na półce: {0}
+ru	Новое на полке: {0}
+zh	架上新品：{0}
+ja	棚に新作：{0}
+ko	선반에 새로: {0}
+#935 Not made yet
+tr	Henüz yapılmadı
+de	Noch nicht gefertigt
+fr	Pas encore fabriqué
+es	Aún sin hacer
+pt	Ainda não feito
+pl	Jeszcze niezrobione
+ru	Ещё не сделано
+zh	尚未制作
+ja	未制作
+ko	아직 안 만듦
+#936 Oil flask
+tr	Yağ şişesi
+de	Ölflasche
+fr	Fiole à huile
+es	Aceitera
+pt	Frasco de óleo
+pl	Flaszka na oliwę
+ru	Масляный флакон
+zh	油瓶
+ja	油差し
+ko	기름병
+#937 Oil jar
+tr	Yağ küpü
+de	Ölkrug
+fr	Jarre à huile
+es	Tinaja de aceite
+pt	Pote de azeite
+pl	Dzban na oliwę
+ru	Кувшин для масла
+zh	油罐
+ja	油壺
+ko	기름 단지
+#938 Olive jar
+tr	Zeytin küpü
+de	Olivenkrug
+fr	Jarre à olives
+es	Tinaja de aceitunas
+pt	Pote de azeitonas
+pl	Słój na oliwki
+ru	Кувшин для оливок
+zh	橄榄罐
+ja	オリーブ壺
+ko	올리브 단지
+#939 On the wheel: {0}
+tr	Çarkta: {0}
+de	Auf der Scheibe: {0}
+fr	Sur le tour : {0}
+es	En el torno: {0}
+pt	No torno: {0}
+pl	Na kole: {0}
+ru	На круге: {0}
+zh	转盘上：{0}
+ja	轆轤の上：{0}
+ko	물레 위: {0}
+#940 POTS MADE
+tr	YAPILAN ÇÖMLEK
+de	GEFERTIGTE STÜCKE
+fr	PIÈCES FAITES
+es	PIEZAS HECHAS
+pt	PEÇAS FEITAS
+pl	ZROBIONE NACZYNIA
+ru	СДЕЛАНО ИЗДЕЛИЙ
+zh	已制陶器
+ja	制作数
+ko	만든 도자기
+#941 POTTERY SHELF
+tr	ÇÖMLEK RAFI
+de	TÖPFERREGAL
+fr	ÉTAGÈRE DE POTERIE
+es	ESTANTE DE CERÁMICA
+pt	PRATELEIRA DE CERÂMICA
+pl	PÓŁKA Z CERAMIKĄ
+ru	ПОЛКА ГОНЧАРА
+zh	陶器架
+ja	陶器の棚
+ko	도자기 선반
+#942 PRESSING DOWN
+tr	BASTIRIYOR
+de	DRÜCKT NIEDER
+fr	ÉCRASEMENT
+es	APLASTANDO
+pt	AMASSANDO
+pl	ZGNIATANIE
+ru	ПРИМИНАЕТ
+zh	压回中
+ja	押しつぶし中
+ko	누르는 중
+#943 Planter
+tr	Saksılık
+de	Pflanzkübel
+fr	Jardinière
+es	Jardinera
+pt	Floreira
+pl	Donica
+ru	Кашпо
+zh	花槽
+ja	プランター
+ko	화분대
+#944 Plate
+tr	Tabak
+de	Teller
+fr	Assiette
+es	Plato
+pt	Prato
+pl	Talerz
+ru	Тарелка
+zh	盘子
+ja	皿
+ko	접시
+#945 Ramen bowl
+tr	Ramen kâsesi
+de	Ramenschale
+fr	Bol à ramen
+es	Cuenco de ramen
+pt	Tigela de lámen
+pl	Miska na ramen
+ru	Миска для рамена
+zh	拉面碗
+ja	ラーメン鉢
+ko	라멘 그릇
+#946 Rice bowl
+tr	Pilav kâsesi
+de	Reisschale
+fr	Bol à riz
+es	Cuenco de arroz
+pt	Tigela de arroz
+pl	Miseczka na ryż
+ru	Пиала для риса
+zh	饭碗
+ja	茶碗
+ko	밥그릇
+#947 SHAPING
+tr	ŞEKİL VERİYOR
+de	FORMT
+fr	FAÇONNAGE
+es	MODELANDO
+pt	MODELANDO
+pl	FORMOWANIE
+ru	ЛЕПИТ
+zh	塑形中
+ja	成形中
+ko	빚는 중
+#948 Sake bottle
+tr	Sake şişesi
+de	Sakeflasche
+fr	Bouteille à saké
+es	Botella de sake
+pt	Garrafa de saquê
+pl	Butelka na sake
+ru	Бутылочка для сакэ
+zh	清酒瓶
+ja	徳利
+ko	사케 병
+#949 Serving dish
+tr	Servis tabağı
+de	Servierschale
+fr	Plat de service
+es	Fuente
+pt	Travessa
+pl	Półmisek
+ru	Блюдо для подачи
+zh	餐盘
+ja	盛り皿
+ko	서빙 접시
+#950 Shaping
+tr	Şekil veriliyor
+de	Wird geformt
+fr	Façonnage
+es	Modelando
+pt	Modelando
+pl	Formowanie
+ru	Лепится
+zh	正在塑形
+ja	成形中
+ko	빚는 중
+#951 Skyphos
+tr	Skifos
+de	Skyphos
+fr	Skyphos
+es	Escifo
+pt	Skyphos
+pl	Skyfos
+ru	Скифос
+zh	斯基弗斯杯
+ja	スキュフォス
+ko	스키포스
+#952 Soba cup
+tr	Soba fincanı
+de	Soba-Becher
+fr	Tasse à soba
+es	Taza de soba
+pt	Copo de soba
+pl	Czarka do soby
+ru	Чашка для собы
+zh	荞麦面蘸杯
+ja	そば猪口
+ko	소바 잔
+#953 Spice jar
+tr	Baharat kavanozu
+de	Gewürztopf
+fr	Pot à épices
+es	Tarro de especias
+pt	Pote de especiarias
+pl	Słoik na przyprawy
+ru	Баночка для специй
+zh	香料罐
+ja	スパイス壺
+ko	향신료 단지
+#954 Stamped on your pottery shelf
+tr	Çömlek rafına işlendi
+de	In dein Töpferregal eingetragen
+fr	Inscrit sur votre étagère de poterie
+es	Anotado en tu estante de cerámica
+pt	Registrado na sua prateleira de cerâmica
+pl	Wpisano na półkę z ceramiką
+ru	Записано на полку гончара
+zh	已记入陶器架
+ja	陶器の棚に記録
+ko	도자기 선반에 기록됨
+#955 Sushi plate
+tr	Suşi tabağı
+de	Sushiteller
+fr	Plat à sushi
+es	Plato de sushi
+pt	Prato de sushi
+pl	Talerz do sushi
+ru	Тарелка для суши
+zh	寿司盘
+ja	寿司皿
+ko	초밥 접시
+#956 Tagine
+tr	Tajin
+de	Tajine
+fr	Tajine
+es	Tajín
+pt	Tagine
+pl	Tadżin
+ru	Тажин
+zh	塔吉锅
+ja	タジン鍋
+ko	타진
+#957 The Amphora
+tr	Amfora
+de	Die Amphore
+fr	L'Amphore
+es	El Ánfora
+pt	A Ânfora
+pl	Amfora
+ru	Амфора
+zh	双耳瓶
+ja	アンフォラ
+ko	암포라
+#958 The Blue Tagine
+tr	Mavi Tajin
+de	Die Blaue Tajine
+fr	Le Tajine bleu
+es	El Tajín Azul
+pt	O Tagine Azul
+pl	Niebieski Tadżin
+ru	Синий тажин
+zh	蓝色塔吉锅
+ja	青いタジン鍋
+ko	푸른 타진
+#959 The Brass-Rim Ewer
+tr	Pirinç Ağızlı İbrik
+de	Die Kanne mit Messingrand
+fr	L'Aiguière cerclée de laiton
+es	El Aguamanil de Borde de Latón
+pt	O Jarro de Borda de Latão
+pl	Dzban z Mosiężnym Brzegiem
+ru	Кувшин с латунным ободком
+zh	黄铜边水壶
+ja	真鍮縁の水差し
+ko	황동 테 물병
+#960 The Bubble Vase
+tr	Kabarcıklı Vazo
+de	Die Blasenvase
+fr	Le Vase à bulles
+es	El Jarrón de Burbujas
+pt	O Vaso de Bolhas
+pl	Bąbelkowy Wazon
+ru	Ваза-пузырь
+zh	泡泡花瓶
+ja	バブルの花瓶
+ko	거품 꽃병
+#961 The Dolphin Plate
+tr	Yunuslu Tabak
+de	Der Delfinteller
+fr	L'Assiette aux dauphins
+es	El Plato de los Delfines
+pt	O Prato dos Golfinhos
+pl	Talerz z Delfinami
+ru	Тарелка с дельфинами
+zh	海豚盘
+ja	イルカの皿
+ko	돌고래 접시
+#962 The Dragon Jar
+tr	Ejderhalı Küp
+de	Der Drachenkrug
+fr	La Jarre au dragon
+es	La Tinaja del Dragón
+pt	O Pote do Dragão
+pl	Smoczy Dzban
+ru	Драконий сосуд
+zh	龙纹罐
+ja	龍の壺
+ko	용 항아리
+#963 The Golden Urn
+tr	Altın Vazo
+de	Die Goldene Urne
+fr	L'Urne d'or
+es	La Urna Dorada
+pt	A Urna Dourada
+pl	Złota Urna
+ru	Золотая урна
+zh	金瓮
+ja	黄金の壺
+ko	황금 항아리
+#964 The Great Krater
+tr	Büyük Krater
+de	Der Große Krater
+fr	Le Grand Cratère
+es	La Gran Crátera
+pt	A Grande Cratera
+pl	Wielki Krater
+ru	Большой кратер
+zh	大调酒缸
+ja	大クラテル
+ko	거대한 크라테르
+#965 The Greek Studio
+tr	Yunan Atölyesi
+de	Das Griechische Atelier
+fr	L'Atelier grec
+es	El Taller Griego
+pt	O Ateliê Grego
+pl	Greckie Studio
+ru	Греческая мастерская
+zh	希腊工作室
+ja	ギリシャの工房
+ko	그리스 공방
+#966 The Hero Vase
+tr	Kahraman Vazosu
+de	Die Heldenvase
+fr	Le Vase du héros
+es	El Jarrón del Héroe
+pt	O Vaso do Herói
+pl	Wazon Bohatera
+ru	Ваза героя
+zh	英雄瓶
+ja	英雄の壺
+ko	영웅의 꽃병
+#967 The Hydria
+tr	Hidriya
+de	Die Hydria
+fr	L'Hydrie
+es	La Hidria
+pt	A Hídria
+pl	Hydria
+ru	Гидрия
+zh	水罐
+ja	ヒュドリア
+ko	히드리아
+#968 The Ikebana Vase
+tr	İkebana Vazosu
+de	Die Ikebana-Vase
+fr	Le Vase à ikebana
+es	El Jarrón de Ikebana
+pt	O Vaso de Ikebana
+pl	Wazon do Ikebany
+ru	Ваза для икебаны
+zh	插花瓶
+ja	生け花の花器
+ko	이케바나 화병
+#969 The Japanese Kiln
+tr	Japon Fırını
+de	Der Japanische Brennofen
+fr	Le Four japonais
+es	El Horno Japonés
+pt	O Forno Japonês
+pl	Japoński Piec
+ru	Японская печь
+zh	日本窑
+ja	日本の窯
+ko	일본 가마
+#970 The Kintsugi Bowl
+tr	Kintsugi Kâsesi
+de	Die Kintsugi-Schale
+fr	Le Bol kintsugi
+es	El Cuenco Kintsugi
+pt	A Tigela Kintsugi
+pl	Misa Kintsugi
+ru	Чаша кинцуги
+zh	金缮碗
+ja	金継ぎの碗
+ko	킨츠기 그릇
+#971 The Lantern Pot
+tr	Fener Çömleği
+de	Der Laternentopf
+fr	Le Pot-lanterne
+es	La Vasija Farol
+pt	O Pote-Lanterna
+pl	Garnek-Latarnia
+ru	Горшок-фонарь
+zh	灯笼罐
+ja	ランタンの壺
+ko	등불 항아리
+#972 The Marbled Bowl
+tr	Ebrulu Kâse
+de	Die Marmorierte Schale
+fr	Le Bol marbré
+es	El Cuenco Marmolado
+pt	A Tigela Marmorizada
+pl	Marmurkowa Misa
+ru	Мраморная чаша
+zh	大理石纹碗
+ja	マーブル模様の鉢
+ko	마블 그릇
+#973 The Modern Studio
+tr	Modern Atölye
+de	Das Moderne Atelier
+fr	L'Atelier moderne
+es	El Estudio Moderno
+pt	O Estúdio Moderno
+pl	Nowoczesne Studio
+ru	Современная студия
+zh	现代工作室
+ja	モダンな工房
+ko	모던 공방
+#974 The Moon Jar
+tr	Ay Küpü
+de	Der Mondkrug
+fr	La Jarre lune
+es	La Tinaja Luna
+pt	O Pote Lua
+pl	Księżycowy Dzban
+ru	Лунный сосуд
+zh	月亮罐
+ja	月壺
+ko	달항아리
+#975 The Moroccan Souk
+tr	Fas Çarşısı
+de	Der Marokkanische Suk
+fr	Le Souk marocain
+es	El Zoco Marroquí
+pt	O Souk Marroquino
+pl	Marokański Suk
+ru	Марокканский рынок
+zh	摩洛哥集市
+ja	モロッコのスーク
+ko	모로코 시장
+#976 The Neon Glaze Jar
+tr	Neon Sırlı Küp
+de	Der Neonglasur-Krug
+fr	La Jarre émaillée néon
+es	La Tinaja de Esmalte Neón
+pt	O Pote de Esmalte Neon
+pl	Dzban z Neonową Glazurą
+ru	Сосуд с неоновой глазурью
+zh	霓虹釉罐
+ja	ネオン釉の壺
+ko	네온 유약 항아리
+#977 The Olympic Amphora
+tr	Olimpiyat Amforası
+de	Die Olympische Amphore
+fr	L'Amphore olympique
+es	El Ánfora Olímpica
+pt	A Ânfora Olímpica
+pl	Olimpijska Amfora
+ru	Олимпийская амфора
+zh	奥林匹克双耳瓶
+ja	オリンピアのアンフォラ
+ko	올림픽 암포라
+#978 The Owl Jug
+tr	Baykuşlu Testi
+de	Der Eulenkrug
+fr	La Cruche hibou
+es	La Jarra Búho
+pt	A Jarra Coruja
+pl	Dzbanek Sowa
+ru	Кувшин-сова
+zh	猫头鹰壶
+ja	フクロウの水差し
+ko	부엉이 주전자
+#979 The Peacock Vase
+tr	Tavus Kuşlu Vazo
+de	Die Pfauenvase
+fr	Le Vase paon
+es	El Jarrón del Pavo Real
+pt	O Vaso Pavão
+pl	Pawi Wazon
+ru	Павлинья ваза
+zh	孔雀瓶
+ja	孔雀の花瓶
+ko	공작 꽃병
+#980 The Platinum Vase
+tr	Platin Vazo
+de	Die Platinvase
+fr	Le Vase de platine
+es	El Jarrón de Platino
+pt	O Vaso de Platina
+pl	Platynowy Wazon
+ru	Платиновая ваза
+zh	铂金花瓶
+ja	プラチナの花瓶
+ko	백금 꽃병
+#981 The Raku Tea Bowl
+tr	Raku Çay Kâsesi
+de	Die Raku-Teeschale
+fr	Le Bol à thé raku
+es	El Cuenco de Té Raku
+pt	A Tigela de Chá Raku
+pl	Czarka do Herbaty Raku
+ru	Чаша для чая раку
+zh	乐烧茶碗
+ja	楽茶碗
+ko	라쿠 찻사발
+#982 The Ribbed Lamp Base
+tr	Oluklu Lamba Ayağı
+de	Der Gerippte Lampenfuß
+fr	Le Pied de lampe nervuré
+es	La Base de Lámpara Acanalada
+pt	A Base de Luminária Canelada
+pl	Żebrowana Podstawa Lampy
+ru	Ребристое основание лампы
+zh	罗纹灯座
+ja	リブ模様のランプ台
+ko	골지 램프 받침
+#983 The Speckled Vase
+tr	Benekli Vazo
+de	Die Gesprenkelte Vase
+fr	Le Vase moucheté
+es	El Jarrón Moteado
+pt	O Vaso Salpicado
+pl	Nakrapiany Wazon
+ru	Крапчатая ваза
+zh	斑点花瓶
+ja	斑点模様の花瓶
+ko	점박이 꽃병
+#984 The Sultan's Jar
+tr	Sultan Küpü
+de	Der Sultanskrug
+fr	La Jarre du sultan
+es	La Tinaja del Sultán
+pt	O Pote do Sultão
+pl	Dzban Sułtana
+ru	Сосуд султана
+zh	苏丹之罐
+ja	スルタンの壺
+ko	술탄의 항아리
+#985 The Tall Vase
+tr	Uzun Vazo
+de	Die Hohe Vase
+fr	Le Grand Vase
+es	El Jarrón Alto
+pt	O Vaso Alto
+pl	Wysoki Wazon
+ru	Высокая ваза
+zh	高花瓶
+ja	背の高い花瓶
+ko	긴 꽃병
+#986 The Tea Caddy
+tr	Çay Kutusu
+de	Die Teedose
+fr	La Boîte à thé
+es	El Bote de Té
+pt	A Lata de Chá
+pl	Puszka na Herbatę
+ru	Чайница
+zh	茶叶罐
+ja	茶入れ
+ko	차통
+#987 The Teapot
+tr	Demlik
+de	Die Teekanne
+fr	La Théière
+es	La Tetera
+pt	O Bule
+pl	Czajniczek
+ru	Заварочный чайник
+zh	茶壶
+ja	急須
+ko	찻주전자
+#988 The Tulip Vase
+tr	Lale Vazo
+de	Die Tulpenvase
+fr	Le Vase tulipe
+es	El Jarrón Tulipán
+pt	O Vaso Tulipa
+pl	Tulipanowy Wazon
+ru	Ваза-тюльпан
+zh	郁金香花瓶
+ja	チューリップの花瓶
+ko	튤립 꽃병
+#989 The Village Workshop
+tr	Köy Atölyesi
+de	Die Dorfwerkstatt
+fr	L'Atelier du village
+es	El Taller del Pueblo
+pt	A Oficina da Vila
+pl	Wiejski Warsztat
+ru	Деревенская мастерская
+zh	村庄作坊
+ja	村の工房
+ko	마을 공방
+#990 The Water Jug
+tr	Su Testisi
+de	Der Wasserkrug
+fr	La Cruche à eau
+es	El Cántaro
+pt	O Jarro d'Água
+pl	Dzban na Wodę
+ru	Кувшин для воды
+zh	水壶
+ja	水差し
+ko	물항아리
+#991 The Zellige Plate
+tr	Zellige Tabağı
+de	Der Zellige-Teller
+fr	L'Assiette zellige
+es	El Plato de Zellige
+pt	O Prato Zellige
+pl	Talerz Zellige
+ru	Тарелка зеллидж
+zh	马赛克瓷盘
+ja	ゼリージュの皿
+ko	젤리주 접시
+#992 Yunomi cup
+tr	Yunomi fincanı
+de	Yunomi-Becher
+fr	Tasse yunomi
+es	Taza yunomi
+pt	Copo yunomi
+pl	Czarka yunomi
+ru	Чашка юноми
+zh	汤吞杯
+ja	湯呑み
+ko	유노미 찻잔
+#993 pieces
+tr	parça
+de	Stücke
+fr	pièces
+es	piezas
+pt	peças
+pl	sztuk
+ru	изделия
+zh	作品
+ja	作品
+ko	작품
+#994 {0} · on the shelf
+tr	{0} · rafta
+de	{0} · im Regal
+fr	{0} · sur l'étagère
+es	{0} · en el estante
+pt	{0} · na prateleira
+pl	{0} · na półce
+ru	{0} · на полке
+zh	{0} · 已上架
+ja	{0} · 棚に並んだ
+ko	{0} · 선반에 진열
+#1017 Record #{0}
+tr	Plak #{0}
+de	Platte #{0}
+fr	Disque n°{0}
+es	Disco n.º {0}
+pt	Disco nº {0}
+pl	Płyta nr {0}
+ru	Пластинка №{0}
+zh	唱片 #{0}
+ja	レコード #{0}
+ko	음반 #{0}
+#1024 The Beach Bar
+tr	Plaj Barı
+de	Die Strandbar
+fr	Le Bar de plage
+es	El Chiringuito
+pt	O Bar de Praia
+pl	Bar na Plaży
+ru	Пляжный бар
+zh	海滩酒吧
+ja	ビーチバー
+ko	비치 바
+#1025 The Concert Hall
+tr	Konser Salonu
+de	Der Konzertsaal
+fr	La Salle de concert
+es	La Sala de Conciertos
+pt	A Sala de Concertos
+pl	Sala Koncertowa
+ru	Концертный зал
+zh	音乐厅
+ja	コンサートホール
+ko	콘서트홀
+#1026 The Disco
+tr	Diskotek
+de	Die Disco
+fr	La Discothèque
+es	La Discoteca
+pt	A Discoteca
+pl	Dyskoteka
+ru	Дискотека
+zh	迪斯科舞厅
+ja	ディスコ
+ko	디스코장
+#1028 The Jazz Club
+tr	Caz Kulübü
+de	Der Jazzclub
+fr	Le Club de jazz
+es	El Club de Jazz
+pt	O Clube de Jazz
+pl	Klub Jazzowy
+ru	Джаз-клуб
+zh	爵士俱乐部
+ja	ジャズクラブ
+ko	재즈 클럽
+#1029 The Record Shop
+tr	Plakçı
+de	Der Plattenladen
+fr	Le Disquaire
+es	La Tienda de Discos
+pt	A Loja de Discos
+pl	Sklep z Płytami
+ru	Магазин пластинок
+zh	唱片店
+ja	レコード店
+ko	레코드 가게
+#1032 Barn
+tr	Ahır
+de	Scheune
+fr	Grange
+es	Granero
+pt	Celeiro
+pl	Stodoła
+ru	Амбар
+zh	谷仓
+ja	納屋
+ko	헛간
+#1033 Bungalow
+tr	Bungalov
+de	Bungalow
+fr	Bungalow
+es	Bungaló
+pt	Bangalô
+pl	Bungalow
+ru	Бунгало
+zh	平房
+ja	バンガロー
+ko	방갈로
+#1034 Corner shop
+tr	Bakkal
+de	Eckladen
+fr	Épicerie du coin
+es	Tienda de la esquina
+pt	Mercadinho da esquina
+pl	Sklepik na rogu
+ru	Магазинчик на углу
+zh	街角小店
+ja	街角の商店
+ko	동네 가게
+#1035 Farmhouse
+tr	Çiftlik evi
+de	Bauernhaus
+fr	Ferme
+es	Casa de campo
+pt	Casa de fazenda
+pl	Dom wiejski
+ru	Фермерский дом
+zh	农家房
+ja	農家
+ko	농가
+#1036 The Aquarium
+tr	Akvaryum
+de	Das Aquarium
+fr	L'Aquarium
+es	El Acuario
+pt	O Aquário
+pl	Akwarium
+ru	Аквариум
+zh	水族馆
+ja	水族館
+ko	수족관
+#1037 The Art Museum
+tr	Sanat Müzesi
+de	Das Kunstmuseum
+fr	Le Musée d'art
+es	El Museo de Arte
+pt	O Museu de Arte
+pl	Muzeum Sztuki
+ru	Художественный музей
+zh	美术馆
+ja	美術館
+ko	미술관
+#1038 The Bakery
+tr	Fırın
+de	Die Bäckerei
+fr	La Boulangerie
+es	La Panadería
+pt	A Padaria
+pl	Piekarnia
+ru	Пекарня
+zh	面包房
+ja	パン屋
+ko	빵집
+#1039 The Boathouse
+tr	Kayıkhane
+de	Das Bootshaus
+fr	Le Hangar à bateaux
+es	El Cobertizo de Barcas
+pt	A Casa de Barcos
+pl	Przystań
+ru	Лодочный сарай
+zh	船屋
+ja	ボートハウス
+ko	보트하우스
+#1040 The Cable Car Station
+tr	Teleferik İstasyonu
+de	Die Seilbahnstation
+fr	La Gare du téléphérique
+es	La Estación del Teleférico
+pt	A Estação do Teleférico
+pl	Stacja Kolejki Linowej
+ru	Станция канатной дороги
+zh	缆车站
+ja	ロープウェイ駅
+ko	케이블카 역
+#1041 The Caravanserai
+tr	Kervansaray
+de	Die Karawanserei
+fr	Le Caravansérail
+es	El Caravasar
+pt	O Caravançará
+pl	Karawanseraj
+ru	Караван-сарай
+zh	商队客栈
+ja	隊商宿
+ko	카라반세라이
+#1042 The Cinema
+tr	Sinema
+de	Das Kino
+fr	Le Cinéma
+es	El Cine
+pt	O Cinema
+pl	Kino
+ru	Кинотеатр
+zh	电影院
+ja	映画館
+ko	영화관
+#1043 The City
+tr	Şehir
+de	Die Stadt
+fr	La Ville
+es	La Ciudad
+pt	A Cidade
+pl	Miasto
+ru	Город
+zh	城市
+ja	シティ
+ko	도시
+#1044 The Dairy Farm
+tr	Mandıra
+de	Der Milchhof
+fr	La Laiterie
+es	La Granja Lechera
+pt	A Fazenda Leiteira
+pl	Gospodarstwo Mleczne
+ru	Молочная ферма
+zh	奶牛场
+ja	酪農場
+ko	낙농장
+#1045 The Date Farm
+tr	Hurma Bahçesi
+de	Die Dattelplantage
+fr	La Palmeraie
+es	El Palmeral
+pt	A Fazenda de Tâmaras
+pl	Plantacja Daktyli
+ru	Финиковая ферма
+zh	椰枣园
+ja	ナツメヤシ農園
+ko	대추야자 농장
+#1046 The Desert
+tr	Çöl
+de	Die Wüste
+fr	Le Désert
+es	El Desierto
+pt	O Deserto
+pl	Pustynia
+ru	Пустыня
+zh	沙漠
+ja	砂漠
+ko	사막
+#1047 The Diner
+tr	Lokanta
+de	Das Diner
+fr	Le Diner
+es	La Cafetería
+pt	A Lanchonete
+pl	Bar Przydrożny
+ru	Закусочная
+zh	路边餐馆
+ja	ダイナー
+ko	다이너
+#1048 The Fairground
+tr	Lunapark
+de	Der Rummelplatz
+fr	La Fête foraine
+es	La Feria
+pt	O Parque de Diversões
+pl	Wesołe Miasteczko
+ru	Ярмарка
+zh	游乐场
+ja	遊園地
+ko	놀이공원
+#1049 The Fish Market
+tr	Balık Hali
+de	Der Fischmarkt
+fr	Le Marché aux poissons
+es	La Lonja
+pt	O Mercado de Peixe
+pl	Targ Rybny
+ru	Рыбный рынок
+zh	鱼市
+ja	魚市場
+ko	수산시장
+#1050 The Hills
+tr	Tepeler
+de	Die Hügel
+fr	Les Collines
+es	Las Colinas
+pt	As Colinas
+pl	Wzgórza
+ru	Холмы
+zh	丘陵
+ja	丘陵
+ko	언덕
+#1051 The Ice Hotel
+tr	Buz Otel
+de	Das Eishotel
+fr	L'Hôtel de glace
+es	El Hotel de Hielo
+pt	O Hotel de Gelo
+pl	Lodowy Hotel
+ru	Ледяной отель
+zh	冰雪酒店
+ja	アイスホテル
+ko	얼음 호텔
+#1052 The Ice Rink
+tr	Buz Pateni Pisti
+de	Die Eisbahn
+fr	La Patinoire
+es	La Pista de Hielo
+pt	O Rinque de Gelo
+pl	Lodowisko
+ru	Каток
+zh	溜冰场
+ja	スケートリンク
+ko	아이스링크
+#1053 The Lifeboat Station
+tr	Cankurtaran İstasyonu
+de	Die Seenotrettungsstation
+fr	La Station de sauvetage
+es	La Estación de Salvamento
+pt	A Estação de Salvamento
+pl	Stacja Ratownictwa
+ru	Спасательная станция
+zh	救生艇站
+ja	救難艇基地
+ko	구조대 기지
+#1054 The Lighthouse
+tr	Deniz Feneri
+de	Der Leuchtturm
+fr	Le Phare
+es	El Faro
+pt	O Farol
+pl	Latarnia Morska
+ru	Маяк
+zh	灯塔
+ja	灯台
+ko	등대
+#1055 The Mirage Palace
+tr	Serap Sarayı
+de	Der Fata-Morgana-Palast
+fr	Le Palais mirage
+es	El Palacio Espejismo
+pt	O Palácio Miragem
+pl	Pałac Miraży
+ru	Дворец-мираж
+zh	海市蜃楼宫
+ja	蜃気楼の宮殿
+ko	신기루 궁전
+#1056 The Mountain Hut
+tr	Dağ Kulübesi
+de	Die Berghütte
+fr	Le Refuge
+es	El Refugio de Montaña
+pt	O Abrigo de Montanha
+pl	Schronisko Górskie
+ru	Горная хижина
+zh	山间小屋
+ja	山小屋
+ko	산장
+#1057 The Oasis Inn
+tr	Vaha Hanı
+de	Das Oasen-Gasthaus
+fr	L'Auberge de l'oasis
+es	La Posada del Oasis
+pt	A Pousada do Oásis
+pl	Zajazd w Oazie
+ru	Постоялый двор в оазисе
+zh	绿洲旅店
+ja	オアシスの宿
+ko	오아시스 여관
+#1058 The Observatory
+tr	Gözlemevi
+de	Die Sternwarte
+fr	L'Observatoire
+es	El Observatorio
+pt	O Observatório
+pl	Obserwatorium
+ru	Обсерватория
+zh	天文台
+ja	天文台
+ko	천문대
+#1059 The Research Station
+tr	Araştırma İstasyonu
+de	Die Forschungsstation
+fr	La Station de recherche
+es	La Estación de Investigación
+pt	A Estação de Pesquisa
+pl	Stacja Badawcza
+ru	Научная станция
+zh	科考站
+ja	研究基地
+ko	연구 기지
+#1060 The Sand Fort
+tr	Kum Kalesi
+de	Die Sandfestung
+fr	Le Fort des sables
+es	El Fuerte de Arena
+pt	O Forte de Areia
+pl	Piaskowy Fort
+ru	Песчаная крепость
+zh	沙堡要塞
+ja	砂の砦
+ko	모래 요새
+#1061 The Seaside Pier
+tr	Sahil İskelesi
+de	Die Seebrücke
+fr	La Jetée
+es	El Muelle
+pt	O Píer
+pl	Molo
+ru	Пирс
+zh	海滨栈桥
+ja	海辺の桟橋
+ko	해변 부두
+#1062 The Ski Lodge
+tr	Kayak Evi
+de	Die Skihütte
+fr	Le Chalet de ski
+es	El Refugio de Esquí
+pt	O Chalé de Esqui
+pl	Domek Narciarski
+ru	Лыжная база
+zh	滑雪小屋
+ja	スキーロッジ
+ko	스키 산장
+#1063 The Snowy Pass
+tr	Karlı Geçit
+de	Der Verschneite Pass
+fr	Le Col enneigé
+es	El Paso Nevado
+pt	O Passo Nevado
+pl	Śnieżna Przełęcz
+ru	Снежный перевал
+zh	雪山垭口
+ja	雪の峠
+ko	눈 덮인 고개
+#1064 The Solar Farm
+tr	Güneş Santrali
+de	Der Solarpark
+fr	La Centrale solaire
+es	La Planta Solar
+pt	A Usina Solar
+pl	Farma Słoneczna
+ru	Солнечная электростанция
+zh	太阳能电站
+ja	太陽光発電所
+ko	태양광 발전소
+#1065 The Stadium
+tr	Stadyum
+de	Das Stadion
+fr	Le Stade
+es	El Estadio
+pt	O Estádio
+pl	Stadion
+ru	Стадион
+zh	体育场
+ja	スタジアム
+ko	경기장
+#1066 The Theatre
+tr	Tiyatro
+de	Das Theater
+fr	Le Théâtre
+es	El Teatro
+pt	O Teatro
+pl	Teatr
+ru	Театр
+zh	剧院
+ja	劇場
+ko	극장
+#1067 The Train Station
+tr	Tren İstasyonu
+de	Der Bahnhof
+fr	La Gare
+es	La Estación de Tren
+pt	A Estação de Trem
+pl	Dworzec
+ru	Вокзал
+zh	火车站
+ja	駅
+ko	기차역
+#1068 The Village School
+tr	Köy Okulu
+de	Die Dorfschule
+fr	L'École du village
+es	La Escuela del Pueblo
+pt	A Escola da Vila
+pl	Wiejska Szkoła
+ru	Сельская школа
+zh	乡村学校
+ja	村の学校
+ko	마을 학교

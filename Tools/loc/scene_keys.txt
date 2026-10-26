@@ -1,0 +1,103 @@
+<alpha=#88>Counted in {0}.
+Activities
+Album
+Big dial
+Boats and aircraft use their own gauge
+Boomerang
+CARS
+CLICK TO CONTINUE
+Canyon
+Card
+Card dial
+Card size
+Classic
+Desert
+Digital
+FISH HERE
+Fishing
+Fruit peeler
+GAUGE
+Garage
+Highway
+IDLE
+KM/H
+Kebab spit
+Keep running in the tray when closed
+Keep the card on top of other windows
+Lakeshore
+Language
+Large
+Last month
+Leaderboard
+Looks
+MONTH BEST
+Medium
+Mountain Pass
+Next
+Night
+OFF-ROAD
+Only the activity you pick moves forward. Your monthly score counts them all.
+Orders
+PAINT
+Passport
+Pine Forest
+Places
+Plains
+Pottery wheel
+QUIT
+Quit
+Record player
+Retro
+Revolving door
+Road trip
+SEA
+SIDE
+SKY
+STAMPED
+Sepia
+Settings
+Simple plate
+Skip
+Small
+Snowy Plateau
+Sport
+Start in taskbar mode
+Start with Windows
+Stats
+Sunset Road
+TWO WHEELS
+Taskbar gauge
+Taskbar mode
+Taskbar mode: a small transparent strip on your taskbar (F9). Drag the card by any empty spot. In the tray, your scrolls keep counting; reopen it from the icon next to the clock.
+The Airport
+The City
+The Coast
+The Hotel
+The Ice Hole
+The Lake
+The Mall
+The Museum
+The Open Sea
+The River
+The Skyscraper
+This month
+This one keeps its own colours.
+Turn the world
+Volume
+WORLD
+Wheat Fields
+While you were away
+Wind turbine
+YOU ARE HERE
+YOU REACHED THE CITY!
+Your rivals can't see this. Wait for the end of the month.
+fish
+fruit
+kWh
+km
+portions
+pots
+targets
+tracks
+visitors
+years

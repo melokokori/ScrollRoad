@@ -91,7 +91,7 @@ namespace ScrollRoad
 
         public EnvironmentDef Def => EnvironmentCatalog.Fishing;
         public double LifetimePoints => LifetimePointsOf(state);
-        public string VenueNoun => "spot";
+        public string VenueNoun => L.N("spot");
         public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(FishCatalog.Spots, s => new VenueInfo { Id = s.Id, Name = s.Name });
         public string VenueId => Spot.Id;
         public void SetVenue(string id) => SelectSpot(FishCatalog.GetSpot(id));
@@ -101,8 +101,8 @@ namespace ScrollRoad
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.totalFish + 1;
         public double MonthUnits => state.monthFish + Math.Min(Reeled, 0.999f);
-        public string SkinNoun => "tackle";
-        public string SkinBoxName => "Tackle box";
+        public string SkinNoun => L.N("tackle");
+        public string SkinBoxName => L.N("Tackle box");
         public SkinInfo[] Skins => skinInfos ??= Array.ConvertAll(FishingGear.All, g => new SkinInfo { Id = g.Id, Name = g.Name, Blurb = g.Blurb, Tally = g.Tally, Ink = g.TallyInk, Accent = g.TallyInk });
         public string SkinId => FishingGear.SelectedIn(state).Id;
         public void SetSkin(string id)
@@ -297,11 +297,11 @@ namespace ScrollRoad
             bool legendary = species == Spot.Legendary;
             if (legendary && notice != null)
             {
-                notice.Announce($"Legendary: {species.Name}", $"{kg:0.00} kg · {RareNotes.For(EnvironmentId.Fishing, species.Id) ?? $"the rarest fish of {Spot.Name}"}", $"Legendary {species.Name}!");
+                notice.Announce(L.F("Legendary: {0}", L.T(species.Name)), L.F("{0:0.00} kg", kg) + " · " + (RareNotes.For(EnvironmentId.Fishing, species.Id) ?? L.F("the rarest fish of {0}", L.T(Spot.Name))), L.F("Legendary {0}!", L.T(species.Name)));
             }
             else if (isNew && notice != null)
             {
-                notice.Announce($"New species: {species.Name}", $"{kg:0.00} kg · {RareNotes.For(EnvironmentId.Fishing, species.Id) ?? "stamped in your fish log"}", $"{species.Name} · new species");
+                notice.Announce(L.F("New species: {0}", L.T(species.Name)), L.F("{0:0.00} kg", kg) + " · " + (RareNotes.For(EnvironmentId.Fishing, species.Id) ?? L.T("stamped in your fish log")), L.F("{0} · new species", L.T(species.Name)));
             }
         }
 

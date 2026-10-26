@@ -6,6 +6,7 @@ namespace ScrollRoad
     // Olta türleri: hepsi spinning/LRF'de sahte yeme vuran gerçek balıklar. Ağırlık aralıkları gerçekçi
     // ama cömert (oyun); sıklık küçükten büyüğe azalır. Görseller Assets/Art/Fishing/<id>.png
     // (Tools/gen_fishing.py), sağa bakar. Id'ler bütün mekânlarda benzersiz (balık defteri id ile tutar).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public sealed class FishSpecies
     {
         public string Id;

@@ -19,6 +19,9 @@ namespace ScrollRoad
             public readonly StopKind Kind;
             public readonly int RegionIndex;
 
+            // Bölge ve şehir adları çevrilir; kasaba adları özel ad, her dilde aynı.
+            public string DisplayName => Kind == StopKind.Town ? Name : L.T(Name);
+
             public Stop(string name, double km, StopKind kind, int regionIndex)
             {
                 Name = name;
@@ -42,20 +45,20 @@ namespace ScrollRoad
             public (string name, double km)[] Towns;
         }
 
-        public const string CityName = "The City";
+        public static readonly string CityName = L.N("The City");
 
         public static readonly Region[] Regions =
         {
             new Region
             {
-                Name = "Plains", StartKm = 0,
+                Name = L.N("Plains"), StartKm = 0,
                 Sky = new Color(0.84f, 0.93f, 0.95f), FarLand = new Color(0.72f, 0.84f, 0.70f), NearLand = new Color(0.60f, 0.76f, 0.58f),
                 Trail = new Color(0.62f, 0.51f, 0.38f), Water = new Color(0.33f, 0.58f, 0.74f),
                 Towns = new[] { ("Poplar Hollow", 30.0), ("Millbrook", 70.0), ("Greenfield", 110.0) },
             },
             new Region
             {
-                Name = "Wheat Fields", StartKm = 150,
+                Name = L.N("Wheat Fields"), StartKm = 150,
                 Sky = new Color(0.95f, 0.93f, 0.84f), FarLand = new Color(0.90f, 0.82f, 0.56f), NearLand = new Color(0.85f, 0.72f, 0.42f),
                 Trail = new Color(0.74f, 0.60f, 0.40f), Water = new Color(0.36f, 0.60f, 0.72f),
                 FarHeight = 0.7f, NearHeight = 0.6f,
@@ -63,7 +66,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Pine Forest", StartKm = 500,
+                Name = L.N("Pine Forest"), StartKm = 500,
                 Sky = new Color(0.84f, 0.92f, 0.88f), FarLand = new Color(0.47f, 0.62f, 0.52f), NearLand = new Color(0.31f, 0.48f, 0.38f),
                 Trail = new Color(0.45f, 0.36f, 0.27f), Water = new Color(0.25f, 0.48f, 0.55f),
                 FarHeight = 1.2f, NearHeight = 1.25f,
@@ -71,7 +74,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Lakeshore", StartKm = 1200,
+                Name = L.N("Lakeshore"), StartKm = 1200,
                 Sky = new Color(0.80f, 0.93f, 0.94f), FarLand = new Color(0.60f, 0.78f, 0.84f), NearLand = new Color(0.54f, 0.72f, 0.60f),
                 Trail = new Color(0.60f, 0.52f, 0.40f), Water = new Color(0.30f, 0.60f, 0.76f),
                 FarHeight = 0.8f, NearHeight = 0.7f,
@@ -79,7 +82,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Mountain Pass", StartKm = 2500,
+                Name = L.N("Mountain Pass"), StartKm = 2500,
                 Sky = new Color(0.86f, 0.90f, 0.96f), FarLand = new Color(0.64f, 0.68f, 0.76f), NearLand = new Color(0.50f, 0.56f, 0.58f),
                 Trail = new Color(0.55f, 0.51f, 0.47f), Water = new Color(0.34f, 0.54f, 0.70f),
                 FarHeight = 1.9f, NearHeight = 1.5f,
@@ -87,7 +90,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Desert", StartKm = 4500,
+                Name = L.N("Desert"), StartKm = 4500,
                 Sky = new Color(0.98f, 0.92f, 0.80f), FarLand = new Color(0.94f, 0.82f, 0.60f), NearLand = new Color(0.89f, 0.73f, 0.49f),
                 Trail = new Color(0.90f, 0.78f, 0.55f), Water = new Color(0.28f, 0.66f, 0.72f),
                 FarHeight = 0.6f, NearHeight = 0.5f,
@@ -95,7 +98,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Canyon", StartKm = 7500,
+                Name = L.N("Canyon"), StartKm = 7500,
                 Sky = new Color(0.98f, 0.88f, 0.78f), FarLand = new Color(0.84f, 0.56f, 0.44f), NearLand = new Color(0.70f, 0.42f, 0.32f),
                 Trail = new Color(0.74f, 0.46f, 0.32f), Water = new Color(0.32f, 0.55f, 0.62f),
                 FarHeight = 1.7f, NearHeight = 1.4f,
@@ -103,7 +106,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Snowy Plateau", StartKm = 11000,
+                Name = L.N("Snowy Plateau"), StartKm = 11000,
                 Sky = new Color(0.92f, 0.95f, 0.98f), FarLand = new Color(0.86f, 0.90f, 0.95f), NearLand = new Color(0.78f, 0.84f, 0.90f),
                 Trail = new Color(0.93f, 0.95f, 0.98f), Water = new Color(0.52f, 0.70f, 0.82f),
                 FarHeight = 1.3f, NearHeight = 1.1f,
@@ -111,7 +114,7 @@ namespace ScrollRoad
             },
             new Region
             {
-                Name = "Sunset Road", StartKm = 15000,
+                Name = L.N("Sunset Road"), StartKm = 15000,
                 Sky = new Color(0.99f, 0.84f, 0.70f), FarLand = new Color(0.80f, 0.62f, 0.62f), NearLand = new Color(0.62f, 0.46f, 0.52f),
                 Trail = new Color(0.68f, 0.50f, 0.42f), Water = new Color(0.48f, 0.52f, 0.70f),
                 Towns = new[] { ("Eventide", 16000.0), ("Horizon", 17000.0) },

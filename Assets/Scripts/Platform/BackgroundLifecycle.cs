@@ -112,6 +112,7 @@ namespace ScrollRoad
             {
                 tooltipTimer = TooltipIntervalSeconds;
                 TrayIcon.SetTooltip(TooltipText());
+                TrayIcon.SetMenuTexts(L.T("Show ScrollRoad"), L.T("Taskbar mode"), L.T("Quit"));
                 if (companion == null) companion = FindAnyObjectByType<CompanionWindowController>();
             }
             TrayIcon.CompanionChecked = companion != null && companion.IsCompanionMode;
@@ -121,27 +122,27 @@ namespace ScrollRoad
         {
             if (drive == null) drive = FindAnyObjectByType<RoadDrive>();
             if (drive == null) return "ScrollRoad";
-            string idle = drive.IsUserActive ? "" : " (idle)";
+            string idle = drive.IsUserActive ? "" : " " + L.T("(idle)");
             if (EnvironmentManager.Current.Id == EnvironmentId.Fishing && FishingController.Instance != null)
             {
-                return $"ScrollRoad — {EnvironmentCatalog.Fishing.Format(FishingController.Instance.MonthFish * EnvironmentCatalog.FishIntervalPoints)} this month" + idle;
+                return "ScrollRoad — " + L.F("{0} this month", EnvironmentCatalog.Fishing.Format(FishingController.Instance.MonthFish * EnvironmentCatalog.FishIntervalPoints)) + idle;
             }
             if (EnvironmentManager.Current.Id == EnvironmentId.Door && DoorController.Instance != null)
             {
-                return $"ScrollRoad — {EnvironmentCatalog.Door.Format(DoorController.Instance.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints)} this month" + idle;
+                return "ScrollRoad — " + L.F("{0} this month", EnvironmentCatalog.Door.Format(DoorController.Instance.VisitorsInside * EnvironmentCatalog.VisitorIntervalPoints)) + idle;
             }
             if (EnvironmentManager.Current.Id == EnvironmentId.Wind && WindController.Instance != null)
             {
-                return $"ScrollRoad — {EnvironmentCatalog.Wind.Format(WindController.Instance.Connected * EnvironmentCatalog.KwhIntervalPoints)} this month" + idle;
+                return "ScrollRoad — " + L.F("{0} this month", EnvironmentCatalog.Wind.Format(WindController.Instance.Connected * EnvironmentCatalog.KwhIntervalPoints)) + idle;
             }
             if (EnvironmentManager.Current.Id == EnvironmentId.Vinyl && VinylController.Instance != null)
             {
-                return $"ScrollRoad — {EnvironmentCatalog.Vinyl.Format(VinylController.Instance.TracksDone * EnvironmentCatalog.TrackIntervalPoints)} this month" + idle;
+                return "ScrollRoad — " + L.F("{0} this month", EnvironmentCatalog.Vinyl.Format(VinylController.Instance.TracksDone * EnvironmentCatalog.TrackIntervalPoints)) + idle;
             }
             var interval = IntervalEnvironment.Current;
             if (interval != null)
             {
-                return $"ScrollRoad — {interval.Def.Format(interval.Done * interval.Interval)} this month" + idle;
+                return "ScrollRoad — " + L.F("{0} this month", interval.Def.Format(interval.Done * interval.Interval)) + idle;
             }
             return $"ScrollRoad — {Fmt.Km(drive.CurrentDistanceKmPrecise)}" + idle;
         }
@@ -180,7 +181,7 @@ namespace ScrollRoad
             if (userClosed && !SaveService.LoadTrayHintShown())
             {
                 SaveService.MarkTrayHintShown();
-                TrayIcon.ShowBalloon("ScrollRoad is running in the background", "Your scrolls keep counting. Click the icon to reopen it, or right-click > Quit to close it.");
+                TrayIcon.ShowBalloon(L.T("ScrollRoad is running in the background"), L.T("Your scrolls keep counting. Click the icon to reopen it, or right-click > Quit to close it."));
             }
         }
 

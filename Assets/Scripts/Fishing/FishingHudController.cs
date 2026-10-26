@@ -40,39 +40,39 @@ namespace ScrollRoad
             {
                 if (fishing.ReelDirection < 0f)
                 {
-                    statusText.text = "LETTING LINE OUT";
+                    statusText.text = L.T("LETTING LINE OUT");
                     statusText.color = Normal;
                 }
                 else if (!active)
                 {
-                    statusText.text = "IDLE · SLOW REEL";
+                    statusText.text = L.T("IDLE · SLOW REEL");
                     statusText.color = Idle;
                 }
                 else
                 {
-                    statusText.text = "REELING";
+                    statusText.text = L.T("REELING");
                     statusText.color = Normal;
                 }
             }
 
-            placeText.SetText(fishing.Spot.Name.ToUpperInvariant());
+            placeText.SetText(L.Upper(L.T(fishing.Spot.Name)));
             bool showDistance = false;
             switch (fishing.CurrentPhase)
             {
                 case FishingController.Phase.Casting:
-                    phaseText.SetText("Casting...");
+                    phaseText.SetText(L.T("Casting..."));
                     break;
                 case FishingController.Phase.Retrieving:
-                    phaseText.SetText("Retrieving");
+                    phaseText.SetText(L.T("Retrieving"));
                     showDistance = true;
                     break;
                 case FishingController.Phase.Hooked:
-                    phaseText.SetText("Fish on!");
+                    phaseText.SetText(L.T("Fish on!"));
                     showDistance = true;
                     break;
                 default:
                     var last = fishing.LastFish;
-                    phaseText.SetText(last != null ? $"{last.Name}  {fishing.LastKg:0.00} kg" : "Landed");
+                    phaseText.SetText(last != null ? L.T(last.Name) + "  " + L.F("{0:0.00} kg", fishing.LastKg) : L.T("Landed"));
                     break;
             }
             distanceText.gameObject.SetActive(showDistance);
@@ -83,8 +83,8 @@ namespace ScrollRoad
             }
 
             var lastFish = fishing.LastFish;
-            string lastLine = lastFish != null ? $"  ·  <alpha=#99>LAST<alpha=#FF>  {lastFish.Name} {fishing.LastKg:0.00} kg" : "";
-            logText.text = $"<alpha=#99>FISH LOG<alpha=#FF>  {fishing.SpeciesLoggedAt(fishing.Spot)} / {fishing.Spot.Species.Length}{lastLine}";
+            string lastLine = lastFish != null ? $"  ·  <alpha=#99>{L.T("LAST")}<alpha=#FF>  {L.T(lastFish.Name)} " + L.F("{0:0.00} kg", fishing.LastKg) : "";
+            logText.text = $"<alpha=#99>{L.T("FISH LOG")}<alpha=#FF>  {fishing.SpeciesLoggedAt(fishing.Spot)} / {fishing.Spot.Species.Length}{lastLine}";
         }
     }
 }

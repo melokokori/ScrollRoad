@@ -89,7 +89,7 @@ namespace ScrollRoad
             s.hinted = true; // Activities'i bulmuş
             if (announce && notice != null && def.Id != EnvironmentId.Road)
             {
-                notice.Announce(def.Name, $"{def.Tagline} Rare finds fill the shelf below.", $"{def.Name} · new activity");
+                notice.Announce(L.T(def.Name), L.T(def.Tagline) + " " + L.T("Rare finds fill the shelf below."), L.F("{0} · new activity", L.T(def.Name)));
             }
             return true;
         }
@@ -110,8 +110,8 @@ namespace ScrollRoad
             s.hinted = true;
             Save();
             int others = EnvironmentCatalog.All.Length - 1;
-            notice.Announce("Try something new", $"Menu → Activities has {others} more things that move while you scroll.",
-                $"Menu › Activities: {others} more");
+            notice.Announce(L.T("Try something new"), L.F("Menu → Activities has {0} more things that move while you scroll.", others),
+                L.F("Menu › Activities: {0} more", others));
         }
 
         static void Save() => SaveService.SaveJson(SaveKey, State);

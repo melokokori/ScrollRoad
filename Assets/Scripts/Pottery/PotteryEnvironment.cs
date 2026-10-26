@@ -9,6 +9,7 @@ namespace ScrollRoad
     //
     // Bir çömleğin evreleri (f = Phase): 0–0,08 çarka yeni topak konur; 0,08–0,80 yükselip biçimlenir;
     // 0,80–0,88 pişmiş/sırlı hâline geçer; 0,88–1 rafa taşınır (f = 1'de sayılır).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public class PotteryEnvironment : IntervalEnvironment
     {
         public const float ShapeStart = 0.08f;
@@ -122,19 +123,19 @@ namespace ScrollRoad
         protected override string HashKey => "pottery";
         public override ItemSite[] Sites => AllSites;
 
-        public override string TotalLabel => "POTS MADE";
-        public override string StatusActive => "SHAPING";
-        public override string StatusIdle => "IDLE · SLOW WHEEL";
-        public override string StatusBack => "PRESSING DOWN";
-        public override string RarePhrase => "Shaping";
-        public override string NextLine(long index, EnvItem item) => "On the wheel: " + item.Type.Name.ToLowerInvariant();
-        public override string CollectionShort => "POTTERY SHELF";
-        public override string LogNoun => "pieces";
-        public override string MetDetail(ItemRecord r) => $"Made ×{r.count}\n<alpha=#88>First fired {r.firstSeen}";
-        public override string UnmetDetail => "<alpha=#88>Not made yet";
+        public override string TotalLabel => L.T("POTS MADE");
+        public override string StatusActive => L.T("SHAPING");
+        public override string StatusIdle => L.T("IDLE · SLOW WHEEL");
+        public override string StatusBack => L.T("PRESSING DOWN");
+        public override string RarePhrase => L.T("Shaping");
+        public override string NextLine(long index, EnvItem item) => L.F("On the wheel: {0}", L.Lower(L.T(item.Type.Name)));
+        public override string CollectionShort => L.T("POTTERY SHELF");
+        public override string LogNoun => L.T("pieces");
+        public override string MetDetail(ItemRecord r) => L.F("Made ×{0}", r.count) + "\n<alpha=#88>" + L.F("First fired {0}", r.firstSeen);
+        public override string UnmetDetail => "<alpha=#88>" + L.T("Not made yet");
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"New on the shelf: {type.Name}", RareNotes.For(EnvironmentId.Pottery, type.Id) ?? "Stamped on your pottery shelf", $"{type.Name} · on the shelf");
+            notice.Announce(L.F("New on the shelf: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Pottery, type.Id) ?? L.T("Stamped on your pottery shelf"), L.F("{0} · on the shelf", L.T(type.Name)));
 
         // Çömleğin profili: t (0 dip, 1 ağız) → yarıçap (Size cinsinden). Noktalar arası yumuşak geçiş.
         public static float Profile(ItemType type, float t)

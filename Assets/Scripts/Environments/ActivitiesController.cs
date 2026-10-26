@@ -78,12 +78,12 @@ namespace ScrollRoad
             if (hintText != null)
             {
                 var sideDef = SideActivity.Current?.Def;
-                string rate = $"{SideActivity.Rate * 100:0}%";
+                string rate = L.F("{0:0}%", SideActivity.Rate * 100);
                 hintText.text = !SideActivity.IsUnlocked
-                    ? $"Only the activity you pick moves forward. A side activity slot opens in {UnlockLadder.Remaining(SideActivity.PointsToUnlock)} of play."
+                    ? L.F("Only the activity you pick moves forward. A side activity slot opens in {0} of play.", UnlockLadder.Remaining(SideActivity.PointsToUnlock))
                     : sideDef != null && sideDef != current
-                        ? $"Side activity: {sideDef.Name} moves toward its unlocks at {rate} while you're elsewhere."
-                        : $"Tap SIDE on a card: that activity moves toward its unlocks at {rate} while you play another.";
+                        ? L.F("Side activity: {0} moves toward its unlocks at {1} while you're elsewhere.", L.T(sideDef.Name), rate)
+                        : L.F("Tap SIDE on a card: that activity moves toward its unlocks at {0} while you play another.", rate);
             }
             for (int i = 0; i < all.Length && i < cardButtons.Length; i++)
             {
@@ -93,7 +93,7 @@ namespace ScrollRoad
                 cardButtons[i].interactable = !active;
                 bool isNew = !active && ActivityGuide.IsNew(all[i].Id); // hiç girilmemiş (ActivityGuide)
                 bool side = !active && SideActivity.Has(all[i].Id);
-                statusTexts[i].text = active ? "PLAYING" : side ? $"SIDE · {SideActivity.Rate * 100:0}% SPEED" : isNew ? "NEW · CLICK TO TRY" : "CLICK TO SWITCH";
+                statusTexts[i].text = active ? L.T("PLAYING") : side ? L.F("SIDE · {0:0}% SPEED", SideActivity.Rate * 100) : isNew ? L.T("NEW · CLICK TO TRY") : L.T("CLICK TO SWITCH");
                 statusTexts[i].color = active ? Color.white : side || isNew ? Amber : Muted;
 
                 if (i >= sideButtons.Length) continue;

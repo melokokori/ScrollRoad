@@ -10,6 +10,7 @@ namespace ScrollRoad
     // Mekân = çağ (Ortam Standardı v2, 2026-10-25): İlk Çağ → Orta Çağ → Rönesans → Sanayi Çağı → Uzay Çağı,
     // Dünya'da geçen seyir saatiyle açılır (UnlockLadder). Mekân uzayın ve güneşin rengini verir (Palette:
     // [0] uzay, [1] güneş); gezegenin renkleri skin takımından (SkinCatalog.Globe).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public class GlobeEnvironment : IntervalEnvironment
     {
         public static readonly ItemSite Ancient = new ItemSite
@@ -95,19 +96,19 @@ namespace ScrollRoad
         protected override string HashKey => "globe";
         public override ItemSite[] Sites => AllSites;
 
-        public override string TotalLabel => "ELAPSED";
-        public override string StatusActive => "TURNING";
-        public override string StatusIdle => "IDLE · SLOW DAYS";
-        public override string StatusBack => "TIME REWINDS";
-        public override string RarePhrase => "Rising";
-        public override string NextLine(long index, EnvItem item) => "Next: year " + Fmt.Int(index);
-        public override string CollectionShort => "CHRONICLE";
-        public override string LogNoun => "wonders";
-        public override string MetDetail(ItemRecord r) => $"Raised ×{r.count}\n<alpha=#88>First seen {r.firstSeen}";
-        public override string UnmetDetail => "<alpha=#88>Not raised yet";
+        public override string TotalLabel => L.T("ELAPSED");
+        public override string StatusActive => L.T("TURNING");
+        public override string StatusIdle => L.T("IDLE · SLOW DAYS");
+        public override string StatusBack => L.T("TIME REWINDS");
+        public override string RarePhrase => L.T("Rising");
+        public override string NextLine(long index, EnvItem item) => L.F("Next: year {0}", Fmt.Int(index));
+        public override string CollectionShort => L.T("CHRONICLE");
+        public override string LogNoun => L.T("wonders");
+        public override string MetDetail(ItemRecord r) => L.F("Raised ×{0}", r.count) + "\n<alpha=#88>" + L.F("First seen {0}", r.firstSeen);
+        public override string UnmetDetail => "<alpha=#88>" + L.T("Not raised yet");
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"Wonder raised: {type.Name}", RareNotes.For(EnvironmentId.Globe, type.Id) ?? "Stamped in your chronicle", $"{type.Name} · in the chronicle");
+            notice.Announce(L.F("Wonder raised: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Globe, type.Id) ?? L.T("Stamped in your chronicle"), L.F("{0} · in the chronicle", L.T(type.Name)));
 
         // Gezegen: puan başına derece (seyirde ~8 sn'de bir tur, tam boost'ta ~2 sn, rölantide ~48 sn).
         public const double DegreesPerPoint = 2.7;

@@ -1,0 +1,1870 @@
+#161 The Whole Album
+tr	Albümün Tamamı
+de	Das ganze Album
+fr	L'album complet
+es	El álbum completo
+pt	O álbum completo
+pl	Cały album
+ru	Весь альбом
+zh	图鉴全收集
+ja	アルバム完成
+ko	앨범 완성
+#162 Try every activity.
+tr	Her etkinliği dene.
+de	Probiere jede Aktivität aus.
+fr	Essayez toutes les activités.
+es	Prueba todas las actividades.
+pt	Experimente todas as atividades.
+pl	Wypróbuj każdą aktywność.
+ru	Попробуйте все занятия.
+zh	尝试所有活动。
+ja	すべてのアクティビティを試す。
+ko	모든 활동 체험.
+#163 Unlock 10 vehicles.
+tr	10 araç aç.
+de	Schalte 10 Fahrzeuge frei.
+fr	Débloquez 10 véhicules.
+es	Desbloquea 10 vehículos.
+pt	Desbloqueie 10 veículos.
+pl	Odblokuj 10 pojazdów.
+ru	Откройте 10 машин.
+zh	解锁 10 辆载具。
+ja	車両を10台解放する。
+ko	차량 10대 해제.
+#164 Unlock a new look in any activity.
+tr	Herhangi bir etkinlikte yeni bir görünüm aç.
+de	Schalte in einer beliebigen Aktivität einen neuen Look frei.
+fr	Débloquez un nouveau look dans une activité.
+es	Desbloquea un nuevo look en cualquier actividad.
+pt	Desbloqueie um visual novo em qualquer atividade.
+pl	Odblokuj nowy wygląd w dowolnej aktywności.
+ru	Откройте новый облик в любом занятии.
+zh	在任意活动中解锁新外观。
+ja	いずれかのアクティビティで新しい見た目を解放する。
+ko	아무 활동에서나 새 외형 해제.
+#165 Steam not connected
+tr	Steam bağlı değil
+de	Steam nicht verbunden
+fr	Steam non connecté
+es	Steam no conectado
+pt	Steam não conectado
+pl	Steam niepołączony
+ru	Steam не подключён
+zh	Steam 未连接
+ja	Steam 未接続
+ko	Steam 연결 안 됨
+#166 Submission failed
+tr	Gönderilemedi
+de	Senden fehlgeschlagen
+fr	Échec de l'envoi
+es	Error al enviar
+pt	Falha no envio
+pl	Nie udało się wysłać
+ru	Не удалось отправить
+zh	提交失败
+ja	送信に失敗しました
+ko	제출 실패
+#167 Submitted: {0}
+tr	Gönderildi: {0}
+de	Gesendet: {0}
+fr	Envoyé : {0}
+es	Enviado: {0}
+pt	Enviado: {0}
+pl	Wysłano: {0}
+ru	Отправлено: {0}
+zh	已提交：{0}
+ja	送信済み：{0}
+ko	제출됨: {0}
+#168 Steam: {0}
+tr	Steam: {0}
+de	Steam: {0}
+fr	Steam : {0}
+es	Steam: {0}
+pt	Steam: {0}
+pl	Steam: {0}
+ru	Steam: {0}
+zh	Steam：{0}
+ja	Steam：{0}
+ko	Steam: {0}
+#169 IDLE
+tr	RÖLANTİ
+de	LEERLAUF
+fr	RALENTI
+es	RALENTÍ
+pt	OCIOSO
+pl	JAŁOWY
+ru	ПРОСТОЙ
+zh	怠速
+ja	アイドル
+ko	대기
+#170 KM/H
+tr	KM/SA
+de	KM/H
+fr	KM/H
+es	KM/H
+pt	KM/H
+pl	KM/H
+ru	КМ/Ч
+zh	KM/H
+ja	KM/H
+ko	KM/H
+#171 KN
+tr	KNOT
+de	KN
+fr	NŒUDS
+es	NUDOS
+pt	NÓS
+pl	WĘZ.
+ru	УЗЛ
+zh	节
+ja	ノット
+ko	노트
+#172 backing out
+tr	geri çekiliyor
+de	dreht zurück
+fr	recule
+es	retrocede
+pt	voltando
+pl	cofa się
+ru	назад
+zh	倒转中
+ja	逆回転
+ko	되감는 중
+#173 braking
+tr	frenliyor
+de	bremst
+fr	freine
+es	frenando
+pt	freando
+pl	hamuje
+ru	тормозит
+zh	制动中
+ja	ブレーキ中
+ko	제동 중
+#174 fish on!
+tr	balık takıldı!
+de	Fisch am Haken!
+fr	ça mord !
+es	¡pica!
+pt	fisgou!
+pl	bierze!
+ru	клюёт!
+zh	上钩了！
+ja	ヒット！
+ko	입질!
+#175 generating
+tr	üretiyor
+de	erzeugt Strom
+fr	produit
+es	generando
+pt	gerando
+pl	wytwarza
+ru	вырабатывает
+zh	发电中
+ja	発電中
+ko	발전 중
+#176 idle · light breeze
+tr	rölanti · hafif esinti
+de	Leerlauf · leichte Brise
+fr	ralenti · brise légère
+es	ralentí · brisa suave
+pt	ocioso · brisa leve
+pl	bezczynny · lekka bryza
+ru	простой · лёгкий ветерок
+zh	闲置 · 微风
+ja	アイドル · そよ風
+ko	대기 · 산들바람
+#177 idle · slow reel
+tr	rölanti · yavaş sarma
+de	Leerlauf · langsames Kurbeln
+fr	ralenti · moulinet lent
+es	ralentí · carrete lento
+pt	ocioso · molinete lento
+pl	bezczynny · powolne zwijanie
+ru	простой · медленная катушка
+zh	闲置 · 慢速收线
+ja	アイドル · ゆっくり巻き
+ko	대기 · 천천히 감기
+#178 idle · slow spin
+tr	rölanti · yavaş dönüş
+de	Leerlauf · langsame Drehung
+fr	ralenti · rotation lente
+es	ralentí · giro lento
+pt	ocioso · giro lento
+pl	bezczynny · powolne obroty
+ru	простой · медленное вращение
+zh	闲置 · 慢速旋转
+ja	アイドル · ゆっくり回転
+ko	대기 · 천천히 회전
+#179 idle · slow turn
+tr	rölanti · yavaş dönüş
+de	Leerlauf · langsames Drehen
+fr	ralenti · rotation lente
+es	ralentí · giro lento
+pt	ocioso · giro lento
+pl	bezczynny · powolny obrót
+ru	простой · медленный оборот
+zh	闲置 · 慢速转动
+ja	アイドル · ゆっくり回る
+ko	대기 · 천천히 돌기
+#180 idle · {0} {1}
+tr	rölanti · {0} {1}
+de	Leerlauf · {0} {1}
+fr	ralenti · {0} {1}
+es	ralentí · {0} {1}
+pt	ocioso · {0} {1}
+pl	bezczynny · {0} {1}
+ru	простой · {0} {1}
+zh	闲置 · {0} {1}
+ja	アイドル · {0} {1}
+ko	대기 · {0} {1}
+#181 km/h
+tr	km/sa
+de	km/h
+fr	km/h
+es	km/h
+pt	km/h
+pl	km/h
+ru	км/ч
+zh	km/h
+ja	km/h
+ko	km/h
+#182 kn
+tr	knot
+de	kn
+fr	nds
+es	nudos
+pt	nós
+pl	węz.
+ru	уз
+zh	节
+ja	ノット
+ko	노트
+#183 letting line out
+tr	misina bırakılıyor
+de	Schnur wird gelassen
+fr	ligne relâchée
+es	soltando sedal
+pt	soltando linha
+pl	popuszcza żyłkę
+ru	стравливает леску
+zh	放线中
+ja	糸を出し中
+ko	줄 푸는 중
+#184 reeling
+tr	sarıyor
+de	kurbelt
+fr	moulinet
+es	recogiendo
+pt	recolhendo
+pl	zwija
+ru	сматывает
+zh	收线中
+ja	巻き上げ中
+ko	감는 중
+#185 rewinding
+tr	geri sarıyor
+de	spult zurück
+fr	rembobine
+es	rebobinando
+pt	rebobinando
+pl	przewija wstecz
+ru	перематывает
+zh	倒带中
+ja	巻き戻し中
+ko	되감는 중
+#186 turning
+tr	dönüyor
+de	dreht sich
+fr	tourne
+es	girando
+pt	girando
+pl	obraca się
+ru	вращается
+zh	转动中
+ja	回転中
+ko	회전 중
+#187 {0:0.00} kg
+tr	{0:0.00} kg
+de	{0:0.00} kg
+fr	{0:0.00} kg
+es	{0:0.00} kg
+pt	{0:0.00} kg
+pl	{0:0.00} kg
+ru	{0:0.00} кг
+zh	{0:0.00} kg
+ja	{0:0.00} kg
+ko	{0:0.00}kg
+#188 Large
+tr	Büyük
+de	Groß
+fr	Grande
+es	Grande
+pt	Grande
+pl	Duża
+ru	Большая
+zh	大
+ja	大
+ko	크게
+#189 Medium
+tr	Orta
+de	Mittel
+fr	Moyenne
+es	Mediana
+pt	Média
+pl	Średnia
+ru	Средняя
+zh	中
+ja	中
+ko	보통
+#190 Small
+tr	Küçük
+de	Klein
+fr	Petite
+es	Pequeña
+pt	Pequena
+pl	Mała
+ru	Маленькая
+zh	小
+ja	小
+ko	작게
+#191 Legendary {0}!
+tr	Efsanevi {0}!
+de	Legendär: {0}!
+fr	Légendaire : {0} !
+es	¡Legendario: {0}!
+pt	Lendário: {0}!
+pl	Legendarny: {0}!
+ru	Легенда: {0}!
+zh	传说：{0}！
+ja	伝説の{0}！
+ko	전설의 {0}!
+#192 Legendary: {0}
+tr	Efsanevi: {0}
+de	Legendär: {0}
+fr	Légendaire : {0}
+es	Legendario: {0}
+pt	Lendário: {0}
+pl	Legendarny: {0}
+ru	Легенда: {0}
+zh	传说：{0}
+ja	伝説：{0}
+ko	전설: {0}
+#193 Looks
+tr	Görünümler
+de	Looks
+fr	Apparences
+es	Aspectos
+pt	Visuais
+pl	Wygląd
+ru	Облики
+zh	外观
+ja	見た目
+ko	외형
+#194 Signed in your guest book
+tr	Konuk defterine imza attı
+de	Hat sich in dein Gästebuch eingetragen
+fr	A signé votre livre d'or
+es	Ha firmado en tu libro de visitas
+pt	Assinou seu livro de visitas
+pl	Wpisano do twojej księgi gości
+ru	Расписался в книге гостей
+zh	已在你的访客簿上签名
+ja	ゲストブックに記帳しました
+ko	방명록에 서명했습니다
+#195 Special guest: {0}
+tr	Özel konuk: {0}
+de	Besonderer Gast: {0}
+fr	Invité spécial : {0}
+es	Invitado especial: {0}
+pt	Convidado especial: {0}
+pl	Specjalny gość: {0}
+ru	Особый гость: {0}
+zh	特别来宾：{0}
+ja	特別ゲスト：{0}
+ko	특별 손님: {0}
+#196 The rarest guest of {0} walked in
+tr	{0} mekânının en nadir konuğu içeri girdi
+de	Der seltenste Gast von {0} ist hereingekommen
+fr	L'invité le plus rare de {0} est entré
+es	Ha entrado el invitado más raro de {0}
+pt	O convidado mais raro de {0} entrou
+pl	Wszedł najrzadszy gość miejsca {0}
+ru	Пришёл самый редкий гость места «{0}»
+zh	{0}最稀有的来宾进门了
+ja	{0}で一番珍しいゲストが来店
+ko	{0}의 가장 희귀한 손님이 들어왔습니다
+#197 look
+tr	görünüm
+de	Look
+fr	apparence
+es	aspecto
+pt	visual
+pl	wygląd
+ru	облик
+zh	外观
+ja	見た目
+ko	외형
+#198 venue
+tr	mekân
+de	Ort
+fr	lieu
+es	lugar
+pt	local
+pl	miejsce
+ru	место
+zh	场所
+ja	場所
+ko	장소
+#199 {0} · new guest
+tr	{0} · yeni konuk
+de	{0} · neuer Gast
+fr	{0} · nouvel invité
+es	{0} · nuevo invitado
+pt	{0} · novo convidado
+pl	{0} · nowy gość
+ru	{0} · новый гость
+zh	{0} · 新来宾
+ja	{0} · 新しいゲスト
+ko	{0} · 새 손님
+#200 BACKING OUT
+tr	GERİ DÖNÜYOR
+de	DREHT ZURÜCK
+fr	RECULE
+es	RETROCEDE
+pt	VOLTANDO
+pl	COFA SIĘ
+ru	НАЗАД
+zh	倒转中
+ja	逆回転
+ko	되감는 중
+#201 GUEST BOOK
+tr	KONUK DEFTERİ
+de	GÄSTEBUCH
+fr	LIVRE D'OR
+es	LIBRO DE VISITAS
+pt	LIVRO DE VISITAS
+pl	KSIĘGA GOŚCI
+ru	КНИГА ГОСТЕЙ
+zh	访客簿
+ja	ゲストブック
+ko	방명록
+#202 Here comes
+tr	Geliyor
+de	Gleich kommt
+fr	Voici
+es	Ahí viene
+pt	Lá vem
+pl	Nadchodzi
+ru	Идёт
+zh	即将到来
+ja	まもなく
+ko	곧 등장
+#203 IDLE · SLOW TURN
+tr	RÖLANTİ · YAVAŞ DÖNÜŞ
+de	LEERLAUF · LANGSAMES DREHEN
+fr	RALENTI · ROTATION LENTE
+es	RALENTÍ · GIRO LENTO
+pt	OCIOSO · GIRO LENTO
+pl	BEZCZYNNY · POWOLNY OBRÓT
+ru	ПРОСТОЙ · МЕДЛЕННЫЙ ОБОРОТ
+zh	闲置 · 慢速转动
+ja	アイドル · ゆっくり回る
+ko	대기 · 천천히 돌기
+#204 LAST
+tr	SON
+de	ZULETZT
+fr	DERNIER
+es	ÚLTIMO
+pt	ÚLTIMO
+pl	OSTATNI
+ru	ПОСЛЕДНИЙ
+zh	最近
+ja	直近
+ko	최근
+#205 Next: #{0}
+tr	Sıradaki: #{0}
+de	Nächster: #{0}
+fr	Suivant : n°{0}
+es	Siguiente: n.º {0}
+pt	Próximo: nº {0}
+pl	Następny: nr {0}
+ru	Следующий: №{0}
+zh	下一位：第 {0} 位
+ja	次：#{0}
+ko	다음: #{0}
+#206 TURNING
+tr	DÖNÜYOR
+de	DREHT SICH
+fr	TOURNE
+es	GIRANDO
+pt	GIRANDO
+pl	OBRACA SIĘ
+ru	ВРАЩАЕТСЯ
+zh	转动中
+ja	回転中
+ko	회전 중
+#207 First visit {0}
+tr	İlk ziyaret {0}
+de	Erster Besuch {0}
+fr	Première visite {0}
+es	Primera visita {0}
+pt	Primeira visita {0}
+pl	Pierwsza wizyta {0}
+ru	Первый визит {0}
+zh	首次到访 {0}
+ja	初来店 {0}
+ko	첫 방문 {0}
+#208 GO HERE
+tr	BURAYA GİT
+de	HIERHIN
+fr	Y ALLER
+es	IR AQUÍ
+pt	IR PARA CÁ
+pl	PRZEJDŹ TUTAJ
+ru	ПЕРЕЙТИ СЮДА
+zh	前往此处
+ja	ここへ行く
+ko	여기로 이동
+#209 Guest book
+tr	Konuk defteri
+de	Gästebuch
+fr	Livre d'or
+es	Libro de visitas
+pt	Livro de visitas
+pl	Księga gości
+ru	Книга гостей
+zh	访客簿
+ja	ゲストブック
+ko	방명록
+#210 LEGENDARY
+tr	EFSANEVİ
+de	LEGENDÄR
+fr	LÉGENDAIRE
+es	LEGENDARIO
+pt	LENDÁRIO
+pl	LEGENDARNY
+ru	ЛЕГЕНДА
+zh	传说
+ja	伝説
+ko	전설
+#211 LOCKED
+tr	KİLİTLİ
+de	GESPERRT
+fr	VERROUILLÉ
+es	BLOQUEADO
+pt	BLOQUEADO
+pl	ZABLOKOWANE
+ru	ЗАКРЫТО
+zh	未解锁
+ja	ロック中
+ko	잠김
+#212 Not seen yet
+tr	Henüz görülmedi
+de	Noch nicht gesehen
+fr	Pas encore vu
+es	Aún no visto
+pt	Ainda não visto
+pl	Jeszcze nie widziany
+ru	Ещё не появлялся
+zh	尚未见过
+ja	未登場
+ko	아직 못 봄
+#213 Visited ×{0}
+tr	Ziyaret ×{0}
+de	Besucht ×{0}
+fr	Venu ×{0}
+es	Visitas ×{0}
+pt	Visitas ×{0}
+pl	Wizyty ×{0}
+ru	Визитов ×{0}
+zh	到访 ×{0}
+ja	来店 ×{0}
+ko	방문 ×{0}
+#214 YOU ARE HERE
+tr	BURADASIN
+de	DU BIST HIER
+fr	VOUS ÊTES ICI
+es	ESTÁS AQUÍ
+pt	VOCÊ ESTÁ AQUI
+pl	JESTEŚ TUTAJ
+ru	ВЫ ЗДЕСЬ
+zh	当前位置
+ja	現在地
+ko	현재 위치
+#215 {0} / {1} guests  ·  {2} in all
+tr	{0} / {1} konuk  ·  toplam {2}
+de	{0} / {1} Gäste  ·  {2} insgesamt
+fr	{0} / {1} invités  ·  {2} au total
+es	{0} / {1} invitados  ·  {2} en total
+pt	{0} / {1} convidados  ·  {2} no total
+pl	{0} / {1} gości  ·  łącznie {2}
+ru	Гостей: {0} / {1}  ·  всего {2}
+zh	来宾 {0} / {1}  ·  共 {2}
+ja	ゲスト {0} / {1}  ·  合計 {2}
+ko	손님 {0} / {1}  ·  총 {2}
+#216 {0} at the door to go
+tr	kapıda {0} kaldı
+de	noch {0} an der Tür
+fr	encore {0} à la porte
+es	faltan {0} en la puerta
+pt	faltam {0} na porta
+pl	jeszcze {0} przy drzwiach
+ru	ещё {0} у двери
+zh	还需在门口 {0}
+ja	ドアであと{0}
+ko	문에서 {0} 더
+#217 {0} visitors
+tr	{0} ziyaretçi
+de	{0} Besucher|{0} Besucher
+fr	{0} visiteur|{0} visiteurs
+es	{0} visitante|{0} visitantes
+pt	{0} visitante|{0} visitantes
+pl	{0} gość|{0} gości|{0} gości
+ru	{0} посетитель|{0} посетителя|{0} посетителей
+zh	{0} 位访客
+ja	{0}人の来客
+ko	방문객 {0}명
+#218 CLICK TO SWITCH
+tr	GEÇMEK İÇİN TIKLA
+de	KLICKEN ZUM WECHSELN
+fr	CLIQUEZ POUR CHANGER
+es	CLIC PARA CAMBIAR
+pt	CLIQUE PARA TROCAR
+pl	KLIKNIJ, ABY ZMIENIĆ
+ru	НАЖМИТЕ, ЧТОБЫ СМЕНИТЬ
+zh	点击切换
+ja	クリックで切替
+ko	클릭하여 전환
+#219 NEW · CLICK TO TRY
+tr	YENİ · DENEMEK İÇİN TIKLA
+de	NEU · KLICKEN ZUM AUSPROBIEREN
+fr	NOUVEAU · CLIQUEZ POUR ESSAYER
+es	NUEVO · CLIC PARA PROBAR
+pt	NOVO · CLIQUE PARA TESTAR
+pl	NOWE · KLIKNIJ, ABY SPRÓBOWAĆ
+ru	НОВОЕ · НАЖМИТЕ, ЧТОБЫ ПОПРОБОВАТЬ
+zh	新 · 点击试玩
+ja	新着 · クリックで試す
+ko	새 활동 · 클릭하여 체험
+#220 Only the activity you pick moves forward. A side activity slot opens in {0} of play.
+tr	Yalnız seçtiğin etkinlik ilerler. Yan etkinlik yuvası {0} oynayınca açılır.
+de	Nur die gewählte Aktivität kommt voran. Ein Platz für eine Nebenaktivität öffnet sich nach {0} Spielzeit.
+fr	Seule l'activité choisie progresse. Un emplacement d'activité secondaire s'ouvre après {0} de jeu.
+es	Solo avanza la actividad que elijas. Una ranura de actividad secundaria se abre tras {0} de juego.
+pt	Só a atividade escolhida avança. Um espaço de atividade secundária abre após {0} de jogo.
+pl	Postępuje tylko wybrana aktywność. Miejsce na dodatkową aktywność otworzy się po {0} gry.
+ru	Продвигается только выбранное занятие. Слот для дополнительного занятия откроется через {0} игры.
+zh	只有所选活动会推进。游玩 {0} 后开放副活动栏。
+ja	進むのは選んだアクティビティだけ。{0}プレイするとサブ枠が開きます。
+ko	선택한 활동만 진행됩니다. {0} 플레이하면 보조 활동 슬롯이 열립니다.
+#221 PLAYING
+tr	OYNANIYOR
+de	LÄUFT
+fr	EN COURS
+es	JUGANDO
+pt	JOGANDO
+pl	TRWA
+ru	ИГРАЕТСЯ
+zh	进行中
+ja	プレイ中
+ko	플레이 중
+#222 SIDE · {0:0}% SPEED
+tr	YAN · %{0:0} HIZ
+de	NEBEN · {0:0} % TEMPO
+fr	SECONDAIRE · {0:0} % VITESSE
+es	SECUNDARIA · {0:0} % VELOCIDAD
+pt	SECUNDÁRIA · {0:0}% VELOCIDADE
+pl	DODATKOWA · {0:0}% TEMPA
+ru	ДОП · {0:0}% СКОРОСТИ
+zh	副 · {0:0}% 速度
+ja	サブ · 速度{0:0}%
+ko	보조 · 속도 {0:0}%
+#223 Side activity: {0} moves toward its unlocks at {1} while you're elsewhere.
+tr	Yan etkinlik: sen başka yerdeyken {0} açılışlarına doğru {1} hızla ilerler.
+de	Nebenaktivität: {0} kommt mit {1} seinen Freischaltungen näher, während du woanders bist.
+fr	Activité secondaire : {0} progresse vers ses déblocages à {1} pendant que vous êtes ailleurs.
+es	Actividad secundaria: {0} avanza hacia sus desbloqueos al {1} mientras estás en otra.
+pt	Atividade secundária: {0} avança rumo aos desbloqueios a {1} enquanto você está em outra.
+pl	Dodatkowa aktywność: {0} zmierza do odblokowań w tempie {1}, gdy jesteś gdzie indziej.
+ru	Дополнительное занятие: {0} движется к открытиям на {1}, пока вы заняты другим.
+zh	副活动：你在别处时，{0} 会以 {1} 的速度推进解锁。
+ja	サブ：ほかで遊んでいる間、{0}は{1}の速度で解放に近づきます。
+ko	보조 활동: 다른 곳에 있는 동안 {0}이(가) {1} 속도로 해제를 향해 진행됩니다.
+#224 Tap SIDE on a card...
+tr	Bir kartta YAN'a dokun: sen başka bir etkinlik oynarken o etkinlik açılışlarına doğru {0} hızla ilerler.
+de	Tippe auf einer Karte auf NEBEN: Diese Aktivität kommt mit {0} ihren Freischaltungen näher, während du eine andere spielst.
+fr	Touchez EN PLUS sur une carte : cette activité progresse vers ses déblocages à {0} pendant que vous jouez à une autre.
+es	Pulsa EXTRA en una tarjeta: esa actividad avanza hacia sus desbloqueos al {0} mientras juegas a otra.
+pt	Toque em EXTRA num cartão: essa atividade avança rumo aos desbloqueios a {0} enquanto você joga outra.
+pl	Kliknij DODAJ na karcie: ta aktywność zmierza do odblokowań w tempie {0}, gdy grasz w inną.
+ru	Нажмите ДОП на карточке: это занятие будет двигаться к открытиям на {0}, пока вы играете в другое.
+zh	点击卡片上的“副”：玩其他活动时，该活动会以 {0} 的速度推进解锁。
+ja	カードの「サブ」を押すと、ほかを遊んでいる間もそのアクティビティが{0}の速度で解放に近づきます。
+ko	카드에서 '보조'를 누르세요: 다른 활동을 하는 동안 그 활동이 {0} 속도로 해제를 향해 진행됩니다.
+#225 {0:0}%
+tr	%{0:0}
+de	{0:0} %
+fr	{0:0} %
+es	{0:0} %
+pt	{0:0}%
+pl	{0:0}%
+ru	{0:0}%
+zh	{0:0}%
+ja	{0:0}%
+ko	{0:0}%
+#226 Menu › Activities: {0} more
+tr	Menü › Etkinlikler: {0} tane daha
+de	Menü › Aktivitäten: {0} weitere
+fr	Menu › Activités : {0} de plus
+es	Menú › Actividades: {0} más
+pt	Menu › Atividades: mais {0}
+pl	Menu › Aktywności: jeszcze {0}
+ru	Меню › Занятия: ещё {0}
+zh	菜单 › 活动：还有 {0} 个
+ja	メニュー › アクティビティ：ほかに{0}つ
+ko	메뉴 › 활동: {0}개 더
+#227 Menu → Activities has {0} more things that move while you scroll.
+tr	Menü → Etkinlikler'de kaydırdıkça ilerleyen {0} şey daha var.
+de	Unter Menü → Aktivitäten gibt es {0} weitere Dinge, die sich beim Scrollen bewegen.
+fr	Menu → Activités propose {0} autres choses qui avancent quand vous faites défiler.
+es	En Menú → Actividades hay {0} cosas más que se mueven al desplazarte.
+pt	Em Menu → Atividades há mais {0} coisas que se movem enquanto você rola.
+pl	W Menu → Aktywności jest jeszcze {0} rzeczy, które ruszają się, gdy przewijasz.
+ru	В Меню → Занятия есть ещё {0} занятий, которые движутся от прокрутки.
+zh	菜单 → 活动 中还有 {0} 个会随滚动而动的项目。
+ja	メニュー → アクティビティには、スクロールで動くものがほかに{0}つあります。
+ko	메뉴 → 활동에 스크롤하면 움직이는 활동이 {0}개 더 있습니다.
+#228 Rare finds fill the shelf below.
+tr	Nadir buluntular aşağıdaki rafı doldurur.
+de	Raritäten füllen das Regal unten.
+fr	Les raretés remplissent l'étagère ci-dessous.
+es	Las rarezas llenan el estante de abajo.
+pt	As raridades enchem a prateleira abaixo.
+pl	Rarytasy wypełniają półkę poniżej.
+ru	Редкости заполняют полку внизу.
+zh	稀有发现会摆满下方的架子。
+ja	レアは下の棚に並びます。
+ko	희귀품이 아래 선반을 채웁니다.
+#229 Try something new
+tr	Yeni bir şey dene
+de	Probier etwas Neues
+fr	Essayez autre chose
+es	Prueba algo nuevo
+pt	Experimente algo novo
+pl	Spróbuj czegoś nowego
+ru	Попробуйте новое
+zh	试试新东西
+ja	新しいことを試そう
+ko	새로운 걸 해 보세요
+#230 {0} · new activity
+tr	{0} · yeni etkinlik
+de	{0} · neue Aktivität
+fr	{0} · nouvelle activité
+es	{0} · nueva actividad
+pt	{0} · nova atividade
+pl	{0} · nowa aktywność
+ru	{0} · новое занятие
+zh	{0} · 新活动
+ja	{0} · 新しいアクティビティ
+ko	{0} · 새 활동
+#231 Go there from Places in the menu
+tr	Menüdeki Mekânlar'dan oraya git
+de	Geh über „Orte“ im Menü dorthin
+fr	Allez-y depuis Lieux dans le menu
+es	Ve desde Lugares en el menú
+pt	Vá até lá por Lugares no menu
+pl	Przejdź tam z Miejsc w menu
+ru	Перейдите туда через «Места» в меню
+zh	通过菜单中的“地点”前往
+ja	メニューの「場所」から移動できます
+ko	메뉴의 장소에서 이동하세요
+#232 New look: {0}
+tr	Yeni görünüm: {0}
+de	Neuer Look: {0}
+fr	Nouvelle apparence : {0}
+es	Nuevo aspecto: {0}
+pt	Novo visual: {0}
+pl	Nowy wygląd: {0}
+ru	Новый облик: {0}
+zh	新外观：{0}
+ja	新しい見た目：{0}
+ko	새 외형: {0}
+#233 New place: {0}
+tr	Yeni mekân: {0}
+de	Neuer Ort: {0}
+fr	Nouveau lieu : {0}
+es	Nuevo lugar: {0}
+pt	Novo lugar: {0}
+pl	Nowe miejsce: {0}
+ru	Новое место: {0}
+zh	新地点：{0}
+ja	新しい場所：{0}
+ko	새 장소: {0}
+#234 New shop: {0}
+tr	Yeni dükkân: {0}
+de	Neuer Laden: {0}
+fr	Nouvelle boutique : {0}
+es	Nueva tienda: {0}
+pt	Nova loja: {0}
+pl	Nowy sklep: {0}
+ru	Новый магазин: {0}
+zh	新店铺：{0}
+ja	新しいお店：{0}
+ko	새 가게: {0}
+#235 New site: {0}
+tr	Yeni alan: {0}
+de	Neuer Standort: {0}
+fr	Nouveau site : {0}
+es	Nuevo emplazamiento: {0}
+pt	Novo local: {0}
+pl	Nowa lokalizacja: {0}
+ru	Новая площадка: {0}
+zh	新场地：{0}
+ja	新しい設置場所：{0}
+ko	새 부지: {0}
+#236 New spot: {0}
+tr	Yeni av yeri: {0}
+de	Neuer Angelplatz: {0}
+fr	Nouveau coin de pêche : {0}
+es	Nuevo lugar de pesca: {0}
+pt	Novo ponto de pesca: {0}
+pl	Nowe łowisko: {0}
+ru	Новое место ловли: {0}
+zh	新钓点：{0}
+ja	新しい釣り場：{0}
+ko	새 낚시터: {0}
+#237 New tackle: {0}
+tr	Yeni takım: {0}
+de	Neue Ausrüstung: {0}
+fr	Nouveau matériel : {0}
+es	Nuevo equipo: {0}
+pt	Novo equipamento: {0}
+pl	Nowy sprzęt: {0}
+ru	Новая снасть: {0}
+zh	新钓具：{0}
+ja	新しい釣り具：{0}
+ko	새 낚시 장비: {0}
+#238 New venue: {0}
+tr	Yeni mekân: {0}
+de	Neuer Ort: {0}
+fr	Nouveau lieu : {0}
+es	Nuevo local: {0}
+pt	Novo local: {0}
+pl	Nowe miejsce: {0}
+ru	Новое место: {0}
+zh	新场所：{0}
+ja	新しい場所：{0}
+ko	새 장소: {0}
+#239 Unlocked by your side activity
+tr	Yan etkinliğin sayesinde açıldı
+de	Durch deine Nebenaktivität freigeschaltet
+fr	Débloqué par votre activité secondaire
+es	Desbloqueado por tu actividad secundaria
+pt	Desbloqueado pela sua atividade secundária
+pl	Odblokowane dzięki dodatkowej aktywności
+ru	Открыто дополнительным занятием
+zh	由副活动解锁
+ja	サブアクティビティで解放
+ko	보조 활동으로 해제됨
+#240 {0} unlocked
+tr	{0} açıldı
+de	{0} freigeschaltet
+fr	{0} débloqué
+es	{0} desbloqueado
+pt	{0} desbloqueado
+pl	Odblokowano: {0}
+ru	Открыто: {0}
+zh	已解锁 {0}
+ja	{0}を解放
+ko	{0} 해제됨
+#241 Classic
+tr	Klasik
+de	Klassisch
+fr	Classique
+es	Clásico
+pt	Clássico
+pl	Klasyczny
+ru	Классика
+zh	经典
+ja	クラシック
+ko	클래식
+#242 The original look
+tr	Özgün görünüm
+de	Der Originallook
+fr	L'apparence d'origine
+es	El aspecto original
+pt	O visual original
+pl	Oryginalny wygląd
+ru	Исходный облик
+zh	原始外观
+ja	オリジナルの見た目
+ko	오리지널 외형
+#243 {0} {1}
+tr	{0} {1}
+de	{1} „{0}“
+fr	{1} {0}
+es	{1} {0}
+pt	{1} {0}
+pl	{1} {0}
+ru	{1} «{0}»
+zh	{0}{1}
+ja	{0}の{1}
+ko	{0} {1}
+#244 under a minute
+tr	bir dakikadan az
+de	unter einer Minute
+fr	moins d'une minute
+es	menos de un minuto
+pt	menos de um minuto
+pl	niecała minuta
+ru	меньше минуты
+zh	不到一分钟
+ja	1分未満
+ko	1분 미만
+#245 {0} h
+tr	{0} sa
+de	{0} Std.
+fr	{0} h
+es	{0} h
+pt	{0} h
+pl	{0} godz.
+ru	{0} ч
+zh	{0} 小时
+ja	{0}時間
+ko	{0}시간
+#246 {0} h {1} m
+tr	{0} sa {1} dk
+de	{0} Std. {1} Min.
+fr	{0} h {1} min
+es	{0} h {1} min
+pt	{0} h {1} min
+pl	{0} godz. {1} min
+ru	{0} ч {1} мин
+zh	{0} 小时 {1} 分钟
+ja	{0}時間{1}分
+ko	{0}시간 {1}분
+#247 {0} m
+tr	{0} dk
+de	{0} Min.
+fr	{0} min
+es	{0} min
+pt	{0} min
+pl	{0} min
+ru	{0} мин
+zh	{0} 分钟
+ja	{0}分
+ko	{0}분
+#248 Coming up
+tr	Sırada
+de	Gleich kommt
+fr	Bientôt
+es	Ya viene
+pt	A seguir
+pl	Już wkrótce
+ru	Скоро
+zh	即将到来
+ja	まもなく
+ko	곧 등장
+#249 {0} / {1} {2}  ·  {3} in all
+tr	{0} / {1} {2}  ·  toplam {3}
+de	{0} / {1} {2}  ·  {3} insgesamt
+fr	{0} / {1} {2}  ·  {3} au total
+es	{0} / {1} {2}  ·  {3} en total
+pt	{0} / {1} {2}  ·  {3} no total
+pl	{0} / {1} {2}  ·  łącznie {3}
+ru	{2}: {0} / {1}  ·  всего {3}
+zh	{2} {0} / {1}  ·  共 {3}
+ja	{2} {0} / {1}  ·  合計 {3}
+ko	{2} {0} / {1}  ·  총 {3}
+#250 Menu → Activities: pick a second one...
+tr	Menü → Etkinlikler: ikinci bir tane seç. Sen başka yerdeyken açılışlarına doğru %{0:0} hızla ilerler.
+de	Menü → Aktivitäten: Wähle eine zweite. Sie kommt mit {0:0} % Tempo ihren Freischaltungen näher, während du woanders bist.
+fr	Menu → Activités : choisissez-en une deuxième. Elle progresse vers ses déblocages à {0:0} % de vitesse pendant que vous êtes ailleurs.
+es	Menú → Actividades: elige una segunda. Avanza hacia sus desbloqueos al {0:0} % de velocidad mientras estás en otra.
+pt	Menu → Atividades: escolha uma segunda. Ela avança rumo aos desbloqueios a {0:0}% da velocidade enquanto você está em outra.
+pl	Menu → Aktywności: wybierz drugą. Zmierza do odblokowań w {0:0}% tempa, gdy jesteś gdzie indziej.
+ru	Меню → Занятия: выберите второе. Пока вы заняты другим, оно движется к открытиям на {0:0}% скорости.
+zh	菜单 → 活动：再选一个。你在别处时，它会以 {0:0}% 的速度推进解锁。
+ja	メニュー → アクティビティ：もう1つ選ぼう。ほかで遊んでいる間も{0:0}%の速度で解放に近づきます。
+ko	메뉴 → 활동: 하나를 더 고르세요. 다른 곳에 있는 동안 {0:0}% 속도로 해제를 향해 진행됩니다.
+#251 Side activity unlocked
+tr	Yan etkinlik açıldı
+de	Nebenaktivität freigeschaltet
+fr	Activité secondaire débloquée
+es	Actividad secundaria desbloqueada
+pt	Atividade secundária desbloqueada
+pl	Odblokowano dodatkową aktywność
+ru	Дополнительное занятие открыто
+zh	副活动已解锁
+ja	サブアクティビティ解放
+ko	보조 활동 해제
+#252 Best {0:0.00} kg  ·  ×{1}
+tr	Rekor {0:0.00} kg  ·  ×{1}
+de	Bestwert {0:0.00} kg  ·  ×{1}
+fr	Record {0:0.00} kg  ·  ×{1}
+es	Récord {0:0.00} kg  ·  ×{1}
+pt	Recorde {0:0.00} kg  ·  ×{1}
+pl	Rekord {0:0.00} kg  ·  ×{1}
+ru	Рекорд {0:0.00} кг  ·  ×{1}
+zh	最佳 {0:0.00} kg  ·  ×{1}
+ja	最高 {0:0.00} kg  ·  ×{1}
+ko	최고 {0:0.00}kg  ·  ×{1}
+#253 FISH HERE
+tr	BURADA AVLAN
+de	HIER ANGELN
+fr	PÊCHER ICI
+es	PESCAR AQUÍ
+pt	PESCAR AQUI
+pl	ŁÓW TUTAJ
+ru	ЛОВИТЬ ЗДЕСЬ
+zh	在此垂钓
+ja	ここで釣る
+ko	여기서 낚시
+#254 FISHING HERE
+tr	BURADA AVLANIYORSUN
+de	HIER WIRD GEANGELT
+fr	VOUS PÊCHEZ ICI
+es	PESCANDO AQUÍ
+pt	PESCANDO AQUI
+pl	ŁOWISZ TUTAJ
+ru	ЛОВИТЕ ЗДЕСЬ
+zh	正在此垂钓
+ja	ここで釣り中
+ko	여기서 낚시 중
+#255 First caught {0}
+tr	İlk tutuluş {0}
+de	Erster Fang {0}
+fr	Première prise {0}
+es	Primera captura {0}
+pt	Primeira captura {0}
+pl	Pierwszy połów {0}
+ru	Впервые поймана {0}
+zh	首次钓获 {0}
+ja	初釣果 {0}
+ko	첫 포획 {0}
+#256 {0:0.#}–{1:0.#} kg
+tr	{0:0.#}–{1:0.#} kg
+de	{0:0.#}–{1:0.#} kg
+fr	{0:0.#}–{1:0.#} kg
+es	{0:0.#}–{1:0.#} kg
+pt	{0:0.#}–{1:0.#} kg
+pl	{0:0.#}–{1:0.#} kg
+ru	{0:0.#}–{1:0.#} кг
+zh	{0:0.#}–{1:0.#} kg
+ja	{0:0.#}～{1:0.#} kg
+ko	{0:0.#}~{1:0.#}kg
+#257 {0} / {1} species  ·  {2}  ·  {3} caught
+tr	{0} / {1} tür  ·  {2}  ·  {3} tutuldu
+de	{0} / {1} Arten  ·  {2}  ·  {3} gefangen
+fr	{0} / {1} espèces  ·  {2}  ·  {3} pêchés
+es	{0} / {1} especies  ·  {2}  ·  {3} pescados
+pt	{0} / {1} espécies  ·  {2}  ·  {3} pescados
+pl	{0} / {1} gatunków  ·  {2}  ·  złowiono {3}
+ru	Видов: {0} / {1}  ·  {2}  ·  поймано {3}
+zh	鱼种 {0} / {1}  ·  {2}  ·  共钓获 {3}
+ja	魚種 {0} / {1}  ·  {2}  ·  釣果 {3}
+ko	어종 {0} / {1}  ·  {2}  ·  총 {3} 포획
+#258 {0} of fishing to go
+tr	{0} daha balık tutman gerek
+de	noch {0} Angeln
+fr	encore {0} de pêche
+es	faltan {0} de pesca
+pt	faltam {0} de pesca
+pl	jeszcze {0} łowienia
+ru	ещё {0} рыбалки
+zh	还需钓鱼 {0}
+ja	あと{0}の釣り
+ko	낚시 {0} 더 필요
+#259 New species: {0}
+tr	Yeni tür: {0}
+de	Neue Art: {0}
+fr	Nouvelle espèce : {0}
+es	Nueva especie: {0}
+pt	Nova espécie: {0}
+pl	Nowy gatunek: {0}
+ru	Новый вид: {0}
+zh	新鱼种：{0}
+ja	新しい魚種：{0}
+ko	새 어종: {0}
+#260 Tackle box
+tr	Takım kutusu
+de	Angelkoffer
+fr	Boîte à pêche
+es	Caja de aparejos
+pt	Caixa de pesca
+pl	Skrzynka wędkarska
+ru	Ящик для снастей
+zh	钓具箱
+ja	タックルボックス
+ko	낚시 상자
+#261 spot
+tr	av yeri
+de	Angelplatz
+fr	coin de pêche
+es	lugar de pesca
+pt	ponto de pesca
+pl	łowisko
+ru	место ловли
+zh	钓点
+ja	釣り場
+ko	낚시터
+#262 stamped in your fish log
+tr	balık defterine işlendi
+de	in dein Fangbuch eingetragen
+fr	inscrit dans votre carnet de pêche
+es	anotado en tu registro de pesca
+pt	registrado no seu diário de pesca
+pl	wpisano do dziennika połowów
+ru	записано в журнал улова
+zh	已记入钓鱼日志
+ja	釣り日誌に記録
+ko	낚시 일지에 기록됨
+#263 tackle
+tr	takım
+de	Ausrüstung
+fr	matériel
+es	equipo
+pt	equipamento
+pl	sprzęt
+ru	снасть
+zh	钓具
+ja	釣り具
+ko	장비
+#264 the rarest fish of {0}
+tr	{0} yerinin en nadir balığı
+de	der seltenste Fisch von {0}
+fr	le poisson le plus rare de {0}
+es	el pez más raro de {0}
+pt	o peixe mais raro de {0}
+pl	najrzadsza ryba łowiska {0}
+ru	самая редкая рыба места «{0}»
+zh	{0}最稀有的鱼
+ja	{0}で一番珍しい魚
+ko	{0}에서 가장 희귀한 물고기
+#265 {0} · new species
+tr	{0} · yeni tür
+de	{0} · neue Art
+fr	{0} · nouvelle espèce
+es	{0} · nueva especie
+pt	{0} · nova espécie
+pl	{0} · nowy gatunek
+ru	{0} · новый вид
+zh	{0} · 新鱼种
+ja	{0} · 新しい魚種
+ko	{0} · 새 어종
+#266 Casting...
+tr	Atılıyor...
+de	Auswerfen...
+fr	Lancer...
+es	Lanzando...
+pt	Arremessando...
+pl	Zarzucanie...
+ru	Заброс...
+zh	抛竿中...
+ja	キャスト中...
+ko	캐스팅 중...
+#267 FISH LOG
+tr	BALIK DEFTERİ
+de	FANGBUCH
+fr	CARNET DE PÊCHE
+es	REGISTRO DE PESCA
+pt	DIÁRIO DE PESCA
+pl	DZIENNIK POŁOWÓW
+ru	ЖУРНАЛ УЛОВА
+zh	钓鱼日志
+ja	釣り日誌
+ko	낚시 일지
+#268 Fish on!
+tr	Balık takıldı!
+de	Fisch am Haken!
+fr	Ça mord !
+es	¡Pica!
+pt	Fisgou!
+pl	Bierze!
+ru	Клюёт!
+zh	上钩了！
+ja	ヒット！
+ko	입질!
+#269 IDLE · SLOW REEL
+tr	RÖLANTİ · YAVAŞ SARMA
+de	LEERLAUF · LANGSAMES KURBELN
+fr	RALENTI · MOULINET LENT
+es	RALENTÍ · CARRETE LENTO
+pt	OCIOSO · MOLINETE LENTO
+pl	BEZCZYNNY · POWOLNE ZWIJANIE
+ru	ПРОСТОЙ · МЕДЛЕННАЯ КАТУШКА
+zh	闲置 · 慢速收线
+ja	アイドル · ゆっくり巻き
+ko	대기 · 천천히 감기
+#270 LETTING LINE OUT
+tr	MİSİNA BIRAKILIYOR
+de	SCHNUR WIRD GELASSEN
+fr	LIGNE RELÂCHÉE
+es	SOLTANDO SEDAL
+pt	SOLTANDO LINHA
+pl	POPUSZCZANIE ŻYŁKI
+ru	СТРАВЛИВАЕТ ЛЕСКУ
+zh	放线中
+ja	糸を出し中
+ko	줄 푸는 중
+#271 Landed
+tr	Karaya çıktı
+de	Gelandet
+fr	Sorti de l'eau
+es	Capturado
+pt	Fisgado
+pl	Wyciągnięta
+ru	Вытащена
+zh	钓上来了
+ja	釣り上げた
+ko	낚아 올림
+#272 REELING
+tr	SARIYOR
+de	KURBELN
+fr	MOULINAGE
+es	RECOGIENDO
+pt	RECOLHENDO
+pl	ZWIJANIE
+ru	СМАТЫВАЕТ
+zh	收线中
+ja	巻き上げ中
+ko	감는 중
+#273 Retrieving
+tr	Çekiliyor
+de	Einholen
+fr	Récupération
+es	Recuperando
+pt	Recolhendo
+pl	Ściąganie
+ru	Проводка
+zh	收线
+ja	リトリーブ中
+ko	회수 중
+#274 It's waiting in your garage
+tr	Garajında seni bekliyor
+de	Es wartet in deiner Garage
+fr	Il vous attend au garage
+es	Te espera en tu garaje
+pt	Está esperando na sua garagem
+pl	Czeka w twoim garażu
+ru	Ждёт вас в гараже
+zh	它正在你的车库里等你
+ja	ガレージで待っています
+ko	차고에서 기다리고 있습니다
+#275 New vehicle: {0}
+tr	Yeni araç: {0}
+de	Neues Fahrzeug: {0}
+fr	Nouveau véhicule : {0}
+es	Nuevo vehículo: {0}
+pt	Novo veículo: {0}
+pl	Nowy pojazd: {0}
+ru	Новая машина: {0}
+zh	新载具：{0}
+ja	新しい車両：{0}
+ko	새 차량: {0}
+#276 Catch a {0} at {1}
+tr	{1}: bir {0} tut
+de	Fange am Ort {1}: {0}
+fr	Pêchez : {0} ({1})
+es	Pesca: {0} en {1}
+pt	Pesque: {0} em {1}
+pl	Złów: {0} ({1})
+ru	Поймайте: {0} ({1})
+zh	在{1}钓到{0}
+ja	{1}で{0}を釣る
+ko	{1}에서 {0} 낚기
+#277 Catch {0}
+tr	{0} tut
+de	Fange {0}
+fr	Pêchez {0}
+es	Pesca {0}
+pt	Pesque {0}
+pl	Złów {0}
+ru	Поймайте {0}
+zh	钓到 {0}
+ja	{0}釣る
+ko	{0} 낚기
+#278 Drive {0}
+tr	{0} yol yap
+de	Fahre {0}
+fr	Parcourez {0}
+es	Conduce {0}
+pt	Dirija {0}
+pl	Przejedź {0}
+ru	Проедьте {0}
+zh	行驶 {0}
+ja	{0}走る
+ko	{0} 주행
+#279 Find {0} at {1}
+tr	{1}: {0} bul
+de	Finde {0} am Ort {1}
+fr	Trouvez {0} ({1})
+es	Encuentra {0} en {1}
+pt	Encontre {0} em {1}
+pl	Znajdź {0} ({1})
+ru	Найдите {0} ({1})
+zh	在{1}发现 {0}
+ja	{1}で{0}を見つける
+ko	{1}에서 {0} 찾기
+#280 Find {0} in any activity
+tr	Herhangi bir etkinlikte {0} bul
+de	Finde {0} in einer beliebigen Aktivität
+fr	Trouvez {0} dans n'importe quelle activité
+es	Encuentra {0} en cualquier actividad
+pt	Encontre {0} em qualquer atividade
+pl	Znajdź {0} w dowolnej aktywności
+ru	Найдите {0} в любом занятии
+zh	在任意活动中发现 {0}
+ja	どのアクティビティでもいいので{0}を見つける
+ko	아무 활동에서나 {0} 찾기
+#281 Generate {0}
+tr	{0} üret
+de	Erzeuge {0}
+fr	Produisez {0}
+es	Genera {0}
+pt	Gere {0}
+pl	Wytwórz {0}
+ru	Выработайте {0}
+zh	发电 {0}
+ja	{0}発電する
+ko	{0} 발전
+#282 Hit {0}
+tr	{0} vur
+de	Triff {0}
+fr	Touchez {0}
+es	Acierta {0}
+pt	Acerte {0}
+pl	Traf {0}
+ru	Собейте {0}
+zh	击中 {0}
+ja	{0}当てる
+ko	{0} 맞히기
+#283 Let {0} roll by
+tr	{0} geçsin
+de	Lass {0} vergehen
+fr	Laissez passer {0}
+es	Deja pasar {0}
+pt	Deixe passar {0}
+pl	Niech minie {0}
+ru	Пусть пройдёт {0}
+zh	让 {0} 流逝
+ja	{0}を経過させる
+ko	{0} 흘려보내기
+#284 Peel {0}
+tr	{0} soy
+de	Schäle {0}
+fr	Épluchez {0}
+es	Pela {0}
+pt	Descasque {0}
+pl	Obierz {0}
+ru	Очистите {0}
+zh	削 {0}
+ja	{0}むく
+ko	{0} 깎기
+#285 Play {0}
+tr	{0} çal
+de	Spiele {0}
+fr	Écoutez {0}
+es	Reproduce {0}
+pt	Toque {0}
+pl	Odtwórz {0}
+ru	Проиграйте {0}
+zh	播放 {0}
+ja	{0}再生する
+ko	{0} 재생
+#286 Reach {0}
+tr	{0} ulaş
+de	Erreiche {0}
+fr	Atteignez {0}
+es	Alcanza {0}
+pt	Alcance {0}
+pl	Osiągnij {0}
+ru	Достигните {0}
+zh	达到 {0}
+ja	{0}に到達
+ko	{0} 달성
+#287 Serve {0}
+tr	{0} servis et
+de	Serviere {0}
+fr	Servez {0}
+es	Sirve {0}
+pt	Sirva {0}
+pl	Podaj {0}
+ru	Подайте {0}
+zh	供应 {0}
+ja	{0}提供する
+ko	{0} 서빙
+#288 Stamped in your order book
+tr	Sipariş defterine işlendi
+de	In dein Auftragsbuch eingetragen
+fr	Inscrit dans votre carnet de commandes
+es	Anotado en tu libro de pedidos
+pt	Registrado no seu livro de pedidos
+pl	Wpisano do księgi zamówień
+ru	Записано в книгу заказов
+zh	已记入订单簿
+ja	注文帳に記録
+ko	주문 장부에 기록됨
+#289 Throw {0}
+tr	{0} çömlek çek
+de	Drehe {0}
+fr	Tournez {0}
+es	Modela {0}
+pt	Modele {0}
+pl	Uformuj {0}
+ru	Вылепите {0}
+zh	拉坯 {0}
+ja	{0}作る
+ko	{0} 빚기
+#290 Weekly order
+tr	Haftalık sipariş
+de	Wochenauftrag
+fr	Commande de la semaine
+es	Pedido semanal
+pt	Pedido semanal
+pl	Zamówienie tygodniowe
+ru	Недельный заказ
+zh	每周订单
+ja	週間注文
+ko	주간 주문
+#291 Welcome {0}
+tr	{0} ağırla
+de	Begrüße {0}
+fr	Accueillez {0}
+es	Recibe a {0}
+pt	Receba {0}
+pl	Przywitaj {0}
+ru	Встретьте {0}
+zh	迎接 {0}
+ja	{0}をお迎え
+ko	{0} 맞이하기
+#292 {0} is on the way to {1}
+tr	{0}, {1} yolunda
+de	{0} ist auf dem Weg zu {1}
+fr	{0} arrive à {1}
+es	{0} va de camino a {1}
+pt	{0} está a caminho de {1}
+pl	{0} jest w drodze do: {1}
+ru	{0} уже на пути в «{1}»
+zh	{0}正在前往{1}
+ja	{0}が{1}に向かっています
+ko	{0}이(가) {1}(으)로 오는 중
+#293 {0} landmarks
+tr	{0} simge yapı
+de	{0} Wahrzeichen|{0} Wahrzeichen
+fr	{0} monument|{0} monuments
+es	{0} monumento|{0} monumentos
+pt	{0} marco|{0} marcos
+pl	{0} punkt orientacyjny|{0} punkty orientacyjne|{0} punktów orientacyjnych
+ru	{0} достопримечательность|{0} достопримечательности|{0} достопримечательностей
+zh	{0} 座地标
+ja	{0}つのランドマーク
+ko	랜드마크 {0}곳
+#294 {0} masterpieces
+tr	{0} başyapıt
+de	{0} Meisterstück|{0} Meisterstücke
+fr	{0} chef-d'œuvre|{0} chefs-d'œuvre
+es	{0} obra maestra|{0} obras maestras
+pt	{0} obra-prima|{0} obras-primas
+pl	{0} arcydzieło|{0} arcydzieła|{0} arcydzieł
+ru	{0} шедевр|{0} шедевра|{0} шедевров
+zh	{0} 件杰作
+ja	{0}つの傑作
+ko	걸작 {0}점
+#295 {0} rare finds
+tr	{0} nadir
+de	{0} Rarität|{0} Raritäten
+fr	{0} rareté|{0} raretés
+es	{0} rareza|{0} rarezas
+pt	{0} raridade|{0} raridades
+pl	{0} rarytas|{0} rarytasy|{0} rarytasów
+ru	{0} редкость|{0} редкости|{0} редкостей
+zh	{0} 个稀有物
+ja	{0}個のレア
+ko	희귀품 {0}개
+#296 {0} rare fruit
+tr	{0} nadir meyve
+de	{0} seltene Frucht|{0} seltene Früchte
+fr	{0} fruit rare|{0} fruits rares
+es	{0} fruta rara|{0} frutas raras
+pt	{0} fruta rara|{0} frutas raras
+pl	{0} rzadki owoc|{0} rzadkie owoce|{0} rzadkich owoców
+ru	{0} редкий фрукт|{0} редких фрукта|{0} редких фруктов
+zh	{0} 个稀有水果
+ja	{0}個のレアフルーツ
+ko	희귀 과일 {0}개
+#297 {0} rare records
+tr	{0} nadir plak
+de	{0} seltene Platte|{0} seltene Platten
+fr	{0} disque rare|{0} disques rares
+es	{0} disco raro|{0} discos raros
+pt	{0} disco raro|{0} discos raros
+pl	{0} rzadka płyta|{0} rzadkie płyty|{0} rzadkich płyt
+ru	{0} редкую пластинку|{0} редкие пластинки|{0} редких пластинок
+zh	{0} 张稀有唱片
+ja	{0}枚のレアレコード
+ko	희귀 음반 {0}장
+#298 {0} rare targets
+tr	{0} nadir hedef
+de	{0} seltenes Ziel|{0} seltene Ziele
+fr	{0} cible rare|{0} cibles rares
+es	{0} diana rara|{0} dianas raras
+pt	{0} alvo raro|{0} alvos raros
+pl	{0} rzadki cel|{0} rzadkie cele|{0} rzadkich celów
+ru	{0} редкую мишень|{0} редкие мишени|{0} редких мишеней
+zh	{0} 个稀有靶子
+ja	{0}個のレアな的
+ko	희귀 표적 {0}개
+#299 {0} signature dishes
+tr	{0} özel yemek
+de	{0} Spezialität|{0} Spezialitäten
+fr	{0} spécialité|{0} spécialités
+es	{0} plato estrella|{0} platos estrella
+pt	{0} prato especial|{0} pratos especiais
+pl	{0} danie firmowe|{0} dania firmowe|{0} dań firmowych
+ru	{0} фирменное блюдо|{0} фирменных блюда|{0} фирменных блюд
+zh	{0} 道招牌菜
+ja	{0}品の看板料理
+ko	대표 메뉴 {0}개
+#300 {0} special guests
+tr	{0} özel konuk
+de	{0} besonderen Gast|{0} besondere Gäste
+fr	{0} invité spécial|{0} invités spéciaux
+es	{0} invitado especial|{0} invitados especiales
+pt	{0} convidado especial|{0} convidados especiais
+pl	{0} specjalnego gościa|{0} specjalnych gości|{0} specjalnych gości
+ru	{0} особого гостя|{0} особых гостей|{0} особых гостей
+zh	{0} 位特别来宾
+ja	{0}人の特別ゲスト
+ko	특별 손님 {0}명
+#301 {0} wonders
+tr	{0} harika
+de	{0} Weltwunder|{0} Weltwunder
+fr	{0} merveille|{0} merveilles
+es	{0} maravilla|{0} maravillas
+pt	{0} maravilha|{0} maravilhas
+pl	{0} cud|{0} cuda|{0} cudów
+ru	{0} чудо|{0} чуда|{0} чудес
+zh	{0} 座奇观
+ja	{0}つの驚異
+ko	불가사의 {0}곳
+#302 All of today's orders done · streak: {0}
+tr	Bugünün bütün siparişleri tamam · seri: {0}
+de	Alle heutigen Aufträge erledigt · Serie: {0}
+fr	Toutes les commandes du jour sont faites · série : {0}
+es	Todos los pedidos de hoy hechos · racha: {0}
+pt	Todos os pedidos de hoje feitos · sequência: {0}
+pl	Wszystkie dzisiejsze zamówienia gotowe · seria: {0}
+ru	Все заказы на сегодня выполнены · серия: {0}
+zh	今日订单全部完成 · 连续：{0}
+ja	今日の注文をすべて達成 · 連続：{0}
+ko	오늘의 주문 모두 완료 · 연속: {0}
+#303 DONE
+tr	TAMAM
+de	ERLEDIGT
+fr	FAIT
+es	HECHO
+pt	FEITO
+pl	GOTOWE
+ru	ГОТОВО
+zh	完成
+ja	達成
+ko	완료
+#304 New orders in {0}  ·  {1} done in all
+tr	Yeni siparişler {0} sonra  ·  toplam {1} tamamlandı
+de	Neue Aufträge in {0}  ·  {1} insgesamt erledigt
+fr	Nouvelles commandes dans {0}  ·  {1} faites au total
+es	Nuevos pedidos en {0}  ·  {1} hechos en total
+pt	Novos pedidos em {0}  ·  {1} feitos no total
+pl	Nowe zamówienia za {0}  ·  łącznie wykonano {1}
+ru	Новые заказы через {0}  ·  всего выполнено {1}
+zh	{0}后刷新订单  ·  累计完成 {1}
+ja	新しい注文まで{0}  ·  累計達成 {1}
+ko	{0} 후 새 주문  ·  총 {1}개 완료
+#305 Order done
+tr	Sipariş tamam
+de	Auftrag erledigt
+fr	Commande terminée
+es	Pedido hecho
+pt	Pedido feito
+pl	Zamówienie wykonane
+ru	Заказ выполнен
+zh	订单完成
+ja	注文達成
+ko	주문 완료
+#306 Order done: {0}
+tr	Sipariş tamam: {0}
+de	Auftrag erledigt: {0}
+fr	Commande terminée : {0}
+es	Pedido hecho: {0}
+pt	Pedido feito: {0}
+pl	Zamówienie wykonane: {0}
+ru	Заказ выполнен: {0}
+zh	订单完成：{0}
+ja	注文達成：{0}
+ko	주문 완료: {0}
+#307 WEEKLY
+tr	HAFTALIK
+de	WÖCHENTLICH
+fr	SEMAINE
+es	SEMANAL
+pt	SEMANAL
+pl	TYGODNIOWE
+ru	НЕДЕЛЯ
+zh	每周
+ja	週間
+ko	주간
+#308 streak: {0}
+tr	seri: {0}
+de	Serie: {0}
+fr	série : {0}
+es	racha: {0}
+pt	sequência: {0}
+pl	seria: {0}
+ru	серия: {0}
+zh	连续：{0}
+ja	連続：{0}
+ko	연속: {0}
+#309 {0} days
+tr	{0} gün
+de	{0} Tag|{0} Tage
+fr	{0} jour|{0} jours
+es	{0} día|{0} días
+pt	{0} dia|{0} dias
+pl	{0} dzień|{0} dni|{0} dni
+ru	{0} день|{0} дня|{0} дней
+zh	{0} 天
+ja	{0}日
+ko	{0}일
+#310 {0} weeks
+tr	{0} hafta
+de	{0} Woche|{0} Wochen
+fr	{0} semaine|{0} semaines
+es	{0} semana|{0} semanas
+pt	{0} semana|{0} semanas
+pl	{0} tydzień|{0} tygodnie|{0} tygodni
+ru	{0} неделя|{0} недели|{0} недель
+zh	{0} 周
+ja	{0}週
+ko	{0}주
+#311 km
+tr	km
+de	km
+fr	km
+es	km
+pt	km
+pl	km
+ru	км
+zh	km
+ja	km
+ko	km
+#312 Bossa nova
+tr	Bossa nova
+de	Bossa Nova
+fr	Bossa-nova
+es	Bossa nova
+pt	Bossa nova
+pl	Bossa nova
+ru	Босса-нова
+zh	波萨诺瓦
+ja	ボサノバ
+ko	보사노바
+#313 Disco
+tr	Disko
+de	Disco
+fr	Disco
+es	Disco
+pt	Disco
+pl	Disco
+ru	Диско
+zh	迪斯科
+ja	ディスコ
+ko	디스코
+#314 First spin {0}
+tr	İlk çalış {0}
+de	Erstmals gespielt {0}
+fr	Première écoute {0}
+es	Primera escucha {0}
+pt	Primeira audição {0}
+pl	Pierwsze odtworzenie {0}
+ru	Впервые сыграна {0}
+zh	首次播放 {0}
+ja	初再生 {0}
+ko	첫 재생 {0}
+#315 Funk
+tr	Funk
+de	Funk
+fr	Funk
+es	Funk
+pt	Funk
+pl	Funk
+ru	Фанк
+zh	放克
+ja	ファンク
+ko	펑크
+#316 Jazz
+tr	Caz
+de	Jazz
+fr	Jazz
+es	Jazz
+pt	Jazz
+pl	Jazz
+ru	Джаз
+zh	爵士
+ja	ジャズ
+ko	재즈
+#317 Lo-fi
+tr	Lo-fi
+de	Lo-Fi
+fr	Lo-fi
+es	Lo-fi
+pt	Lo-fi
+pl	Lo-fi
+ru	Лоу-фай
+zh	低保真
+ja	ローファイ
+ko	로파이
+#318 Synthwave
+tr	Synthwave
+de	Synthwave
+fr	Synthwave
+es	Synthwave
+pt	Synthwave
+pl	Synthwave
+ru	Синтвейв
+zh	合成器浪潮
+ja	シンセウェイヴ
+ko	신스웨이브
+#319 not found yet
+tr	henüz bulunmadı
+de	noch nicht gefunden
+fr	pas encore trouvé
+es	aún no encontrado
+pt	ainda não encontrado
+pl	jeszcze nieznaleziona
+ru	ещё не найдена
+zh	尚未发现
+ja	未発見
+ko	아직 못 찾음
+#320 played ×{0}
+tr	çalındı ×{0}
+de	gespielt ×{0}
+fr	écouté ×{0}
+es	reproducido ×{0}
+pt	tocado ×{0}
+pl	odtworzono ×{0}
+ru	сыграна ×{0}
+zh	播放 ×{0}
+ja	再生 ×{0}
+ko	재생 ×{0}
+#321 {0} / {1} records  ·  {2} in all
+tr	{0} / {1} plak  ·  toplam {2}
+de	{0} / {1} Platten  ·  {2} insgesamt
+fr	{0} / {1} disques  ·  {2} au total
+es	{0} / {1} discos  ·  {2} en total
+pt	{0} / {1} discos  ·  {2} no total
+pl	{0} / {1} płyt  ·  łącznie {2}
+ru	Пластинок: {0} / {1}  ·  всего {2}
+zh	唱片 {0} / {1}  ·  共 {2}
+ja	レコード {0} / {1}  ·  合計 {2}
+ko	음반 {0} / {1}  ·  총 {2}
+#322 Filed in your record crate
+tr	Plak kasana kondu
+de	In deine Plattenkiste einsortiert
+fr	Rangé dans votre bac à disques
+es	Guardado en tu caja de discos
+pt	Guardado no seu caixote de discos
+pl	Odłożono do skrzynki z płytami
+ru	Положено в ящик с пластинками
+zh	已收进唱片箱
+ja	レコード箱に収納
+ko	음반 상자에 보관됨
+#323 New record: {0}
+tr	Yeni plak: {0}
+de	Neue Platte: {0}
+fr	Nouveau disque : {0}
+es	Nuevo disco: {0}
+pt	Novo disco: {0}
+pl	Nowa płyta: {0}
+ru	Новая пластинка: {0}
+zh	新唱片：{0}
+ja	新しいレコード：{0}
+ko	새 음반: {0}
+#324 shop
+tr	dükkân
+de	Laden
+fr	boutique
+es	tienda
+pt	loja
+pl	sklep
+ru	магазин
+zh	店铺
+ja	お店
+ko	가게
+#325 {0} · into the crate
+tr	{0} · kasaya kondu
+de	{0} · in die Kiste
+fr	{0} · dans le bac
+es	{0} · a la caja
+pt	{0} · no caixote
+pl	{0} · do skrzynki
+ru	{0} · в ящик
+zh	{0} · 收进唱片箱
+ja	{0} · 箱へ
+ko	{0} · 상자에 보관
+#326 IDLE · SLOW SPIN
+tr	RÖLANTİ · YAVAŞ DÖNÜŞ
+de	LEERLAUF · LANGSAME DREHUNG
+fr	RALENTI · ROTATION LENTE
+es	RALENTÍ · GIRO LENTO
+pt	OCIOSO · GIRO LENTO
+pl	BEZCZYNNY · POWOLNE OBROTY
+ru	ПРОСТОЙ · МЕДЛЕННОЕ ВРАЩЕНИЕ
+zh	闲置 · 慢速旋转
+ja	アイドル · ゆっくり回転
+ko	대기 · 천천히 회전
+#327 RECORD CRATE
+tr	PLAK KASASI
+de	PLATTENKISTE
+fr	BAC À DISQUES
+es	CAJA DE DISCOS
+pt	CAIXOTE DE DISCOS
+pl	SKRZYNKA Z PŁYTAMI
+ru	ЯЩИК С ПЛАСТИНКАМИ
+zh	唱片箱
+ja	レコード箱
+ko	음반 상자
+#328 Track {0}/{1}
+tr	Parça {0}/{1}
+de	Titel {0}/{1}
+fr	Piste {0}/{1}
+es	Pista {0}/{1}
+pt	Faixa {0}/{1}
+pl	Utwór {0}/{1}
+ru	Трек {0}/{1}
+zh	曲目 {0}/{1}
+ja	トラック {0}/{1}
+ko	트랙 {0}/{1}
+#329 First lit {0}
+tr	İlk aydınlanma {0}
+de	Erstmals beleuchtet {0}
+fr	Première lumière {0}
+es	Primera luz {0}
+pt	Primeira luz {0}
+pl	Pierwsze światło {0}
+ru	Впервые зажглось {0}
+zh	首次点亮 {0}
+ja	初点灯 {0}
+ko	첫 점등 {0}
+#330 Not on the grid yet
+tr	Henüz şebekede değil
+de	Noch nicht am Netz
+fr	Pas encore raccordé
+es	Aún no conectado a la red
+pt	Ainda fora da rede
+pl	Jeszcze niepodłączony
+ru	Ещё не подключено
+zh	尚未接入电网
+ja	まだ送電網に未接続
+ko	아직 전력망에 없음

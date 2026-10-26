@@ -72,9 +72,8 @@ namespace ScrollRoad
             }
 
             int passed = RouteMap.CountPassed(drive.MaxDistanceKmPrecise);
-            var en = CultureInfo.GetCultureInfo("en-US");
-            titleText.text = "Passport · " + DateTime.Now.ToString("MMMM yyyy", en);
-            countText.text = $"{passed} / {RouteMap.Stops.Count} stamps · a new passport every month";
+            titleText.text = L.T("Passport") + " · " + DateTime.Now.ToString("Y", L.Culture);
+            countText.text = L.F("{0} / {1} stamps · a new passport every month", passed, RouteMap.Stops.Count);
 
             for (int i = 0; i < stampFrames.Length && i < RouteMap.Stops.Count; i++)
             {

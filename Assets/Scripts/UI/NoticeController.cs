@@ -67,9 +67,9 @@ namespace ScrollRoad
             while (index < RouteMap.Stops.Count && RouteMap.Stops[index].Name != stop.Name) index++;
             Enqueue(new Notice
             {
-                Title = stop.Name,
-                Subtitle = region ? "New region · passport stamped" : "Passport stamped",
-                Short = region ? $"{stop.Name} · new region" : $"{stop.Name} · stamped",
+                Title = stop.DisplayName,
+                Subtitle = region ? L.T("New region · passport stamped") : L.T("Passport stamped"),
+                Short = region ? L.F("{0} · new region", stop.DisplayName) : L.F("{0} · stamped", stop.DisplayName),
                 Stamped = true,
                 StampColor = RouteMap.Regions[stop.RegionIndex].NearLand,
                 // Pasaporttaki damgayla aynı eğik açı ailesi, köşede biraz daha belirgin.

@@ -55,7 +55,7 @@ namespace ScrollRoad
 
         public EnvironmentDef Def => EnvironmentCatalog.Vinyl;
         public double LifetimePoints => state.totalTracks * Interval;
-        public string VenueNoun => "shop";
+        public string VenueNoun => L.N("shop");
         public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(RecordCatalog.Shops, v => new VenueInfo { Id = v.Id, Name = v.Name });
         public string VenueId => Shop.Id;
         public void SetVenue(string id)
@@ -70,8 +70,8 @@ namespace ScrollRoad
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.monthBest / RecordCatalog.TracksPerRecord + 2;
         public double MonthUnits => Tracks;
-        public string SkinNoun => "look";
-        public string SkinBoxName => "Looks";
+        public string SkinNoun => L.N("look");
+        public string SkinBoxName => L.N("Looks");
         public SkinInfo[] Skins => SkinCatalog.Vinyl;
         public string SkinId
         {
@@ -182,7 +182,7 @@ namespace ScrollRoad
             SpecialCrated?.Invoke(type, isNew);
             if (isNew && notice != null)
             {
-                notice.Announce($"New record: {type.Name}", RareNotes.For(EnvironmentId.Vinyl, type.Id) ?? "Filed in your record crate", $"{type.Name} · into the crate");
+                notice.Announce(L.F("New record: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Vinyl, type.Id) ?? L.T("Filed in your record crate"), L.F("{0} · into the crate", L.T(type.Name)));
             }
         }
     }

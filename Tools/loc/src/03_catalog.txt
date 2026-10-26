@@ -1,0 +1,2090 @@
+#331 Powered ×{0}
+tr	Beslendi ×{0}
+de	Versorgt ×{0}
+fr	Alimenté ×{0}
+es	Alimentado ×{0}
+pt	Alimentado ×{0}
+pl	Zasilono ×{0}
+ru	Запитано ×{0}
+zh	供电 ×{0}
+ja	送電 ×{0}
+ko	전력 공급 ×{0}
+#332 {0} / {1} landmarks  ·  {2} kWh in all
+tr	{0} / {1} simge yapı  ·  toplam {2} kWh
+de	{0} / {1} Wahrzeichen  ·  {2} kWh insgesamt
+fr	{0} / {1} monuments  ·  {2} kWh au total
+es	{0} / {1} monumentos  ·  {2} kWh en total
+pt	{0} / {1} marcos  ·  {2} kWh no total
+pl	{0} / {1} punktów  ·  łącznie {2} kWh
+ru	Достопримечательностей: {0} / {1}  ·  всего {2} кВт·ч
+zh	地标 {0} / {1}  ·  共 {2} kWh
+ja	ランドマーク {0} / {1}  ·  合計 {2} kWh
+ko	랜드마크 {0} / {1}  ·  총 {2}kWh
+#333 Powered up: {0}
+tr	Elektrik verildi: {0}
+de	Am Netz: {0}
+fr	Alimenté : {0}
+es	Con luz: {0}
+pt	Energizado: {0}
+pl	Zasilono: {0}
+ru	Подключено: {0}
+zh	已通电：{0}
+ja	送電開始：{0}
+ko	전력 연결: {0}
+#334 Stamped in your grid log
+tr	Şebeke defterine işlendi
+de	In dein Netzbuch eingetragen
+fr	Inscrit dans votre carnet du réseau
+es	Anotado en tu registro de la red
+pt	Registrado no seu diário da rede
+pl	Wpisano do dziennika sieci
+ru	Записано в журнал сети
+zh	已记入电网日志
+ja	送電日誌に記録
+ko	전력망 일지에 기록됨
+#335 site
+tr	alan
+de	Standort
+fr	site
+es	emplazamiento
+pt	local
+pl	lokalizacja
+ru	площадка
+zh	场地
+ja	設置場所
+ko	부지
+#336 {0} · now on the grid
+tr	{0} · artık şebekede
+de	{0} · jetzt am Netz
+fr	{0} · raccordé au réseau
+es	{0} · ya en la red
+pt	{0} · agora na rede
+pl	{0} · podłączono do sieci
+ru	{0} · теперь в сети
+zh	{0} · 已接入电网
+ja	{0} · 送電網に接続
+ko	{0} · 전력망 연결됨
+#337 BRAKING
+tr	FRENLİYOR
+de	BREMST
+fr	FREINAGE
+es	FRENANDO
+pt	FREANDO
+pl	HAMOWANIE
+ru	ТОРМОЖЕНИЕ
+zh	制动中
+ja	ブレーキ中
+ko	제동 중
+#338 GENERATING
+tr	ÜRETİYOR
+de	ERZEUGT STROM
+fr	PRODUCTION
+es	GENERANDO
+pt	GERANDO
+pl	WYTWARZANIE
+ru	ВЫРАБОТКА
+zh	发电中
+ja	発電中
+ko	발전 중
+#339 GRID LOG
+tr	ŞEBEKE DEFTERİ
+de	NETZBUCH
+fr	CARNET DU RÉSEAU
+es	REGISTRO DE LA RED
+pt	DIÁRIO DA REDE
+pl	DZIENNIK SIECI
+ru	ЖУРНАЛ СЕТИ
+zh	电网日志
+ja	送電日誌
+ko	전력망 일지
+#340 IDLE · LIGHT BREEZE
+tr	RÖLANTİ · HAFİF ESİNTİ
+de	LEERLAUF · LEICHTE BRISE
+fr	RALENTI · BRISE LÉGÈRE
+es	RALENTÍ · BRISA SUAVE
+pt	OCIOSO · BRISA LEVE
+pl	BEZCZYNNY · LEKKA BRYZA
+ru	ПРОСТОЙ · ЛЁГКИЙ ВЕТЕРОК
+zh	闲置 · 微风
+ja	アイドル · そよ風
+ko	대기 · 산들바람
+#341 Next: home #{0}
+tr	Sıradaki: ev #{0}
+de	Nächstes: Haus #{0}
+fr	Suivant : maison n°{0}
+es	Siguiente: casa n.º {0}
+pt	Próxima: casa nº {0}
+pl	Następny: dom nr {0}
+ru	Следующий: дом №{0}
+zh	下一个：第 {0} 户
+ja	次：{0}軒目
+ko	다음: {0}번째 집
+#342 Powering
+tr	Bağlanıyor
+de	Wird versorgt
+fr	Alimentation
+es	Conectando
+pt	Energizando
+pl	Zasilanie
+ru	Подключаем
+zh	正在供电
+ja	送電中
+ko	전력 공급 중
+#343 Canyon
+tr	Kanyon
+de	Canyon
+fr	Canyon
+es	Cañón
+pt	Cânion
+pl	Kanion
+ru	Каньон
+zh	峡谷
+ja	渓谷
+ko	협곡
+#344 Desert
+tr	Çöl
+de	Wüste
+fr	Désert
+es	Desierto
+pt	Deserto
+pl	Pustynia
+ru	Пустыня
+zh	沙漠
+ja	砂漠
+ko	사막
+#345 Lakeshore
+tr	Göl Kıyısı
+de	Seeufer
+fr	Bord du lac
+es	Orilla del lago
+pt	Beira do lago
+pl	Brzeg jeziora
+ru	Берег озера
+zh	湖畔
+ja	湖畔
+ko	호숫가
+#346 Mountain Pass
+tr	Dağ Geçidi
+de	Gebirgspass
+fr	Col de montagne
+es	Puerto de montaña
+pt	Passo da montanha
+pl	Przełęcz
+ru	Горный перевал
+zh	山口
+ja	峠
+ko	산길
+#347 Pine Forest
+tr	Çam Ormanı
+de	Kiefernwald
+fr	Forêt de pins
+es	Pinar
+pt	Pinheiral
+pl	Las sosnowy
+ru	Сосновый лес
+zh	松林
+ja	松林
+ko	소나무 숲
+#348 Plains
+tr	Ovalar
+de	Ebene
+fr	Plaines
+es	Llanuras
+pt	Planícies
+pl	Równiny
+ru	Равнины
+zh	平原
+ja	平原
+ko	평원
+#349 Snowy Plateau
+tr	Karlı Yayla
+de	Schneeplateau
+fr	Plateau enneigé
+es	Meseta Nevada
+pt	Planalto Nevado
+pl	Śnieżny Płaskowyż
+ru	Снежное плато
+zh	雪原高地
+ja	雪の高原
+ko	설원 고원
+#350 Sunset Road
+tr	Gün Batımı Yolu
+de	Abendrotstraße
+fr	Route du couchant
+es	Carretera del Ocaso
+pt	Estrada do Pôr do Sol
+pl	Droga Zachodu
+ru	Дорога заката
+zh	日落之路
+ja	夕焼けロード
+ko	노을길
+#351 Wheat Fields
+tr	Buğday Tarlaları
+de	Weizenfelder
+fr	Champs de blé
+es	Trigales
+pt	Trigais
+pl	Pola Pszenicy
+ru	Пшеничные поля
+zh	麦田
+ja	小麦畑
+ko	밀밭
+#352 no one has come this far.
+tr	kimse bu kadar uzağa gelmedi.
+de	so weit ist noch niemand gekommen.
+fr	personne n'est jamais venu si loin.
+es	nadie ha llegado tan lejos.
+pt	ninguém chegou tão longe.
+pl	nikt nie dotarł tak daleko.
+ru	так далеко никто не заезжал.
+zh	从没有人走到这么远。
+ja	ここまで来た者はいない。
+ko	아무도 여기까지 오지 않았다.
+#353 something is waiting for you in your garage.
+tr	garajında seni bir şey bekliyor.
+de	in deiner garage wartet etwas auf dich.
+fr	quelque chose vous attend au garage.
+es	algo te espera en tu garaje.
+pt	algo espera por você na garagem.
+pl	coś czeka na ciebie w garażu.
+ru	в гараже вас что-то ждёт.
+zh	有什么东西在你的车库里等你。
+ja	ガレージで何かが待っている。
+ko	차고에서 무언가가 당신을 기다린다.
+#354 still going?
+tr	hâlâ gidiyor musun?
+de	immer noch unterwegs?
+fr	vous continuez ?
+es	¿sigues adelante?
+pt	ainda seguindo?
+pl	wciąż jedziesz?
+ru	всё ещё едете?
+zh	还在走吗？
+ja	まだ行くの？
+ko	아직도 가는 중?
+#355 the city is behind you.
+tr	şehir geride kaldı.
+de	die stadt liegt hinter dir.
+fr	la ville est derrière vous.
+es	la ciudad ha quedado atrás.
+pt	a cidade ficou para trás.
+pl	miasto zostało za tobą.
+ru	город остался позади.
+zh	城市已在你身后。
+ja	シティはもう後ろだ。
+ko	도시는 이미 뒤에 있다.
+#356 the road never ends. neither should you.
+tr	yol hiç bitmez. sen de bitme.
+de	die straße endet nie. du auch nicht.
+fr	la route ne finit jamais. vous non plus.
+es	la carretera nunca termina. tú tampoco.
+pt	a estrada nunca acaba. você também não.
+pl	droga nigdy się nie kończy. ty też nie.
+ru	дорога не кончается. и вы не останавливайтесь.
+zh	路永无尽头。你也不该停下。
+ja	道は終わらない。きみも止まるな。
+ko	길은 끝나지 않는다. 당신도 멈추지 마라.
+#357 this place isn't on the map.
+tr	burası haritada yok.
+de	dieser ort ist auf keiner karte.
+fr	cet endroit n'est sur aucune carte.
+es	este lugar no está en el mapa.
+pt	este lugar não está no mapa.
+pl	tego miejsca nie ma na mapie.
+ru	этого места нет на карте.
+zh	这里不在地图上。
+ja	ここは地図にない。
+ko	이곳은 지도에 없다.
+#358 those who keep going find something.
+tr	devam edenler bir şey bulur.
+de	wer weiterfährt, findet etwas.
+fr	ceux qui continuent trouvent quelque chose.
+es	quien sigue adelante encuentra algo.
+pt	quem continua encontra algo.
+pl	kto jedzie dalej, coś znajduje.
+ru	кто едет дальше, тот что-то находит.
+zh	继续前行的人会有所发现。
+ja	進み続ける者は何かを見つける。
+ko	계속 가는 자는 무언가를 찾는다.
+#359 those who turn back lose nothing.
+tr	geri dönenler hiçbir şey kaybetmez.
+de	wer umkehrt, verliert nichts.
+fr	ceux qui font demi-tour ne perdent rien.
+es	quien da la vuelta no pierde nada.
+pt	quem volta não perde nada.
+pl	kto zawraca, nic nie traci.
+ru	кто повернёт назад, ничего не потеряет.
+zh	回头的人什么也不会失去。
+ja	引き返す者は何も失わない。
+ko	돌아가는 자는 아무것도 잃지 않는다.
+#360 Night
+tr	Gece
+de	Nacht
+fr	Nuit
+es	Noche
+pt	Noite
+pl	Noc
+ru	Ночь
+zh	夜晚
+ja	ナイト
+ko	밤
+#361 Sepia
+tr	Sepya
+de	Sepia
+fr	Sépia
+es	Sepia
+pt	Sépia
+pl	Sepia
+ru	Сепия
+zh	怀旧
+ja	セピア
+ko	세피아
+#362 Cherry
+tr	Kiraz
+de	Kirsche
+fr	Cerise
+es	Cereza
+pt	Cereja
+pl	Wiśnia
+ru	Вишня
+zh	樱桃红
+ja	チェリー
+ko	체리
+#363 Coral
+tr	Mercan
+de	Koralle
+fr	Corail
+es	Coral
+pt	Coral
+pl	Koral
+ru	Коралл
+zh	珊瑚
+ja	コーラル
+ko	코랄
+#364 Forest
+tr	Orman
+de	Waldgrün
+fr	Forêt
+es	Bosque
+pt	Floresta
+pl	Leśna zieleń
+ru	Лес
+zh	森林绿
+ja	フォレスト
+ko	포레스트
+#365 Graphite
+tr	Grafit
+de	Graphit
+fr	Graphite
+es	Grafito
+pt	Grafite
+pl	Grafit
+ru	Графит
+zh	石墨灰
+ja	グラファイト
+ko	그래파이트
+#366 Lavender
+tr	Lavanta
+de	Lavendel
+fr	Lavande
+es	Lavanda
+pt	Lavanda
+pl	Lawenda
+ru	Лаванда
+zh	薰衣草
+ja	ラベンダー
+ko	라벤더
+#367 Mustard
+tr	Hardal
+de	Senf
+fr	Moutarde
+es	Mostaza
+pt	Mostarda
+pl	Musztarda
+ru	Горчица
+zh	芥末黄
+ja	マスタード
+ko	머스터드
+#368 Navy
+tr	Lacivert
+de	Marineblau
+fr	Marine
+es	Azul marino
+pt	Azul-marinho
+pl	Granat
+ru	Тёмно-синий
+zh	海军蓝
+ja	ネイビー
+ko	네이비
+#369 Teal
+tr	Turkuaz
+de	Petrol
+fr	Bleu canard
+es	Verde azulado
+pt	Azul-petróleo
+pl	Morski
+ru	Бирюза
+zh	青绿
+ja	ティール
+ko	틸
+#370 Whisper
+tr	Fısıltı
+de	Flüstern
+fr	Murmure
+es	Susurro
+pt	Sussurro
+pl	Szept
+ru	Шёпот
+zh	低语
+ja	ささやき
+ko	속삭임
+#371 reach Lakeshore in one month
+tr	bir ayda Göl Kıyısı'na ulaş
+de	erreiche in einem Monat das Seeufer
+fr	atteindre le Bord du lac en un mois
+es	llega a la Orilla del lago en un mes
+pt	chegue à Beira do lago em um mês
+pl	dotrzyj do Brzegu jeziora w jeden miesiąc
+ru	доберитесь до Берега озера за месяц
+zh	一个月内抵达湖畔
+ja	1か月で湖畔に到達
+ko	한 달 안에 호숫가 도달
+#372 reach Mountain Pass in one month
+tr	bir ayda Dağ Geçidi'ne ulaş
+de	erreiche in einem Monat den Gebirgspass
+fr	atteindre le Col de montagne en un mois
+es	llega al Puerto de montaña en un mes
+pt	chegue ao Passo da montanha em um mês
+pl	dotrzyj do Przełęczy w jeden miesiąc
+ru	доберитесь до Горного перевала за месяц
+zh	一个月内抵达山口
+ja	1か月で峠に到達
+ko	한 달 안에 산길 도달
+#373 reach Pine Forest in one month
+tr	bir ayda Çam Ormanı'na ulaş
+de	erreiche in einem Monat den Kiefernwald
+fr	atteindre la Forêt de pins en un mois
+es	llega al Pinar en un mes
+pt	chegue ao Pinheiral em um mês
+pl	dotrzyj do Lasu sosnowego w jeden miesiąc
+ru	доберитесь до Соснового леса за месяц
+zh	一个月内抵达松林
+ja	1か月で松林に到達
+ko	한 달 안에 소나무 숲 도달
+#374 reach Sunset Road in one month
+tr	bir ayda Gün Batımı Yolu'na ulaş
+de	erreiche in einem Monat die Abendrotstraße
+fr	atteindre la Route du couchant en un mois
+es	llega a la Carretera del Ocaso en un mes
+pt	chegue à Estrada do Pôr do Sol em um mês
+pl	dotrzyj do Drogi Zachodu w jeden miesiąc
+ru	доберитесь до Дороги заката за месяц
+zh	一个月内抵达日落之路
+ja	1か月で夕焼けロードに到達
+ko	한 달 안에 노을길 도달
+#375 reach The City in one month
+tr	bir ayda Şehre ulaş
+de	erreiche in einem Monat die Stadt
+fr	atteindre la Ville en un mois
+es	llega a la Ciudad en un mes
+pt	chegue à Cidade em um mês
+pl	dotrzyj do Miasta w jeden miesiąc
+ru	доберитесь до Города за месяц
+zh	一个月内抵达城市
+ja	1か月でシティに到達
+ko	한 달 안에 도시 도달
+#376 reach the Canyon in one month
+tr	bir ayda Kanyon'a ulaş
+de	erreiche in einem Monat den Canyon
+fr	atteindre le Canyon en un mois
+es	llega al Cañón en un mes
+pt	chegue ao Cânion em um mês
+pl	dotrzyj do Kanionu w jeden miesiąc
+ru	доберитесь до Каньона за месяц
+zh	一个月内抵达峡谷
+ja	1か月で渓谷に到達
+ko	한 달 안에 협곡 도달
+#377 reach the Desert in one month
+tr	bir ayda Çöl'e ulaş
+de	erreiche in einem Monat die Wüste
+fr	atteindre le Désert en un mois
+es	llega al Desierto en un mes
+pt	chegue ao Deserto em um mês
+pl	dotrzyj do Pustyni w jeden miesiąc
+ru	доберитесь до Пустыни за месяц
+zh	一个月内抵达沙漠
+ja	1か月で砂漠に到達
+ko	한 달 안에 사막 도달
+#378 Aiming at
+tr	Nişan alınan
+de	Im Visier
+fr	En ligne de mire
+es	Apuntando a
+pt	Mirando em
+pl	Na celowniku
+ru	Цель
+zh	瞄准
+ja	狙うは
+ko	조준 중
+#379 Beach ball
+tr	Plaj topu
+de	Wasserball
+fr	Ballon de plage
+es	Pelota de playa
+pt	Bola de praia
+pl	Piłka plażowa
+ru	Пляжный мяч
+zh	沙滩球
+ja	ビーチボール
+ko	비치볼
+#380 Birdhouse
+tr	Kuş evi
+de	Vogelhaus
+fr	Nichoir
+es	Casita para pájaros
+pt	Casinha de passarinho
+pl	Budka dla ptaków
+ru	Скворечник
+zh	鸟屋
+ja	巣箱
+ko	새집
+#381 Bottle on a post
+tr	Direkte şişe
+de	Flasche auf dem Pfahl
+fr	Bouteille sur un piquet
+es	Botella en un poste
+pt	Garrafa no poste
+pl	Butelka na słupku
+ru	Бутылка на столбе
+zh	柱上的瓶子
+ja	杭の上のビン
+ko	기둥 위 병
+#382 Buoy
+tr	Şamandıra
+de	Boje
+fr	Bouée
+es	Boya
+pt	Boia
+pl	Boja
+ru	Буй
+zh	浮标
+ja	ブイ
+ko	부표
+#383 Carved tablet
+tr	Oymalı tablet
+de	Steintafel
+fr	Tablette gravée
+es	Tablilla tallada
+pt	Tábua entalhada
+pl	Rzeźbiona tablica
+ru	Резная табличка
+zh	雕刻石板
+ja	彫刻の石板
+ko	조각 석판
+#384 Clay mask
+tr	Kil maske
+de	Tonmaske
+fr	Masque en argile
+es	Máscara de barro
+pt	Máscara de barro
+pl	Gliniana maska
+ru	Глиняная маска
+zh	陶土面具
+ja	土の仮面
+ko	진흙 가면
+#385 Clay pot
+tr	Toprak çömlek
+de	Tontopf
+fr	Pot en terre
+es	Vasija de barro
+pt	Pote de barro
+pl	Gliniany garnek
+ru	Глиняный горшок
+zh	陶罐
+ja	土の壺
+ko	토기 항아리
+#386 Coconut on a post
+tr	Direkte hindistancevizi
+de	Kokosnuss auf dem Pfahl
+fr	Noix de coco sur un piquet
+es	Coco en un poste
+pt	Coco no poste
+pl	Kokos na słupku
+ru	Кокос на столбе
+zh	柱上的椰子
+ja	杭の上のヤシの実
+ko	기둥 위 코코넛
+#387 Driftwood target
+tr	Dalga odunu hedef
+de	Treibholz-Zielscheibe
+fr	Cible en bois flotté
+es	Diana de madera de deriva
+pt	Alvo de madeira trazida pelo mar
+pl	Tarcza z dryfującego drewna
+ru	Мишень из плавника
+zh	浮木靶
+ja	流木の的
+ko	유목 표적
+#388 First hit {0}
+tr	İlk isabet {0}
+de	Erster Treffer {0}
+fr	Premier coup {0}
+es	Primer acierto {0}
+pt	Primeiro acerto {0}
+pl	Pierwsze trafienie {0}
+ru	Первое попадание {0}
+zh	首次击中 {0}
+ja	初ヒット {0}
+ko	첫 명중 {0}
+#389 Giant pine cone
+tr	Dev çam kozalağı
+de	Riesiger Kiefernzapfen
+fr	Pomme de pin géante
+es	Piña gigante
+pt	Pinha gigante
+pl	Olbrzymia szyszka
+ru	Гигантская шишка
+zh	巨型松果
+ja	巨大な松ぼっくり
+ko	거대 솔방울
+#390 Hay bale
+tr	Saman balyası
+de	Heuballen
+fr	Botte de foin
+es	Fardo de heno
+pt	Fardo de feno
+pl	Bela siana
+ru	Тюк сена
+zh	干草捆
+ja	干し草の束
+ko	건초 더미
+#391 Hit ×{0} · best {1:0} m
+tr	İsabet ×{0} · rekor {1:0} m
+de	Getroffen ×{0} · Bestwert {1:0} m
+fr	Touché ×{0} · record {1:0} m
+es	Aciertos ×{0} · récord {1:0} m
+pt	Acertos ×{0} · recorde {1:0} m
+pl	Trafienia ×{0} · rekord {1:0} m
+ru	Попаданий ×{0} · рекорд {1:0} м
+zh	击中 ×{0} · 最远 {1:0} 米
+ja	ヒット ×{0} · 最長 {1:0} m
+ko	명중 ×{0} · 최고 {1:0}m
+#392 Horseshoe post
+tr	Nal direği
+de	Hufeisenpfahl
+fr	Piquet à fer à cheval
+es	Poste de herradura
+pt	Poste de ferradura
+pl	Słupek z podkową
+ru	Столб с подковой
+zh	马蹄铁桩
+ja	蹄鉄の杭
+ko	편자 기둥
+#393 IDLE · LAZY THROWS
+tr	RÖLANTİ · TEMBEL ATIŞLAR
+de	LEERLAUF · GEMÜTLICHE WÜRFE
+fr	RALENTI · LANCERS PARESSEUX
+es	RALENTÍ · LANZAMIENTOS PEREZOSOS
+pt	OCIOSO · LANÇAMENTOS PREGUIÇOSOS
+pl	BEZCZYNNY · LENIWE RZUTY
+ru	ПРОСТОЙ · ЛЕНИВЫЕ БРОСКИ
+zh	闲置 · 慵懒投掷
+ja	アイドル · のんびり投げ
+ko	대기 · 느긋한 던지기
+#394 Ice block
+tr	Buz kalıbı
+de	Eisblock
+fr	Bloc de glace
+es	Bloque de hielo
+pt	Bloco de gelo
+pl	Blok lodu
+ru	Ледяная глыба
+zh	冰块
+ja	氷のブロック
+ko	얼음 덩어리
+#395 LONGEST HIT
+tr	EN UZUN İSABET
+de	WEITESTER TREFFER
+fr	PLUS LONG COUP
+es	ACIERTO MÁS LARGO
+pt	ACERTO MAIS LONGO
+pl	NAJDŁUŻSZE TRAFIENIE
+ru	САМОЕ ДАЛЬНЕЕ ПОПАДАНИЕ
+zh	最远击中
+ja	最長ヒット
+ko	최장 명중
+#396 Milk churn
+tr	Süt güğümü
+de	Milchkanne
+fr	Bidon à lait
+es	Lechera
+pt	Latão de leite
+pl	Bańka na mleko
+ru	Бидон для молока
+zh	牛奶桶
+ja	ミルク缶
+ko	우유 통
+#397 Monkey statue
+tr	Maymun heykeli
+de	Affenstatue
+fr	Statue de singe
+es	Estatua de mono
+pt	Estátua de macaco
+pl	Posąg małpy
+ru	Статуя обезьяны
+zh	猴子雕像
+ja	サルの像
+ko	원숭이 석상
+#398 New target hit: {0}
+tr	Yeni hedef vuruldu: {0}
+de	Neues Ziel getroffen: {0}
+fr	Nouvelle cible touchée : {0}
+es	Nueva diana acertada: {0}
+pt	Novo alvo acertado: {0}
+pl	Nowy cel trafiony: {0}
+ru	Новая мишень сбита: {0}
+zh	击中新靶子：{0}
+ja	新しい的にヒット：{0}
+ko	새 표적 명중: {0}
+#399 Next: target {0} · {1:0} m
+tr	Sıradaki: hedef {0} · {1:0} m
+de	Nächstes: Ziel {0} · {1:0} m
+fr	Suivant : cible {0} · {1:0} m
+es	Siguiente: diana {0} · {1:0} m
+pt	Próximo: alvo {0} · {1:0} m
+pl	Następny: cel {0} · {1:0} m
+ru	Следующая: мишень {0} · {1:0} м
+zh	下一个：第 {0} 个靶子 · {1:0} 米
+ja	次：{0}個目の的 · {1:0} m
+ko	다음: 표적 {0} · {1:0}m
+#400 Not hit yet
+tr	Henüz vurulmadı
+de	Noch nicht getroffen
+fr	Pas encore touché
+es	Aún sin acertar
+pt	Ainda não acertado
+pl	Jeszcze nietrafiony
+ru	Ещё не сбита
+zh	尚未击中
+ja	未ヒット
+ko	아직 명중 못 함
+#401 Pumpkin on a stump
+tr	Kütükte balkabağı
+de	Kürbis auf dem Baumstumpf
+fr	Citrouille sur une souche
+es	Calabaza en un tocón
+pt	Abóbora no toco
+pl	Dynia na pniaku
+ru	Тыква на пне
+zh	树桩上的南瓜
+ja	切り株の上のカボチャ
+ko	그루터기 위 호박
+#402 REWINDING
+tr	GERİ SARIYOR
+de	SPULT ZURÜCK
+fr	RETOUR ARRIÈRE
+es	REBOBINANDO
+pt	REBOBINANDO
+pl	PRZEWIJANIE
+ru	ПЕРЕМОТКА
+zh	倒带中
+ja	巻き戻し中
+ko	되감는 중
+#403 Sand bucket
+tr	Kum kovası
+de	Sandeimer
+fr	Seau de sable
+es	Cubo de arena
+pt	Baldinho de areia
+pl	Wiaderko z piaskiem
+ru	Ведёрко с песком
+zh	沙桶
+ja	砂バケツ
+ko	모래 양동이
+#404 Sandcastle
+tr	Kumdan kale
+de	Sandburg
+fr	Château de sable
+es	Castillo de arena
+pt	Castelo de areia
+pl	Zamek z piasku
+ru	Песочный замок
+zh	沙堡
+ja	砂の城
+ko	모래성
+#405 Scarecrow
+tr	Korkuluk
+de	Vogelscheuche
+fr	Épouvantail
+es	Espantapájaros
+pt	Espantalho
+pl	Strach na wróble
+ru	Пугало
+zh	稻草人
+ja	かかし
+ko	허수아비
+#406 Skis on a post
+tr	Direkte kayaklar
+de	Skier am Pfahl
+fr	Skis sur un piquet
+es	Esquís en un poste
+pt	Esquis no poste
+pl	Narty na słupku
+ru	Лыжи на столбе
+zh	柱上的滑雪板
+ja	杭に立てたスキー
+ko	기둥 위 스키
+#407 Snowball stack
+tr	Kartopu yığını
+de	Schneeballstapel
+fr	Pile de boules de neige
+es	Pila de bolas de nieve
+pt	Pilha de bolas de neve
+pl	Stos śnieżek
+ru	Горка снежков
+zh	雪球堆
+ja	雪玉の山
+ko	눈덩이 더미
+#408 Snowman
+tr	Kardan adam
+de	Schneemann
+fr	Bonhomme de neige
+es	Muñeco de nieve
+pt	Boneco de neve
+pl	Bałwan
+ru	Снеговик
+zh	雪人
+ja	雪だるま
+ko	눈사람
+#409 Stamped in your target log
+tr	Hedef defterine işlendi
+de	In dein Zielbuch eingetragen
+fr	Inscrit dans votre carnet de cibles
+es	Anotado en tu registro de dianas
+pt	Registrado no seu diário de alvos
+pl	Wpisano do dziennika celów
+ru	Записано в журнал мишеней
+zh	已记入靶子日志
+ja	的の日誌に記録
+ko	표적 일지에 기록됨
+#410 Stone urn
+tr	Taş vazo
+de	Steinurne
+fr	Urne en pierre
+es	Urna de piedra
+pt	Urna de pedra
+pl	Kamienna urna
+ru	Каменная урна
+zh	石瓮
+ja	石の壺
+ko	돌 항아리
+#411 Straw target
+tr	Saman hedef
+de	Strohscheibe
+fr	Cible en paille
+es	Diana de paja
+pt	Alvo de palha
+pl	Słomiana tarcza
+ru	Соломенная мишень
+zh	草靶
+ja	わらの的
+ko	짚 표적
+#412 TARGET LOG
+tr	HEDEF DEFTERİ
+de	ZIELBUCH
+fr	CARNET DE CIBLES
+es	REGISTRO DE DIANAS
+pt	DIÁRIO DE ALVOS
+pl	DZIENNIK CELÓW
+ru	ЖУРНАЛ МИШЕНЕЙ
+zh	靶子日志
+ja	的の日誌
+ko	표적 일지
+#413 TARGETS HIT
+tr	VURULAN HEDEF
+de	GETROFFENE ZIELE
+fr	CIBLES TOUCHÉES
+es	DIANAS ACERTADAS
+pt	ALVOS ACERTADOS
+pl	TRAFIONE CELE
+ru	СБИТО МИШЕНЕЙ
+zh	击中靶数
+ja	ヒット数
+ko	명중 표적
+#414 THROWING
+tr	ATIYOR
+de	WIRFT
+fr	LANCER
+es	LANZANDO
+pt	LANÇANDO
+pl	RZUCA
+ru	БРОСОК
+zh	投掷中
+ja	投てき中
+ko	던지는 중
+#415 The Aurora Kite
+tr	Kutup Işığı Uçurtması
+de	Der Polarlicht-Drachen
+fr	Le Cerf-volant aurore
+es	La Cometa Aurora
+pt	A Pipa Aurora
+pl	Latawiec Zorza
+ru	Воздушный змей «Сияние»
+zh	极光风筝
+ja	オーロラの凧
+ko	오로라 연
+#416 The Barn Lantern
+tr	Ahır Feneri
+de	Die Stalllaterne
+fr	La Lanterne de grange
+es	El Farol del granero
+pt	A Lanterna do celeiro
+pl	Latarnia ze stodoły
+ru	Амбарный фонарь
+zh	谷仓提灯
+ja	納屋のランタン
+ko	헛간 랜턴
+#417 The Beach
+tr	Plaj
+de	Der Strand
+fr	La Plage
+es	La Playa
+pt	A Praia
+pl	Plaża
+ru	Пляж
+zh	海滩
+ja	ビーチ
+ko	해변
+#418 The Blue Ribbon
+tr	Mavi Kurdele
+de	Das Blaue Band
+fr	Le Ruban bleu
+es	La Cinta Azul
+pt	A Fita Azul
+pl	Niebieska Wstęga
+ru	Голубая лента
+zh	蓝丝带
+ja	ブルーリボン
+ko	블루 리본
+#419 The Brass Bell
+tr	Pirinç Çan
+de	Die Messingglocke
+fr	La Cloche en laiton
+es	La Campana de latón
+pt	O Sino de latão
+pl	Mosiężny Dzwon
+ru	Латунный колокол
+zh	黄铜钟
+ja	真鍮の鐘
+ko	놋쇠 종
+#420 The Cow Bell
+tr	İnek Çanı
+de	Die Kuhglocke
+fr	La Cloche de vache
+es	El Cencerro
+pt	O Chocalho
+pl	Krowi Dzwonek
+ru	Коровий колокольчик
+zh	牛铃
+ja	カウベル
+ko	소 방울
+#421 The Feather Crown
+tr	Tüy Taç
+de	Die Federkrone
+fr	La Couronne de plumes
+es	La Corona de plumas
+pt	A Coroa de penas
+pl	Pierzasta Korona
+ru	Корона из перьев
+zh	羽毛王冠
+ja	羽根の冠
+ko	깃털 왕관
+#422 The Giant Conch
+tr	Dev Deniz Kabuğu
+de	Die Riesenmuschel
+fr	La Conque géante
+es	La Caracola gigante
+pt	A Concha gigante
+pl	Olbrzymia Muszla
+ru	Гигантская раковина
+zh	巨型海螺
+ja	巨大なほら貝
+ko	거대 소라
+#423 The Golden Horseshoe
+tr	Altın Nal
+de	Das Goldene Hufeisen
+fr	Le Fer à cheval doré
+es	La Herradura dorada
+pt	A Ferradura dourada
+pl	Złota Podkowa
+ru	Золотая подкова
+zh	金马蹄铁
+ja	黄金の蹄鉄
+ko	황금 편자
+#424 The Golden Mask
+tr	Altın Maske
+de	Die Goldene Maske
+fr	Le Masque d'or
+es	La Máscara de oro
+pt	A Máscara de ouro
+pl	Złota Maska
+ru	Золотая маска
+zh	黄金面具
+ja	黄金の仮面
+ko	황금 가면
+#425 The Golden Pearl
+tr	Altın İnci
+de	Die Goldene Perle
+fr	La Perle dorée
+es	La Perla dorada
+pt	A Pérola dourada
+pl	Złota Perła
+ru	Золотая жемчужина
+zh	金珍珠
+ja	黄金の真珠
+ko	황금 진주
+#426 The Golden Trophy
+tr	Altın Kupa
+de	Der Goldpokal
+fr	Le Trophée d'or
+es	El Trofeo de oro
+pt	O Troféu de ouro
+pl	Złote Trofeum
+ru	Золотой кубок
+zh	金奖杯
+ja	黄金のトロフィー
+ko	황금 트로피
+#427 The Gong
+tr	Gong
+de	Der Gong
+fr	Le Gong
+es	El Gong
+pt	O Gongo
+pl	Gong
+ru	Гонг
+zh	铜锣
+ja	銅鑼
+ko	징
+#428 The Ice Crystal
+tr	Buz Kristali
+de	Der Eiskristall
+fr	Le Cristal de glace
+es	El Cristal de hielo
+pt	O Cristal de gelo
+pl	Kryształ Lodu
+ru	Ледяной кристалл
+zh	冰晶
+ja	氷の結晶
+ko	얼음 결정
+#429 The Ice Trophy
+tr	Buz Kupa
+de	Der Eispokal
+fr	Le Trophée de glace
+es	El Trofeo de hielo
+pt	O Troféu de gelo
+pl	Lodowe Trofeum
+ru	Ледяной кубок
+zh	冰雕奖杯
+ja	氷のトロフィー
+ko	얼음 트로피
+#430 The Igloo Lantern
+tr	İglu Feneri
+de	Die Iglu-Laterne
+fr	La Lanterne igloo
+es	El Farol iglú
+pt	A Lanterna iglu
+pl	Igloowa Latarnia
+ru	Фонарь-иглу
+zh	冰屋灯笼
+ja	イグルーのランタン
+ko	이글루 랜턴
+#431 The Jade Idol
+tr	Yeşim Put
+de	Das Jadeidol
+fr	L'Idole de jade
+es	El Ídolo de jade
+pt	O Ídolo de jade
+pl	Jadeitowy Bożek
+ru	Нефритовый идол
+zh	翡翠神像
+ja	翡翠の偶像
+ko	비취 우상
+#432 The Message in a Bottle
+tr	Şişedeki Mesaj
+de	Die Flaschenpost
+fr	La Bouteille à la mer
+es	El Mensaje en una botella
+pt	A Mensagem na garrafa
+pl	List w Butelce
+ru	Послание в бутылке
+zh	漂流瓶
+ja	ボトルメール
+ko	유리병 편지
+#433 The Old Ruins
+tr	Eski Harabeler
+de	Die Alten Ruinen
+fr	Les Vieilles Ruines
+es	Las Viejas Ruinas
+pt	As Velhas Ruínas
+pl	Stare Ruiny
+ru	Древние руины
+zh	古老遗迹
+ja	古代遺跡
+ko	옛 유적
+#434 The Outback
+tr	Avustralya Çölü
+de	Das Outback
+fr	L'Outback
+es	El Outback
+pt	O Outback
+pl	Outback
+ru	Аутбэк
+zh	澳洲内陆
+ja	アウトバック
+ko	아웃백
+#435 The Paper Lantern
+tr	Kâğıt Fener
+de	Die Papierlaterne
+fr	La Lanterne en papier
+es	El Farolillo de papel
+pt	A Lanterna de papel
+pl	Papierowy Lampion
+ru	Бумажный фонарик
+zh	纸灯笼
+ja	紙提灯
+ko	종이 등불
+#436 The Pirate Flag
+tr	Korsan Bayrağı
+de	Die Piratenflagge
+fr	Le Drapeau pirate
+es	La Bandera pirata
+pt	A Bandeira pirata
+pl	Piracka Flaga
+ru	Пиратский флаг
+zh	海盗旗
+ja	海賊旗
+ko	해적 깃발
+#437 The Prairie
+tr	Bozkır
+de	Die Prärie
+fr	La Prairie
+es	La Pradera
+pt	A Pradaria
+pl	Preria
+ru	Прерия
+zh	大草原
+ja	プレーリー
+ko	대초원
+#438 The Red Kite
+tr	Kırmızı Uçurtma
+de	Der Rote Drachen
+fr	Le Cerf-volant rouge
+es	La Cometa roja
+pt	A Pipa vermelha
+pl	Czerwony Latawiec
+ru	Красный воздушный змей
+zh	红风筝
+ja	赤い凧
+ko	빨간 연
+#439 The Rooster Vane
+tr	Horozlu Rüzgârgülü
+de	Der Wetterhahn
+fr	Le Coq de girouette
+es	La Veleta del gallo
+pt	O Cata-vento de galo
+pl	Kogut na Wietrzniku
+ru	Петух-флюгер
+zh	公鸡风向标
+ja	ニワトリの風見
+ko	수탉 풍향계
+#440 The Ruby Eye
+tr	Yakut Göz
+de	Das Rubinauge
+fr	L'Œil de rubis
+es	El Ojo de rubí
+pt	O Olho de rubi
+pl	Rubinowe Oko
+ru	Рубиновый глаз
+zh	红宝石之眼
+ja	ルビーの瞳
+ko	루비의 눈
+#441 The Ship's Bell
+tr	Gemi Çanı
+de	Die Schiffsglocke
+fr	La Cloche du navire
+es	La Campana del barco
+pt	O Sino do navio
+pl	Okrętowy Dzwon
+ru	Корабельный колокол
+zh	船钟
+ja	船の鐘
+ko	배의 종
+#442 The Sleigh Bell
+tr	Kızak Çanı
+de	Das Schlittenglöckchen
+fr	Le Grelot de traîneau
+es	El Cascabel del trineo
+pt	O Guizo do trenó
+pl	Dzwonek Sań
+ru	Колокольчик саней
+zh	雪橇铃
+ja	そりの鈴
+ko	썰매 방울
+#443 The Snow Globe
+tr	Kar Küresi
+de	Die Schneekugel
+fr	La Boule à neige
+es	La Bola de nieve
+pt	O Globo de neve
+pl	Śnieżna Kula
+ru	Снежный шар
+zh	雪花水晶球
+ja	スノードーム
+ko	스노볼
+#444 The Snowfield
+tr	Kar Ovası
+de	Das Schneefeld
+fr	Le Champ de neige
+es	El Campo nevado
+pt	O Campo de neve
+pl	Śnieżne Pole
+ru	Снежное поле
+zh	雪地
+ja	雪原
+ko	눈밭
+#445 The Sun Disc
+tr	Güneş Diski
+de	Die Sonnenscheibe
+fr	Le Disque solaire
+es	El Disco solar
+pt	O Disco solar
+pl	Dysk Słońca
+ru	Солнечный диск
+zh	太阳圆盘
+ja	太陽の円盤
+ko	태양 원반
+#446 The Surf Trophy
+tr	Sörf Kupası
+de	Der Surfpokal
+fr	Le Trophée de surf
+es	El Trofeo de surf
+pt	O Troféu de surfe
+pl	Surfingowe Trofeum
+ru	Кубок по сёрфингу
+zh	冲浪奖杯
+ja	サーフィンのトロフィー
+ko	서핑 트로피
+#447 The Temple Bell
+tr	Tapınak Çanı
+de	Die Tempelglocke
+fr	La Cloche du temple
+es	La Campana del templo
+pt	O Sino do templo
+pl	Świątynny Dzwon
+ru	Храмовый колокол
+zh	神庙之钟
+ja	神殿の鐘
+ko	신전의 종
+#448 The Weather Vane
+tr	Rüzgârgülü
+de	Die Wetterfahne
+fr	La Girouette
+es	La Veleta
+pt	O Cata-vento
+pl	Wiatrowskaz
+ru	Флюгер
+zh	风向标
+ja	風見
+ko	풍향계
+#449 The Windpump
+tr	Rüzgâr Pompası
+de	Die Windpumpe
+fr	L'Éolienne de pompage
+es	El Molino de bombeo
+pt	O Cata-vento de bomba
+pl	Wiatrak Pompowy
+ru	Ветряной насос
+zh	风力水泵
+ja	風車ポンプ
+ko	풍차 펌프
+#450 Tin cans
+tr	Teneke kutular
+de	Blechdosen
+fr	Boîtes de conserve
+es	Latas
+pt	Latas
+pl	Puszki
+ru	Жестяные банки
+zh	铁皮罐
+ja	空き缶
+ko	깡통
+#451 Torch post
+tr	Meşale direği
+de	Fackelpfahl
+fr	Poteau à torche
+es	Poste con antorcha
+pt	Poste de tocha
+pl	Słup z pochodnią
+ru	Столб с факелом
+zh	火把柱
+ja	たいまつの柱
+ko	횃불 기둥
+#452 Totem post
+tr	Totem direği
+de	Totempfahl
+fr	Totem
+es	Tótem
+pt	Totem
+pl	Totem
+ru	Тотемный столб
+zh	图腾柱
+ja	トーテムポール
+ko	토템 기둥
+#453 Watering can
+tr	Sulama kabı
+de	Gießkanne
+fr	Arrosoir
+es	Regadera
+pt	Regador
+pl	Konewka
+ru	Лейка
+zh	洒水壶
+ja	じょうろ
+ko	물뿌리개
+#454 Wooden sign
+tr	Ahşap tabela
+de	Holzschild
+fr	Panneau en bois
+es	Letrero de madera
+pt	Placa de madeira
+pl	Drewniana tabliczka
+ru	Деревянная вывеска
+zh	木牌
+ja	木の看板
+ko	나무 표지판
+#455 Wooden sled
+tr	Tahta kızak
+de	Holzschlitten
+fr	Luge en bois
+es	Trineo de madera
+pt	Trenó de madeira
+pl	Drewniane sanki
+ru	Деревянные санки
+zh	木雪橇
+ja	木のそり
+ko	나무 썰매
+#456 targets
+tr	hedef
+de	Ziele
+fr	cibles
+es	dianas
+pt	alvos
+pl	cele
+ru	мишени
+zh	靶子
+ja	的
+ko	표적
+#457 {0:0} m
+tr	{0:0} m
+de	{0:0} m
+fr	{0:0} m
+es	{0:0} m
+pt	{0:0} m
+pl	{0:0} m
+ru	{0:0} м
+zh	{0:0} 米
+ja	{0:0} m
+ko	{0:0}m
+#458 {0} · in the log
+tr	{0} · deftere işlendi
+de	{0} · im Buch
+fr	{0} · dans le carnet
+es	{0} · en el registro
+pt	{0} · no diário
+pl	{0} · w dzienniku
+ru	{0} · в журнале
+zh	{0} · 已记入日志
+ja	{0} · 日誌に記録
+ko	{0} · 일지에 기록
+#459 A Backpacker
+tr	Sırt Çantalı Gezgin
+de	Rucksacktourist
+fr	Routard
+es	Mochilero
+pt	Mochileiro
+pl	Turysta z plecakiem
+ru	Турист с рюкзаком
+zh	背包客
+ja	バックパッカー
+ko	배낭여행객
+#460 A Ballerina
+tr	Balerin
+de	Ballerina
+fr	Ballerine
+es	Bailarina
+pt	Bailarina
+pl	Baletnica
+ru	Балерина
+zh	芭蕾舞者
+ja	バレリーナ
+ko	발레리나
+#461 A Bride
+tr	Gelin
+de	Braut
+fr	Mariée
+es	Novia
+pt	Noiva
+pl	Panna młoda
+ru	Невеста
+zh	新娘
+ja	花嫁
+ko	신부
+#462 A Centurion
+tr	Yüzbaşı Lejyoner
+de	Zenturio
+fr	Centurion
+es	Centurión
+pt	Centurião
+pl	Centurion
+ru	Центурион
+zh	罗马百夫长
+ja	百人隊長
+ko	백인대장
+#463 A Deep-sea Diver
+tr	Derin Deniz Dalgıcı
+de	Tiefseetaucher
+fr	Scaphandrier
+es	Buzo de profundidad
+pt	Mergulhador de profundidade
+pl	Głębinowy nurek
+ru	Глубоководный водолаз
+zh	深海潜水员
+ja	深海ダイバー
+ko	심해 잠수부
+#464 A Film Star
+tr	Film Yıldızı
+de	Filmstar
+fr	Star de cinéma
+es	Estrella de cine
+pt	Estrela de cinema
+pl	Gwiazda filmowa
+ru	Кинозвезда
+zh	电影明星
+ja	映画スター
+ko	영화배우
+#465 A Firefighter
+tr	İtfaiyeci
+de	Feuerwehrfrau
+fr	Pompière
+es	Bombera
+pt	Bombeira
+pl	Strażaczka
+ru	Пожарный
+zh	消防员
+ja	消防士
+ko	소방관
+#466 A Knight
+tr	Şövalye
+de	Ritter
+fr	Chevalier
+es	Caballero
+pt	Cavaleiro
+pl	Rycerz
+ru	Рыцарь
+zh	骑士
+ja	騎士
+ko	기사
+#467 A Mountaineer
+tr	Dağcı
+de	Bergsteiger
+fr	Alpiniste
+es	Alpinista
+pt	Alpinista
+pl	Alpinista
+ru	Альпинист
+zh	登山者
+ja	登山家
+ko	등산가
+#468 A Robot
+tr	Robot
+de	Roboter
+fr	Robot
+es	Robot
+pt	Robô
+pl	Robot
+ru	Робот
+zh	机器人
+ja	ロボット
+ko	로봇
+#469 A Rock Star
+tr	Rock Yıldızı
+de	Rockstar
+fr	Rock star
+es	Estrella del rock
+pt	Astro do rock
+pl	Gwiazda rocka
+ru	Рок-звезда
+zh	摇滚明星
+ja	ロックスター
+ko	록 스타
+#470 A Superhero
+tr	Süper Kahraman
+de	Superheld
+fr	Super-héros
+es	Superhéroe
+pt	Super-herói
+pl	Superbohater
+ru	Супергерой
+zh	超级英雄
+ja	スーパーヒーロー
+ko	슈퍼히어로
+#471 A Surfer
+tr	Sörfçü
+de	Surfer
+fr	Surfeur
+es	Surfista
+pt	Surfista
+pl	Surfer
+ru	Сёрфер
+zh	冲浪者
+ja	サーファー
+ko	서퍼
+#472 An Alien
+tr	Uzaylı
+de	Außerirdischer
+fr	Extraterrestre
+es	Extraterrestre
+pt	Alienígena
+pl	Kosmita
+ru	Инопланетянин
+zh	外星人
+ja	宇宙人
+ko	외계인
+#473 An Archaeologist
+tr	Arkeolog
+de	Archäologin
+fr	Archéologue
+es	Arqueóloga
+pt	Arqueóloga
+pl	Archeolożka
+ru	Археолог
+zh	考古学家
+ja	考古学者
+ko	고고학자
+#474 An Astronaut
+tr	Astronot
+de	Astronaut
+fr	Astronaute
+es	Astronauta
+pt	Astronauta
+pl	Astronauta
+ru	Космонавт
+zh	宇航员
+ja	宇宙飛行士
+ko	우주비행사
+#475 Bigfoot
+tr	Koca Ayak
+de	Bigfoot
+fr	Bigfoot
+es	Pie Grande
+pt	Pé-Grande
+pl	Wielka Stopa
+ru	Снежный человек
+zh	大脚怪
+ja	ビッグフット
+ko	빅풋
+#476 Courier
+tr	Kurye
+de	Kurier
+fr	Coursier
+es	Mensajero
+pt	Entregador
+pl	Kurier
+ru	Курьер
+zh	快递员
+ja	配達員
+ko	택배 기사
+#477 Flight Attendant
+tr	Kabin Görevlisi
+de	Flugbegleiterin
+fr	Hôtesse de l'air
+es	Azafata
+pt	Comissária de bordo
+pl	Stewardesa
+ru	Стюардесса
+zh	空乘
+ja	客室乗務員
+ko	승무원
+#478 Grandpa
+tr	Dede
+de	Opa
+fr	Papi
+es	Abuelo
+pt	Vovô
+pl	Dziadek
+ru	Дедушка
+zh	老爷爷
+ja	おじいちゃん
+ko	할아버지
+#479 Office worker
+tr	Ofis çalışanı
+de	Büroangestellter
+fr	Employé de bureau
+es	Oficinista
+pt	Funcionário de escritório
+pl	Pracownik biurowy
+ru	Офисный работник
+zh	上班族
+ja	会社員
+ko	회사원
+#480 Santa Claus
+tr	Noel Baba
+de	Weihnachtsmann
+fr	Père Noël
+es	Papá Noel
+pt	Papai Noel
+pl	Święty Mikołaj
+ru	Санта-Клаус
+zh	圣诞老人
+ja	サンタクロース
+ko	산타클로스
+#481 Shopper
+tr	Alışverişçi
+de	Kundin
+fr	Client
+es	Comprador
+pt	Cliente
+pl	Klientka
+ru	Покупатель
+zh	购物者
+ja	買い物客
+ko	쇼핑객
+#482 Shopping Spree
+tr	Alışveriş Çılgını
+de	Kaufrausch
+fr	Folie des achats
+es	Fiebre de compras
+pt	Farra de compras
+pl	Szał zakupów
+ru	Шопоголик
+zh	疯狂购物者
+ja	爆買い客
+ko	쇼핑 중독자
+#483 Student
+tr	Öğrenci
+de	Student
+fr	Étudiant
+es	Estudiante
+pt	Estudante
+pl	Student
+ru	Студент
+zh	学生
+ja	学生
+ko	학생
+#484 Teddy Mascot
+tr	Ayıcık Maskot
+de	Teddy-Maskottchen
+fr	Mascotte nounours
+es	Mascota osito
+pt	Mascote ursinho
+pl	Maskotka misiek
+ru	Ростовой мишка
+zh	泰迪熊吉祥物
+ja	クマの着ぐるみ
+ko	곰 인형 마스코트
+#485 Teenager
+tr	Genç
+de	Teenager
+fr	Ado
+es	Adolescente
+pt	Adolescente
+pl	Nastolatek
+ru	Подросток
+zh	青少年
+ja	ティーンエイジャー
+ko	십대
+#486 The Airport
+tr	Havalimanı
+de	Der Flughafen
+fr	L'Aéroport
+es	El Aeropuerto
+pt	O Aeroporto
+pl	Lotnisko
+ru	Аэропорт
+zh	机场
+ja	空港
+ko	공항
+#487 The Bellhop
+tr	Belboy
+de	Der Page
+fr	Le Groom
+es	El Botones
+pt	O Mensageiro
+pl	Boy hotelowy
+ru	Коридорный
+zh	行李员
+ja	ベルボーイ
+ko	벨보이
+#488 The CEO
+tr	CEO
+de	Die Chefin
+fr	La PDG
+es	La Directora
+pt	A CEO
+pl	Prezeska
+ru	Гендиректор
+zh	首席执行官
+ja	社長
+ko	CEO
+#489 The Hotel
+tr	Otel
+de	Das Hotel
+fr	L'Hôtel
+es	El Hotel
+pt	O Hotel
+pl	Hotel
+ru	Отель
+zh	酒店
+ja	ホテル
+ko	호텔
+#490 The King
+tr	Kral
+de	Der König
+fr	Le Roi
+es	El Rey
+pt	O Rei
+pl	Król
+ru	Король
+zh	国王
+ja	王様
+ko	왕
+#491 The Magician
+tr	Sihirbaz
+de	Der Zauberer
+fr	Le Magicien
+es	El Mago
+pt	O Mágico
+pl	Magik
+ru	Фокусник
+zh	魔术师
+ja	マジシャン
+ko	마술사
+#492 The Mall
+tr	Alışveriş Merkezi
+de	Das Einkaufszentrum
+fr	Le Centre commercial
+es	El Centro comercial
+pt	O Shopping
+pl	Centrum handlowe
+ru	Торговый центр
+zh	商场
+ja	ショッピングモール
+ko	쇼핑몰
+#493 The Mime
+tr	Pandomimci
+de	Der Pantomime
+fr	Le Mime
+es	El Mimo
+pt	O Mímico
+pl	Mim
+ru	Мим
+zh	哑剧演员
+ja	パントマイマー
+ko	마임 배우
+#494 The Mummy
+tr	Mumya
+de	Die Mumie
+fr	La Momie
+es	La Momia
+pt	A Múmia
+pl	Mumia
+ru	Мумия
+zh	木乃伊
+ja	ミイラ
+ko	미라
+#495 The Museum
+tr	Müze
+de	Das Museum
+fr	Le Musée
+es	El Museo
+pt	O Museu
+pl	Muzeum
+ru	Музей
+zh	博物馆
+ja	博物館
+ko	박물관
+#496 The Painter
+tr	Ressam
+de	Die Malerin
+fr	La Peintre
+es	La Pintora
+pt	A Pintora
+pl	Malarka
+ru	Художник
+zh	画家
+ja	画家
+ko	화가
+#497 The Pilot
+tr	Pilot
+de	Der Pilot
+fr	Le Pilote
+es	El Piloto
+pt	O Piloto
+pl	Pilot
+ru	Пилот
+zh	飞行员
+ja	パイロット
+ko	조종사
+#498 The Skyscraper
+tr	Gökdelen
+de	Der Wolkenkratzer
+fr	Le Gratte-ciel
+es	El Rascacielos
+pt	O Arranha-céu
+pl	Wieżowiec
+ru	Небоскрёб
+zh	摩天大楼
+ja	超高層ビル
+ko	마천루
+#499 Tour Guide
+tr	Tur Rehberi
+de	Reiseführerin
+fr	Guide touristique
+es	Guía turística
+pt	Guia turística
+pl	Przewodniczka
+ru	Экскурсовод
+zh	导游
+ja	ツアーガイド
+ko	여행 가이드
+#500 Tourist
+tr	Turist
+de	Tourist
+fr	Touriste
+es	Turista
+pt	Turista
+pl	Turysta
+ru	Турист
+zh	游客
+ja	観光客
+ko	관광객
+#501 Window Cleaner
+tr	Cam Silici
+de	Fensterputzer
+fr	Laveur de vitres
+es	Limpiacristales
+pt	Limpador de janelas
+pl	Myjący okna
+ru	Мойщик окон
+zh	擦窗工
+ja	窓ふき職人
+ko	유리창 청소부
+#502 A clean white studio deck
+tr	Temiz, beyaz bir stüdyo pikabı
+de	Ein sauberer weißer Studioplattenspieler
+fr	Une platine de studio d'un blanc net
+es	Un tocadiscos de estudio blanco y limpio
+pt	Um toca-discos de estúdio branco e limpo
+pl	Czysty, biały gramofon studyjny
+ru	Чистый белый студийный проигрыватель
+zh	简洁的白色录音室唱机
+ja	すっきりした白のスタジオデッキ
+ko	깔끔한 흰색 스튜디오 턴테이블
+#503 A gilded turbine for a bright valley
+tr	Parlak bir vadi için yaldızlı bir türbin
+de	Eine vergoldete Turbine für ein helles Tal
+fr	Une éolienne dorée pour une vallée lumineuse
+es	Un aerogenerador dorado para un valle luminoso
+pt	Uma turbina dourada para um vale iluminado
+pl	Złocona turbina dla jasnej doliny
+ru	Позолоченная турбина для светлой долины
+zh	为明亮山谷打造的镀金风机
+ja	明るい谷のための金ぴかの風車
+ko	밝은 골짜기를 위한 금빛 터빈
+#504 A gilded wheel for a master potter
+tr	Usta bir çömlekçi için yaldızlı bir çark
+de	Eine vergoldete Scheibe für Töpfermeister
+fr	Un tour doré pour un maître potier
+es	Un torno dorado para un maestro alfarero
+pt	Um torno dourado para um mestre oleiro
+pl	Złocone koło dla mistrza garncarstwa
+ru	Позолоченный круг для мастера-гончара
+zh	为制陶大师打造的镀金转盘
+ja	名工のための金の轆轤
+ko	도예 장인을 위한 금빛 물레
+#505 A gleaming golden boomerang
+tr	Pırıl pırıl altın bir bumerang
+de	Ein glänzender goldener Bumerang
+fr	Un boomerang d'or étincelant
+es	Un bumerán dorado y reluciente
+pt	Um bumerangue dourado e reluzente
+pl	Lśniący złoty bumerang
+ru	Сверкающий золотой бумеранг
+zh	闪闪发光的金色回旋镖
+ja	輝く黄金のブーメラン
+ko	반짝이는 황금 부메랑
+#506 A gold-plated collector's deck
+tr	Koleksiyoncular için altın kaplama bir pikap
+de	Ein vergoldeter Sammlerplattenspieler
+fr	Une platine de collection plaquée or
+es	Un tocadiscos de coleccionista bañado en oro
+pt	Um toca-discos de colecionador banhado a ouro
+pl	Pozłacany gramofon kolekcjonerski
+ru	Позолоченный коллекционный проигрыватель
+zh	镀金收藏级唱机
+ja	金メッキのコレクター向けデッキ
+ko	금도금 수집가용 턴테이블
+#507 A golden spit for the sultan's kitchen
+tr	Sultan mutfağı için altın bir şiş
+de	Ein goldener Spieß für die Küche des Sultans
+fr	Une broche dorée pour la cuisine du sultan
+es	Un asador dorado para la cocina del sultán
+pt	Um espeto dourado para a cozinha do sultão
+pl	Złoty rożen do kuchni sułtana
+ru	Золотой вертел для кухни султана
+zh	为苏丹御膳房打造的金色烤架
+ja	スルタンの厨房のための黄金の串
+ko	술탄의 주방을 위한 황금 꼬치
+#508 A hammered copper spit
+tr	Dövme bakır bir şiş
+de	Ein gehämmerter Kupferspieß
+fr	Une broche en cuivre martelé
+es	Un asador de cobre martillado
+pt	Um espeto de cobre martelado
+pl	Kuty miedziany rożen
+ru	Кованый медный вертел
+zh	锤纹铜烤架
+ja	槌目の銅の串
+ko	두드린 구리 꼬치
+#509 A paring knife with a red handle
+tr	Kırmızı saplı bir soyma bıçağı
+de	Ein Schälmesser mit rotem Griff
+fr	Un couteau d'office au manche rouge
+es	Un cuchillo mondador de mango rojo
+pt	Uma faca de descascar de cabo vermelho
+pl	Nożyk do obierania z czerwoną rączką
+ru	Нож для чистки с красной ручкой
+zh	红柄削皮刀
+ja	赤い柄のペティナイフ
+ko	빨간 손잡이 과도
+#510 A retro mint kitchen knife
+tr	Retro nane yeşili bir mutfak bıçağı
+de	Ein Küchenmesser in Retro-Mint
+fr	Un couteau de cuisine rétro vert menthe
+es	Un cuchillo de cocina retro color menta
+pt	Uma faca de cozinha retrô verde-menta
+pl	Miętowy nóż kuchenny w stylu retro
+ru	Мятный кухонный нож в стиле ретро
+zh	复古薄荷绿厨刀
+ja	レトロなミント色の包丁
+ko	레트로 민트색 식칼
+#511 A roaring blue gas grill
+tr	Gürül gürül yanan mavi bir gazlı ızgara
+de	Ein fauchender blauer Gasgrill
+fr	Un grill à gaz bleu rugissant
+es	Una parrilla de gas azul rugiente
+pt	Uma grelha a gás azul rugindo
+pl	Huczący niebieski grill gazowy
+ru	Ревущий синий газовый гриль
+zh	呼呼作响的蓝焰燃气烤炉
+ja	ゴーゴー燃える青いガスグリル
+ko	활활 타는 파란 가스 그릴
+#512 A wooden turbine, old-mill style
+tr	Eski değirmen tarzı ahşap bir türbin
+de	Eine Holzturbine im Stil alter Mühlen
+fr	Une éolienne en bois façon vieux moulin
+es	Un aerogenerador de madera al estilo de los viejos molinos
+pt	Uma turbina de madeira estilo moinho antigo
+pl	Drewniana turbina w stylu starego młyna
+ru	Деревянная турбина в духе старой мельницы
+zh	老磨坊风格的木制风机
+ja	古い風車小屋風の木製タービン
+ko	옛 방앗간 풍의 나무 터빈
+#513 A world cast in gold
+tr	Altından dökülmüş bir dünya
+de	Eine Welt aus Gold gegossen
+fr	Un monde coulé dans l'or
+es	Un mundo fundido en oro
+pt	Um mundo fundido em ouro
+pl	Świat odlany ze złota
+ru	Мир, отлитый из золота
+zh	黄金铸就的世界
+ja	金で鋳造された世界
+ko	금으로 주조한 세계
+#514 An old wooden kick wheel, stoneware clay
+tr	Eski ahşap ayak çarkı, taş çömlek kili
+de	Eine alte hölzerne Tretscheibe, Steinzeugton
+fr	Un vieux tour à pied en bois, argile de grès
+es	Un viejo torno de patada de madera, arcilla de gres
+pt	Um velho torno de pé de madeira, argila de grés
+pl	Stare drewniane koło nożne, glina kamionkowa
+ru	Старый деревянный ножной круг, каменная масса
+zh	老式木制脚踏转盘，炻器陶土
+ja	古い木の蹴り轆轤、炻器の土
+ko	오래된 나무 발물레, 석기 점토
+#515 Black Steel
+tr	Siyah Çelik
+de	Schwarzer Stahl
+fr	Acier noir
+es	Acero negro
+pt	Aço preto
+pl	Czarna stal
+ru	Чёрная сталь
+zh	黑钢
+ja	ブラックスチール
+ko	블랙 스틸
+#516 Black carbon fibre, sharp red edges
+tr	Siyah karbon fiber, keskin kırmızı kenarlar
+de	Schwarze Kohlefaser, scharfe rote Kanten
+fr	Fibre de carbone noire, arêtes rouges acérées
+es	Fibra de carbono negra, bordes rojos afilados
+pt	Fibra de carbono preta, bordas vermelhas afiadas
+pl	Czarne włókno węglowe, ostre czerwone krawędzie
+ru	Чёрное углеволокно, острые красные кромки
+zh	黑色碳纤维，锋利红边
+ja	黒いカーボン、鋭い赤のエッジ
+ko	검은 카본 파이버, 날카로운 빨간 모서리
+#517 Black club deck with a red tonearm
+tr	Kırmızı ton kollu siyah kulüp pikabı
+de	Schwarzer Clubplattenspieler mit rotem Tonarm
+fr	Platine de club noire au bras rouge
+es	Tocadiscos de club negro con brazo rojo
+pt	Toca-discos de clube preto com braço vermelho
+pl	Czarny gramofon klubowy z czerwonym ramieniem
+ru	Чёрный клубный проигрыватель с красным тонармом
+zh	红色唱臂的黑色夜店唱机
+ja	赤いトーンアームの黒いクラブデッキ
+ko	빨간 톤암의 검은 클럽 턴테이블
+#518 Blue Flame
+tr	Mavi Alev
+de	Blaue Flamme
+fr	Flamme bleue
+es	Llama azul
+pt	Chama azul
+pl	Niebieski płomień
+ru	Синее пламя
+zh	蓝焰
+ja	ブルーフレイム
+ko	블루 플레임
+#519 Blue oceans, green lands
+tr	Mavi okyanuslar, yeşil karalar
+de	Blaue Ozeane, grüne Länder
+fr	Océans bleus, terres vertes
+es	Océanos azules, tierras verdes
+pt	Oceanos azuis, terras verdes
+pl	Błękitne oceany, zielone lądy
+ru	Синие океаны, зелёные земли
+zh	蓝色海洋，绿色大地
+ja	青い海、緑の大地
+ko	푸른 바다, 초록 대지
+#520 Brass
+tr	Pirinç
+de	Messing
+fr	Laiton
+es	Latón
+pt	Latão
+pl	Mosiądz
+ru	Латунь
+zh	黄铜
+ja	ブラス
+ko	황동

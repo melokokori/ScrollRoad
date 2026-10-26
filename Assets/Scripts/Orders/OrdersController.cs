@@ -182,16 +182,18 @@ namespace ScrollRoad
             if (c != null && EnvironmentContent.GrantReward(c, venue, rng, out string rareName))
             {
                 var v = Array.Find(c.Venues, x => x.Id == venue);
-                o.result = $"{rareName} is on the way to {v?.Name ?? venue}";
+                o.rewardRare = rareName;
+                o.rewardVenue = v?.Name ?? venue;
+                o.result = "";
             }
             else
             {
-                o.result = "Stamped in your order book";
+                o.result = OrderCatalog.StampedResult;
             }
 
             string streak = o == state.weekly ? ExtendWeekStreak() : ExtendDayStreak();
             Save();
-            if (notice != null) notice.Announce($"Order done: {OrderCatalog.Title(o)}", streak ?? o.result, "Order done");
+            if (notice != null) notice.Announce(L.F("Order done: {0}", OrderCatalog.Title(o)), streak ?? OrderCatalog.Result(o), L.T("Order done"));
         }
 
         // Günün son siparişi bittiyse seri uzar; duyurunun alt satırı (yoksa null).
@@ -201,7 +203,7 @@ namespace ScrollRoad
             if (state.lastStreakDay == today || state.daily.Exists(d => !d.done)) return null;
             state.dayStreak = state.lastStreakDay == DayKey(DateTime.Today.AddDays(-1)) ? state.dayStreak + 1 : 1;
             state.lastStreakDay = today;
-            return $"All of today's orders done · streak: {Fmt.Count(state.dayStreak, "day")}";
+            return L.F("All of today's orders done · streak: {0}", L.P(state.dayStreak, "{0} day", "{0} days"));
         }
 
         string ExtendWeekStreak()
@@ -210,7 +212,7 @@ namespace ScrollRoad
             if (state.lastStreakWeek == week) return null;
             state.weekStreak = state.lastStreakWeek == WeekKey(DateTime.Today.AddDays(-7)) ? state.weekStreak + 1 : 1;
             state.lastStreakWeek = week;
-            return $"{state.weekly.result} · streak: {Fmt.Count(state.weekStreak, "week")}";
+            return OrderCatalog.Result(state.weekly) + " · " + L.F("streak: {0}", L.P(state.weekStreak, "{0} week", "{0} weeks"));
         }
 
         public void Open()
@@ -224,7 +226,7 @@ namespace ScrollRoad
         {
             var tomorrow = DateTime.Today.AddDays(1);
             double hoursLeft = (tomorrow - DateTime.Now).TotalHours;
-            countText.text = $"New orders in {UnlockLadder.Remaining(hoursLeft * UnlockLadder.PointsPerHour)}  ·  {Fmt.Int(state.completed)} done in all";
+            countText.text = L.F("New orders in {0}  ·  {1} done in all", UnlockLadder.Remaining(hoursLeft * UnlockLadder.PointsPerHour), Fmt.Int(state.completed));
 
             for (int i = 0; i < cardFrames.Length; i++)
             {
@@ -237,7 +239,7 @@ namespace ScrollRoad
                 int envIndex = Array.FindIndex(EnvironmentCatalog.All, d => (int)d.Id == o.env);
                 cardThumbs[i].sprite = envIndex >= 0 && envIndex < activityPictures.Length ? activityPictures[envIndex] : null;
                 cardTitles[i].text = OrderCatalog.Title(o);
-                cardSubtitles[i].text = o.done ? $"<color=#FFFFFF>DONE</color>  ·  {o.result}" : OrderCatalog.Subtitle(o);
+                cardSubtitles[i].text = o.done ? $"<color=#FFFFFF>{L.T("DONE")}</color>  ·  {OrderCatalog.Result(o)}" : OrderCatalog.Subtitle(o);
                 cardFills[i].anchorMax = new Vector2(o.target <= 0 ? 1f : (float)value / o.target, 1f);
                 cardProgress[i].text = $"{Fmt.Int(value)} / {Fmt.Int(o.target)}";
             }
@@ -245,7 +247,7 @@ namespace ScrollRoad
             var w = state.weekly;
             int wv = Math.Min(w.target, Progress(w));
             weeklyFrame.color = w.done ? Done : Idle;
-            weeklyTitle.text = w.done ? $"{OrderCatalog.Title(w)}  ·  <alpha=#AA>{w.result}" : $"WEEKLY  ·  {OrderCatalog.Title(w)}";
+            weeklyTitle.text = w.done ? $"{OrderCatalog.Title(w)}  ·  <alpha=#AA>{OrderCatalog.Result(w)}" : $"{L.T("WEEKLY")}  ·  {OrderCatalog.Title(w)}";
             weeklyFill.anchorMax = new Vector2(w.target <= 0 ? 1f : (float)wv / w.target, 1f);
             weeklyProgress.text = $"{wv} / {w.target}";
         }

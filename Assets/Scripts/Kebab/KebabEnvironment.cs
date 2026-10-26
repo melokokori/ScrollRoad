@@ -10,6 +10,7 @@ namespace ScrollRoad
     //
     // Bir porsiyonun evreleri (f = Phase): 0–0,70 pişer; 0,70–0,90 kesilir; 0,90–1 tabak tezgâha sürülür
     // (f = 1'de sayılır).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public class KebabEnvironment : IntervalEnvironment
     {
         public const float CookEnd = 0.70f;
@@ -87,19 +88,19 @@ namespace ScrollRoad
         protected override string HashKey => "kebab";
         public override ItemSite[] Sites => AllSites;
 
-        public override string TotalLabel => "SERVED";
-        public override string StatusActive => "COOKING";
-        public override string StatusIdle => "IDLE · LOW FIRE";
-        public override string StatusBack => "COOLING DOWN";
-        public override string RarePhrase => "Order up";
-        public override string NextLine(long index, EnvItem item) => "Next order: " + item.Type.Name.ToLowerInvariant();
-        public override string CollectionShort => "MENU";
-        public override string LogNoun => "dishes";
-        public override string MetDetail(ItemRecord r) => $"Served ×{r.count}\n<alpha=#88>First served {r.firstSeen}";
-        public override string UnmetDetail => "<alpha=#88>Not served yet";
+        public override string TotalLabel => L.T("SERVED");
+        public override string StatusActive => L.T("COOKING");
+        public override string StatusIdle => L.T("IDLE · LOW FIRE");
+        public override string StatusBack => L.T("COOLING DOWN");
+        public override string RarePhrase => L.T("Order up");
+        public override string NextLine(long index, EnvItem item) => L.F("Next order: {0}", L.Lower(L.T(item.Type.Name)));
+        public override string CollectionShort => L.T("MENU");
+        public override string LogNoun => L.T("dishes");
+        public override string MetDetail(ItemRecord r) => L.F("Served ×{0}", r.count) + "\n<alpha=#88>" + L.F("First served {0}", r.firstSeen);
+        public override string UnmetDetail => "<alpha=#88>" + L.T("Not served yet");
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"New on the menu: {type.Name}", RareNotes.For(EnvironmentId.Kebab, type.Id) ?? "Stamped in your menu", $"{type.Name} · on the menu");
+            notice.Announce(L.F("New on the menu: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Kebab, type.Id) ?? L.T("Stamped in your menu"), L.F("{0} · on the menu", L.T(type.Name)));
 
         public override string LoopClip => "sizzle_loop";
         public override float LoopVolume => 0.3f;

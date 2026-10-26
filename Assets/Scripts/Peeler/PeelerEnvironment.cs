@@ -10,6 +10,7 @@ namespace ScrollRoad
     //
     // Bir meyvenin evreleri (f = Phase): 0–0,10 meyve kasadan avuca gelir; 0,10–0,85 soyulur; 0,85–1 kâseye düşer
     // (f = 1'de sayılır).
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public class PeelerEnvironment : IntervalEnvironment
     {
         public const float MountEnd = 0.10f;
@@ -128,22 +129,22 @@ namespace ScrollRoad
         public static float PeelLength(EnvItem item) => Mathf.Round(item.Type.Value * (0.85f + 0.3f * item.Roll));
 
         public override float ItemValue(EnvItem item) => PeelLength(item);
-        public override string FormatValue(float cm) => cm >= 100f ? $"{cm / 100f:0.0#} m" : $"{cm:0} cm";
-        public override string RecordLabel => "LONGEST PEEL";
+        public override string FormatValue(float cm) => cm >= 100f ? L.F("{0:0.0#} m", cm / 100f) : L.F("{0:0} cm", cm);
+        public override string RecordLabel => L.T("LONGEST PEEL");
 
-        public override string TotalLabel => "PEELED";
-        public override string StatusActive => "PEELING";
-        public override string StatusIdle => "IDLE · SLOW PEEL";
-        public override string StatusBack => "WINDING BACK";
-        public override string RarePhrase => "Peeling";
-        public override string NextLine(long index, EnvItem item) => $"Peeling: {item.Type.Name.ToLowerInvariant()} · {FormatValue(PeelLength(item))}";
-        public override string CollectionShort => "FRUIT BOWL";
-        public override string LogNoun => "fruit";
-        public override string MetDetail(ItemRecord r) => $"Peeled ×{r.count} · best {FormatValue(r.best)}\n<alpha=#88>First peel {r.firstSeen}";
-        public override string UnmetDetail => "<alpha=#88>Not peeled yet";
+        public override string TotalLabel => L.T("PEELED");
+        public override string StatusActive => L.T("PEELING");
+        public override string StatusIdle => L.T("IDLE · SLOW PEEL");
+        public override string StatusBack => L.T("WINDING BACK");
+        public override string RarePhrase => L.T("Peeling");
+        public override string NextLine(long index, EnvItem item) => L.F("Peeling: {0} · {1}", L.Lower(L.T(item.Type.Name)), FormatValue(PeelLength(item)));
+        public override string CollectionShort => L.T("FRUIT BOWL");
+        public override string LogNoun => L.T("fruit");
+        public override string MetDetail(ItemRecord r) => L.F("Peeled ×{0} · best {1}", r.count, FormatValue(r.best)) + "\n<alpha=#88>" + L.F("First peel {0}", r.firstSeen);
+        public override string UnmetDetail => "<alpha=#88>" + L.T("Not peeled yet");
 
         protected override void AnnounceNew(NoticeController notice, ItemType type) =>
-            notice.Announce($"First peel: {type.Name}", RareNotes.For(EnvironmentId.Peeler, type.Id) ?? "Stamped in your fruit bowl", $"{type.Name} · in the bowl");
+            notice.Announce(L.F("First peel: {0}", L.T(type.Name)), RareNotes.For(EnvironmentId.Peeler, type.Id) ?? L.T("Stamped in your fruit bowl"), L.F("{0} · in the bowl", L.T(type.Name)));
 
         public override string LoopClip => "peel_loop";
         public override float LoopVolume => 0.24f;

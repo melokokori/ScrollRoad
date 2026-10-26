@@ -63,24 +63,24 @@ namespace ScrollRoad
             bool unlocked = FishingController.IsUnlocked(spot, p);
             bool current = fishing != null && fishing.Spot == spot;
 
-            titleText.text = "Fish log · " + spot.Name;
+            titleText.text = L.T("Fish log") + " · " + L.T(spot.Name);
             int logged = 0;
             foreach (var s in spot.Species) if (p.Find(s.Id) != null) logged++;
             countText.text = unlocked
-                ? $"{logged} / {spot.Species.Length} species  ·  {Fmt.Int(p.totalFish)} fish  ·  {Fmt.Amount(p.totalKg, 1, "kg")} caught"
-                : $"LOCKED  ·  {UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(FishCatalog.Spots, spot)) - FishingController.LadderPointsOf(p))} of fishing to go";
+                ? L.F("{0} / {1} species  ·  {2}  ·  {3} caught", logged, spot.Species.Length, L.P(p.totalFish, "{0} fish", "{0} fish"), Fmt.Amount(p.totalKg, 1, L.N("kg")))
+                : L.T("LOCKED") + "  ·  " + L.F("{0} of fishing to go", UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(FishCatalog.Spots, spot)) - FishingController.LadderPointsOf(p)));
 
             for (int i = 0; i < tabTexts.Length && i < FishCatalog.Spots.Length; i++)
             {
                 var s = FishCatalog.Spots[i];
                 // 5 sekme dar: kilitli mekân yalnız soluk ad (kalan balık sayısı sağ üstte yazar).
-                tabTexts[i].text = s.Name;
+                tabTexts[i].text = L.T(s.Name);
                 tabTexts[i].color = s == spot ? TabOn : FishingController.IsUnlocked(s, p) ? TabOff : TabLocked;
             }
 
             fishHereButton.gameObject.SetActive(unlocked);
             fishHereButton.interactable = !current;
-            fishHereText.text = current ? "FISHING HERE" : "FISH HERE";
+            fishHereText.text = current ? L.T("FISHING HERE") : L.T("FISH HERE");
 
             for (int i = 0; i < FishCatalog.All.Length && i < slotRoots.Length; i++)
             {
@@ -96,15 +96,15 @@ namespace ScrollRoad
                 {
                     slotRoots[i].SetActive(caught);
                     if (!caught) continue;
-                    nameTexts[i].text = $"LEGENDARY  ·  {species.Name}";
-                    detailTexts[i].text = $"Best {record.bestKg:0.00} kg  ·  ×{record.count}  ·  <alpha=#99>First caught {record.firstCaught}";
+                    nameTexts[i].text = L.T("LEGENDARY") + "  ·  " + L.T(species.Name);
+                    detailTexts[i].text = L.F("Best {0:0.00} kg  ·  ×{1}", record.bestKg, record.count) + "  ·  <alpha=#99>" + L.F("First caught {0}", record.firstCaught);
                     continue;
                 }
                 fishImages[i].color = caught ? Color.white : Silhouette;
-                nameTexts[i].text = caught ? species.Name : "???";
+                nameTexts[i].text = caught ? L.T(species.Name) : "???";
                 detailTexts[i].text = caught
-                    ? $"Best {record.bestKg:0.00} kg  ·  ×{record.count}\n<alpha=#88>First caught {record.firstCaught}"
-                    : $"<alpha=#88>{species.MinKg:0.#}–{species.MaxKg:0.#} kg";
+                    ? L.F("Best {0:0.00} kg  ·  ×{1}", record.bestKg, record.count) + "\n<alpha=#88>" + L.F("First caught {0}", record.firstCaught)
+                    : "<alpha=#88>" + L.F("{0:0.#}–{1:0.#} kg", species.MinKg, species.MaxKg);
             }
         }
     }

@@ -116,7 +116,7 @@ namespace ScrollRoad
         VenueInfo[] venueInfos;
 
         public double LifetimePoints => state.total * Interval;
-        public virtual string VenueNoun => "place";
+        public virtual string VenueNoun => L.N("place");
         public VenueInfo[] Venues => venueInfos ??= Array.ConvertAll(Sites, s => new VenueInfo { Id = s.Id, Name = s.Name });
         public string VenueId => Site.Id;
         public void SetVenue(string id)
@@ -134,8 +134,8 @@ namespace ScrollRoad
         public int TimesFound(string rareId) => state.Find(rareId)?.count ?? 0;
         public long NextItemIndex => state.monthBest + 1;
         public double MonthUnits => Units;
-        public virtual string SkinNoun => "look";
-        public virtual string SkinBoxName => "Looks";
+        public virtual string SkinNoun => L.N("look");
+        public virtual string SkinBoxName => L.N("Looks");
         public virtual SkinInfo[] Skins => SkinCatalog.For(Def.Id);
         // Seçili takım (kilitliyse ya da yoksa ilki).
         public string SkinId

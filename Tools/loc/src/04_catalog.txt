@@ -1,0 +1,2200 @@
+#521 Brass bolster, walnut handle
+tr	Pirinç bilezik, ceviz sap
+de	Messingzwinge, Walnussgriff
+fr	Mitre en laiton, manche en noyer
+es	Virola de latón, mango de nogal
+pt	Reforço de latão, cabo de nogueira
+pl	Mosiężny bolster, orzechowa rękojeść
+ru	Латунный больстер, ореховая рукоять
+zh	黄铜刀枕，胡桃木柄
+ja	真鍮の口金、クルミ材の柄
+ko	황동 볼스터, 호두나무 손잡이
+#522 Brushed steel frame, clear glass
+tr	Fırçalanmış çelik çerçeve, şeffaf cam
+de	Gebürsteter Stahlrahmen, klares Glas
+fr	Cadre en acier brossé, verre clair
+es	Marco de acero cepillado, vidrio transparente
+pt	Moldura de aço escovado, vidro transparente
+pl	Rama ze szczotkowanej stali, przezroczyste szkło
+ru	Рама из шлифованной стали, прозрачное стекло
+zh	拉丝钢框，透明玻璃
+ja	ヘアライン仕上げの鋼枠、透明ガラス
+ko	브러시드 스틸 프레임, 투명 유리
+#523 Carbon
+tr	Karbon
+de	Carbon
+fr	Carbone
+es	Carbono
+pt	Carbono
+pl	Karbon
+ru	Карбон
+zh	碳纤维
+ja	カーボン
+ko	카본
+#524 Chrome
+tr	Krom
+de	Chrom
+fr	Chrome
+es	Cromo
+pt	Cromo
+pl	Chrom
+ru	Хром
+zh	镀铬
+ja	クローム
+ko	크롬
+#525 Copper
+tr	Bakır
+de	Kupfer
+fr	Cuivre
+es	Cobre
+pt	Cobre
+pl	Miedź
+ru	Медь
+zh	紫铜
+ja	カッパー
+ko	구리
+#526 DJ Black
+tr	DJ Siyahı
+de	DJ-Schwarz
+fr	Noir DJ
+es	Negro DJ
+pt	Preto DJ
+pl	Czerń DJ-a
+ru	Чёрный диджейский
+zh	DJ 黑
+ja	DJブラック
+ko	DJ 블랙
+#527 Frozen seas, snow-white lands
+tr	Donmuş denizler, kar beyazı karalar
+de	Gefrorene Meere, schneeweiße Länder
+fr	Mers gelées, terres d'un blanc de neige
+es	Mares helados, tierras blancas como la nieve
+pt	Mares congelados, terras brancas como a neve
+pl	Zamarznięte morza, śnieżnobiałe lądy
+ru	Замёрзшие моря, белоснежные земли
+zh	冰封海洋，雪白大地
+ja	凍った海、雪のように白い大地
+ko	얼어붙은 바다, 눈처럼 흰 대지
+#528 Golden
+tr	Altın
+de	Golden
+fr	Doré
+es	Dorado
+pt	Dourado
+pl	Złoty
+ru	Золотой
+zh	金色
+ja	ゴールデン
+ko	골든
+#529 Grey steel wheel, red clay
+tr	Gri çelik çark, kırmızı kil
+de	Graue Stahlscheibe, roter Ton
+fr	Tour en acier gris, argile rouge
+es	Torno de acero gris, arcilla roja
+pt	Torno de aço cinza, argila vermelha
+pl	Szare stalowe koło, czerwona glina
+ru	Серый стальной круг, красная глина
+zh	灰钢转盘，红陶土
+ja	灰色の鋼の轆轤、赤土
+ko	회색 강철 물레, 붉은 점토
+#530 Hand-carved hardwood
+tr	Elde oyulmuş sert ağaç
+de	Handgeschnitztes Hartholz
+fr	Bois dur sculpté à la main
+es	Madera dura tallada a mano
+pt	Madeira de lei entalhada à mão
+pl	Ręcznie rzeźbione twarde drewno
+ru	Твёрдое дерево ручной резьбы
+zh	手工雕刻硬木
+ja	手彫りの硬材
+ko	손으로 깎은 단단한 나무
+#531 Ice World
+tr	Buz Dünyası
+de	Eiswelt
+fr	Monde de glace
+es	Mundo helado
+pt	Mundo de gelo
+pl	Lodowy świat
+ru	Ледяной мир
+zh	冰雪世界
+ja	氷の世界
+ko	얼음 세계
+#532 Kick Wheel
+tr	Ayak Çarkı
+de	Tretscheibe
+fr	Tour à pied
+es	Torno de patada
+pt	Torno de pé
+pl	Koło nożne
+ru	Ножной круг
+zh	脚踏转盘
+ja	蹴り轆轤
+ko	발물레
+#533 Matte black blades, cyan current
+tr	Mat siyah kanatlar, camgöbeği akım
+de	Mattschwarze Flügel, cyanfarbener Strom
+fr	Pales noir mat, courant cyan
+es	Aspas negro mate, corriente cian
+pt	Pás preto fosco, corrente ciano
+pl	Matowe czarne łopaty, cyjanowy prąd
+ru	Матово-чёрные лопасти, голубой ток
+zh	哑光黑叶片，青色电流
+ja	マットブラックの羽根、シアンの電流
+ko	무광 검정 날개, 청록색 전류
+#534 Matte black frame, smoked glass
+tr	Mat siyah çerçeve, füme cam
+de	Mattschwarzer Rahmen, Rauchglas
+fr	Cadre noir mat, verre fumé
+es	Marco negro mate, vidrio ahumado
+pt	Moldura preto fosco, vidro fumê
+pl	Matowa czarna rama, przyciemniane szkło
+ru	Матово-чёрная рама, тонированное стекло
+zh	哑光黑框，烟熏玻璃
+ja	マットブラックの枠、スモークガラス
+ko	무광 검정 프레임, 스모크 유리
+#535 Midnight
+tr	Gece Yarısı
+de	Mitternacht
+fr	Minuit
+es	Medianoche
+pt	Meia-noite
+pl	Północ
+ru	Полночь
+zh	午夜
+ja	ミッドナイト
+ko	미드나이트
+#536 Mint
+tr	Nane
+de	Mint
+fr	Menthe
+es	Menta
+pt	Menta
+pl	Mięta
+ru	Мята
+zh	薄荷
+ja	ミント
+ko	민트
+#537 Mirror chrome, black grip
+tr	Ayna krom, siyah tutamak
+de	Spiegelchrom, schwarzer Griff
+fr	Chrome miroir, poignée noire
+es	Cromo espejo, empuñadura negra
+pt	Cromo espelhado, empunhadura preta
+pl	Lustrzany chrom, czarny uchwyt
+ru	Зеркальный хром, чёрная рукоять
+zh	镜面铬，黑色握柄
+ja	鏡面クローム、黒いグリップ
+ko	미러 크롬, 검은 그립
+#538 Painted bright blue, quick in the air
+tr	Parlak maviye boyalı, havada çevik
+de	Leuchtend blau lackiert, flink in der Luft
+fr	Peint en bleu vif, rapide dans les airs
+es	Pintado de azul brillante, ágil en el aire
+pt	Pintado de azul vivo, ágil no ar
+pl	Pomalowany na jaskrawy błękit, zwinny w powietrzu
+ru	Ярко-синий, быстрый в воздухе
+zh	亮蓝涂装，飞行迅捷
+ja	鮮やかな青塗装、空中で俊敏
+ko	밝은 파란색, 공중에서 날렵함
+#539 Polished brass, warm amber glass
+tr	Cilalı pirinç, sıcak kehribar cam
+de	Poliertes Messing, warmes Bernsteinglas
+fr	Laiton poli, verre ambré chaud
+es	Latón pulido, vidrio ámbar cálido
+pt	Latão polido, vidro âmbar quente
+pl	Polerowany mosiądz, ciepłe bursztynowe szkło
+ru	Полированная латунь, тёплое янтарное стекло
+zh	抛光黄铜，暖琥珀玻璃
+ja	磨かれた真鍮、温かな琥珀色のガラス
+ko	광택 황동, 따뜻한 호박색 유리
+#540 Porcelain
+tr	Porselen
+de	Porzellan
+fr	Porcelaine
+es	Porcelana
+pt	Porcelana
+pl	Porcelana
+ru	Фарфор
+zh	瓷器
+ja	磁器
+ko	도자기
+#541 Red Planet
+tr	Kızıl Gezegen
+de	Roter Planet
+fr	Planète rouge
+es	Planeta rojo
+pt	Planeta vermelho
+pl	Czerwona planeta
+ru	Красная планета
+zh	红色星球
+ja	赤い惑星
+ko	붉은 행성
+#542 Rose Gold
+tr	Rose Altın
+de	Roségold
+fr	Or rose
+es	Oro rosa
+pt	Ouro rosé
+pl	Różowe złoto
+ru	Розовое золото
+zh	玫瑰金
+ja	ローズゴールド
+ko	로즈 골드
+#543 Rose gold frame, blush glass
+tr	Rose altın çerçeve, pembe tonlu cam
+de	Roségoldrahmen, zartrosa Glas
+fr	Cadre or rose, verre rosé
+es	Marco de oro rosa, vidrio rosado
+pt	Moldura ouro rosé, vidro rosado
+pl	Rama z różowego złota, różowe szkło
+ru	Рама из розового золота, розоватое стекло
+zh	玫瑰金框，淡粉玻璃
+ja	ローズゴールドの枠、淡いピンクのガラス
+ko	로즈 골드 프레임, 분홍빛 유리
+#544 Rust plains and dusty highlands
+tr	Pas rengi ovalar ve tozlu yaylalar
+de	Rostrote Ebenen und staubiges Hochland
+fr	Plaines rouille et hauts plateaux poussiéreux
+es	Llanuras óxido y altiplanos polvorientos
+pt	Planícies cor de ferrugem e planaltos poeirentos
+pl	Rdzawe równiny i zakurzone wyżyny
+ru	Ржавые равнины и пыльные нагорья
+zh	铁锈色平原与尘土高地
+ja	錆色の平原と砂ぼこりの高地
+ko	녹슨 평원과 먼지 낀 고원
+#545 Sky Blue
+tr	Gök Mavisi
+de	Himmelblau
+fr	Bleu ciel
+es	Azul cielo
+pt	Azul-celeste
+pl	Błękit nieba
+ru	Небесно-голубой
+zh	天蓝
+ja	スカイブルー
+ko	스카이 블루
+#546 Steel spit, a classic doner grill
+tr	Çelik şiş, klasik bir döner ocağı
+de	Stahlspieß, ein klassischer Dönergrill
+fr	Broche en acier, un grill à kebab classique
+es	Asador de acero, una parrilla de döner clásica
+pt	Espeto de aço, uma grelha de kebab clássica
+pl	Stalowy rożen, klasyczny grill do kebabu
+ru	Стальной вертел, классический гриль для донера
+zh	钢制烤叉，经典旋转烤肉炉
+ja	鋼の串、定番のケバブグリル
+ko	강철 꼬치, 클래식 케밥 그릴
+#547 Studio White
+tr	Stüdyo Beyazı
+de	Studioweiß
+fr	Blanc studio
+es	Blanco estudio
+pt	Branco estúdio
+pl	Studyjna biel
+ru	Студийный белый
+zh	录音室白
+ja	スタジオホワイト
+ko	스튜디오 화이트
+#548 Timber
+tr	Ahşap
+de	Holz
+fr	Bois
+es	Madera
+pt	Madeira
+pl	Drewno
+ru	Дерево
+zh	木制
+ja	ウッド
+ko	목재
+#549 Walnut deck, chrome tonearm
+tr	Ceviz gövde, krom ton kolu
+de	Walnussgehäuse, Chrom-Tonarm
+fr	Platine en noyer, bras chromé
+es	Tocadiscos de nogal, brazo cromado
+pt	Toca-discos de nogueira, braço cromado
+pl	Orzechowa obudowa, chromowane ramię
+ru	Корпус из ореха, хромированный тонарм
+zh	胡桃木唱机，镀铬唱臂
+ja	クルミ材のデッキ、クロームのトーンアーム
+ko	호두나무 본체, 크롬 톤암
+#550 White studio wheel, porcelain clay
+tr	Beyaz stüdyo çarkı, porselen kili
+de	Weiße Studioscheibe, Porzellanton
+fr	Tour de studio blanc, argile à porcelaine
+es	Torno de estudio blanco, arcilla de porcelana
+pt	Torno de estúdio branco, argila de porcelana
+pl	Białe koło studyjne, glina porcelanowa
+ru	Белый студийный круг, фарфоровая масса
+zh	白色工作室转盘，瓷土
+ja	白いスタジオ轆轤、磁器の土
+ko	흰 스튜디오 물레, 자기 점토
+#551 White three-blade turbine
+tr	Beyaz üç kanatlı türbin
+de	Weiße Dreiblattturbine
+fr	Éolienne blanche à trois pales
+es	Aerogenerador blanco de tres aspas
+pt	Turbina branca de três pás
+pl	Biała trójłopatowa turbina
+ru	Белая трёхлопастная турбина
+zh	白色三叶风机
+ja	白い3枚羽根のタービン
+ko	흰색 3엽 터빈
+#552 Boomerang
+tr	Bumerang
+de	Bumerang
+fr	Boomerang
+es	Bumerán
+pt	Bumerangue
+pl	Bumerang
+ru	Бумеранг
+zh	回旋镖
+ja	ブーメラン
+ko	부메랑
+#553 Cast, reel in and fill your fish log.
+tr	At, sar ve balık defterini doldur.
+de	Auswerfen, einholen und das Fangbuch füllen.
+fr	Lancez, ramenez et remplissez votre carnet de pêche.
+es	Lanza, recoge y llena tu registro de pesca.
+pt	Arremesse, recolha e encha seu diário de pesca.
+pl	Zarzuć, zwiń i zapełnij dziennik połowów.
+ru	Забрасывайте, сматывайте и заполняйте журнал улова.
+zh	抛竿、收线，填满你的钓鱼日志。
+ja	投げて、巻いて、釣り日誌を埋めよう。
+ko	던지고, 감고, 낚시 일지를 채우세요.
+#554 Chronicle
+tr	Tarihçe
+de	Chronik
+fr	Chronique
+es	Crónica
+pt	Crônica
+pl	Kronika
+ru	Летопись
+zh	编年史
+ja	年代記
+ko	연대기
+#555 Drive from the plains to the city.
+tr	Ovalardan şehre sür.
+de	Fahre von der Ebene bis in die Stadt.
+fr	Roulez des plaines jusqu'à la ville.
+es	Conduce de las llanuras a la ciudad.
+pt	Dirija das planícies até a cidade.
+pl	Jedź z równin do miasta.
+ru	Езжайте от равнин до города.
+zh	从平原一路开到城市。
+ja	平原からシティまで走ろう。
+ko	평원에서 도시까지 달리세요.
+#556 Fish log
+tr	Balık defteri
+de	Fangbuch
+fr	Carnet de pêche
+es	Registro de pesca
+pt	Diário de pesca
+pl	Dziennik połowów
+ru	Журнал улова
+zh	钓鱼日志
+ja	釣り日誌
+ko	낚시 일지
+#557 Fishing
+tr	Olta
+de	Angeln
+fr	Pêche
+es	Pesca
+pt	Pesca
+pl	Wędkowanie
+ru	Рыбалка
+zh	钓鱼
+ja	釣り
+ko	낚시
+#558 Fruit bowl
+tr	Meyve kâsesi
+de	Obstschale
+fr	Corbeille de fruits
+es	Frutero
+pt	Fruteira
+pl	Misa owoców
+ru	Ваза с фруктами
+zh	果盘
+ja	フルーツボウル
+ko	과일 그릇
+#559 Fruit peeler
+tr	Meyve soyacağı
+de	Obstschäler
+fr	Éplucheur de fruits
+es	Pelador de fruta
+pt	Descascador de frutas
+pl	Obieraczka do owoców
+ru	Чистка фруктов
+zh	削水果
+ja	フルーツの皮むき
+ko	과일 깎기
+#560 Grid log
+tr	Şebeke defteri
+de	Netzbuch
+fr	Carnet du réseau
+es	Registro de la red
+pt	Diário da rede
+pl	Dziennik sieci
+ru	Журнал сети
+zh	电网日志
+ja	送電日誌
+ko	전력망 일지
+#561 Kebab spit
+tr	Döner şişi
+de	Dönerspieß
+fr	Broche à kebab
+es	Asador de döner
+pt	Espeto de kebab
+pl	Rożen do kebabu
+ru	Вертел для шаурмы
+zh	旋转烤肉
+ja	ケバブの串
+ko	케밥 꼬치
+#562 Menu
+tr	Menü
+de	Speisekarte
+fr	Menu
+es	Menú
+pt	Cardápio
+pl	Menu
+ru	Меню
+zh	菜单
+ja	メニュー
+ko	메뉴판
+#563 Passport
+tr	Pasaport
+de	Reisepass
+fr	Passeport
+es	Pasaporte
+pt	Passaporte
+pl	Paszport
+ru	Паспорт
+zh	护照
+ja	パスポート
+ko	여권
+#564 Peel by hand, keep the peel in one piece.
+tr	Elle soy, kabuğu tek parça tut.
+de	Schäle von Hand und halte die Schale am Stück.
+fr	Épluchez à la main, gardez la peau d'un seul tenant.
+es	Pela a mano y mantén la piel en una sola tira.
+pt	Descasque à mão e mantenha a casca inteira.
+pl	Obieraj ręcznie, skórka w jednym kawałku.
+ru	Чистите вручную, не разрывая кожуру.
+zh	徒手削皮，让果皮连成一条。
+ja	手でむいて、皮を一本につなげよう。
+ko	손으로 깎으며 껍질을 끊지 마세요.
+#565 Pottery shelf
+tr	Çömlek rafı
+de	Töpferregal
+fr	Étagère de poterie
+es	Estante de cerámica
+pt	Prateleira de cerâmica
+pl	Półka z ceramiką
+ru	Полка гончара
+zh	陶器架
+ja	陶器の棚
+ko	도자기 선반
+#566 Pottery wheel
+tr	Çömlek çarkı
+de	Töpferscheibe
+fr	Tour de potier
+es	Torno de alfarero
+pt	Torno de oleiro
+pl	Koło garncarskie
+ru	Гончарный круг
+zh	陶艺转盘
+ja	陶芸の轆轤
+ko	도자기 물레
+#567 Record crate
+tr	Plak kasası
+de	Plattenkiste
+fr	Bac à disques
+es	Caja de discos
+pt	Caixote de discos
+pl	Skrzynka z płytami
+ru	Ящик с пластинками
+zh	唱片箱
+ja	レコード箱
+ko	음반 상자
+#568 Record player
+tr	Pikap
+de	Plattenspieler
+fr	Tourne-disque
+es	Tocadiscos
+pt	Toca-discos
+pl	Gramofon
+ru	Проигрыватель
+zh	唱片机
+ja	レコードプレーヤー
+ko	레코드 플레이어
+#569 Revolving door
+tr	Döner kapı
+de	Drehtür
+fr	Porte tambour
+es	Puerta giratoria
+pt	Porta giratória
+pl	Drzwi obrotowe
+ru	Вращающаяся дверь
+zh	旋转门
+ja	回転ドア
+ko	회전문
+#570 Road trip
+tr	Yolculuk
+de	Roadtrip
+fr	Road trip
+es	Viaje por carretera
+pt	Viagem de carro
+pl	Podróż
+ru	Дорога
+zh	公路旅行
+ja	ロードトリップ
+ko	로드 트립
+#571 Spin it up, let it fly, hit the target.
+tr	Döndür, fırlat, hedefi vur.
+de	Andrehen, fliegen lassen, Ziel treffen.
+fr	Faites-le tourner, lancez-le, touchez la cible.
+es	Hazlo girar, lánzalo, acierta en la diana.
+pt	Gire, solte e acerte o alvo.
+pl	Rozkręć, wypuść, traf w cel.
+ru	Раскрутите, бросьте, попадите в цель.
+zh	转起来，飞出去，击中目标。
+ja	回して、飛ばして、的に当てよう。
+ko	돌리고, 날리고, 표적을 맞히세요.
+#572 Spin the blades, power the valley.
+tr	Kanatları döndür, vadiye elektrik ver.
+de	Dreh die Flügel und versorg das Tal mit Strom.
+fr	Faites tourner les pales, alimentez la vallée.
+es	Haz girar las aspas y dale luz al valle.
+pt	Gire as pás e energize o vale.
+pl	Kręć łopatami, zasilaj dolinę.
+ru	Вращайте лопасти, дайте долине свет.
+zh	转动叶片，为山谷供电。
+ja	羽根を回して、谷に電気を届けよう。
+ko	날개를 돌려 골짜기에 전기를 보내세요.
+#573 Spin the door, welcome the crowd.
+tr	Kapıyı döndür, kalabalığı ağırla.
+de	Dreh die Tür und begrüße die Menge.
+fr	Faites tourner la porte, accueillez la foule.
+es	Haz girar la puerta y recibe a la gente.
+pt	Gire a porta e receba a multidão.
+pl	Kręć drzwiami, witaj tłumy.
+ru	Вращайте дверь, встречайте гостей.
+zh	转动门扉，迎接人潮。
+ja	ドアを回して、人波をお迎えしよう。
+ko	문을 돌려 손님을 맞이하세요.
+#574 Spin the globe, let the years roll by.
+tr	Küreyi döndür, yıllar akıp gitsin.
+de	Dreh den Globus und lass die Jahre vergehen.
+fr	Faites tourner le globe, laissez défiler les années.
+es	Haz girar el globo y deja pasar los años.
+pt	Gire o globo e deixe os anos passarem.
+pl	Kręć globusem, niech mijają lata.
+ru	Вращайте глобус, пусть идут годы.
+zh	转动地球仪，让岁月流转。
+ja	地球儀を回して、年月を進めよう。
+ko	지구본을 돌려 세월을 흘려보내세요.
+#575 Spin the record, the music follows your scroll.
+tr	Plağı döndür, müzik kaydırmana uyar.
+de	Dreh die Platte, die Musik folgt deinem Scrollen.
+fr	Faites tourner le disque, la musique suit votre défilement.
+es	Haz girar el disco; la música sigue tu desplazamiento.
+pt	Gire o disco; a música acompanha sua rolagem.
+pl	Kręć płytą, muzyka podąża za przewijaniem.
+ru	Крутите пластинку, музыка следует за прокруткой.
+zh	转动唱片，音乐随你的滚动而动。
+ja	レコードを回そう。音楽はスクロールについてきます。
+ko	음반을 돌리면 음악이 스크롤을 따라옵니다.
+#576 Spin the wheel, shape the clay.
+tr	Çarkı döndür, kile şekil ver.
+de	Dreh die Scheibe und forme den Ton.
+fr	Faites tourner le tour, façonnez l'argile.
+es	Haz girar el torno y da forma al barro.
+pt	Gire o torno e modele o barro.
+pl	Kręć kołem, kształtuj glinę.
+ru	Вращайте круг, лепите из глины.
+zh	转动转盘，塑造陶土。
+ja	轆轤を回して、土を形にしよう。
+ko	물레를 돌려 점토를 빚으세요.
+#577 Target log
+tr	Hedef defteri
+de	Zielbuch
+fr	Carnet de cibles
+es	Registro de dianas
+pt	Diário de alvos
+pl	Dziennik celów
+ru	Журнал мишеней
+zh	靶子日志
+ja	的の日誌
+ko	표적 일지
+#578 Turn the spit, slice the portions.
+tr	Şişi çevir, porsiyonları kes.
+de	Dreh den Spieß und schneide die Portionen.
+fr	Tournez la broche, découpez les portions.
+es	Gira el asador y corta las raciones.
+pt	Gire o espeto e corte as porções.
+pl	Obracaj rożen, kroj porcje.
+ru	Вращайте вертел, нарезайте порции.
+zh	转动烤架，切下一份份烤肉。
+ja	串を回して、切り分けよう。
+ko	꼬치를 돌리고 1인분씩 썰어 내세요.
+#579 Turn the world
+tr	Dünyayı döndür
+de	Dreh die Welt
+fr	Faire tourner le monde
+es	Girar el mundo
+pt	Girar o mundo
+pl	Kręć światem
+ru	Вращайте мир
+zh	转动世界
+ja	世界を回す
+ko	세상 돌리기
+#580 Wind turbine
+tr	Rüzgâr türbini
+de	Windrad
+fr	Éolienne
+es	Aerogenerador
+pt	Turbina eólica
+pl	Turbina wiatrowa
+ru	Ветряк
+zh	风力发电机
+ja	風力タービン
+ko	풍력 터빈
+#581 fish
+tr	balık
+de	Fische
+fr	poissons
+es	peces
+pt	peixes
+pl	ryby
+ru	рыбы
+zh	鱼
+ja	匹
+ko	마리
+#582 fruit
+tr	meyve
+de	Früchte
+fr	fruits
+es	frutas
+pt	frutas
+pl	owoce
+ru	фрукты
+zh	个水果
+ja	個
+ko	개
+#583 kWh
+tr	kWh
+de	kWh
+fr	kWh
+es	kWh
+pt	kWh
+pl	kWh
+ru	кВт·ч
+zh	kWh
+ja	kWh
+ko	kWh
+#584 portions
+tr	porsiyon
+de	Portionen
+fr	portions
+es	raciones
+pt	porções
+pl	porcje
+ru	порции
+zh	份
+ja	人前
+ko	인분
+#585 pots
+tr	çömlek
+de	Töpfe
+fr	pots
+es	piezas
+pt	peças
+pl	naczynia
+ru	горшки
+zh	件陶器
+ja	個
+ko	점
+#586 tracks
+tr	parça
+de	Titel
+fr	pistes
+es	pistas
+pt	faixas
+pl	utwory
+ru	треки
+zh	首曲目
+ja	曲
+ko	곡
+#587 visitors
+tr	ziyaretçi
+de	Besucher
+fr	visiteurs
+es	visitantes
+pt	visitantes
+pl	goście
+ru	посетители
+zh	位访客
+ja	人
+ko	명
+#588 years
+tr	yıl
+de	Jahre
+fr	années
+es	años
+pt	anos
+pl	lata
+ru	годы
+zh	年
+ja	年
+ko	년
+#589 {0} fish
+tr	{0} balık
+de	{0} Fisch|{0} Fische
+fr	{0} poisson|{0} poissons
+es	{0} pez|{0} peces
+pt	{0} peixe|{0} peixes
+pl	{0} ryba|{0} ryby|{0} ryb
+ru	{0} рыба|{0} рыбы|{0} рыб
+zh	{0} 条鱼
+ja	{0}匹
+ko	{0}마리
+#590 {0} fruit
+tr	{0} meyve
+de	{0} Frucht|{0} Früchte
+fr	{0} fruit|{0} fruits
+es	{0} fruta|{0} frutas
+pt	{0} fruta|{0} frutas
+pl	{0} owoc|{0} owoce|{0} owoców
+ru	{0} фрукт|{0} фрукта|{0} фруктов
+zh	{0} 个水果
+ja	{0}個
+ko	{0}개
+#591 {0} portions
+tr	{0} porsiyon
+de	{0} Portion|{0} Portionen
+fr	{0} portion|{0} portions
+es	{0} ración|{0} raciones
+pt	{0} porção|{0} porções
+pl	{0} porcja|{0} porcje|{0} porcji
+ru	{0} порция|{0} порции|{0} порций
+zh	{0} 份
+ja	{0}人前
+ko	{0}인분
+#592 {0} pots
+tr	{0} çömlek
+de	{0} Topf|{0} Töpfe
+fr	{0} pot|{0} pots
+es	{0} pieza|{0} piezas
+pt	{0} peça|{0} peças
+pl	{0} naczynie|{0} naczynia|{0} naczyń
+ru	{0} горшок|{0} горшка|{0} горшков
+zh	{0} 件陶器
+ja	{0}個
+ko	{0}점
+#593 {0} targets
+tr	{0} hedef
+de	{0} Ziel|{0} Ziele
+fr	{0} cible|{0} cibles
+es	{0} diana|{0} dianas
+pt	{0} alvo|{0} alvos
+pl	{0} cel|{0} cele|{0} celów
+ru	{0} мишень|{0} мишени|{0} мишеней
+zh	{0} 个靶子
+ja	{0}個の的
+ko	표적 {0}개
+#594 {0} tracks
+tr	{0} parça
+de	{0} Titel|{0} Titel
+fr	{0} piste|{0} pistes
+es	{0} pista|{0} pistas
+pt	{0} faixa|{0} faixas
+pl	{0} utwór|{0} utwory|{0} utworów
+ru	{0} трек|{0} трека|{0} треков
+zh	{0} 首曲目
+ja	{0}曲
+ko	{0}곡
+#595 {0} years
+tr	{0} yıl
+de	{0} Jahr|{0} Jahre
+fr	{0} an|{0} ans
+es	{0} año|{0} años
+pt	{0} ano|{0} anos
+pl	{0} rok|{0} lata|{0} lat
+ru	{0} год|{0} года|{0} лет
+zh	{0} 年
+ja	{0}年
+ko	{0}년
+#596 A fresh crate of records arrived.
+tr	Yeni bir kasa plak geldi.
+de	Eine frische Kiste Platten ist eingetroffen.
+fr	Un nouveau bac de disques est arrivé.
+es	Ha llegado una caja nueva de discos.
+pt	Chegou um caixote novo de discos.
+pl	Przyszła świeża skrzynka płyt.
+ru	Привезли свежий ящик пластинок.
+zh	新到了一箱唱片。
+ja	新しいレコードが一箱届きました。
+ko	새 음반 한 상자가 도착했습니다.
+#597 A tour bus just pulled up outside.
+tr	Kapıya bir tur otobüsü yanaştı.
+de	Draußen hat gerade ein Reisebus gehalten.
+fr	Un car de touristes vient de s'arrêter devant.
+es	Un autobús turístico acaba de parar fuera.
+pt	Um ônibus de turismo acabou de parar lá fora.
+pl	Przed wejściem właśnie zatrzymał się autokar.
+ru	У входа только что остановился туристический автобус.
+zh	门外刚停下一辆旅游大巴。
+ja	観光バスが表に到着しました。
+ko	관광버스가 방금 밖에 도착했습니다.
+#598 Big species bite
+tr	Büyük türler oltaya geliyor
+de	Große Arten beißen
+fr	Les grosses espèces mordent
+es	Pican las especies grandes
+pt	As espécies grandes estão mordendo
+pl	Biorą duże gatunki
+ru	Клюют крупные виды
+zh	大型鱼种上钩
+ja	大物が食いつく
+ko	대형 어종이 문다
+#599 Crate delivery
+tr	Kasa teslimatı
+de	Kistenlieferung
+fr	Livraison de disques
+es	Entrega de discos
+pt	Entrega de discos
+pl	Dostawa płyt
+ru	Поставка пластинок
+zh	唱片到货
+ja	レコード入荷
+ko	음반 입고
+#600 Feeding frenzy
+tr	Yem çılgınlığı
+de	Fressrausch
+fr	Frénésie alimentaire
+es	Frenesí alimentario
+pt	Frenesi alimentar
+pl	Szał żerowania
+ru	Жор
+zh	疯狂觅食
+ja	荒食い
+ko	먹이 광풍
+#601 Gale
+tr	Fırtına
+de	Sturm
+fr	Coup de vent
+es	Vendaval
+pt	Ventania
+pl	Wichura
+ru	Шторм
+zh	大风
+ja	強風
+ko	강풍
+#602 Gale-force wind over the valley.
+tr	Vadide fırtına şiddetinde rüzgâr.
+de	Sturmböen über dem Tal.
+fr	Vent de tempête sur la vallée.
+es	Viento huracanado sobre el valle.
+pt	Vento de tempestade sobre o vale.
+pl	Wicher nad doliną.
+ru	Над долиной штормовой ветер.
+zh	山谷上空刮起大风。
+ja	谷に強風が吹いています。
+ko	골짜기에 강풍이 붑니다.
+#603 Golden age
+tr	Altın çağ
+de	Goldenes Zeitalter
+fr	Âge d'or
+es	Edad de oro
+pt	Era de ouro
+pl	Złoty wiek
+ru	Золотой век
+zh	黄金时代
+ja	黄金時代
+ko	황금기
+#604 History is in a generous mood.
+tr	Tarih bugün cömert.
+de	Die Geschichte ist in Geberlaune.
+fr	L'Histoire est d'humeur généreuse.
+es	La historia está generosa.
+pt	A história está generosa.
+pl	Historia jest dziś hojna.
+ru	История сегодня щедра.
+zh	历史今天格外慷慨。
+ja	歴史が大盤振る舞い。
+ko	역사가 오늘따라 너그럽습니다.
+#605 House specials go out
+tr	Özel yemekler çıkıyor
+de	Hausspezialitäten gehen raus
+fr	Les spécialités de la maison sortent
+es	Salen las especialidades de la casa
+pt	Os especiais da casa estão saindo
+pl	Wychodzą specjały szefa
+ru	Подают фирменные блюда
+zh	招牌菜不断出锅
+ja	看板料理が出る
+ko	대표 메뉴가 나간다
+#606 Hungry crowd at the counter.
+tr	Tezgâhta aç bir kalabalık var.
+de	Hungrige Menge an der Theke.
+fr	Une foule affamée au comptoir.
+es	Una multitud hambrienta en la barra.
+pt	Uma multidão faminta no balcão.
+pl	Głodny tłum przy ladzie.
+ru	У стойки голодная толпа.
+zh	柜台前挤满了饥饿的顾客。
+ja	カウンターに腹ペコの行列。
+ko	카운터 앞에 배고픈 손님들이 몰렸습니다.
+#607 Kiln day
+tr	Fırın günü
+de	Brenntag
+fr	Jour de cuisson
+es	Día de horno
+pt	Dia de forno
+pl	Dzień wypalania
+ru	День обжига
+zh	开窑日
+ja	窯焚きの日
+ko	가마 굽는 날
+#608 Landmarks join the grid
+tr	Simge yapılar şebekeye katılıyor
+de	Wahrzeichen gehen ans Netz
+fr	Les monuments rejoignent le réseau
+es	Los monumentos se conectan a la red
+pt	Os marcos entram na rede
+pl	Punkty orientacyjne dołączają do sieci
+ru	Достопримечательности подключаются к сети
+zh	地标接入电网
+ja	ランドマークが送電網に加わる
+ko	랜드마크가 전력망에 합류한다
+#609 Lucky streak
+tr	Şanslı seri
+de	Glückssträhne
+fr	Série chanceuse
+es	Racha de suerte
+pt	Maré de sorte
+pl	Szczęśliwa passa
+ru	Полоса везения
+zh	好运连连
+ja	ラッキータイム
+ko	행운의 연속
+#610 Lunch rush
+tr	Öğle telaşı
+de	Mittagsansturm
+fr	Coup de feu du midi
+es	Hora punta del almuerzo
+pt	Correria do almoço
+pl	Ruch w porze lunchu
+ru	Обеденный наплыв
+zh	午餐高峰
+ja	ランチラッシュ
+ko	점심 러시
+#611 Market day
+tr	Pazar günü
+de	Markttag
+fr	Jour de marché
+es	Día de mercado
+pt	Dia de feira
+pl	Dzień targowy
+ru	Базарный день
+zh	赶集日
+ja	市場の日
+ko	장날
+#612 Masterpieces come off the wheel
+tr	Çarktan başyapıtlar çıkıyor
+de	Meisterstücke kommen von der Scheibe
+fr	Des chefs-d'œuvre sortent du tour
+es	Salen obras maestras del torno
+pt	Obras-primas saem do torno
+pl	Z koła schodzą arcydzieła
+ru	С круга сходят шедевры
+zh	转盘上诞生杰作
+ja	轆轤から傑作が生まれる
+ko	물레에서 걸작이 나온다
+#613 Perfect wind
+tr	Mükemmel rüzgâr
+de	Perfekter Wind
+fr	Vent parfait
+es	Viento perfecto
+pt	Vento perfeito
+pl	Idealny wiatr
+ru	Идеальный ветер
+zh	完美的风
+ja	絶好の風
+ko	완벽한 바람
+#614 Rare finds turn up
+tr	Nadir buluntular çıkıyor
+de	Raritäten tauchen auf
+fr	Des raretés apparaissent
+es	Aparecen rarezas
+pt	Raridades aparecem
+pl	Pojawiają się rarytasy
+ru	Появляются редкости
+zh	稀有物出现
+ja	レアが出る
+ko	희귀품이 나타난다
+#615 Rare fruit turns up
+tr	Nadir meyveler çıkıyor
+de	Seltene Früchte tauchen auf
+fr	Des fruits rares apparaissent
+es	Aparecen frutas raras
+pt	Frutas raras aparecem
+pl	Pojawiają się rzadkie owoce
+ru	Появляются редкие фрукты
+zh	稀有水果出现
+ja	レアフルーツが出る
+ko	희귀 과일이 나타난다
+#616 Rare records turn up
+tr	Nadir plaklar çıkıyor
+de	Seltene Platten tauchen auf
+fr	Des disques rares apparaissent
+es	Aparecen discos raros
+pt	Discos raros aparecem
+pl	Pojawiają się rzadkie płyty
+ru	Попадаются редкие пластинки
+zh	稀有唱片出现
+ja	レアレコードが出る
+ko	희귀 음반이 나타난다
+#617 Rare targets get hit
+tr	Nadir hedefler vuruluyor
+de	Seltene Ziele werden getroffen
+fr	Des cibles rares sont touchées
+es	Se aciertan dianas raras
+pt	Alvos raros são acertados
+pl	Rzadkie cele są trafiane
+ru	Сбиваются редкие мишени
+zh	稀有靶子被击中
+ja	レアな的に当たる
+ko	희귀 표적이 맞는다
+#618 Something is in the air.
+tr	Havada bir şeyler var.
+de	Es liegt etwas in der Luft.
+fr	Il y a quelque chose dans l'air.
+es	Hay algo en el aire.
+pt	Tem algo no ar.
+pl	Coś wisi w powietrzu.
+ru	Что-то витает в воздухе.
+zh	空气中有些不同寻常。
+ja	何かが起こりそう。
+ko	뭔가 심상치 않습니다.
+#619 Special guests walk in
+tr	Özel konuklar geliyor
+de	Besondere Gäste kommen herein
+fr	Des invités spéciaux entrent
+es	Entran invitados especiales
+pt	Convidados especiais entram
+pl	Wchodzą specjalni goście
+ru	Заходят особые гости
+zh	特别来宾光临
+ja	特別ゲストがやって来る
+ko	특별 손님이 들어온다
+#620 The big fish are on the move.
+tr	Büyük balıklar hareketlendi.
+de	Die großen Fische sind unterwegs.
+fr	Les gros poissons sont de sortie.
+es	Los peces grandes están en movimiento.
+pt	Os peixes grandes estão se movendo.
+pl	Duże ryby ruszyły.
+ru	Крупная рыба пошла.
+zh	大鱼开始活跃了。
+ja	大物が動き出しました。
+ko	큰 물고기들이 움직이고 있습니다.
+#621 The big kiln is fired up today.
+tr	Büyük fırın bugün yakıldı.
+de	Der große Brennofen ist heute angeheizt.
+fr	Le grand four est allumé aujourd'hui.
+es	Hoy está encendido el gran horno.
+pt	O grande forno está aceso hoje.
+pl	Dziś rozpalono wielki piec.
+ru	Сегодня растоплена большая печь.
+zh	今天大窑点火了。
+ja	今日は大窯に火が入りました。
+ko	오늘은 큰 가마에 불을 지폈습니다.
+#622 The good crates came in this morning.
+tr	Güzel kasalar bu sabah geldi.
+de	Heute Morgen kamen die guten Kisten.
+fr	Les bonnes cagettes sont arrivées ce matin.
+es	Esta mañana llegaron las buenas cajas.
+pt	As caixas boas chegaram hoje de manhã.
+pl	Rano przyszły dobre skrzynki.
+ru	Утром привезли хорошие ящики.
+zh	今早到了几箱好货。
+ja	今朝、上物の箱が届きました。
+ko	오늘 아침 좋은 상자들이 들어왔습니다.
+#623 The wind is just right for long throws.
+tr	Rüzgâr uzun atışlar için tam kıvamında.
+de	Der Wind ist ideal für weite Würfe.
+fr	Le vent est idéal pour les longs lancers.
+es	El viento es perfecto para lanzamientos largos.
+pt	O vento está ideal para lançamentos longos.
+pl	Wiatr idealny do dalekich rzutów.
+ru	Ветер как раз для дальних бросков.
+zh	风向正适合远投。
+ja	遠投にちょうどいい風です。
+ko	멀리 던지기에 딱 좋은 바람입니다.
+#624 Tour bus
+tr	Tur otobüsü
+de	Reisebus
+fr	Car de touristes
+es	Autobús turístico
+pt	Ônibus de turismo
+pl	Autokar
+ru	Туристический автобус
+zh	旅游大巴
+ja	観光バス
+ko	관광버스
+#625 Wonders rise
+tr	Harikalar yükseliyor
+de	Weltwunder entstehen
+fr	Des merveilles s'élèvent
+es	Se alzan maravillas
+pt	Maravilhas se erguem
+pl	Wznoszą się cuda
+ru	Возводятся чудеса
+zh	奇观拔地而起
+ja	驚異が建つ
+ko	불가사의가 세워진다
+#626 {0} {1:0.#}× as often for {2} minutes.
+tr	{0}: {2} dakika boyunca {1:0.#}× daha sık.
+de	{0}: {2} Minuten lang {1:0.#}× so oft.
+fr	{0} : {1:0.#}× plus souvent pendant {2} minutes.
+es	{0}: {1:0.#}× más a menudo durante {2} minutos.
+pt	{0}: {1:0.#}× mais vezes por {2} minutos.
+pl	{0}: {1:0.#}× częściej przez {2} min.
+ru	{0}: в {1:0.#}× чаще в течение {2} мин.
+zh	{0}：{2} 分钟内频率提高 {1:0.#}×。
+ja	{0}：{2}分間、{1:0.#}×の頻度。
+ko	{0}: {2}분 동안 {1:0.#}× 더 자주.
+#627 {0}! {1} min
+tr	{0}! {1} dk
+de	{0}! {1} Min.
+fr	{0} ! {1} min
+es	¡{0}! {1} min
+pt	{0}! {1} min
+pl	{0}! {1} min
+ru	{0}! {1} мин
+zh	{0}！{1} 分钟
+ja	{0}！{1}分
+ko	{0}! {1}분
+#628 place
+tr	mekân
+de	Ort
+fr	lieu
+es	lugar
+pt	lugar
+pl	miejsce
+ru	место
+zh	地点
+ja	場所
+ko	장소
+#629 Arctic Char
+tr	Kutup Alabalığı
+de	Seesaibling
+fr	Omble chevalier
+es	Salvelino ártico
+pt	Truta-ártica
+pl	Golec arktyczny
+ru	Арктический голец
+zh	北极红点鲑
+ja	ホッキョクイワナ
+ko	북극곤들매기
+#630 Asp
+tr	Kocaağız
+de	Rapfen
+fr	Aspe
+es	Aspio
+pt	Áspio
+pl	Boleń
+ru	Жерех
+zh	拟鲤
+ja	アスプ
+ko	아스프
+#631 Atlantic Bonito
+tr	Palamut
+de	Pelamide
+fr	Bonite à dos rayé
+es	Bonito del Atlántico
+pt	Bonito-do-atlântico
+pl	Pelamida
+ru	Атлантическая пеламида
+zh	大西洋狐鲣
+ja	ハガツオ
+ko	대서양가다랑어
+#632 Atlantic Mackerel
+tr	Uskumru
+de	Atlantische Makrele
+fr	Maquereau
+es	Caballa
+pt	Cavala
+pl	Makrela atlantycka
+ru	Атлантическая скумбрия
+zh	大西洋鲭
+ja	タイセイヨウサバ
+ko	대서양고등어
+#633 Barbel
+tr	Bıyıklı balık
+de	Barbe
+fr	Barbeau
+es	Barbo
+pt	Barbo
+pl	Brzana
+ru	Усач
+zh	鲃鱼
+ja	バーベル
+ko	바벨
+#634 Bluefin Tuna
+tr	Mavi Yüzgeçli Orkinos
+de	Roter Thun
+fr	Thon rouge
+es	Atún rojo
+pt	Atum-rabilho
+pl	Tuńczyk błękitnopłetwy
+ru	Синий тунец
+zh	蓝鳍金枪鱼
+ja	クロマグロ
+ko	참다랑어
+#635 Bluefish
+tr	Lüfer
+de	Blaubarsch
+fr	Tassergal
+es	Anjova
+pt	Anchova
+pl	Tasergal
+ru	Луфарь
+zh	扁鲹
+ja	アミキリ
+ko	블루피시
+#636 Brown Trout
+tr	Kahverengi Alabalık
+de	Bachforelle
+fr	Truite fario
+es	Trucha común
+pt	Truta-marrom
+pl	Pstrąg potokowy
+ru	Ручьевая форель
+zh	褐鳟
+ja	ブラウントラウト
+ko	브라운송어
+#637 Burbot
+tr	Gelincik balığı
+de	Quappe
+fr	Lotte de rivière
+es	Lota
+pt	Lota
+pl	Miętus
+ru	Налим
+zh	江鳕
+ja	カワメンタイ
+ko	모캐
+#638 Chub
+tr	Tatlı su kefali
+de	Döbel
+fr	Chevesne
+es	Cacho
+pt	Escalo
+pl	Kleń
+ru	Голавль
+zh	欧鲢
+ja	チャブ
+ko	처브
+#639 European Seabass
+tr	Levrek
+de	Wolfsbarsch
+fr	Bar
+es	Lubina
+pt	Robalo
+pl	Labraks
+ru	Лаврак
+zh	欧洲鲈鱼
+ja	ヨーロピアンシーバス
+ko	유럽농어
+#640 Garfish
+tr	Zargana
+de	Hornhecht
+fr	Orphie
+es	Aguja
+pt	Peixe-agulha
+pl	Belona
+ru	Сарган
+zh	颌针鱼
+ja	ダツ
+ko	동갈치
+#641 Gilthead Bream
+tr	Çipura
+de	Dorade
+fr	Daurade royale
+es	Dorada
+pt	Dourada
+pl	Dorada
+ru	Дорада
+zh	金头鲷
+ja	ヨーロッパヘダイ
+ko	도미
+#642 Golden Carp
+tr	Altın Sazan
+de	Goldkarpfen
+fr	Carpe dorée
+es	Carpa dorada
+pt	Carpa dourada
+pl	Złoty karp
+ru	Золотой карп
+zh	金鲤
+ja	金の鯉
+ko	황금 잉어
+#643 Grayling
+tr	Grayling balığı
+de	Äsche
+fr	Ombre commun
+es	Tímalo
+pt	Peixe-tímalo
+pl	Lipień
+ru	Хариус
+zh	茴鱼
+ja	グレイリング
+ko	사루기
+#644 Greater Amberjack
+tr	Akya
+de	Bernsteinmakrele
+fr	Sériole couronnée
+es	Pez limón
+pt	Olho-de-boi
+pl	Seriola
+ru	Большая сериола
+zh	高体鰤
+ja	カンパチ
+ko	잿방어
+#645 Horse Mackerel
+tr	İstavrit
+de	Stöcker
+fr	Chinchard
+es	Jurel
+pt	Carapau
+pl	Ostrobok
+ru	Ставрида
+zh	竹荚鱼
+ja	アジ
+ko	전갱이
+#646 Huchen
+tr	Tuna Alabalığı
+de	Huchen
+fr	Huchon
+es	Salmón del Danubio
+pt	Salmão-do-danúbio
+pl	Głowacica
+ru	Дунайский лосось
+zh	多瑙哲罗鲑
+ja	ドナウイトウ
+ko	다뉴브연어
+#647 Ide
+tr	Aynalı sazan
+de	Aland
+fr	Ide mélanote
+es	Cacho dorado
+pt	Ide
+pl	Jaź
+ru	Язь
+zh	高体雅罗鱼
+ja	アイド
+ko	아이드
+#648 Lake Trout
+tr	Göl Alabalığı
+de	Amerikanischer Seesaibling
+fr	Touladi
+es	Trucha de lago
+pt	Truta-do-lago
+pl	Palia jeziorowa
+ru	Американский голец
+zh	湖红点鲑
+ja	レイクトラウト
+ko	호수송어
+#649 Largemouth Bass
+tr	Karabalık
+de	Forellenbarsch
+fr	Achigan à grande bouche
+es	Lubina negra
+pt	Black bass
+pl	Bass wielkogębowy
+ru	Большеротый окунь
+zh	大口黑鲈
+ja	ラージマウスバス
+ko	큰입농어
+#650 Leerfish
+tr	Akya balığı
+de	Gabelmakrele
+fr	Liche
+es	Palometa
+pt	Palombeta
+pl	Lica
+ru	Лихия
+zh	大甲鲹
+ja	リーフィッシュ
+ko	리어피시
+#651 Little Tunny
+tr	Yazılı orkinos
+de	Falscher Bonito
+fr	Thonine
+es	Bacoreta
+pt	Bonito-pintado
+pl	Tunek atlantycki
+ru	Малый тунец
+zh	小鲔
+ja	スマ
+ko	점다랑어
+#652 Mahi-mahi
+tr	Lambuka
+de	Goldmakrele
+fr	Coryphène
+es	Dorado
+pt	Dourado-do-mar
+pl	Koryfena
+ru	Корифена
+zh	鬼头刀
+ja	シイラ
+ko	만새기
+#653 Northern Pike
+tr	Turna
+de	Hecht
+fr	Brochet
+es	Lucio
+pt	Lúcio
+pl	Szczupak
+ru	Щука
+zh	白斑狗鱼
+ja	ノーザンパイク
+ko	강꼬치고기
+#654 Perch
+tr	Tatlı su levreği
+de	Flussbarsch
+fr	Perche
+es	Perca
+pt	Perca
+pl	Okoń
+ru	Окунь
+zh	河鲈
+ja	パーチ
+ko	퍼치
+#655 Rainbow Trout
+tr	Gökkuşağı Alabalığı
+de	Regenbogenforelle
+fr	Truite arc-en-ciel
+es	Trucha arcoíris
+pt	Truta-arco-íris
+pl	Pstrąg tęczowy
+ru	Радужная форель
+zh	虹鳟
+ja	ニジマス
+ko	무지개송어
+#656 Taimen
+tr	Taymen
+de	Taimen
+fr	Taimen
+es	Taimen
+pt	Taimen
+pl	Tajmień
+ru	Таймень
+zh	哲罗鲑
+ja	イトウ
+ko	타이멘
+#657 The Coast
+tr	Sahil
+de	Die Küste
+fr	La Côte
+es	La Costa
+pt	O Litoral
+pl	Wybrzeże
+ru	Побережье
+zh	海岸
+ja	海岸
+ko	해안
+#658 The Ice Hole
+tr	Buz Deliği
+de	Das Eisloch
+fr	Le Trou dans la glace
+es	El Agujero en el hielo
+pt	O Buraco no gelo
+pl	Przerębel
+ru	Лунка
+zh	冰洞
+ja	氷の穴
+ko	얼음 구멍
+#659 The Lake
+tr	Göl
+de	Der See
+fr	Le Lac
+es	El Lago
+pt	O Lago
+pl	Jezioro
+ru	Озеро
+zh	湖泊
+ja	湖
+ko	호수
+#660 The Open Sea
+tr	Açık Deniz
+de	Die Hohe See
+fr	La Haute Mer
+es	Mar Abierto
+pt	Mar Aberto
+pl	Otwarte Morze
+ru	Открытое море
+zh	远海
+ja	外洋
+ko	먼바다
+#661 The River
+tr	Nehir
+de	Der Fluss
+fr	La Rivière
+es	El Río
+pt	O Rio
+pl	Rzeka
+ru	Река
+zh	河流
+ja	川
+ko	강
+#662 Whitefish
+tr	Sig
+de	Renke
+fr	Corégone
+es	Corégono
+pt	Coregono
+pl	Sieja
+ru	Сиг
+zh	白鲑
+ja	ホワイトフィッシュ
+ko	흰송어
+#663 Yellow Perch
+tr	Sarı Levrek
+de	Gelbbarsch
+fr	Perchaude
+es	Perca amarilla
+pt	Perca-amarela
+pl	Okoń żółty
+ru	Жёлтый окунь
+zh	黄金鲈
+ja	イエローパーチ
+ko	노랑퍼치
+#664 Zander
+tr	Sudak
+de	Zander
+fr	Sandre
+es	Lucioperca
+pt	Lucioperca
+pl	Sandacz
+ru	Судак
+zh	梭鲈
+ja	ザンダー
+ko	잔더
+#665 Bamboo
+tr	Bambu
+de	Bambus
+fr	Bambou
+es	Bambú
+pt	Bambu
+pl	Bambus
+ru	Бамбук
+zh	竹制
+ja	バンブー
+ko	대나무
+#666 Carbon blank, sealed high-speed reel
+tr	Karbon gövde, sızdırmaz hızlı makine
+de	Carbon-Blank, abgedichtete Schnellrolle
+fr	Blank carbone, moulinet rapide étanche
+es	Caña de carbono, carrete rápido sellado
+pt	Blank de carbono, molinete rápido vedado
+pl	Węglowy blank, szczelny szybki kołowrotek
+ru	Карбоновое удилище, герметичная скоростная катушка
+zh	碳素竿身，密封高速渔轮
+ja	カーボンブランク、密閉式ハイスピードリール
+ko	카본 블랭크, 밀폐형 고속 릴
+#667 Gold
+tr	Altın
+de	Gold
+fr	Or
+es	Oro
+pt	Ouro
+pl	Złoto
+ru	Золото
+zh	黄金
+ja	ゴールド
+ko	골드
+#668 Gold-wrapped rod, polished brass reel
+tr	Altın sargılı kamış, cilalı pirinç makine
+de	Goldumwickelte Rute, polierte Messingrolle
+fr	Canne à ligatures dorées, moulinet en laiton poli
+es	Caña con ligaduras doradas, carrete de latón pulido
+pt	Vara com enrolamento dourado, molinete de latão polido
+pl	Wędka ze złotym owijaniem, polerowany mosiężny kołowrotek
+ru	Удилище с золотой обмоткой, полированная латунная катушка
+zh	金线缠绕鱼竿，抛光黄铜渔轮
+ja	金巻きのロッド、磨いた真鍮のリール
+ko	금실 감은 낚싯대, 광택 황동 릴
+#669 Graphite rod, aluminium spinning reel
+tr	Grafit kamış, alüminyum makine
+de	Graphitrute, Aluminium-Stationärrolle
+fr	Canne en graphite, moulinet spinning en aluminium
+es	Caña de grafito, carrete de spinning de aluminio
+pt	Vara de grafite, molinete de alumínio
+pl	Wędka grafitowa, aluminiowy kołowrotek spinningowy
+ru	Графитовое удилище, алюминиевая безынерционная катушка
+zh	石墨鱼竿，铝制纺车轮
+ja	グラファイトロッド、アルミのスピニングリール
+ko	그래파이트 낚싯대, 알루미늄 스피닝 릴
+#670 Split-cane rod, wooden centrepin
+tr	Bölme kamış olta, ahşap merkez makara
+de	Gespließte Bambusrute, hölzerne Achsrolle
+fr	Canne en bambou refendu, moulinet à tambour en bois
+es	Caña de bambú refundido, carrete centrepin de madera
+pt	Vara de bambu laminado, carretilha centrepin de madeira
+pl	Wędka z klejonego bambusa, drewniany kołowrotek centrepin
+ru	Клеёное бамбуковое удилище, деревянная проводочная катушка
+zh	六角竹竿，木制中轴轮
+ja	六角竹竿、木製のセンターピンリール
+ko	대나무 스플릿 케인 낚싯대, 나무 센터핀 릴
+#671 CARS
+tr	OTOMOBİL
+de	AUTOS
+fr	VOITURES
+es	COCHES
+pt	CARROS
+pl	AUTA
+ru	МАШИНЫ
+zh	汽车
+ja	クルマ
+ko	자동차
+#672 OFF-ROAD
+tr	ARAZİ
+de	GELÄNDE
+fr	TOUT-TERRAIN
+es	TODOTERRENO
+pt	OFF-ROAD
+pl	TERENOWE
+ru	ВНЕДОРОЖНИКИ
+zh	越野
+ja	オフロード
+ko	오프로드
+#673 SEA
+tr	DENİZ
+de	WASSER
+fr	MER
+es	MAR
+pt	MAR
+pl	MORZE
+ru	МОРЕ
+zh	海上
+ja	海
+ko	바다
+#674 SKY
+tr	GÖK
+de	LUFT
+fr	CIEL
+es	CIELO
+pt	CÉU
+pl	NIEBO
+ru	НЕБО
+zh	天空
+ja	空
+ko	하늘
+#675 TRIP
+tr	YOLCULUK
+de	TOUR
+fr	VOYAGE
+es	VIAJE
+pt	VIAGEM
+pl	TRASA
+ru	ПОЕЗДКА
+zh	旅程
+ja	旅
+ko	여정
+#676 TWO WHEELS
+tr	İKİ TEKER
+de	ZWEIRÄDER
+fr	DEUX-ROUES
+es	DOS RUEDAS
+pt	DUAS RODAS
+pl	JEDNOŚLADY
+ru	ДВА КОЛЕСА
+zh	两轮
+ja	二輪
+ko	이륜차
+#677 {0} unlocks at {1} total  ·  {2} to go
+tr	{0} toplam {1} ile açılır  ·  {2} kaldı
+de	{0} wird bei {1} insgesamt frei  ·  noch {2}
+fr	{0} débloqué à {1} au total  ·  encore {2}
+es	{0} se desbloquea con {1} en total  ·  faltan {2}
+pt	{0} desbloqueia com {1} no total  ·  faltam {2}
+pl	{0} odblokujesz po {1} łącznie  ·  zostało {2}
+ru	{0} откроется на {1} всего  ·  осталось {2}
+zh	{0}在累计 {1} 时解锁  ·  还差 {2}
+ja	{0}は累計{1}で解放  ·  残り{2}
+ko	{0}은(는) 누적 {1}에 해제  ·  {2} 남음
+#678 {0}: {1}  ·  your best: {2} of {3}
+tr	{0}: {1}  ·  rekorun: {2} / {3}
+de	{0}: {1}  ·  dein Bestwert: {2} von {3}
+fr	{0} : {1}  ·  votre record : {2} sur {3}
+es	{0}: {1}  ·  tu mejor marca: {2} de {3}
+pt	{0}: {1}  ·  seu recorde: {2} de {3}
+pl	{0}: {1}  ·  twój rekord: {2} z {3}
+ru	{0}: {1}  ·  ваш рекорд: {2} из {3}
+zh	{0}：{1}  ·  你的最佳：{2} / {3}
+ja	{0}：{1}  ·  自己ベスト：{2} / {3}
+ko	{0}: {1}  ·  최고 기록: {2} / {3}
+#679 Angkor Wat
+tr	Angkor Vat
+de	Angkor Wat
+fr	Angkor Vat
+es	Angkor Wat
+pt	Angkor Wat
+pl	Angkor Wat
+ru	Ангкор-Ват
+zh	吴哥窟
+ja	アンコール・ワット
+ko	앙코르와트
+#680 Apartment block
+tr	Apartman
+de	Wohnblock
+fr	Immeuble
+es	Bloque de pisos
+pt	Prédio de apartamentos
+pl	Blok mieszkalny
+ru	Многоэтажка
+zh	公寓楼
+ja	集合住宅
+ko	아파트
+#681 Bell tower
+tr	Çan kulesi
+de	Glockenturm
+fr	Clocher
+es	Campanario
+pt	Campanário
+pl	Dzwonnica
+ru	Колокольня
+zh	钟楼
+ja	鐘楼
+ko	종탑
+#682 Big Ben
+tr	Big Ben
+de	Big Ben
+fr	Big Ben
+es	Big Ben
+pt	Big Ben
+pl	Big Ben
+ru	Биг-Бен
+zh	大本钟
+ja	ビッグ・ベン
+ko	빅벤
+#683 Brick house
+tr	Tuğla ev
+de	Backsteinhaus
+fr	Maison en brique
+es	Casa de ladrillo
+pt	Casa de tijolos
+pl	Ceglany dom
+ru	Кирпичный дом
+zh	砖房
+ja	レンガの家
+ko	벽돌집
+#684 Brooklyn Bridge
+tr	Brooklyn Köprüsü
+de	Brooklyn Bridge
+fr	Pont de Brooklyn
+es	Puente de Brooklyn
+pt	Ponte do Brooklyn
+pl	Most Brookliński
+ru	Бруклинский мост
+zh	布鲁克林大桥
+ja	ブルックリン橋
+ko	브루클린 다리
+#685 Burj Khalifa
+tr	Burç Halife
+de	Burj Khalifa
+fr	Burj Khalifa
+es	Burj Khalifa
+pt	Burj Khalifa
+pl	Burdż Chalifa
+ru	Бурдж-Халифа
+zh	哈利法塔
+ja	ブルジュ・ハリファ
+ko	부르즈 할리파
+#686 CHRONICLE
+tr	TARİHÇE
+de	CHRONIK
+fr	CHRONIQUE
+es	CRÓNICA
+pt	CRÔNICA
+pl	KRONIKA
+ru	ЛЕТОПИСЬ
+zh	编年史
+ja	年代記
+ko	연대기
+#687 Chapel
+tr	Şapel
+de	Kapelle
+fr	Chapelle
+es	Capilla
+pt	Capela
+pl	Kaplica
+ru	Часовня
+zh	小教堂
+ja	礼拝堂
+ko	예배당
+#688 Cottage
+tr	Kır evi
+de	Landhaus
+fr	Chaumière
+es	Casita de campo
+pt	Chalé
+pl	Chata
+ru	Домик
+zh	农舍
+ja	コテージ
+ko	오두막
+#689 Cypress tree
+tr	Selvi ağacı
+de	Zypresse
+fr	Cyprès
+es	Ciprés
+pt	Cipreste
+pl	Cyprys
+ru	Кипарис
+zh	柏树
+ja	イトスギ
+ko	사이프러스
+#690 ELAPSED
+tr	GEÇEN ZAMAN
+de	VERGANGEN
+fr	ÉCOULÉ
+es	TRANSCURRIDO
+pt	DECORRIDO
+pl	MINĘŁO
+ru	ПРОШЛО
+zh	已流逝
+ja	経過
+ko	경과
+#691 Factory
+tr	Fabrika
+de	Fabrik
+fr	Usine
+es	Fábrica
+pt	Fábrica
+pl	Fabryka
+ru	Фабрика
+zh	工厂
+ja	工場
+ko	공장
+#692 First seen {0}
+tr	İlk görülme {0}
+de	Erstmals gesehen {0}
+fr	Vu pour la première fois {0}
+es	Visto por primera vez {0}
+pt	Visto pela primeira vez {0}
+pl	Pierwszy raz {0}
+ru	Впервые {0}
+zh	首次出现 {0}
+ja	初登場 {0}
+ko	첫 등장 {0}
+#693 Fountain
+tr	Çeşme
+de	Brunnen
+fr	Fontaine
+es	Fuente
+pt	Chafariz
+pl	Fontanna
+ru	Фонтан
+zh	喷泉
+ja	噴水
+ko	분수
+#694 Gas lamp
+tr	Gaz lambası
+de	Gaslaterne
+fr	Réverbère à gaz
+es	Farola de gas
+pt	Lampião a gás
+pl	Latarnia gazowa
+ru	Газовый фонарь
+zh	煤气路灯
+ja	ガス灯
+ko	가스등
+#695 Hagia Sophia
+tr	Ayasofya
+de	Hagia Sophia
+fr	Sainte-Sophie
+es	Santa Sofía
+pt	Santa Sofia
+pl	Hagia Sophia
+ru	Святая София
+zh	圣索菲亚大教堂
+ja	アヤソフィア
+ko	아야 소피아
+#696 Haystack
+tr	Saman yığını
+de	Heuschober
+fr	Meule de foin
+es	Almiar
+pt	Palheiro
+pl	Stóg siana
+ru	Стог сена
+zh	干草堆
+ja	干し草の山
+ko	건초 더미
+#697 Hut
+tr	Kulübe
+de	Hütte
+fr	Hutte
+es	Choza
+pt	Cabana
+pl	Chatka
+ru	Хижина
+zh	小屋
+ja	小屋
+ko	움막
+#698 IDLE · SLOW DAYS
+tr	RÖLANTİ · YAVAŞ GÜNLER
+de	LEERLAUF · LANGSAME TAGE
+fr	RALENTI · JOURS LENTS
+es	RALENTÍ · DÍAS LENTOS
+pt	OCIOSO · DIAS LENTOS
+pl	BEZCZYNNY · POWOLNE DNI
+ru	ПРОСТОЙ · МЕДЛЕННЫЕ ДНИ
+zh	闲置 · 慢日子
+ja	アイドル · ゆっくりな日々
+ko	대기 · 느린 나날
+#699 Locomotive
+tr	Lokomotif
+de	Lokomotive
+fr	Locomotive
+es	Locomotora
+pt	Locomotiva
+pl	Lokomotywa
+ru	Паровоз
+zh	火车头
+ja	機関車
+ko	기관차
+#700 Machu Picchu
+tr	Machu Picchu
+de	Machu Picchu
+fr	Machu Picchu
+es	Machu Picchu
+pt	Machu Picchu
+pl	Machu Picchu
+ru	Мачу-Пикчу
+zh	马丘比丘
+ja	マチュ・ピチュ
+ko	마추픽추
+#701 Market stall
+tr	Pazar tezgâhı
+de	Marktstand
+fr	Étal de marché
+es	Puesto de mercado
+pt	Barraca de feira
+pl	Stragan
+ru	Рыночный прилавок
+zh	集市摊位
+ja	市場の屋台
+ko	시장 노점
+#702 Modern house
+tr	Modern ev
+de	Modernes Haus
+fr	Maison moderne
+es	Casa moderna
+pt	Casa moderna
+pl	Nowoczesny dom
+ru	Современный дом
+zh	现代住宅
+ja	モダンな家
+ko	현대식 주택
+#703 Next: year {0}
+tr	Sıradaki: {0}. yıl
+de	Nächstes: Jahr {0}
+fr	Suivant : année {0}
+es	Siguiente: año {0}
+pt	Próximo: ano {0}
+pl	Następny: rok {0}
+ru	Следующий: год {0}
+zh	下一个：第 {0} 年
+ja	次：{0}年目
+ko	다음: {0}년째
+#704 Not raised yet
+tr	Henüz yükselmedi
+de	Noch nicht errichtet
+fr	Pas encore érigé
+es	Aún sin levantar
+pt	Ainda não erguido
+pl	Jeszcze niewzniesiony
+ru	Ещё не построено
+zh	尚未建成
+ja	まだ建っていない
+ko	아직 세워지지 않음
+#705 Notre-Dame
+tr	Notre-Dame
+de	Notre-Dame
+fr	Notre-Dame
+es	Notre Dame
+pt	Notre-Dame
+pl	Notre-Dame
+ru	Нотр-Дам
+zh	巴黎圣母院
+ja	ノートルダム大聖堂
+ko	노트르담 대성당
+#706 Oak tree
+tr	Meşe ağacı
+de	Eiche
+fr	Chêne
+es	Roble
+pt	Carvalho
+pl	Dąb
+ru	Дуб
+zh	橡树
+ja	オークの木
+ko	참나무
+#707 Olive tree
+tr	Zeytin ağacı
+de	Olivenbaum
+fr	Olivier
+es	Olivo
+pt	Oliveira
+pl	Drzewo oliwne
+ru	Оливковое дерево
+zh	橄榄树
+ja	オリーブの木
+ko	올리브 나무
+#708 Petrol station
+tr	Benzin istasyonu
+de	Tankstelle
+fr	Station-service
+es	Gasolinera
+pt	Posto de gasolina
+pl	Stacja benzynowa
+ru	Заправка
+zh	加油站
+ja	ガソリンスタンド
+ko	주유소
+#709 Radio mast
+tr	Radyo direği
+de	Funkmast
+fr	Antenne radio
+es	Antena de radio
+pt	Torre de rádio
+pl	Maszt radiowy
+ru	Радиомачта
+zh	无线电塔
+ja	電波塔
+ko	라디오 송신탑
+#710 Raised ×{0}
+tr	Yükseldi ×{0}
+de	Errichtet ×{0}
+fr	Érigé ×{0}
+es	Levantado ×{0}
+pt	Erguido ×{0}
+pl	Wzniesiono ×{0}
+ru	Построено ×{0}
+zh	建成 ×{0}
+ja	建立 ×{0}
+ko	건립 ×{0}
+#711 Rising
+tr	Yükseliyor
+de	Entsteht
+fr	En construction
+es	Levantándose
+pt	Erguendo-se
+pl	Powstaje
+ru	Строится
+zh	正在建造
+ja	建設中
+ko	건설 중
+#712 Satellite dish
+tr	Uydu anteni
+de	Satellitenschüssel
+fr	Antenne parabolique
+es	Antena parabólica
+pt	Antena parabólica
+pl	Antena satelitarna
+ru	Спутниковая тарелка
+zh	卫星天线
+ja	パラボラアンテナ
+ko	위성 안테나
+#713 St Basil's Cathedral
+tr	Aziz Vasil Katedrali
+de	Basilius-Kathedrale
+fr	Cathédrale Saint-Basile
+es	Catedral de San Basilio
+pt	Catedral de São Basílio
+pl	Sobór Wasyla Błogosławionego
+ru	Храм Василия Блаженного
+zh	圣瓦西里大教堂
+ja	聖ワシリイ大聖堂
+ko	성 바실리 대성당
+#714 St Peter's Basilica
+tr	Aziz Petrus Bazilikası
+de	Petersdom
+fr	Basilique Saint-Pierre
+es	Basílica de San Pedro
+pt	Basílica de São Pedro
+pl	Bazylika św. Piotra
+ru	Собор Святого Петра
+zh	圣彼得大教堂
+ja	サン・ピエトロ大聖堂
+ko	성 베드로 대성당
+#715 Stamped in your chronicle
+tr	Tarihçene işlendi
+de	In deine Chronik eingetragen
+fr	Inscrit dans votre chronique
+es	Anotado en tu crónica
+pt	Registrado na sua crônica
+pl	Wpisano do kroniki
+ru	Записано в летопись
+zh	已记入编年史
+ja	年代記に記録
+ko	연대기에 기록됨
+#716 Stone bridge
+tr	Taş köprü
+de	Steinbrücke
+fr	Pont de pierre
+es	Puente de piedra
+pt	Ponte de pedra
+pl	Kamienny most
+ru	Каменный мост
+zh	石桥
+ja	石橋
+ko	돌다리
+#717 Stone house
+tr	Taş ev
+de	Steinhaus
+fr	Maison de pierre
+es	Casa de piedra
+pt	Casa de pedra
+pl	Kamienny dom
+ru	Каменный дом
+zh	石屋
+ja	石造りの家
+ko	돌집
+#718 Stone well
+tr	Taş kuyu
+de	Steinbrunnen
+fr	Puits de pierre
+es	Pozo de piedra
+pt	Poço de pedra
+pl	Kamienna studnia
+ru	Каменный колодец
+zh	石井
+ja	石の井戸
+ko	돌우물
+#719 Stonehenge
+tr	Stonehenge
+de	Stonehenge
+fr	Stonehenge
+es	Stonehenge
+pt	Stonehenge
+pl	Stonehenge
+ru	Стоунхендж
+zh	巨石阵
+ja	ストーンヘンジ
+ko	스톤헨지
+#720 TIME REWINDS
+tr	ZAMAN GERİ SARILIYOR
+de	DIE ZEIT LÄUFT ZURÜCK
+fr	LE TEMPS RECULE
+es	EL TIEMPO RETROCEDE
+pt	O TEMPO VOLTA
+pl	CZAS SIĘ COFA
+ru	ВРЕМЯ ИДЁТ ВСПЯТЬ
+zh	时光倒流
+ja	時が巻き戻る
+ko	시간이 되감긴다

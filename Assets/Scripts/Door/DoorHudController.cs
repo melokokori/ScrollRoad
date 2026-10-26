@@ -36,36 +36,36 @@ namespace ScrollRoad
             bool active = engine != null && engine.IsUserActive;
             if (door.TurnDirection < 0f)
             {
-                statusText.text = "BACKING OUT";
+                statusText.text = L.T("BACKING OUT");
                 statusText.color = Normal;
             }
             else if (!active)
             {
-                statusText.text = "IDLE · SLOW TURN";
+                statusText.text = L.T("IDLE · SLOW TURN");
                 statusText.color = Idle;
             }
             else
             {
-                statusText.text = "TURNING";
+                statusText.text = L.T("TURNING");
                 statusText.color = Normal;
             }
 
-            placeText.SetText(door.Venue.Name.ToUpperInvariant());
+            placeText.SetText(L.Upper(L.T(door.Venue.Name)));
             var coming = UpcomingGuest();
             guestText.gameObject.SetActive(coming != null);
             if (coming != null)
             {
-                phaseText.SetText("Here comes");
-                guestText.SetText(coming.Name);
+                phaseText.SetText(L.T("Here comes"));
+                guestText.SetText(L.T(coming.Name));
             }
             else
             {
-                phaseText.SetText("Next: #" + Fmt.Int(door.VisitorsInside + 1));
+                phaseText.SetText(L.F("Next: #{0}", Fmt.Int(door.VisitorsInside + 1)));
             }
 
             var last = door.LastGuest;
-            string lastLine = last != null ? $"  ·  <alpha=#99>LAST<alpha=#FF>  {last.Name}" : "";
-            logText.text = $"<alpha=#99>GUEST BOOK<alpha=#FF>  {door.GuestsLoggedAt(door.Venue)} / {door.Venue.Guests.Length}{lastLine}";
+            string lastLine = last != null ? $"  ·  <alpha=#99>{L.T("LAST")}<alpha=#FF>  {L.T(last.Name)}" : "";
+            logText.text = $"<alpha=#99>{L.T("GUEST BOOK")}<alpha=#FF>  {door.GuestsLoggedAt(door.Venue)} / {door.Venue.Guests.Length}{lastLine}";
         }
 
         // Kaldırımda kapıya yaklaşan ilk nadir misafir (yoksa null).

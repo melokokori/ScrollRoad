@@ -30,11 +30,11 @@ namespace ScrollRoad
         public static string Remaining(double points)
         {
             double minutes = System.Math.Ceiling(System.Math.Max(0.0, points) / PointsPerHour * 60.0);
-            if (minutes < 1) return "under a minute";
+            if (minutes < 1) return L.T("under a minute");
             long h = (long)(minutes / 60);
             long m = (long)(minutes % 60);
-            if (h == 0) return $"{m} m";
-            return m == 0 ? $"{Fmt.Int(h)} h" : $"{Fmt.Int(h)} h {m} m";
+            if (h == 0) return L.F("{0} m", m);
+            return m == 0 ? L.F("{0} h", Fmt.Int(h)) : L.F("{0} h {1} m", Fmt.Int(h), m);
         }
     }
 }

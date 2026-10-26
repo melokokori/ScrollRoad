@@ -10,6 +10,7 @@ namespace ScrollRoad
     // (Tools/gen_vinyl.py). Adlar kurgusal; müzik VinylMusic'te prosedürel (telifsiz).
     public enum MusicStyle { LoFi = 0, Bossa = 1, Synthwave = 2, Jazz = 3, Disco = 4, Funk = 5 }
 
+    // loc:catalog — öğe/mekân adları çeviri anahtarı olarak toplanır (Tools/loc/extract.py).
     public sealed class RecordType
     {
         public string Id;
@@ -142,6 +143,9 @@ namespace ScrollRoad
             public MusicStyle Style;
             public Color Label;
             public string Name;
+            public long Number; // nadir olmayan plağın sırası ("Record #12")
+
+            public string DisplayName => IsSpecial ? L.T(Name) : L.F("Record #{0}", Number);
         }
 
         // Ayın r. plağı (1'den) ay + mekân + sıradan belirlenir (kapının Identify'ı gibi): geri sarılıp yeniden
@@ -174,6 +178,7 @@ namespace ScrollRoad
             r.Style = h < 0.6 ? MusicStyle.LoFi : h < 0.8 ? MusicStyle.Bossa : MusicStyle.Jazz;
             r.Label = PlainLabels[(int)(VisitorCatalog.Hash01(seed, index, 4) * PlainLabels.Length) % PlainLabels.Length];
             r.Name = "Record #" + index;
+            r.Number = index;
             return r;
         }
 

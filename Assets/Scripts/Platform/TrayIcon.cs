@@ -48,6 +48,10 @@ namespace ScrollRoad.Platform
         static IntPtr _hwnd;
         static IntPtr _icon;
         static string _tooltip = "ScrollRoad";
+        // Menü yazıları seçili dilde; ana iş parçacığı yazar (L PlayerPrefs okur), tepsi iş parçacığı okur.
+        static volatile string[] _menuTexts = { "Show ScrollRoad", "Taskbar mode", "Quit" };
+
+        public static void SetMenuTexts(string show, string companion, string quit) => _menuTexts = new[] { show, companion, quit };
         static volatile bool _companionChecked;
 
         public static bool IsRunning => _hwnd != IntPtr.Zero;
@@ -178,10 +182,11 @@ namespace ScrollRoad.Platform
         static void ShowContextMenu(IntPtr hWnd)
         {
             IntPtr menu = CreatePopupMenu();
-            AppendMenu(menu, MF_STRING, (UIntPtr)IdShow, "Show ScrollRoad");
-            AppendMenu(menu, MF_STRING | (_companionChecked ? MF_CHECKED : 0), (UIntPtr)IdCompanion, "Taskbar mode");
+            var texts = _menuTexts;
+            AppendMenu(menu, MF_STRING, (UIntPtr)IdShow, texts[0]);
+            AppendMenu(menu, MF_STRING | (_companionChecked ? MF_CHECKED : 0), (UIntPtr)IdCompanion, texts[1]);
             AppendMenu(menu, MF_SEPARATOR, UIntPtr.Zero, null);
-            AppendMenu(menu, MF_STRING, (UIntPtr)IdQuit, "Quit");
+            AppendMenu(menu, MF_STRING, (UIntPtr)IdQuit, texts[2]);
             SetMenuDefaultItem(menu, IdShow, 0);
 
             GetCursorPos(out var pt);

@@ -63,23 +63,23 @@ namespace ScrollRoad
             bool unlocked = DoorController.IsUnlocked(venue, p);
             bool current = door != null && door.Venue == venue;
 
-            titleText.text = "Guest book · " + venue.Name;
+            titleText.text = L.T("Guest book") + " · " + L.T(venue.Name);
             int logged = 0;
             foreach (var g in venue.Guests) if (p.Find(g.Id) != null) logged++;
             countText.text = unlocked
-                ? $"{logged} / {venue.Guests.Length} guests  ·  {Fmt.Int(p.totalVisitors)} visitors in all"
-                : $"LOCKED  ·  {UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(VisitorCatalog.Venues, venue)) - DoorController.LadderPointsOf(p))} at the door to go";
+                ? L.F("{0} / {1} guests  ·  {2} in all", logged, venue.Guests.Length, L.P(p.totalVisitors, "{0} visitors", "{0} visitors"))
+                : L.T("LOCKED") + "  ·  " + L.F("{0} at the door to go", UnlockLadder.Remaining(UnlockLadder.VenuePoints(System.Array.IndexOf(VisitorCatalog.Venues, venue)) - DoorController.LadderPointsOf(p)));
 
             for (int i = 0; i < tabTexts.Length && i < VisitorCatalog.Venues.Length; i++)
             {
                 var v = VisitorCatalog.Venues[i];
-                tabTexts[i].text = v.Name;
+                tabTexts[i].text = L.T(v.Name);
                 tabTexts[i].color = v == venue ? TabOn : DoorController.IsUnlocked(v, p) ? TabOff : TabLocked;
             }
 
             hereButton.gameObject.SetActive(unlocked);
             hereButton.interactable = !current;
-            hereText.text = current ? "YOU ARE HERE" : "GO HERE";
+            hereText.text = current ? L.T("YOU ARE HERE") : L.T("GO HERE");
 
             for (int i = 0; i < VisitorCatalog.AllGuests.Length && i < slotRoots.Length; i++)
             {
@@ -95,15 +95,15 @@ namespace ScrollRoad
                 {
                     slotRoots[i].SetActive(met);
                     if (!met) continue;
-                    nameTexts[i].text = $"LEGENDARY  ·  {guest.Name}";
-                    detailTexts[i].text = $"Visited ×{record.count}  ·  <alpha=#99>First visit {record.firstSeen}";
+                    nameTexts[i].text = L.T("LEGENDARY") + "  ·  " + L.T(guest.Name);
+                    detailTexts[i].text = L.F("Visited ×{0}", record.count) + "  ·  <alpha=#99>" + L.F("First visit {0}", record.firstSeen);
                     continue;
                 }
                 guestImages[i].color = met ? Color.white : Silhouette;
-                nameTexts[i].text = met ? guest.Name : "???";
+                nameTexts[i].text = met ? L.T(guest.Name) : "???";
                 detailTexts[i].text = met
-                    ? $"Visited ×{record.count}\n<alpha=#88>First visit {record.firstSeen}"
-                    : "<alpha=#88>Not seen yet";
+                    ? L.F("Visited ×{0}", record.count) + "\n<alpha=#88>" + L.F("First visit {0}", record.firstSeen)
+                    : "<alpha=#88>" + L.T("Not seen yet");
             }
         }
     }

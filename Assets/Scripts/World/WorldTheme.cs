@@ -10,7 +10,7 @@ namespace ScrollRoad
     {
         public enum Kind { Classic = 0, Night = 1, Sepia = 2 }
 
-        public static readonly string[] DisplayNames = { "Classic", "Night", "Sepia" };
+        public static readonly string[] DisplayNames = { L.N("Classic"), L.N("Night"), L.N("Sepia") };
 
         static readonly Color NightSky = new Color(0.07f, 0.09f, 0.18f);
         static readonly Color NightCity = new Color(0.36f, 0.34f, 0.48f); // koyu gökte siluet okunur kalsın (ışıklı şehir)

@@ -24,7 +24,7 @@ namespace ScrollRoad
 
         // Garaj sekmeleri: birden çok kategoriyi toplar.
         public enum Tab { Cars, OffRoad, TwoWheels, Sea, Sky }
-        public static readonly string[] TabNames = { "CARS", "OFF-ROAD", "TWO WHEELS", "SEA", "SKY" };
+        public static readonly string[] TabNames = { L.N("CARS"), L.N("OFF-ROAD"), L.N("TWO WHEELS"), L.N("SEA"), L.N("SKY") };
 
         public static Tab TabOf(Kind kind) => kind switch
         {
@@ -137,9 +137,10 @@ namespace ScrollRoad
             switch (model.unlock)
             {
                 case Unlock.LifetimeKm:
-                    return $"{model.displayName} unlocks at {Fmt.Km(model.unlockValue, 0)} total  ·  {Fmt.Km(model.unlockValue - p.lifetimeKm, 0)} to go";
+                    return L.F("{0} unlocks at {1} total  ·  {2} to go", model.displayName, Fmt.Km(model.unlockValue, 0), Fmt.Km(model.unlockValue - p.lifetimeKm, 0));
                 case Unlock.MonthBestKm:
-                    return $"{model.displayName}: {model.unlockLabel}  ·  your best: {Fmt.Km(p.monthBestKm, 0)} of {Fmt.Km(model.unlockValue, 0)}";
+                    // unlockLabel CarCatalog.asset'te (Tools/loc/extract.py oradan toplar).
+                    return L.F("{0}: {1}  ·  your best: {2} of {3}", model.displayName, L.T(model.unlockLabel), Fmt.Km(p.monthBestKm, 0), Fmt.Km(model.unlockValue, 0));
                 default:
                     return "";
             }
@@ -148,8 +149,8 @@ namespace ScrollRoad
         // Kilit plakasında görünen kısa metin.
         public static string LockPlate(Model model) => model.unlock switch
         {
-            Unlock.LifetimeKm => Fmt.Km(model.unlockValue, 0).ToUpperInvariant(),
-            Unlock.MonthBestKm => "TRIP",
+            Unlock.LifetimeKm => L.Upper(Fmt.Km(model.unlockValue, 0)),
+            Unlock.MonthBestKm => L.T("TRIP"),
             _ => "",
         };
 

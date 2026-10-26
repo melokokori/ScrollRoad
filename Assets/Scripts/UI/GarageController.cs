@@ -196,7 +196,7 @@ namespace ScrollRoad
                     slotPlates[i].gameObject.SetActive(true);
                     slotPlates[i].color = soonPlateColor;
                     slotPlateTexts[i].color = soonPlateInk;
-                    slotPlateTexts[i].text = "SOON";
+                    slotPlateTexts[i].text = L.T("SOON");
                 }
             }
 
@@ -229,13 +229,13 @@ namespace ScrollRoad
                 bool open = GaugeSkins.IsUnlocked(skin);
                 gaugeButtons[g].image.color = skin == selectedGauge ? selectedFrameColor : idleButtonColor;
                 gaugeIcons[g].color = open ? Color.white : new Color(0.35f, 0.35f, 0.38f, 1f);
-                gaugeLabels[g].text = open ? skin.name : skin.unlock == CarCatalog.Unlock.MonthBestKm ? "TRIP" : Fmt.Km(skin.unlockValue, 0).ToUpperInvariant();
+                gaugeLabels[g].text = open ? L.T(skin.name) : skin.unlock == CarCatalog.Unlock.MonthBestKm ? L.T("TRIP") : L.Upper(Fmt.Km(skin.unlockValue, 0));
                 gaugeLabels[g].alpha = open ? 1f : 0.6f;
                 g++;
             }
 
             previewImage.sprite = catalog.SelectedSprite;
-            selectedNameText.text = model == null ? "" : paintable ? $"{model.displayName} · {paint.displayName}" : model.displayName;
+            selectedNameText.text = model == null ? "" : paintable ? $"{model.displayName} · {L.T(paint.displayName)}" : model.displayName;
         }
     }
 }

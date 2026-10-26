@@ -10,13 +10,13 @@ namespace ScrollRoad
         public const string Game = "Game";
     }
 
-    // UI sayı biçimi (İngilizce: binlik ayırıcı virgül, ondalık nokta).
+    // UI sayı biçimi: seçili dilin kültürüyle (L.Culture; İngilizcede binlik ayırıcı virgül, ondalık nokta).
     public static class Fmt
     {
         static readonly CultureInfo En = CultureInfo.GetCultureInfo("en-US");
 
-        // Oyun İngilizce: $"{x:0.0}" gibi biçimler sistemin bölge ayarına (ör. tr-TR "0,0") kaymasın.
-        // Diğer diller gelince bu, seçili dile bağlanacak.
+        // Açılışta en-US: $"{x:0.0}" gibi biçimler sistemin bölge ayarına (ör. tr-TR sistemde İngilizce oyunda
+        // "0,0") kaymasın. Dil yüklenince L genel kültürü seçili dilin kültürüne çevirir (metin ile sayı aynı dilde).
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         static void UseGameCulture()
         {
@@ -24,13 +24,10 @@ namespace ScrollRoad
             CultureInfo.CurrentCulture = En;
         }
 
-        public static string Km(double km, int decimals = 1) => km.ToString("N" + decimals, En) + " km";
-        public static string Int(long value) => value.ToString("N0", En);
+        public static string Km(double km, int decimals = 1) => km.ToString("N" + decimals, L.Culture) + " " + L.T("km");
+        public static string Int(long value) => value.ToString("N0", L.Culture);
 
-        // Ortam birimiyle miktar: "12.4 kg", "1,234 km".
-        public static string Amount(double value, int decimals, string unit) => value.ToString("N" + decimals, En) + " " + unit;
-
-        // "1 day", "3 days" (yalnız düzenli çoğul alan birimler için).
-        public static string Count(long value, string unit) => $"{Int(value)} {unit}{(value == 1 ? "" : "s")}";
+        // Ortam birimiyle miktar: "12.4 kg", "1,234 km" (birim İngilizce verilir, burada çevrilir).
+        public static string Amount(double value, int decimals, string unit) => value.ToString("N" + decimals, L.Culture) + " " + L.T(unit);
     }
 }

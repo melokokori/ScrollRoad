@@ -29,7 +29,7 @@ namespace ScrollRoad
     {
         public static readonly Vector2Int CardBaseSize = new Vector2Int(800, 340);
         public static readonly float[] CardSizePresets = { 0.85f, 1f, 1.25f };
-        public static readonly string[] CardSizeNames = { "Small", "Medium", "Large" };
+        public static readonly string[] CardSizeNames = { L.N("Small"), L.N("Medium"), L.N("Large") };
 
         [SerializeField] int stripBaseWidth = 440; // 48 px'lik (%100 ölçek) görev çubuğu için
 #pragma warning disable CS0414 // aşağıdakiler yalnız Windows build'de okunuyor (Editor'de pencereye dokunulmaz)

@@ -41,15 +41,15 @@ namespace ScrollRoad
             if (monthMax >= bestKm && monthMax > 0) bestMonth = month;
 
             statsText.text =
-                "THIS MONTH\n" +
-                $"   Furthest point:  {Fmt.Km(monthMax)}\n" +
-                (reached ? "   City reached.\n" : "") +
-                "\nALL TIME\n" +
-                $"   Total distance:  {Fmt.Km(lifetimeKm)}\n" +
-                $"   Scrolls:  {Fmt.Int(steps)}\n" +
-                $"   U-turns:  {Fmt.Int(turns)}\n" +
-                $"   Cities reached:  {Fmt.Int(cities)}\n" +
-                $"   Best month:  {(bestKm > 0 ? $"{Fmt.Km(bestKm)}  ({bestMonth})" : "—")}";
+                L.T("THIS MONTH") + "\n" +
+                "   " + L.F("Furthest point:  {0}", Fmt.Km(monthMax)) + "\n" +
+                (reached ? "   " + L.T("City reached.") + "\n" : "") +
+                "\n" + L.T("ALL TIME") + "\n" +
+                "   " + L.F("Total distance:  {0}", Fmt.Km(lifetimeKm)) + "\n" +
+                "   " + L.F("Scrolls:  {0}", Fmt.Int(steps)) + "\n" +
+                "   " + L.F("U-turns:  {0}", Fmt.Int(turns)) + "\n" +
+                "   " + L.F("Cities reached:  {0}", Fmt.Int(cities)) + "\n" +
+                "   " + L.F("Best month:  {0}", bestKm > 0 ? $"{Fmt.Km(bestKm)}  ({bestMonth})" : "—");
 
             statsPanel.SetActive(true);
         }
